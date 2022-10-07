@@ -1,0 +1,43 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffff !important;
+    .logo {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        margin-left: 5em;
+        .text1 {
+            color: #EDA82D;
+            font-size: 2.4em;
+            font-weight: bold;
+        }
+        .text2 {
+            margin-top: 0.2em;
+            margin-left: 0.1em;
+            color: rgb(138, 43, 226);
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .special {
+            margin-top: 0.85em;
+            margin-left: 0.1em;
+            color: rgb(138, 43, 226);
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+    }
+    .end {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .icon1 {
+            font-size: 2em;
+            margin-right: 1.5em;
+        }
+        .icon2 {
+            font-size: 4em;
+            margin-right: 1em;
+        }
+    }
+}

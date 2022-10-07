@@ -1,0 +1,21 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    background: #F3F3F9;
+    .row-container {
+        display: flex;
+        .left {
+            width: 10%;
+        }
+        .right {
+            width: 80%;
+            margin-left: 5%;
+        }
+    }
+}
