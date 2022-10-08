@@ -9,15 +9,6 @@ import { BiUser } from "react-icons/bi";
 import "./Menu.scss";
 
 function Menu() {
-const changeActive = (e)=>{
-   
-    e.target.style.color = 'white'
-    e.target.style.background = '#8610E8'
-    // e.target.classList.toggle('clickDrop')
-    // e.target.classList.add('clickDrop')
-    // console.log(e.target);
-    
-}
     return (
         <>
             <Nav className="flex-column">
@@ -26,7 +17,6 @@ const changeActive = (e)=>{
                     id={`dropdown-button-drop-${'end'}`}
                     drop={'end'}
                     variant="primary"
-                    onClick={changeActive}
                     title={<Container className="container1"       >
                         <GoChecklist className="icon3"      />
                         <p className="para">TẠO ĐƠN</p>
@@ -40,7 +30,6 @@ const changeActive = (e)=>{
                     id={`dropdown-button-drop-${'end'}`}
                     drop={'end'}
                     variant="primary"
-                    onClick={changeActive}
                     title={<Container className="container2">
                         <BiBox className="icon3" />
                         <p className="para">ĐƠN HÀNG</p>
@@ -54,7 +43,6 @@ const changeActive = (e)=>{
                     id={`dropdown-button-drop-${'end'}`}
                     drop={'end'}
                     variant="primary"
-                    onClick={changeActive}
                     title={<Container className="container1">
                         <BiUser className="icon3" />
                         <p className="para">CÁ NHÂN</p>
