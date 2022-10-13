@@ -9,81 +9,66 @@ import "./Groceries.scss";
 
 function Groceries() {
 
-  // Đơn giá
-  const [price, setPrice] = useState();
-  console.log(price)
+
   const [list, setList] = useState([
     {
-      id: 1,
+      id: '',
       img: "https://anhgaixinh.biz/wp-content/uploads/2022/01/gai-xinh-mac-vay-xep-ly-ngan-9.jpg",
       attribute: "",
-      price: 5000,
+      price: 0,
       amount: 0,
       note: "",
       totalPrice: 0,
-    },
-    {
-      id: 2,
-      img: "https://anhgaixinh.biz/wp-content/uploads/2022/01/gai-xinh-mac-vay-xep-ly-ngan-10.jpg",
-      attribute: "",
-      price: 8000,
-      amount: 0,
-      note: "",
-      totalPrice: 0,
-    },
+    }
   ]);
   const [show, setShow] = useState(false);
 
-  // Số lượng
-  const [count, setCount] = useState(0);
-
-  
-  // Thành tiền
-  const [totalPrice, setTotalPrice] = useState(count * price);
 
   // Danh sách các sản phẩm
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleOnIncrease = (prev) => {
-    setCount((prev) => prev + 1);
-    let sumPrice = price + totalPrice;
-    setTotalPrice(sumPrice);
-    console.log(prev);
-    // console.log('>>>', sumPrice);
+  const handleOnIncrease = (i, e) => {
+    const increase = [...list];
+    increase[i]['amount'] = parseInt(increase[i]['amount']) + 1;
+    increase[i]['totalPrice'] = increase[i]['amount'] * increase[i]['price'];
+    setList(increase)
   };
-  const handleOnReduced = (prev, i) => {
-    setCount((prev) => {
-      if (prev <= 0) {
-        return 0;
-      }
-      let sumPrice = totalPrice - price;
-      setTotalPrice(sumPrice);
-      return prev - 1;
-    });
-    console.log(i);
-  };
-
-  const handleOnChangeAmount = (e) => {
-    setCount(e.target.value);
+  const handleOnReduced = (i) => {
+    const count = [...list];
+    if(count[i]['amount'] <=0){
+       count[i]['amount'] = 0;
+       count[i]['totalPrice'] = count[i]['amount'] * count[i]['price'];
+    }else {
+      count[i]['amount'] = count[i]['amount'] - 1; 
+      count[i]['totalPrice'] = count[i]['amount'] * count[i]['price'];
+    }
+    setList(count);    
   };
 
   const handleOnClickAddMore = (e) => {
     let newList = [...list];
     const newId = newList.length + 1;
     newList = {
-      id:  newId,
-      title: "Meo",
+      id:  '',
       img: "https://anhgaixinh.biz/wp-content/uploads/2022/01/gai-xinh-mac-vay-xep-ly-ngan-10.jpg",
       attribute: "",
       price: 0,
       amount: 0,
       note: "",
-      total: 0,
+      totalPrice: 0,
     };
     setList([...list, newList]);
   };
 
+  const changeInp =(i, e)=>{
+    const val = [...list];
+    val[i][e.target.name]=e.target.value;
+    val[i]['totalPrice']=val[i]['price'] * val[i]['amount'];
+    setList(val);
+  }
+
+  
   return (
     <>
       <div className="groceries">
@@ -163,7 +148,7 @@ function Groceries() {
             </tr> */}
             {list.map((li, i) => (
               <tr key={i}>
-                <td className="pt-5"> {li.id} </td>
+                <td className="pt-5"> {i+1} </td>
                 <td>
                   <img
                     style={{ width: "96px", height: "64px", marginTop: "24px" }}
@@ -187,12 +172,12 @@ function Groceries() {
                     placeholder="Link sản phẩm"
                   />
                 </td>
-                <td className="pt-5"> <input type="text" onChange={(e) => setPrice(e.target.value)} value={price}  /></td>
+                <td className="pt-5"> <input type="text" name="price" onChange={(e)=>changeInp(i, e)} /></td>
                 <td className="soLuong">
                   <div className="d-flex soLuong">
                     <div
                       className="border border-dark px-3"
-                      onClick={(e) => handleOnReduced(e, li.id)}
+                      onClick={(e) => handleOnReduced(i)}
                     >
                       {" "}
                       -{" "}
@@ -200,13 +185,12 @@ function Groceries() {
                     <input
                       className="value border w-50 border-dark px-3 text-center"
                       type="text"
-                      value={count}
-                      key={i}
-                      onChange={(e) => handleOnChangeAmount(e)}
+                      value={li.amount}
+                      name="amount" onChange={(e)=>changeInp(i, e)}
                     />
                     <div
                       className="cong border border-dark px-3"
-                      onClick={(e) => handleOnIncrease(e)}
+                      onClick={(e) => handleOnIncrease(i, e)}
                     >
                       {" "}
                       +{" "}
@@ -224,7 +208,7 @@ function Groceries() {
                     placeholder="Ghi chú sản phẩm..."
                   ></textarea>{" "}
                 </td>
-                <td className="pt-5"> {li.price * count} </td>
+                <td className="pt-5"> {li.price * li.amount} </td>
               </tr>
             ))}
           </tbody>
