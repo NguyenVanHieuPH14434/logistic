@@ -1,3 +1,6 @@
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+}
 .groceries {
   width: 90%;
   margin: 1% 5%;
@@ -27,7 +30,7 @@
   th,
   td {
     text-align: center;
-    .ghi_chu{
+    .ghi_chu {
       height: 40px;
       min-width: 100px;
       min-height: 100px;
@@ -35,14 +38,14 @@
       max-height: 200px;
     }
   }
-  td{
+  td {
     // padding-top: 50%;
   }
-  .soLuong{
+  .soLuong {
     padding-top: 24px;
     margin-left: 36px;
   }
-  .attribute{
+  .attribute {
     width: 100vh;
     height: 40px;
     min-width: 345px;
@@ -60,7 +63,7 @@
   }
   .form {
     display: flex;
-    width: 664px !important;    
+    width: 664px !important;
     flex-direction: column;
     justify-content: flex-start;
     background: #fff;
