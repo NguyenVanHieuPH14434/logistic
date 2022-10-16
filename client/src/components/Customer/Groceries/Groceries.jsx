@@ -14,7 +14,7 @@ function Groceries() {
       id: "",
       img: "https://anhgaixinh.biz/wp-content/uploads/2022/01/gai-xinh-mac-vay-xep-ly-ngan-9.jpg",
       attribute: "",
-      price: 0,
+      price: "",
       amount: 0,
       note: "",
       totalPrice: 0,
@@ -26,12 +26,15 @@ function Groceries() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // Nút thêm sản phẩm
   const handleOnIncrease = (i, e) => {
     const increase = [...list];
     increase[i]["amount"] = parseInt(increase[i]["amount"]) + 1;
     increase[i]["totalPrice"] = increase[i]["amount"] * increase[i]["price"];
     setList(increase);
   };
+
+  // Nút bớt sản phẩm
   const handleOnReduced = (i) => {
     const count = [...list];
     if (count[i]["amount"] <= 0) {
@@ -46,12 +49,11 @@ function Groceries() {
 
   const handleOnClickAddMore = (e) => {
     let newList = [...list];
-    const newId = newList.length + 1;
     newList = {
       id: "",
       img: "https://anhgaixinh.biz/wp-content/uploads/2022/01/gai-xinh-mac-vay-xep-ly-ngan-10.jpg",
       attribute: "",
-      price: 0,
+      price: "",
       amount: 0,
       note: "",
       totalPrice: 0,
@@ -81,11 +83,19 @@ function Groceries() {
     totalOrderCost += total + orderCost;
   }
 
- 
+  const formatter = new Intl.NumberFormat("en");
+  let num = 2000000000
+  console.log(formatter.format(num));
 
   const changeInp = (i, e) => {
     const val = [...list];
     val[i][e.target.name] = e.target.value;
+    
+    const formatter = new Intl.NumberFormat("en");
+    val[i]["price"] = formatter.format(val[i]["price"])
+    val[i]["totalPrice"] = formatter.format(val[i]["totalPrice"])
+    val[i]["amount"] = formatter.format(val[i]["amount"])
+
     val[i]["totalPrice"] = val[i]["price"] * val[i]["amount"];
     setList(val);
   };
@@ -138,6 +148,7 @@ function Groceries() {
                   <input
                     type="text"
                     name="price"
+                    value={li.price}
                     onChange={(e) => changeInp(i, e)}
                   />
                 </td>
@@ -177,7 +188,21 @@ function Groceries() {
                     placeholder="Ghi chú sản phẩm..."
                   ></textarea>{" "}
                 </td>
-                <td className="pt-5"> {li.totalPrice} </td>
+                {/* <td className="pt-5"> {li.totalPrice} </td> */}
+                <td className="pt-5">
+                  <p className="">
+                    <NumericFormat
+                      disabled={true}
+                      style={{
+                        border: "none",
+                        backgroundColor: "none",
+                        width: "100%",
+                      }}
+                      value={li.totalPrice}
+                      thousandSeparator=","
+                    />{" "}
+                  </p>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -274,7 +299,7 @@ function Groceries() {
                     paddingTop: "6px",
                     color: "#005e91",
                   }}
-                  class="material-symbols-outlined mx-1"
+                  className="material-symbols-outlined mx-1"
                 >
                   help
                 </span>
