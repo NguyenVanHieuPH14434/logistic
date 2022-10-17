@@ -30,19 +30,19 @@ function Groceries() {
   const handleOnIncrease = (i, e) => {
     const increase = [...list];
     increase[i]["amount"] = parseInt(increase[i]["amount"]) + 1;
-    increase[i]["totalPrice"] = increase[i]["amount"] * increase[i]["price"];
+    increase[i]["totalPrice"] = increase[i]["amount"] * increase[i]["price"].replace(/,/g, "");
     setList(increase);
   };
-
+  
   // Nút bớt sản phẩm
   const handleOnReduced = (i) => {
     const count = [...list];
     if (count[i]["amount"] <= 0) {
       count[i]["amount"] = 0;
-      count[i]["totalPrice"] = count[i]["amount"] * count[i]["price"];
+      count[i]["totalPrice"] = count[i]["amount"] * count[i]["price"].replace(/,/g, "");
     } else {
       count[i]["amount"] = count[i]["amount"] - 1;
-      count[i]["totalPrice"] = count[i]["amount"] * count[i]["price"];
+      count[i]["totalPrice"] = count[i]["amount"] * count[i]["price"].replace(/,/g, "");
     }
     setList(count);
   };
@@ -69,37 +69,30 @@ function Groceries() {
   for (var li of list) {
     total += li.totalPrice;
     if (total <= 2000000) {
-      orderCost += li.totalPrice * (3 / 100);
+      orderCost = total * (3 / 100);
     }
-    if (total <= 20000000) {
-      orderCost += (1 / 2 / 100) * li.totalPrice;
+    else if (total <= 20000000) {
+      orderCost = ((2.5)/ 100) * total;
     }
-    if (total <= 100000000) {
-      orderCost += li.totalPrice * (2 / 100);
+    else if (total <= 100000000) {
+      orderCost = total * (2 / 100);
     }
-    if (total > 100000000) {
-      orderCost += li.totalPrice * (1 / 100);
+    else if (total > 100000000) {
+      orderCost = total * (1 / 100);
     }
-    totalOrderCost += total + orderCost;
+    totalOrderCost = total + orderCost;
   }
 
-  const formatter = new Intl.NumberFormat("en");
-  let num = 2000000000
-  console.log(formatter.format(num));
+
 
   const changeInp = (i, e) => {
     const val = [...list];
     val[i][e.target.name] = e.target.value;
-    
-    const formatter = new Intl.NumberFormat("en");
-    val[i]["price"] = formatter.format(val[i]["price"])
-    val[i]["totalPrice"] = formatter.format(val[i]["totalPrice"])
-    val[i]["amount"] = formatter.format(val[i]["amount"])
-
-    val[i]["totalPrice"] = val[i]["price"] * val[i]["amount"];
+    val[i]["totalPrice"] = val[i]["price"].replace(/,/g, "") * val[i]["amount"];
     setList(val);
   };
 
+  console.log(list);
   return (
     <>
       <div className="groceries">
@@ -145,12 +138,24 @@ function Groceries() {
                 </td>
                 <td className="pt-5">
                   {" "}
-                  <input
+                  {/* <input
                     type="text"
                     name="price"
                     value={li.price}
                     onChange={(e) => changeInp(i, e)}
-                  />
+                  /> */}
+                   <NumericFormat
+                      style={{
+                        border: "none",
+                        backgroundColor: "none",
+                        width: "100%",
+                      }}
+                      type="text"
+                      name="price"
+                      // value={li.price}
+                      onChange={(e) => changeInp(i, e)}
+                      thousandSeparator=","
+                    />
                 </td>
                 <td className="soLuong">
                   <div className="d-flex soLuong">
@@ -219,7 +224,7 @@ function Groceries() {
                 + Thêm sản sản phẩm
               </button>
             </div>
-            <div className="d-flex flex-column w-50">
+            <div className="d-flex flex-column w-100">
               <label htmlFor="" className="">
                 <h5>Địa chỉ kho Trung Quốc</h5>
               </label>
