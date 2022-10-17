@@ -64,23 +64,22 @@ function Groceries() {
   //In ra tổng tiền
 
   var total = 0;
-  var totalOrderCost = 0;
   var orderCost = 0;
+  var totalOrderCost = 0;
   for (var li of list) {
     total += li.totalPrice;
     if (total <= 2000000) {
-      orderCost += li.totalPrice * (3 / 100);
+      orderCost = total * (3 / 100);
+    }else if (total <= 20000000) {
+      orderCost = ((2.5)/ 100) * total;
     }
-    if (total <= 20000000) {
-      orderCost += (1 / 2 / 100) * li.totalPrice;
+    else if (total <= 100000000) {
+      orderCost = total * (2 / 100);
     }
-    if (total <= 100000000) {
-      orderCost += li.totalPrice * (2 / 100);
+    else if (total > 100000000) {
+      orderCost = total * (1 / 100);
     }
-    if (total > 100000000) {
-      orderCost += li.totalPrice * (1 / 100);
-    }
-    totalOrderCost += total + orderCost;
+    totalOrderCost = total + orderCost;
   }
 
   const formatter = new Intl.NumberFormat("en");
@@ -92,13 +91,15 @@ function Groceries() {
     val[i][e.target.name] = e.target.value;
     
     const formatter = new Intl.NumberFormat("en");
-    val[i]["price"] = formatter.format(val[i]["price"])
-    val[i]["totalPrice"] = formatter.format(val[i]["totalPrice"])
-    val[i]["amount"] = formatter.format(val[i]["amount"])
+    val[i]["price"] = val[i]["price"]
+    val[i]["totalPrice"] = val[i]["totalPrice"]
+    val[i]["amount"] = val[i]["amount"]
 
     val[i]["totalPrice"] = val[i]["price"] * val[i]["amount"];
     setList(val);
   };
+
+  console.log('...', list);
 
   return (
     <>
