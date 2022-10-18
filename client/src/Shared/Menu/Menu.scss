@@ -13,11 +13,11 @@
         background-color: #8610E8;
     }
     color: #8610E8 !important;
-    background: #fff;
-    border: 1px solid #ffff;
+    background: #35E680;
     padding: 0;
     border-radius: 0;
-    border-bottom: 0.1em solid rgba(0, 0, 0, 0.1);
+    // border-bottom: 0.1em solid rgba(0, 0, 0, 0.1);
+    border: none;
     &:focus {
         box-shadow: none;
         color: white !important;

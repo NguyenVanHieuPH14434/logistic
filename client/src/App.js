@@ -1,7 +1,9 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Header from "./Shared/Header/Header";
 import Menu from "./Shared/Menu/Menu";
 import Groceries from "./components/Customer/Groceries/Groceries";
+import Deposit from "./components/Customer/Deposit/Deposit";
 import './App.scss';
 
 function App() {
@@ -9,8 +11,12 @@ function App() {
     <div className="App">
       <Header />
       <div className='row-container'>
-        <Menu className="left"/>
-        <Groceries className="right"/>
+        <Menu className="left" />
+        <Routes>
+          <Route path="/" element={<Groceries className="right"/>}></Route>
+          <Route path="/groceries" element={<Groceries className="right"/>}></Route>
+          <Route path="/deposit" element={<Deposit className="right"/>}></Route>
+        </Routes>
       </div>
     </div>
   );

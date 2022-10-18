@@ -10,7 +10,7 @@ import "./Header.scss";
 function Header() {
     return (
         <div className="Header">
-            <Navbar bg="light" expand="lg" className="navbar">
+            <Navbar bg="info" expand="lg" className="navbar">
                 <Navbar.Brand className="logo">
                     <p className="text1">Hi</p>
                     <p className="text2">Express</p>
