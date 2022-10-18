@@ -143,7 +143,7 @@ function Deposit() {
                                         type="text"
                                         value="Trung Quốc - Việt Nam"
                                     />
-                                    <select style={{width: '100%'}}>
+                                    <select style={{ width: '100%' }}>
                                         <option value="">Chọn danh mục</option>
                                         <option value="">Saab</option>
                                         <option value="">Mercedes</option>
@@ -309,9 +309,109 @@ function Deposit() {
                         </div>
                     </div>
                 </div>
+
+
+                {/* Tổng hợp các loại phí */}
+
+                <div className="container">
+                    <h1>Bảng giá dịch vụ mua hàng</h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Giá trị đơn hàng</th>
+                                <th>% phí dịch vụ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>&gt; 100 triệu</th>
+                                <td>1%</td>
+                            </tr>
+                            <tr>
+                                <th>&gt; 20tr đến 100 triệu</th>
+                                <td>2%</td>
+                            </tr>
+                            <tr>
+                                <th>&gt; 2tr đến 20 triệu</th>
+                                <td>2.5%</td>
+                            </tr>
+                            <tr>
+                                <th>&lt;= 2 triệu</th>
+                                <td>3%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h1>Phí vận chuyển quốc tế</h1>
+
+                    {/* Phí vận chuyển trọn gói */}
+                    <div className="mt-5">
+                        <h5>Phí vận chuyển trọn gói</h5>
+                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected> Trọng lượng</option>
+                            <option value="">&gt; 500kg</option>
+                            <option value="">200 &#8594;500kg</option>
+                            <option value="">100 &#8594;200kg</option>
+                            <option value="">30 &#8594;100kg</option>
+                            <option value="">10 &#8594;30kg</option>
+                            <option value="">0 &#8594;10kg</option>
+                        </select>
+                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected>Khối lượng (tính/m3)</option>
+                            <option value="">&gt;20m3</option>
+                            <option value="">10m3 &#8594;20m3</option>
+                            <option value="">5m3 &#8594;10m3</option>
+                            <option value="">&lt;5m3</option>
+                        </select>
+                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected> Khu vực</option>
+                            <option value="">Hà Nội</option>
+                            <option value="">TP.HCM</option>
+                        </select>
+                    </div>
+                    <div className="mt-5">
+                        <h5>Phí vận chuyển chính ngạch</h5>
+                        <p>Tổng phí nhập khẩu = Phí dịch vụ + Phí vận chuyển + Thuế nhập khẩu (nếu có) + Thuế VAT</p>
+                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected>Trọng lượng(kg)</option>
+                            <option value="">&gt; 500kg</option>
+                            <option value="">&gt;200 &#8594;500kg</option>
+                            <option value="">&gt;100 &#8594;200kg</option>
+                            <option value="">&gt;30 &#8594;100kg</option>
+                            <option value="">&lt; 30kg</option>
+                        </select>
+                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected>Khối lượng (tính/m3)</option>
+                            <option value="">&gt;20m3</option>
+                            <option value="">&gt;10m3 &#8594;20m3</option>
+                            <option value="">&gt;5m3 &#8594;10m3</option>
+                            <option value="">&lt;5m3</option>
+                        </select>
+                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected> Khu vực</option>
+                            <option value="">Hà Nội</option>
+                            <option value="">TP.HCM</option>
+                        </select>
+                        <div className="VAT text-danger" style={{backgroundColor: '#fff1f0'}}>
+                            <p><span style={{fontWeight: 'bold'}}>Thuế nhập khẩu (Nếu có)</span> = % thuế x Giá trị hàng hóa <br />
+                            <span style={{fontWeight: 'bold'}}>Thuế VAT</span> = 10% x Giá trị hàng hóa</p>
+                        </div>
+                    </div>
+                    <div className="mt-5">
+                        <h5>PHÍ KIỂM ĐẾM SẢN PHẨM</h5>
+                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected>Số lượng</option>
+                            <option value="">501-10000 sản phẩm</option>
+                            <option value="">101-500 sản phẩm</option>
+                            <option value="">11-100 sản phẩm</option>
+                            <option value="">3-10 sản phẩm</option>
+                            <option value="">1-2 sản phẩm</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            
+
             <Modal show={show} onHide={handleClose} animation={false} size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title className="title-modal">Thêm Sản Phẩm</Modal.Title>
