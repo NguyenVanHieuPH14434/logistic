@@ -5,11 +5,15 @@ import Menu from "./Shared/Menu/Menu";
 import Groceries from "./components/Customer/Groceries/Groceries";
 import Deposit from "./components/Customer/Deposit/Deposit";
 import './App.scss';
+import Login from './components/athur/login/Login';
+import Register from './components/athur/register/register';
 
 function App() {
   return (
     <div className="App">
-      <Header />
+      <Login />
+      {/* <Register /> */}
+      {/* <Header />
       <div className='row-container'>
         <Menu className="left" />
         <Routes>
@@ -17,7 +21,7 @@ function App() {
           <Route path="/groceries" element={<Groceries className="right"/>}></Route>
           <Route path="/deposit" element={<Deposit className="right"/>}></Route>
         </Routes>
-      </div>
+      </div> */}
     </div>
   );
 }
