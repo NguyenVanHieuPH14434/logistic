@@ -4,7 +4,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import image from "./images/image-20200921082601-1.jpeg";
+import image from "./images/default-thumbnail.jpg";
 import "./Groceries.scss";
 import { NumericFormat } from "react-number-format";
 import { createOrder, uploadFiles } from "../../../api/orderApi";
@@ -111,6 +111,9 @@ const [order, setOrder] = useState()
     setOrder(valOrder);
   };
 
+  // preview image
+  const [previewImage, setPreviewImage] = useState(null);
+
   // file ảnh 
   const [files, setFiles]=useState([])
 
@@ -124,7 +127,20 @@ const [order, setOrder] = useState()
     const val = [...list];
     val[i][e.target.name] = e.target.files[0].name;
     setList(val);
+
+    // preview image
+    // let reader = new FileReader();
+    // reader.onload = function(e) {
+
+    //   setPreviewImage(e.target?.result)
+    // };
+ 
+    // reader.readAsDataURL(e.target.files[0]);
+    setPreviewImage(URL.createObjectURL(e.target.files[0]))
+   
   }
+  console.log('pre', previewImage);
+  
 
 
 // tạo đơn 
@@ -147,6 +163,7 @@ const [order, setOrder] = useState()
   console.log('item', list);
   console.log('file', files);
   
+ 
 
   
   return (
@@ -172,9 +189,10 @@ const [order, setOrder] = useState()
                 <td>
                   <img
                     style={{ width: "96px", height: "64px", marginTop: "24px" }}
-                    src={li.img}
+                    src={previewImage !== null?previewImage:image}
                   />
-                  <input type="file" multiple name="product_image" onChange={(e)=>{changFile(i, e)}} />
+                  <label className="mt-1" htmlFor="upload-photo" id="label-upload">Upload...</label>
+                  <input type="file" multiple name="product_image" id="upload-photo" onChange={(e)=>{changFile(i, e)}} />
                 </td>
                 <td>
                   <input
