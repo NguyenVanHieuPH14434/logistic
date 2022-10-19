@@ -1,3 +1,5 @@
+import { AuthController } from './auth/auth.controller';
+import { AuthModel } from './auth/auth.model';
 import { OrderItemController } from './order_item/order_item.controller';
 import { OrderItemModel } from './order_item/order_item.model';
 import { OrderController } from './order/order.controller';
@@ -8,6 +10,7 @@ import { ReadConfig } from './config';
 import cors from 'cors';
 import { NewOrderAPI } from './order/order.api';
 import { NewOrderItemAPI } from './order_item/order_item.api';
+import { NewAuthAPI } from './auth/auth.api';
 
 export async function main() {
     const config = await ReadConfig();
@@ -18,15 +21,23 @@ export async function main() {
 
     const database = client.db(config.database.db_name);
 
+    // Order
     const orderModel = new OrderModel(database);
     await orderModel.init();
     const orderController = new OrderController(orderModel);
     await orderController.init();
 
+    // Order Item
     const orderItemModel = new OrderItemModel(database);
     await orderItemModel.init();
     const orderItemController = new OrderItemController(orderItemModel);
     await orderItemController.init();
+
+    // Auth
+    const authModel = new AuthModel(database);
+    await authModel.init();
+    const authController = new AuthController(authModel);
+    await authController.init();
 
     const app = express();
     const PORT = config.server.port || 3000;
@@ -37,6 +48,7 @@ export async function main() {
 
     app.use('/api/order', NewOrderAPI(orderController,orderItemController));
     app.use('/api/orderItem', NewOrderItemAPI(orderItemController));
+    app.use('/api/auth', NewAuthAPI(authController));
 
 
     app.use((req, res, next)=>{

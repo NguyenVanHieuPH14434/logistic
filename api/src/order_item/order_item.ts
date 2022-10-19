@@ -7,8 +7,7 @@ export namespace Order_item_Schema {
         product_name:string;
         product_link:string;
         product_image:string;
-        product_color:string;
-        product_size:string;
+        attribute:string;
         quantity:string;
         product_price:number;
         note:any;
@@ -22,8 +21,7 @@ export namespace Order_item_Schema {
         product_name:string;
         product_link:string;
         product_image:string;
-        product_color:string;
-        product_size:string;
+        attribute:string;
         quantity:string;
         product_price:number;
         note:any;
@@ -34,8 +32,7 @@ export namespace Order_item_Schema {
         product_name?:string;
         product_link?:string;
         product_image?:string;
-        product_color?:string;
-        product_size?:string;
+        attribute?:string;
         quantity?:string;
         product_price?:number;
         note?:any;

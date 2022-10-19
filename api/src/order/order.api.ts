@@ -2,6 +2,7 @@ import { OrderItemController } from './../order_item/order_item.controller';
 import { OrderController } from './order.controller';
 import * as express from 'express';
 import { OrderSchema } from './order';
+import { Commons } from '../common/common';
 
 function NewOrderAPI(orderController:OrderController, orderItemController:OrderItemController){
     const router = express.Router();
@@ -18,18 +19,23 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
 
     router.post('/create', async(req, res)=>{
 
+        const dataOrder = Array(req.body.order)
+        // convert to object
+        var newObjOrder = dataOrder.reduce((key:any, val:any) => Object.assign(key, val), {})
+
         const params : OrderSchema.CreateOrderParams = {
-            user_id: req.body.order.user_id,
-            full_name: req.body.order.full_name,
-            phone: req.body.order.phone,
-            address: req.body.order.address,
-            type: req.body.order.type
+            user_id: newObjOrder.user_id,
+            full_name: newObjOrder.full_name,
+            phone: newObjOrder.phone,
+            address: newObjOrder.address,
+            type: newObjOrder.type
         }
        
-        const paramItems:any = [...req.body.orderItem];
+        const paramItems = req.body.orderItem;
 
         const doc = await orderController.CreateOrder(params);
         const docs = await orderItemController.CreateOrderItem(doc, paramItems)
+        console.log({'...pa':params, '...item':paramItems});
         res.json({doc, docs});
     });
 
