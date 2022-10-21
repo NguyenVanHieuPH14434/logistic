@@ -5,7 +5,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import "./Deposit.scss";
+
 import { NumericFormat } from "react-number-format";
 
 function Deposit() {
@@ -91,9 +91,16 @@ function Deposit() {
         val[i]["totalPrice"] = val[i]["price"].replace(/,/g, "") * val[i]["amount"];
         setList(val);
     };
+
+    const DeleteList = (i) =>{
+        const val = [...list];
+        val.splice(i, 1);
+        setList(val);
+    }
+
     return (
         <>
-            <div className="groceries">
+            <div className="deposit">
                 <p className="title">Tạo đơn ký gửi</p>
                 <Table striped bordered hover size="lg">
                     <thead>
@@ -108,7 +115,9 @@ function Deposit() {
                     <tbody>
                         {list.map((li, i) => (
                             <tr key={i}>
-                                <td className="pt-5"> {i + 1} </td>
+                                <td className="pt-5"> {i + 1} <br />
+                                    <span style={{cursor:'pointer'}}><i onClick={()=> DeleteList(i)} className="fa-solid fa-circle-xmark"></i></span>
+                                 </td>
                                 <td>
                                     <img
                                         style={{ width: "96px", height: "64px", marginTop: "24px" }}
@@ -228,17 +237,13 @@ function Deposit() {
                                 </Row>
                             </Container>
                         </div>
-                        <Button variant="warning" className="end-btn">
-                            Tạo Đơn Hàng
-                        </Button>
-                    </div>
-                    <div
+                        <div
                         style={{
                             width: "360px",
-                            height: "100%",
+                            marginTop: '25px',
                             backgroundColor: "#f9f9f9",
                         }}
-                        className="border border-danger p-2"
+                        className="border border-secondary p-2"
                     >
                         <div className="d-flex justify-content-between">
                             <p>Tổng tiền đặt hàng: </p>
@@ -308,12 +313,80 @@ function Deposit() {
                             </p>
                         </div>
                     </div>
-                </div>
+                        <Button variant="warning" className="end-btn mt-3">
+                            Tạo Đơn Hàng
+                        </Button>
+                    </div>
+                   
+                      {/* Tổng hợp các loại phí */}
 
+                <div className="container ms-4">
+                    <h1>Phí vận chuyển quốc tế</h1>
 
-                {/* Tổng hợp các loại phí */}
-
-                <div className="container">
+                    {/* Phí vận chuyển trọn gói */}
+                    <div className="mt-5 ">
+                        <h5>Phí vận chuyển trọn gói</h5>
+                        <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected> Trọng lượng</option>
+                            <option value="">&gt; 500kg</option>
+                            <option value="">200 &#8594;500kg</option>
+                            <option value="">100 &#8594;200kg</option>
+                            <option value="">30 &#8594;100kg</option>
+                            <option value="">10 &#8594;30kg</option>
+                            <option value="">0 &#8594;10kg</option>
+                        </select>
+                        <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected>Khối lượng (tính/m3)</option>
+                            <option value="">&gt;20m3</option>
+                            <option value="">10m3 &#8594;20m3</option>
+                            <option value="">5m3 &#8594;10m3</option>
+                            <option value="">&lt;5m3</option>
+                        </select>
+                        <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected> Khu vực</option>
+                            <option value="">Hà Nội</option>
+                            <option value="">TP.HCM</option>
+                        </select>
+                    </div>
+                    <div className="mt-5">
+                        <h5>Phí vận chuyển chính ngạch</h5>
+                        <p>Tổng phí nhập khẩu = Phí dịch vụ + Phí vận chuyển + Thuế nhập khẩu (nếu có) + Thuế VAT</p>
+                        <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected>Trọng lượng(kg)</option>
+                            <option value="">&gt; 500kg</option>
+                            <option value="">&gt;200 &#8594;500kg</option>
+                            <option value="">&gt;100 &#8594;200kg</option>
+                            <option value="">&gt;30 &#8594;100kg</option>
+                            <option value="">&lt; 30kg</option>
+                        </select>
+                        <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected>Khối lượng (tính/m3)</option>
+                            <option value="">&gt;20m3</option>
+                            <option value="">&gt;10m3 &#8594;20m3</option>
+                            <option value="">&gt;5m3 &#8594;10m3</option>
+                            <option value="">&lt;5m3</option>
+                        </select>
+                        <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected> Khu vực</option>
+                            <option value="">Hà Nội</option>
+                            <option value="">TP.HCM</option>
+                        </select>
+                        <div className="VAT text-danger" style={{backgroundColor: '#fff1f0', marginTop:"20px"}}>
+                            <p><span style={{fontWeight: 'bold'}}>Thuế nhập khẩu (Nếu có)</span> = % thuế x Giá trị hàng hóa <br />
+                            <span style={{fontWeight: 'bold'}}>Thuế VAT</span> = 10% x Giá trị hàng hóa</p>
+                        </div>
+                    </div>
+                    <div className="mt-5 mb-3">
+                        <h5>PHÍ KIỂM ĐẾM SẢN PHẨM</h5>
+                        <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <option value="" selected>Số lượng</option>
+                            <option value="">501-10000 sản phẩm</option>
+                            <option value="">101-500 sản phẩm</option>
+                            <option value="">11-100 sản phẩm</option>
+                            <option value="">3-10 sản phẩm</option>
+                            <option value="">1-2 sản phẩm</option>
+                        </select>
+                    </div>
                     <h1>Bảng giá dịch vụ mua hàng</h1>
                     <table class="table">
                         <thead>
@@ -341,161 +414,12 @@ function Deposit() {
                             </tr>
                         </tbody>
                     </table>
-
-                    <h1>Phí vận chuyển quốc tế</h1>
-
-                    {/* Phí vận chuyển trọn gói */}
-                    <div className="mt-5">
-                        <h5>Phí vận chuyển trọn gói</h5>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected> Trọng lượng</option>
-                            <option value="">&gt; 500kg</option>
-                            <option value="">200 &#8594;500kg</option>
-                            <option value="">100 &#8594;200kg</option>
-                            <option value="">30 &#8594;100kg</option>
-                            <option value="">10 &#8594;30kg</option>
-                            <option value="">0 &#8594;10kg</option>
-                        </select>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected>Khối lượng (tính/m3)</option>
-                            <option value="">&gt;20m3</option>
-                            <option value="">10m3 &#8594;20m3</option>
-                            <option value="">5m3 &#8594;10m3</option>
-                            <option value="">&lt;5m3</option>
-                        </select>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected> Khu vực</option>
-                            <option value="">Hà Nội</option>
-                            <option value="">TP.HCM</option>
-                        </select>
-                    </div>
-                    <div className="mt-5">
-                        <h5>Phí vận chuyển chính ngạch</h5>
-                        <p>Tổng phí nhập khẩu = Phí dịch vụ + Phí vận chuyển + Thuế nhập khẩu (nếu có) + Thuế VAT</p>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected>Trọng lượng(kg)</option>
-                            <option value="">&gt; 500kg</option>
-                            <option value="">&gt;200 &#8594;500kg</option>
-                            <option value="">&gt;100 &#8594;200kg</option>
-                            <option value="">&gt;30 &#8594;100kg</option>
-                            <option value="">&lt; 30kg</option>
-                        </select>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected>Khối lượng (tính/m3)</option>
-                            <option value="">&gt;20m3</option>
-                            <option value="">&gt;10m3 &#8594;20m3</option>
-                            <option value="">&gt;5m3 &#8594;10m3</option>
-                            <option value="">&lt;5m3</option>
-                        </select>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected> Khu vực</option>
-                            <option value="">Hà Nội</option>
-                            <option value="">TP.HCM</option>
-                        </select>
-                        <div className="VAT text-danger" style={{backgroundColor: '#fff1f0'}}>
-                            <p><span style={{fontWeight: 'bold'}}>Thuế nhập khẩu (Nếu có)</span> = % thuế x Giá trị hàng hóa <br />
-                            <span style={{fontWeight: 'bold'}}>Thuế VAT</span> = 10% x Giá trị hàng hóa</p>
-                        </div>
-                    </div>
-                    <div className="mt-5">
-                        <h5>PHÍ KIỂM ĐẾM SẢN PHẨM</h5>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected>Số lượng</option>
-                            <option value="">501-10000 sản phẩm</option>
-                            <option value="">101-500 sản phẩm</option>
-                            <option value="">11-100 sản phẩm</option>
-                            <option value="">3-10 sản phẩm</option>
-                            <option value="">1-2 sản phẩm</option>
-                        </select>
-                    </div>
                 </div>
+                </div>
+             
+
+              
             </div>
-
-
-            <Modal show={show} onHide={handleClose} animation={false} size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title className="title-modal">Thêm Sản Phẩm</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Row>
-                        <Col>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Tên Sản Phẩm</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="Nhập Tên Sản Phẩm"
-                                />
-                            </Row>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>
-                                    Link Sản Phẩm
-                                </Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="Nhập Link Sản Phẩm"
-                                />
-                            </Row>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Ảnh Sản Phẩm</Form.Label>
-                                <Form.Control
-                                    type="file"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                />
-                            </Row>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Ghi Chú</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="Nhập Ghi Chú"
-                                />
-                            </Row>
-                        </Col>
-                        <Col>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Màu Sắc</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="Nhập Màu"
-                                />
-                            </Row>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Kích Thước</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="Nhập Kích Thước"
-                                />
-                            </Row>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Số Lượng</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="0"
-                                />
-                            </Row>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Giá</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="Nhập Giá"
-                                />
-                            </Row>
-                        </Col>
-                    </Row>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="success">XÁC NHẬN</Button>
-                    <Button variant="danger" onClick={handleClose}>
-                        HỦY
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </>
     );
 }

@@ -163,11 +163,16 @@ const [order, setOrder] = useState()
   console.log('item', list);
   console.log('file', files);
   
- 
+  const DeleteList = (i) =>{
+    const val = [...list];
+    val.splice(val[i], 1);
+    setList(val);
+}
 
   
   return (
     <>
+      <div className="imgs"></div>
       <div className="groceries">
         <p className="title">Tạo đơn hàng</p>
         <Table striped bordered hover size="lg">
@@ -185,7 +190,9 @@ const [order, setOrder] = useState()
           <tbody>
             {list.map((li, i) => (
               <tr key={i}>
-                <td className="pt-5"> {i + 1} </td>
+                <td className="pt-5"> {i + 1} <br />
+                <span style={{cursor:'pointer'}}><i onClick={()=> DeleteList(i)} className="fa-solid fa-circle-xmark"></i></span>
+                 </td>
                 <td>
                   <img
                     style={{ width: "96px", height: "64px", marginTop: "24px" }}
