@@ -1,124 +1,101 @@
 .material-symbols-outlined {
-  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 }
 
-// Background img
-.container_deposit {
-}
 .deposit {
-  .bg_deposit {
-    width: 100% ;
-    height: 100vh !important;
-    // background-image: url("");
-    background-repeat: no-repeat;
-    opacity: 0.5;
-    position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-  .content_deposit {
-    width: 90%;
-    margin: 1% 5%;
-    background: none;
-    margin: 40px 30px;
-    position: absolute;
-    top: 80px;
-    left: 100px;
-    right: 0;
+    width: 100%;
+    padding: 20px;
     .title {
-      text-align: center;
-      color: #eda82d;
-      padding-top: 15px;
-      font-weight: bold;
-      font-size: 2em;
+        text-align: center;
+        color: #eda82d;
+        padding-top: 15px;
+        font-weight: bold;
+        font-size: 2em;
     }
     .align-btn {
-      display: flex;
-      justify-content: flex-end;
-      margin: 1.5% 2%;
-      .start-btn {
-        font-weight: bold;
-      }
+        display: flex;
+        justify-content: flex-end;
+        margin: 1.5% 2%;
+        .start-btn {
+            font-weight: bold;
+        }
     }
     .start-btn {
-      background-color: #8610e8;
+        background-color: #8610e8;
     }
     table {
-      background: #fff;
+        background: rgba(255, 255, 255, 0.384);
     }
     th,
     td {
-      text-align: center;
-      .ghi_chu {
-        height: 40px;
-        min-width: 100px;
-        min-height: 100px;
-        max-width: 200px;
-        max-height: 200px;
-      }
+        text-align: center;
+        .ghi_chu {
+            height: 40px;
+            min-width: 100px;
+            min-height: 100px;
+            max-width: 200px;
+            max-height: 200px;
+        }
     }
     td {
-      // padding-top: 50%;
+        // padding-top: 50%;
     }
     .attribute {
-      width: 100vh;
-      height: 40px;
-      min-width: 345px;
-      min-height: 40px;
-      max-width: 100%;
-      max-height: 80px;
+        width: 100vh;
+        height: 40px;
+        min-width: 345px;
+        min-height: 40px;
+        max-width: 100%;
+        max-height: 80px;
     }
     th {
-      color: #f5f5f5;
-      background-color: #8610e8;
+        color: #f5f5f5;
+        background-color: #8610e8;
     }
     .image {
-      width: 6em;
-      height: 4em;
+        width: 6em;
+        height: 4em;
     }
     .form {
-      display: flex;
-      width: 664px !important;
-      flex-direction: column;
-      justify-content: flex-start;
-      background: #fff;
-      margin-top: 2%;
-      width: 40%;
-      border: 0.0625em solid #ccc;
-      input,
-      select {
-        background-color: #f5f5f5;
-      }
-      .title-label {
-        text-align: center;
-        font-size: 1.5em;
-        padding: 0.1em 0;
-        margin-bottom: 0;
-        color: white;
-        background-color: #8610e8;
-      }
-      .customer-form {
-        margin-bottom: 2.5%;
-        .customer-title {
-          margin: 1% 0;
+        display: flex;
+        width: 664px !important;
+        flex-direction: column;
+        justify-content: flex-start;
+        background: #fff;
+        margin-top: 2%;
+        width: 40%;
+        border: 0.0625em solid #ccc;
+        input,
+        select {
+            background-color: #f5f5f5;
         }
-        .customer-field {
-          width: 95%;
-          margin-left: 1.5%;
+        .title-label {
+            text-align: center;
+            font-size: 1.5em;
+            padding: 0.1em 0;
+            margin-bottom: 0;
+            color: white;
+            background-color: #8610e8;
         }
-      }
+        .customer-form {
+            margin-bottom: 2.5%;
+            .customer-title {
+                margin: 1% 0;
+            }
+            .customer-field {
+                width: 95%;
+                margin-left: 1.5%;
+            }
+        }
     }
     .end-btn {
-      margin-top: 2%;
-      color: white;
-      font-weight: bold;
-      background-color: #eda82d !important;
+        margin-top: 2%;
+        color: white;
+        font-weight: bold;
+        background-color: #eda82d !important;
     }
-  }
 }
 
 .title-modal {
-  color: #eda82d;
+    color: #eda82d;
 }

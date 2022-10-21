@@ -9,6 +9,7 @@ import RouterDasboard from './RouterDasboard';
 import Dasboard from './components/Dasboard';
 import RouterAuth from './RouterAuth';
 import ListGroceries from './components/Customer/Groceries/listGroceries';
+import ListDeposit from './components/Customer/Deposit/listDeposit';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="groceries" element={<Groceries className="right"/>}></Route>
             <Route path="deposit" element={<Deposit className="right"/>}></Route>
             <Route path="listGroceries" element={<ListGroceries className="right"/>}></Route>
+            <Route path="listDeposit" element={<ListDeposit className="right"/>}></Route>
             <Route index element={<Dasboard className="right"/>}></Route>
           </Route>
         </Routes>

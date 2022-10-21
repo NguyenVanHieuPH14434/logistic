@@ -6,16 +6,15 @@ import { MdEmail } from "react-icons/md";
 import { AiOutlineBell } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import "./Header.scss";
+import LOGO from '../../assets/public/img/logo-logistic-footer.png';
 
 function Header() {
     return (
         <div className="Header">
-            <Navbar bg="info" expand="lg" className="navbar">
-                <Navbar.Brand className="logo">
-                    <p className="text1">Hi</p>
-                    <p className="text2">Express</p>
-                    <p className="special">&#174;</p>
-                </Navbar.Brand>
+            <Navbar expand="lg" className="navbar">
+                <div className="logo">
+                    <img src={LOGO} />
+                </div>
                 <Nav className="end">
                     <TiShoppingCart className="icon1" />
                     <MdEmail className="icon1" />

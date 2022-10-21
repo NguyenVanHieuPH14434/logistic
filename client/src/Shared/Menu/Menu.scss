@@ -6,16 +6,18 @@
     background-color: #8610E8 !important;
     color: white;
 }
-.menu_left{
-    height: 100vh !important;
+
+.menu_left {
+    min-height: 960px;
 }
+
 #dropdown-button-drop-end {
     &:hover {
         color: white !important;
         background-color: #8610E8;
     }
-    color: #8610E8 !important;
-    background: #35E680;
+    color: #fff !important;
+    background: #9470d4;
     padding: 0;
     border-radius: 0;
     // border-bottom: 0.1em solid rgba(0, 0, 0, 0.1);
