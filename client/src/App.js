@@ -8,6 +8,7 @@ import Register from './components/athur/register/register';
 import RouterDasboard from './RouterDasboard';
 import Dasboard from './components/Dasboard';
 import RouterAuth from './RouterAuth';
+import ListGroceries from './components/Customer/Groceries/listGroceries';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/app" element={<RouterDasboard className="right"/>}>
             <Route path="groceries" element={<Groceries className="right"/>}></Route>
             <Route path="deposit" element={<Deposit className="right"/>}></Route>
+            <Route path="listGroceries" element={<ListGroceries className="right"/>}></Route>
             <Route index element={<Dasboard className="right"/>}></Route>
           </Route>
         </Routes>

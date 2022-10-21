@@ -3,20 +3,18 @@ import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-import image from "./images/default-thumbnail.jpg";
+import image from "../../../assets/public/img/default-thumbnail.jpg";
 import "./Groceries.scss";
 import { NumericFormat } from "react-number-format";
 import { createOrder, uploadFiles } from "../../../api/orderApi";
 
 function Groceries() {
-
   const [list, setList] = useState([
     {
       product_image: "",
       // img: "https://anhgaixinh.biz/wp-content/uploads/2022/01/gai-xinh-mac-vay-xep-ly-ngan-9.jpg",
-      product_link:"",
-      product_name:"",
+      product_link: "",
+      product_name: "",
       attribute: "",
       product_price: 0,
       quantity: 0,
@@ -34,19 +32,22 @@ function Groceries() {
   const handleOnIncrease = (i, e) => {
     const increase = [...list];
     increase[i]["quantity"] = parseInt(increase[i]["quantity"]) + 1;
-    increase[i]["total_price"] = increase[i]["quantity"] * increase[i]["product_price"].replace(/,/g, "");
+    increase[i]["total_price"] =
+      increase[i]["quantity"] * increase[i]["product_price"].replace(/,/g, "");
     setList(increase);
   };
-  
+
   // Nút bớt sản phẩm
   const handleOnReduced = (i) => {
     const count = [...list];
     if (count[i]["quantity"] <= 0) {
       count[i]["quantity"] = 0;
-      count[i]["total_price"] = count[i]["quantity"] * count[i]["product_price"].replace(/,/g, "");
+      count[i]["total_price"] =
+        count[i]["quantity"] * count[i]["product_price"].replace(/,/g, "");
     } else {
       count[i]["quantity"] = count[i]["quantity"] - 1;
-      count[i]["total_price"] = count[i]["quantity"] * count[i]["product_price"].replace(/,/g, "");
+      count[i]["total_price"] =
+        count[i]["quantity"] * count[i]["product_price"].replace(/,/g, "");
     }
     setList(count);
   };
@@ -56,8 +57,8 @@ function Groceries() {
     newList = {
       product_image: "",
       // img: "https://anhgaixinh.biz/wp-content/uploads/2022/01/gai-xinh-mac-vay-xep-ly-ngan-9.jpg",
-      product_link:"",
-      product_name:"",
+      product_link: "",
+      product_name: "",
       attribute: "",
       product_price: 0,
       quantity: 0,
@@ -76,52 +77,48 @@ function Groceries() {
     total += li.total_price;
     if (total <= 2000000) {
       orderCost = total * (3 / 100);
-    }
-    else if (total <= 20000000) {
-      orderCost = ((2.5)/ 100) * total;
-    }
-    else if (total <= 100000000) {
+    } else if (total <= 20000000) {
+      orderCost = (2.5 / 100) * total;
+    } else if (total <= 100000000) {
       orderCost = total * (2 / 100);
-    }
-    else if (total > 100000000) {
+    } else if (total > 100000000) {
       orderCost = total * (1 / 100);
     }
     totalOrderCost = total + orderCost;
   }
 
-
   // thay đổi giá trị form sản phẩm
   const changeInp = (i, e) => {
     const val = [...list];
     val[i][e.target.name] = e.target.value;
-    val[i]["total_price"] = val[i]["product_price"].replace(/,/g, "") * val[i]["quantity"];
+    val[i]["total_price"] =
+      val[i]["product_price"].replace(/,/g, "") * val[i]["quantity"];
     setList(val);
   };
 
-  
- // thông tin khách hàng
-const [order, setOrder] = useState()
+  // thông tin khách hàng
+  const [order, setOrder] = useState();
 
   // thay đổi giá trị thông tin khách hàng
   const changeInpOrder = (e) => {
-    const valOrder = {...order}
+    const valOrder = { ...order };
     valOrder[e.target.name] = e.target.value;
-    valOrder['user_id'] = '1';
-    valOrder['type'] = 'order';
+    valOrder["user_id"] = "1";
+    valOrder["type"] = "order";
     setOrder(valOrder);
   };
 
   // preview image
   const [previewImage, setPreviewImage] = useState(null);
 
-  // file ảnh 
-  const [files, setFiles]=useState([])
+  // file ảnh
+  const [files, setFiles] = useState([]);
 
   // thêm file ảnh
-  const changFile = (i, e)=>{
+  const changFile = (i, e) => {
     const file = [...files];
     file[i] = e.target.files;
-    setFiles(file)
+    setFiles(file);
 
     // change originalName file
     const val = [...list];
@@ -134,40 +131,35 @@ const [order, setOrder] = useState()
 
     //   setPreviewImage(e.target?.result)
     // };
- 
+
     // reader.readAsDataURL(e.target.files[0]);
-    setPreviewImage(URL.createObjectURL(e.target.files[0]))
-   
-  }
-  console.log('pre', previewImage);
-  
+    setPreviewImage(URL.createObjectURL(e.target.files[0]));
+  };
+  console.log("pre", previewImage);
 
-
-// tạo đơn 
-  const handleSave = async() =>{
+  // tạo đơn
+  const handleSave = async () => {
     const dataImage = new FormData();
     for (let index = 0; index < files.length; index++) {
       for (let i = 0; i < files[index].length; i++) {
         const element = files[index][i];
-        dataImage.append('product_image', element);
+        dataImage.append("product_image", element);
       }
     }
     const data1 = {
-      "order":order,
-      "orderItem":list,
-    }
-      await createOrder(data1);
-      await uploadFiles(dataImage);
-  }
-  console.log('order', order);
-  console.log('item', list);
-  console.log('file', files);
-  
- 
+      order: order,
+      orderItem: list,
+    };
+    await createOrder(data1);
+    await uploadFiles(dataImage);
+  };
+  console.log("order", order);
+  console.log("item", list);
+  console.log("file", files);
 
-  
   return (
     <>
+      <div className="container_groceries"></div>
       <div className="groceries">
         <p className="title">Tạo đơn hàng</p>
         <Table striped bordered hover size="lg">
@@ -188,11 +180,29 @@ const [order, setOrder] = useState()
                 <td className="pt-5"> {i + 1} </td>
                 <td>
                   <img
-                    style={{ width: "96px", height: "64px", marginTop: "24px" }}
-                    src={previewImage !== null?previewImage:image}
+                    style={{
+                      width: "96px",
+                      height: "64px",
+                      marginTop: "24px",
+                    }}
+                    src={previewImage !== null ? previewImage : image}
                   />
-                  <label className="mt-1" htmlFor="upload-photo" id="label-upload">Upload...</label>
-                  <input type="file" multiple name="product_image" id="upload-photo" onChange={(e)=>{changFile(i, e)}} />
+                  <label
+                    className="mt-1"
+                    htmlFor="upload-photo"
+                    id="label-upload"
+                  >
+                    Upload...
+                  </label>
+                  <input
+                    type="file"
+                    multiple
+                    name="product_image"
+                    id="upload-photo"
+                    onChange={(e) => {
+                      changFile(i, e);
+                    }}
+                  />
                 </td>
                 <td>
                   <input
@@ -220,23 +230,23 @@ const [order, setOrder] = useState()
                 <td className="pt-5">
                   {" "}
                   {/* <input
-                    type="text"
-                    name="price"
-                    value={li.price}
-                    onChange={(e) => changeInp(i, e)}
-                  /> */}
-                   <NumericFormat
-                      style={{
-                        border: "none",
-                        backgroundColor: "none",
-                        width: "100%",
-                      }}
                       type="text"
-                      name="product_price"
-                      // value={li.price}
+                      name="price"
+                      value={li.price}
                       onChange={(e) => changeInp(i, e)}
-                      thousandSeparator=","
-                    />
+                    /> */}
+                  <NumericFormat
+                    style={{
+                      border: "none",
+                      backgroundColor: "none",
+                      width: "100%",
+                    }}
+                    type="text"
+                    name="product_price"
+                    // value={li.price}
+                    onChange={(e) => changeInp(i, e)}
+                    thousandSeparator=","
+                  />
                 </td>
                 <td className="soLuong">
                   <div className="d-flex soLuong">
@@ -342,23 +352,27 @@ const [order, setOrder] = useState()
                     placeholder="Nhập Số Điện Thoại"
                   />
                   {/* <Form.Control
-                    className="customer-field"
-                    type="hidden"
-                    name="type"
-                    onChange={(e) => changeInpOrder(e)}
-                    placeholder="Nhập Số Điện Thoại"
-                  />
-                  <Form.Control
-                    className="customer-field"
-                    type="hidden"
-                    name="phone"
-                    onChange={(e) => changeInpOrder(e)}
-                    placeholder="Nhập Số Điện Thoại"
-                  /> */}
+                      className="customer-field"
+                      type="hidden"
+                      name="type"
+                      onChange={(e) => changeInpOrder(e)}
+                      placeholder="Nhập Số Điện Thoại"
+                    />
+                    <Form.Control
+                      className="customer-field"
+                      type="hidden"
+                      name="phone"
+                      onChange={(e) => changeInpOrder(e)}
+                      placeholder="Nhập Số Điện Thoại"
+                    /> */}
                 </Row>
                 <Row>
                   <Form.Label className="customer-title">Địa chỉ</Form.Label>
-                  <Form.Select className="customer-field" name="address"  onChange={(e) => changeInpOrder(e)}>
+                  <Form.Select
+                    className="customer-field"
+                    name="address"
+                    onChange={(e) => changeInpOrder(e)}
+                  >
                     <option>Vui Lòng Chọn Địa Chỉ</option>
                     <option value="hanoi">Ha Noi</option>
                     <option value="haiphong">Hai Phong</option>
@@ -366,7 +380,12 @@ const [order, setOrder] = useState()
                 </Row>
               </Container>
             </div>
-            <Button variant="warning" type="submit" onClick={handleSave} className="end-btn">
+            <Button
+              variant="warning"
+              type="submit"
+              onClick={handleSave}
+              className="end-btn"
+            >
               Tạo Đơn Hàng
             </Button>
           </div>
@@ -448,90 +467,6 @@ const [order, setOrder] = useState()
           </div>
         </div>
       </div>
-      <Modal show={show} onHide={handleClose} animation={false} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title className="title-modal">Thêm Sản Phẩm</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Row>
-            <Col>
-              <Row>
-                <Form.Label style={{ margin: "1% 0" }}>Tên Sản Phẩm</Form.Label>
-                <Form.Control
-                  type="text"
-                  style={{ width: "93.5%", marginLeft: "3%" }}
-                  placeholder="Nhập Tên Sản Phẩm"
-                />
-              </Row>
-              <Row>
-                <Form.Label style={{ margin: "1% 0" }}>
-                  Link Sản Phẩm
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  style={{ width: "93.5%", marginLeft: "3%" }}
-                  placeholder="Nhập Link Sản Phẩm"
-                />
-              </Row>
-              <Row>
-                <Form.Label style={{ margin: "1% 0" }}>Ảnh Sản Phẩm</Form.Label>
-                <Form.Control
-                  type="file"
-                  style={{ width: "93.5%", marginLeft: "3%" }}
-                />
-              </Row>
-              <Row>
-                <Form.Label style={{ margin: "1% 0" }}>Ghi Chú</Form.Label>
-                <Form.Control
-                  type="text"
-                  style={{ width: "93.5%", marginLeft: "3%" }}
-                  placeholder="Nhập Ghi Chú"
-                />
-              </Row>
-            </Col>
-            <Col>
-              <Row>
-                <Form.Label style={{ margin: "1% 0" }}>Màu Sắc</Form.Label>
-                <Form.Control
-                  type="text"
-                  style={{ width: "93.5%", marginLeft: "3%" }}
-                  placeholder="Nhập Màu"
-                />
-              </Row>
-              <Row>
-                <Form.Label style={{ margin: "1% 0" }}>Kích Thước</Form.Label>
-                <Form.Control
-                  type="text"
-                  style={{ width: "93.5%", marginLeft: "3%" }}
-                  placeholder="Nhập Kích Thước"
-                />
-              </Row>
-              <Row>
-                <Form.Label style={{ margin: "1% 0" }}>Số Lượng</Form.Label>
-                <Form.Control
-                  type="number"
-                  style={{ width: "93.5%", marginLeft: "3%" }}
-                  placeholder="0"
-                />
-              </Row>
-              <Row>
-                <Form.Label style={{ margin: "1% 0" }}>Giá</Form.Label>
-                <Form.Control
-                  type="text"
-                  style={{ width: "93.5%", marginLeft: "3%" }}
-                  placeholder="Nhập Giá"
-                />
-              </Row>
-            </Col>
-          </Row>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="success">XÁC NHẬN</Button>
-          <Button variant="danger" onClick={handleClose}>
-            HỦY
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 }

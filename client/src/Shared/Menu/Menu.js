@@ -37,7 +37,7 @@ function Menu() {
                             <p className="para">ĐƠN HÀNG</p>
                         </Container>}
                     >
-                        <Dropdown.Item eventKey="1">Tất Cả Đơn Hàng</Dropdown.Item>
+                        <Dropdown.Item eventKey="1" as={Link} to="/app/listGroceries">Tất Cả Đơn Hàng</Dropdown.Item>
                         <Dropdown.Item eventKey="2">Tất Cả Đơn Ký Gửi</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton

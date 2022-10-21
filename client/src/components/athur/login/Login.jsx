@@ -2,8 +2,31 @@ import React from "react";
 import "./login.scss";
 import logo_login from "../../../assets/public/img/logo_login.png";
 import background_login from "../../../assets/public/img/image-background-login.png";
+import { useState } from "react";
+import { login } from "../../../api/auth";
 
 export default function Login() {
+  const [data, setData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const setHandleOnChangeInput = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleOnClickLoginBtn = async (e) => {
+    await login(data)
+      .then ((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <div className="bg_login">
@@ -18,17 +41,27 @@ export default function Login() {
             <span className="login_title">Đăng nhập</span>
             <span> | </span>
             <span className="register_title">
-              <a href="/">Đăng ký</a>
+              <a href="/register">Đăng ký</a>
             </span>
           </h2>
           <div className="form_login">
             <div className="login_form_input">
               <span>
-                <input type="text" placeholder="Số điện thoại hoặc Email" />
+                <input
+                  type="text"
+                  placeholder="Số điện thoại hoặc Email"
+                  name="username"
+                  onChange={(e) => setHandleOnChangeInput(e)}
+                />
                 <i class="fa-solid fa-circle-user"></i>
               </span>
               <span>
-                <input type="text" placeholder="Mật khẩu..." />
+                <input
+                  type="text"
+                  placeholder="Mật khẩu..."
+                  name="password"
+                  onChange={(e) => setHandleOnChangeInput(e)}
+                />
                 <i class="fa-sharp fa-solid fa-lock"></i>
               </span>
               <div className="duy_tri">
@@ -37,7 +70,7 @@ export default function Login() {
               </div>
             </div>
             <div className="login_form_btn">
-              <button>Đăng nhập</button>
+              <button onClick={(e) => handleOnClickLoginBtn(e)}>Đăng nhập</button>
             </div>
             <div className="facebook_login">
               <a href="/">
