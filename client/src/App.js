@@ -22,7 +22,6 @@ function App() {
           </Route>
           <Route path="/app" element={<RouterDasboard className="right"/>}>
             <Route path="groceries" element={<Groceries className="right"/>}></Route>
-            <Route path="deposit" element={<Deposit className="right"/>}></Route>
             <Route path="listGroceries" element={<ListGroceries className="right"/>}></Route>
             <Route path="listDeposit" element={<ListDeposit className="right"/>}></Route>
             <Route index element={<Dasboard className="right"/>}></Route>

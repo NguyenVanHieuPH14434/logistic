@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./login.scss";
 import logo_login from "../../../assets/public/img/logo_login.png";
 import background_login from "../../../assets/public/img/image-background-login.png";
 import { useState } from "react";
 import { login } from "../../../api/auth";
+import {useNavigate} from 'react-router-dom';
+import { AppContext } from "../../../contexts/AppContextProvider";
 
 export default function Login() {
+  const {loadUser}=useContext(AppContext);
+  const navigate = useNavigate();
   const [data, setData] = useState({
     username: "",
     password: "",
@@ -16,16 +20,26 @@ export default function Login() {
       ...data,
       [e.target.name]: e.target.value,
     });
-  };
+  };  
 
   const handleOnClickLoginBtn = async (e) => {
-    await login(data)
-      .then ((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    e.preventDefault();
+    if(data.username === '' ||  data.password === ''){
+    return alert('Vui lòng nhập đầy đủ thông tin!')
+    }
+      try {
+        const res = await login(data);
+        if(res.data.status){
+          navigate('/app/deposit');
+          await loadUser(res);
+        }else {
+           alert(res.data.message);
+        }
+      } catch (error) {
+        console.log(error);
+        
+         alert(error)
+      }
   };
   return (
     <>

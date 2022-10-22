@@ -47,20 +47,20 @@ function NewAuthAPI (authCOntroller: AuthController) {
             const checkPass = await bcrypt.compare(req.body.password, user.password);
             if(checkPass){
                 return res.json({
-                    'status':200,
+                    'status':true,
                     "message":"Thong tin user!",
                     "data": [{"Ho va ten":user.fullName, "SDT":user.phone, "Ten dang nhap":user.username}]
                 })
             }else {
                 return res.json({
-                    'status':401,
+                    'status':false,
                     "message":"Mat khau khong dung!",
                     "data": []
                 })
             }
         }else {
             return res.json({
-                'status':404,
+                'status':false,
                 "message":"Tai khoan khong ton tai!",
                 "data": []
             })

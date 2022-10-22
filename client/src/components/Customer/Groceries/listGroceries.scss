@@ -1,55 +1,53 @@
 .listGroceries {
-  width: 100%;
-  .nav_container {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 30px 0 15px 0;
-    background-image: url('../../../assets/public/img/search-dash-bg.png');
-    .nav_left {
-      text-align: end;
-    }
-    .nav_search {
-      input {
-        padding: 12px 100px;
-        border-radius: 10px;
-      }
-      i {
-        color: #fff;
-        padding: 17px 30px;
-        background: #ff5a21;
-        margin-left: -76.3px;
-        border-radius: 10px;
-      }
-    }
-    .nav_exchange {
-      display: flex;
-      padding-top: 2px;
-      span {
-        padding-left: 10px;
-      }
-    }
-  }
-
-  .menu_groceries {
-    list-style: none;
-    display: flex;
-    justify-content: space-evenly;
-    li {
+    width: 100%;
+    .nav_container {
         display: flex;
+        justify-content: space-evenly;
         align-items: center;
-        justify-content: center;
-      span {
-        margin-left: 4px;
-        background: #00a8e6;
-        border-radius: 10px;
-        color: #fff;
-        padding: 1px 6px;
-      }
+        padding: 30px 0 15px 0;
+        background-image: url('../../../assets/public/img/search-dash-bg.png');
+        .nav_left {
+            text-align: end;
+        }
+        .nav_search {
+            input {
+                padding: 12px 100px;
+                border-radius: 10px;
+            }
+            i {
+                color: #fff;
+                padding: 17px 30px;
+                background: #ff5a21;
+                margin-left: -76.3px;
+                border-radius: 10px;
+            }
+        }
+        .nav_exchange {
+            display: flex;
+            padding-top: 2px;
+            span {
+                padding-left: 10px;
+            }
+        }
     }
-  }
-
-  hr{
-    margin-top: 0;
-  }
+    .menu_groceries {
+        list-style: none;
+        display: flex;
+        justify-content: space-evenly;
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            span {
+                margin-left: 4px;
+                background: #00a8e6;
+                border-radius: 10px;
+                color: #fff;
+                padding: 1px 6px;
+            }
+        }
+    }
+    hr {
+        margin-top: 0;
+    }
 }
