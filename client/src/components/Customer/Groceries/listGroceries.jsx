@@ -31,27 +31,42 @@ export default function ListGroceries() {
 
   const [color, setColor] = useState("red");
 
+  const [inputCalendar, setInputCalendar] = useState({
+    calendar_from: "",
+    calendar_to: "",
+  });
+
   // Function to update selected date and calander text
   const handleDateChange = (value) => {
     setSelectedDate(value);
     setCalendarText(`${value.toDateString()}`);
+    setInputCalendar(`${value.toDateString()}`)
   };
 
   // Function to handle selected Year change
   const handleYearChange = (value) => {
     const yearValue = value.getFullYear();
     setCalendarText(`${yearValue} Year  is selected`);
+    setInputCalendar(`${yearValue} Year  is selected`)
   };
 
   // Function to handle selected Month change
   const handleMonthChange = (value) => {
     const monthValue = allMonthValues[value.getMonth()];
     setCalendarText(`${monthValue} Month  is selected`);
+    setInputCalendar(`${monthValue} Month  is selected`)
   };
 
   const handleOnClickCalendarIcon = () => {
     setShow(!show);
     setColor("#fff");
+  };
+
+  const handleOnChangeInputCalendar = (e) => {
+    const {name, value} = e.target;
+    setInputCalendar((prev) => {
+      return {...prev, [name] : value}
+    })
   };
   return (
     <div className="listGroceries">
@@ -101,7 +116,12 @@ export default function ListGroceries() {
 
       <div className="container calender">
         <div className="calendar_from">
-          <input name="calendar_from" value={calendarText} type="text" placeholder="Từ ngày" />
+          <input
+            name="calendar_from"
+            type="text"
+            onChange={(e) => handleOnChangeInputCalendar(e)}
+            placeholder="Từ ngày"
+          />
           <i
             style={{ color: { color } }}
             onClick={() => handleOnClickCalendarIcon()}
@@ -117,7 +137,12 @@ export default function ListGroceries() {
           )}
         </div>
         <div className="calendar_to">
-          <input name="calendar_to" value={calendarText} type="text" placeholder="Đến ngày" />
+          <input
+            name="calendar_to"
+            type="text"
+            onChange={(e) => handleOnChangeInputCalendar(e)}
+            placeholder="Đến ngày"
+          />
           <i
             style={{ color: { color } }}
             onClick={() => handleOnClickCalendarIcon()}

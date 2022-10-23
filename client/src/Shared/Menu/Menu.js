@@ -51,7 +51,7 @@ function Menu() {
                         </Container>}
                     >
                         <Dropdown.Item eventKey="1" as={Link} to="/app/user">Thông Tin Cá Nhân</Dropdown.Item>
-                        <Dropdown.Item eventKey="2">Thay Đổi Mật Khẩu</Dropdown.Item>
+                        <Dropdown.Item eventKey="2" as={Link} to="/app/changePass">Thay Đổi Mật Khẩu</Dropdown.Item>
                     </DropdownButton>
                 </Nav>
             </div>
