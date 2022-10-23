@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate} from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Groceries from "./components/Customer/Groceries/Groceries";
 import Deposit from "./components/Customer/Deposit/Deposit";
 import './App.scss';
@@ -10,24 +10,26 @@ import Dasboard from './components/Dasboard';
 import RouterAuth from './RouterAuth';
 import ListGroceries from './components/Customer/Groceries/listGroceries';
 import ListDeposit from './components/Customer/Deposit/listDeposit';
+import User from './components/user/user';
 
 function App() {
   return (
     <div className="App">
-        <Routes>
-          <Route path="/" element={<RouterAuth className="right"/>}>
-            <Route path="login" element={<Login />}></Route>
-            <Route path="register" element={<Register />}></Route>
-            <Route index element={<Navigate to={'/login'} />}></Route>
-          </Route>
-          <Route path="/app" element={<RouterDasboard className="right"/>}>
-            <Route path="groceries" element={<Groceries className="right"/>}></Route>
-            <Route path="deposit" element={<Deposit className="right"/>}></Route>
-            <Route path="listGroceries" element={<ListGroceries className="right"/>}></Route>
-            <Route path="listDeposit" element={<ListDeposit className="right"/>}></Route>
-            <Route index element={<Dasboard className="right"/>}></Route>
-          </Route>
-        </Routes>
+      <Routes>
+        <Route path="/" element={<RouterAuth className="right" />}>
+          <Route path="login" element={<Login />}></Route>
+          <Route path="register" element={<Register />}></Route>
+          <Route index element={<Navigate to={'/login'} />}></Route>
+        </Route>
+        <Route path="/app" element={<RouterDasboard className="right" />}>
+          <Route path="groceries" element={<Groceries className="right" />}></Route>
+          <Route path="deposit" element={<Deposit className="right" />}></Route>
+          <Route path="listGroceries" element={<ListGroceries className="right" />}></Route>
+          <Route path="listDeposit" element={<ListDeposit className="right" />}></Route>
+          <Route path="user" element={<User className="right" />}></Route>
+          <Route index element={<Dasboard className="right" />}></Route>
+        </Route>
+      </Routes>
     </div>
   );
 }
