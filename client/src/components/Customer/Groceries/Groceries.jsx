@@ -89,10 +89,10 @@ function Groceries() {
   const changeInp = (i, e) => {
     const val = [...list];
     val[i][e.target.name] = e.target.value;
-   if(val[i]['quantity']){
-     val[i]["total_price"] =
-      val[i]["product_price"].replace(/,/g, "") * val[i]["quantity"];
-   }
+    if (val[i]["quantity"]) {
+      val[i]["total_price"] =
+        val[i]["product_price"].replace(/,/g, "") * val[i]["quantity"];
+    }
     setList(val);
   };
 
@@ -147,21 +147,21 @@ function Groceries() {
       }
     }
     const data1 = {
-      "order":order,
-      "orderItem":list,
-    }
-      await createOrder(data1);
-      await uploadFiles(dataImage);
-  }
-  console.log('order', order);
-  console.log('item', list);
-  console.log('file', files);
-  
+      order: order,
+      orderItem: list,
+    };
+    await createOrder(data1);
+    await uploadFiles(dataImage);
+  };
+  console.log("order", order);
+  console.log("item", list);
+  console.log("file", files);
+
   const DeleteList = (i) => {
     const newList = [...list];
-    newList.splice(i,1)
+    newList.splice(i, 1);
     setList(newList);
-}
+  };
 
   return (
     <>
@@ -169,7 +169,7 @@ function Groceries() {
       <div className="groceries">
         <p className="title">Tạo đơn hàng</p>
         <Table striped bordered hover size="lg">
-          <thead >
+          <thead>
             <tr>
               <th>STT</th>
               <th>Ảnh Sản Phẩm</th>
@@ -183,9 +183,16 @@ function Groceries() {
           <tbody>
             {list.map((li, i) => (
               <tr key={i}>
-                <td className="pt-5"> {i+1} <br />
-                <span style={{cursor:'pointer'}}><i onClick={()=> DeleteList(i)} className="fa-solid fa-circle-xmark"></i></span>
-                 </td>
+                <td className="pt-5">
+                  {" "}
+                  {i + 1} <br />
+                  <span style={{ cursor: "pointer" }}>
+                    <i
+                      onClick={() => DeleteList(i)}
+                      className="fa-solid fa-circle-xmark"
+                    ></i>
+                  </span>
+                </td>
                 <td>
                   <img
                     style={{
@@ -217,7 +224,7 @@ function Groceries() {
                     className="w-100"
                     type="text"
                     name="product_name"
-                    value={li.product_name?li.product_name:''}
+                    value={li.product_name ? li.product_name : ""}
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Tên sản phẩm"
                   />
