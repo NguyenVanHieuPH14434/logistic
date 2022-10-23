@@ -25,11 +25,11 @@ export default function ListGroceries() {
   const [selectedDate, setSelectedDate] = useState();
 
   // State for text above calander
-  const [calendarText, setCalendarText] = useState(`No Date is selected`);
+  const [calendarText, setCalendarText] = useState("");
 
   const [show, setShow] = useState(false);
 
-  const [color, setColor] = useState('red')
+  const [color, setColor] = useState("red");
 
   // Function to update selected date and calander text
   const handleDateChange = (value) => {
@@ -49,10 +49,10 @@ export default function ListGroceries() {
     setCalendarText(`${monthValue} Month  is selected`);
   };
 
-  const handleOnClickCalendarIcon = () =>{
-    setShow(!show)
-    setColor('#fff')
-  }
+  const handleOnClickCalendarIcon = () => {
+    setShow(!show);
+    setColor("#fff");
+  };
   return (
     <div className="listGroceries">
       <div className="nav_container">
@@ -100,16 +100,73 @@ export default function ListGroceries() {
       <hr />
 
       <div className="container calender">
-        <input value={calendarText} type="text" />
-        <i style={{color: {color}}} onClick={() => handleOnClickCalendarIcon()} class="fa-solid fa-calendar-days"></i>
-        {show && (
-          <Calendar
-            onClickMonth={handleMonthChange}
-            onClickYear={handleYearChange}
-            onChange={handleDateChange}
-            value={selectedDate}
-          />
-        )}
+        <div className="calendar_from">
+          <input name="calendar_from" value={calendarText} type="text" placeholder="Từ ngày" />
+          <i
+            style={{ color: { color } }}
+            onClick={() => handleOnClickCalendarIcon()}
+            class="fa-solid fa-calendar-days"
+          ></i>
+          {show && (
+            <Calendar
+              onClickMonth={handleMonthChange}
+              onClickYear={handleYearChange}
+              onChange={handleDateChange}
+              value={selectedDate}
+            />
+          )}
+        </div>
+        <div className="calendar_to">
+          <input name="calendar_to" value={calendarText} type="text" placeholder="Đến ngày" />
+          <i
+            style={{ color: { color } }}
+            onClick={() => handleOnClickCalendarIcon()}
+            class="fa-solid fa-calendar-days"
+          ></i>
+          {show && (
+            <Calendar
+              onClickMonth={handleMonthChange}
+              onClickYear={handleYearChange}
+              onChange={handleDateChange}
+              value={selectedDate}
+            />
+          )}
+        </div>
+        <div className="code_orders">
+          <input type="text" placeholder="Mã đơn hàng" />
+        </div>
+        <div className="select_headQuarters">
+          <select>
+            <option value="" selected>
+              Lựa chọn trụ sở
+            </option>
+            <option value="">Hà Nội</option>
+            <option value="">Hà Nội</option>
+            <option value="">Hà Nội</option>
+            <option value="">Hà Nội</option>
+            <option value="">Hải Phòng</option>
+            <option value="">Hồ Chí Minh</option>
+            <option value="">Quảng Châu</option>
+          </select>
+        </div>
+        <div className="select_status">
+          <select>
+            <option value="" selected>
+              Chọn trạng thái
+            </option>
+            <option value="">Chờ báo giá</option>
+            <option value="">Chờ đặt cọc</option>
+            <option value="">Đã đặt cọc</option>
+            <option value="">Đã đặt hàng</option>
+            <option value="">Đã hoàn thành</option>
+            <option value="">Cần xác nhận lại</option>
+            <option value="">Đã hủy</option>
+          </select>
+        </div>
+        <div className="search_icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <p>Tìm kiếm</p>
+        </div>
       </div>
     </div>
   );

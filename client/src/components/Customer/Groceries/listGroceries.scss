@@ -1,5 +1,9 @@
 .listGroceries {
   width: 100%;
+
+  input {
+    padding-left: 10px;
+  }
   .nav_container {
     display: flex;
     justify-content: space-evenly;
@@ -53,12 +57,53 @@
     margin-top: 0;
   }
 
+  // Calendar scss
   .calender {
-    input {
+    height: 30.97px;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 18px;
+    position: relative;
+    .react-calendar {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      right: 0;
     }
-    i {
-      font-size: 22px;
-      margin-left: -24px;
+    .calendar_from {
+      input {
+      }
+      i {
+        font-size: 22px;
+        margin-left: -24px;
+      }
+    }
+    .calendar_to {
+      input {
+      }
+      i {
+        font-size: 22px;
+        margin-left: -24px;
+      }
+    }
+
+    select {
+      width: 200px;
+      height: 100%;
+    }
+    .search_icon {
+      display: flex;
+      align-items: center;
+      background: #00a8e6;
+      cursor: pointer;
+      color: #fff;
+      padding: 0 10px;
+      p {
+        margin: 0 0 0 6px;
+      }
+    }
+    .search_icon:hover {
+      background: #14c383;
     }
   }
 }
