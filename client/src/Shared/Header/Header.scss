@@ -2,6 +2,8 @@
     width: 100%;
     padding: 20px 7%;
     background-color: #9470d4 !important;
+    position: fixed;
+    z-index: 999;
     .navbar {
         display: flex;
         justify-content: space-between;

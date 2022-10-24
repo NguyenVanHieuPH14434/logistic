@@ -84,22 +84,24 @@ function Deposit() {
         }
         totalOrderCost = total + orderCost;
     }
-    const changeInp = (i, e) => {
-        const val = [...list];
-        val[i][e.target.name] = e.target.value;
-        val[i]["totalPrice"] = val[i]["price"].replace(/,/g, "") * val[i]["amount"];
-        setList(val);
+    
+
+    // Thông tin khách hàng
+    const [order, setOrder] = useState()
+
+    // thay đổi giá trị thông tin khách hàng
+    const changeInpOrder = (e) => {
+        const valOrder = { ...order };
+        valOrder[e.target.name] = e.target.value;
+        valOrder["user_id"] = "1";
+        valOrder["type"] = "order";
+        setOrder(valOrder);
     };
 
     const DeleteList = (i) => {
-
-        const newList = [...list];
-       const li = newList.filter((e)=>{
-        return e.id !== i;
-       });
-        setList(li);
-
-        console.log('li',li);
+        const newList = [...list]
+        newList.splice(i, 1)
+        setList(newList)
     }
 
     return (
@@ -119,8 +121,8 @@ function Deposit() {
                     <tbody>
                         {list.map((li, i) => (
                             <tr key={i}>
-                                <td className="pt-5"> {li.id} <br />
-                                    <span style={{ cursor: 'pointer' }} onClick={() => DeleteList(li.id)}><i className="fa-solid fa-circle-xmark"></i></span>
+                                <td className="pt-5"> {i + 1} <br />
+                                    <span style={{ cursor: 'pointer' }} onClick={() => DeleteList(i)}><i className="fa-solid fa-circle-xmark"></i></span>
                                 </td>
                                 <td>
                                     <img
@@ -133,21 +135,32 @@ function Deposit() {
                                         className="w-100"
                                         type="text"
                                         placeholder="Mã vận đơn (*)"
+                                        name="maVanDon"
+                                        onChange={(e) => changeInpOrder(e)}
+
                                     />
                                     <input
                                         className="w-100"
                                         type="text"
                                         placeholder="Tên sản phẩm (*)"
+                                        name="nameSanPham"
+                                        onChange={(e) => changeInpOrder(e)}
+
                                     />
                                     <input
                                         className="w-100"
                                         type="text"
                                         placeholder="Số kiện hàng (*)"
+                                        name="soKienHang"
+                                        onChange={(e) => changeInpOrder(e)}
+
                                     />
                                     <input
                                         className="w-100"
                                         type="text"
                                         placeholder="hãng vận chuyển (*)"
+                                        onChange={(e) => changeInpOrder(e)}
+
                                     />
                                 </td>
                                 <td className="">
@@ -392,7 +405,7 @@ function Deposit() {
                             </select>
                         </div>
                         <h1>Bảng giá dịch vụ mua hàng</h1>
-                        <table class="table">
+                        {/* <table class="table">
                             <thead>
                                 <tr>
                                     <th>STT</th>
@@ -471,7 +484,7 @@ function Deposit() {
                                     </tr>
                                 ))}
                             </tbody>
-                        </table>
+                        </table> */}
                     </div>
                 </div>
 
