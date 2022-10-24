@@ -18,8 +18,6 @@ export default function ListDeposit() {
     "November",
     "December",
   ];
-  // State for date selected by user
-  const [selectedDate, setSelectedDate] = useState();
 
   // State for text above calander
   const [calendarText, setCalendarText] = useState("");
@@ -30,7 +28,6 @@ export default function ListDeposit() {
 
   // Function to update selected date and calander text
   const handleDateChange = (value) => {
-    setSelectedDate(value);
     setCalendarText(`${value.toDateString()}`);
   };
 
@@ -43,8 +40,14 @@ export default function ListDeposit() {
   // Function to handle selected Month change
   const handleMonthChange = (value) => {
     const monthValue = allMonthValues[value.getMonth()];
+    const yearValue = value.getFullYear();
+    const date = value.getDate();
+    console.log(date, monthValue ,yearValue);
     setCalendarText(`${monthValue} Month  is selected`);
   };
+
+console.log('..', calendarText);
+
 
   const handleOnClickCalendarIcon = () => {
     setShow(!show);
@@ -125,7 +128,7 @@ export default function ListDeposit() {
           <input
             name="calendar_from"
             value={calendarText}
-            type="text"
+            type="date"
             placeholder="Từ ngày"
           />
           <i
@@ -135,10 +138,9 @@ export default function ListDeposit() {
           ></i>
           {show && (
             <Calendar
-              onClickMonth={handleMonthChange}
-              onClickYear={handleYearChange}
+              // onClickMonth={handleMonthChange}
+              // onClickYear={handleYearChange}
               onChange={handleDateChange}
-              value={selectedDate}
             />
           )}
         </div>
@@ -156,10 +158,9 @@ export default function ListDeposit() {
           ></i>
           {show && (
             <Calendar
-              onClickMonth={handleMonthChange}
-              onClickYear={handleYearChange}
+              // onClickMonth={handleMonthChange}
+              // onClickYear={handleYearChange}
               onChange={handleDateChange}
-              value={selectedDate}
             />
           )}
         </div>

@@ -4,4 +4,7 @@ const instance = axios.create({
     baseURL: 'http://localhost:9000/api'
 });
 
+
 export default instance
+
+export const LOCAL_TOKEN = 'adskl';

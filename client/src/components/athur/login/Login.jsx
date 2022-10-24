@@ -3,12 +3,14 @@ import "./login.scss";
 import logo_login from "../../../assets/public/img/logo_login.png";
 import background_login from "../../../assets/public/img/image-background-login.png";
 import { useState } from "react";
-import { login } from "../../../api/auth";
 import {useNavigate} from 'react-router-dom';
 import { AppContext } from "../../../contexts/AppContextProvider";
+import {Navigate} from 'react-router-dom'
+
 
 export default function Login() {
-  const {loadUser, login1}=useContext(AppContext);
+  const {state:{isAuthenticated}} = useContext(AppContext);
+  const {loginUser}=useContext(AppContext);
   const navigate = useNavigate();
   const [data, setData] = useState({
     username: "",
@@ -28,12 +30,13 @@ export default function Login() {
     return alert('Vui lòng nhập đầy đủ thông tin!')
     }
       try {
-        const res = await login1(data);
+        const res = await loginUser(data);
+        console.log(res);
         
-        if(res.status){
+        if(res.data.status){
           navigate('/app/deposit');
         }else {
-           alert(res.message);
+           alert(res.data.message);
         }
       } catch (error) {
         console.log(error);
@@ -41,6 +44,10 @@ export default function Login() {
          alert(error)
       }
   };
+  if(isAuthenticated)
+return (
+  <Navigate to='/app/user' />
+);
   return (
     <>
       <div className="bg_login">
@@ -67,7 +74,7 @@ export default function Login() {
                   name="username"
                   onChange={(e) => setHandleOnChangeInput(e)}
                 />
-                <i class="fa-solid fa-circle-user"></i>
+                <i className="fa-solid fa-circle-user"></i>
               </span>
               <span>
                 <input
@@ -76,7 +83,7 @@ export default function Login() {
                   name="password"
                   onChange={(e) => setHandleOnChangeInput(e)}
                 />
-                <i class="fa-sharp fa-solid fa-lock"></i>
+                <i className="fa-sharp fa-solid fa-lock"></i>
               </span>
               <div className="duy_tri">
                 <input type="checkbox" />
@@ -88,13 +95,13 @@ export default function Login() {
             </div>
             <div className="facebook_login">
               <a href="/">
-                <i class="fa-brands fa-facebook"></i>
+                <i className="fa-brands fa-facebook"></i>
                 <p>Đăng nhập bằng Facebook</p>
               </a>
             </div>
             <div className="google_login">
               <a href="/">
-                <i class="fa-brands fa-square-google-plus"></i>
+                <i className="fa-brands fa-square-google-plus"></i>
                 <p>Đăng nhập bằng Facebook</p>
               </a>
             </div>
