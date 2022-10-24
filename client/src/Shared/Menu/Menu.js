@@ -12,7 +12,7 @@ import "./Menu.scss";
 function Menu() {
     return (
         <>
-            <div style={{backgroundColor: '#35E680'}} class="menu_left">
+            <div style={{ backgroundColor: '#9470d4' }} class="menu_left">
                 <Nav className="flex-column">
                     <DropdownButton
                         key={'end'}
@@ -20,12 +20,12 @@ function Menu() {
                         drop={'end'}
                         variant="primary"
                         title={<Container className="container1"       >
-                            <GoChecklist className="icon3"      />
+                            <GoChecklist className="icon3" />
                             <p className="para">TẠO ĐƠN</p>
                         </Container>}
                     >
-                        <Dropdown.Item eventKey="1" as={Link} to="/groceries">Tạo Đơn Hàng</Dropdown.Item>
-                        <Dropdown.Item eventKey="2" as={Link} to="/deposit">Tạo Đơn Ký Gửi</Dropdown.Item>
+                        <Dropdown.Item eventKey="1" as={Link} to="/app/groceries">Tạo Đơn Hàng</Dropdown.Item>
+                        <Dropdown.Item eventKey="2" as={Link} to="/app/deposit">Tạo Đơn Ký Gửi</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
                         key={'end'}
@@ -37,8 +37,8 @@ function Menu() {
                             <p className="para">ĐƠN HÀNG</p>
                         </Container>}
                     >
-                        <Dropdown.Item eventKey="1">Tất Cả Đơn Hàng</Dropdown.Item>
-                        <Dropdown.Item eventKey="2">Tất Cả Đơn Ký Gửi</Dropdown.Item>
+                        <Dropdown.Item eventKey="1" as={Link} to="/app/listGroceries">Tất Cả Đơn Hàng</Dropdown.Item>
+                        <Dropdown.Item eventKey="2" as={Link} to="/app/listDeposit">Tất Cả Đơn Ký Gửi</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
                         key={'end'}
@@ -50,8 +50,8 @@ function Menu() {
                             <p className="para">CÁ NHÂN</p>
                         </Container>}
                     >
-                        <Dropdown.Item eventKey="1">Thông Tin Cá Nhân</Dropdown.Item>
-                        <Dropdown.Item eventKey="2">Thay Đổi Mật Khẩu</Dropdown.Item>
+                        <Dropdown.Item eventKey="1" as={Link} to="/app/user">Thông Tin Cá Nhân</Dropdown.Item>
+                        <Dropdown.Item eventKey="2" as={Link} to="/app/changePass">Thay Đổi Mật Khẩu</Dropdown.Item>
                     </DropdownButton>
                 </Nav>
             </div>

@@ -5,20 +5,21 @@ import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import "./Deposit.scss";
+
 import { NumericFormat } from "react-number-format";
 
 function Deposit() {
     const [list, setList] = useState([
         {
-            id: "",
+            id: '1',
             img: "https://anhgaixinh.biz/wp-content/uploads/2022/01/gai-xinh-mac-vay-xep-ly-ngan-9.jpg",
             attribute: "",
             price: "",
             amount: 0,
             note: "",
             totalPrice: 0,
-        },
+        }
+
     ]);
     const [show, setShow] = useState(false);
 
@@ -49,8 +50,9 @@ function Deposit() {
 
     const handleOnClickAddMore = (e) => {
         let newList = [...list];
+        const newId = newList.length + 1
         newList = {
-            id: "",
+            id: newId,
             img: "https://anhgaixinh.biz/wp-content/uploads/2022/01/gai-xinh-mac-vay-xep-ly-ngan-10.jpg",
             attribute: "",
             price: "",
@@ -82,18 +84,29 @@ function Deposit() {
         }
         totalOrderCost = total + orderCost;
     }
+    
 
+    // Thông tin khách hàng
+    const [order, setOrder] = useState()
 
-
-    const changeInp = (i, e) => {
-        const val = [...list];
-        val[i][e.target.name] = e.target.value;
-        val[i]["totalPrice"] = val[i]["price"].replace(/,/g, "") * val[i]["amount"];
-        setList(val);
+    // thay đổi giá trị thông tin khách hàng
+    const changeInpOrder = (e) => {
+        const valOrder = { ...order };
+        valOrder[e.target.name] = e.target.value;
+        valOrder["user_id"] = "1";
+        valOrder["type"] = "order";
+        setOrder(valOrder);
     };
+
+    const DeleteList = (i) => {
+        const newList = [...list]
+        newList.splice(i, 1)
+        setList(newList)
+    }
+
     return (
         <>
-            <div className="groceries">
+            <div className="deposit">
                 <p className="title">Tạo đơn ký gửi</p>
                 <Table striped bordered hover size="lg">
                     <thead>
@@ -108,7 +121,9 @@ function Deposit() {
                     <tbody>
                         {list.map((li, i) => (
                             <tr key={i}>
-                                <td className="pt-5"> {i + 1} </td>
+                                <td className="pt-5"> {i + 1} <br />
+                                    <span style={{ cursor: 'pointer' }} onClick={() => DeleteList(i)}><i className="fa-solid fa-circle-xmark"></i></span>
+                                </td>
                                 <td>
                                     <img
                                         style={{ width: "96px", height: "64px", marginTop: "24px" }}
@@ -120,21 +135,32 @@ function Deposit() {
                                         className="w-100"
                                         type="text"
                                         placeholder="Mã vận đơn (*)"
+                                        name="maVanDon"
+                                        onChange={(e) => changeInpOrder(e)}
+
                                     />
                                     <input
                                         className="w-100"
                                         type="text"
                                         placeholder="Tên sản phẩm (*)"
+                                        name="nameSanPham"
+                                        onChange={(e) => changeInpOrder(e)}
+
                                     />
                                     <input
                                         className="w-100"
                                         type="text"
                                         placeholder="Số kiện hàng (*)"
+                                        name="soKienHang"
+                                        onChange={(e) => changeInpOrder(e)}
+
                                     />
                                     <input
                                         className="w-100"
                                         type="text"
                                         placeholder="hãng vận chuyển (*)"
+                                        onChange={(e) => changeInpOrder(e)}
+
                                     />
                                 </td>
                                 <td className="">
@@ -228,274 +254,243 @@ function Deposit() {
                                 </Row>
                             </Container>
                         </div>
-                        <Button variant="warning" className="end-btn">
+                        <div
+                            style={{
+                                width: "360px",
+                                marginTop: '25px',
+                                backgroundColor: "#f9f9f9",
+                            }}
+                            className="border border-secondary p-2"
+                        >
+                            <div className="d-flex justify-content-between">
+                                <p>Tổng tiền đặt hàng: </p>
+                                <p className="">
+                                    {" "}
+                                    <NumericFormat
+                                        disabled={true}
+                                        style={{
+                                            border: "none",
+                                            textAlign: "right",
+                                            backgroundColor: "#f9f9f9",
+                                            width: "100px",
+                                        }}
+                                        value={total}
+                                        thousandSeparator=","
+                                    />{" "}
+                                    đ
+                                </p>
+                            </div>
+                            <div className="d-flex justify-content-between">
+                                <div className="d-flex">
+                                    <p>Phí đặt hàng</p>
+                                    <span
+                                        style={{
+                                            fontSize: "16px",
+                                            paddingTop: "6px",
+                                            color: "#005e91",
+                                        }}
+                                        className="material-symbols-outlined mx-1"
+                                    >
+                                        help
+                                    </span>
+                                    :
+                                </div>
+                                <p className="">
+                                    {" "}
+                                    <NumericFormat
+                                        disabled={true}
+                                        style={{
+                                            border: "none",
+                                            textAlign: "right",
+                                            backgroundColor: "#f9f9f9",
+                                            width: "100px",
+                                        }}
+                                        value={orderCost}
+                                        thousandSeparator=","
+                                    />{" "}
+                                    đ
+                                </p>
+                            </div>
+                            <div className="d-flex justify-content-between">
+                                <p className="">Tổng tiền/chưa có phí ship TQ: </p>
+                                <p className="">
+                                    {" "}
+                                    <NumericFormat
+                                        disabled={true}
+                                        style={{
+                                            border: "none",
+                                            textAlign: "right",
+                                            backgroundColor: "#f9f9f9",
+                                            width: "100px",
+                                        }}
+                                        value={totalOrderCost}
+                                        thousandSeparator=","
+                                    />{" "}
+                                    đ
+                                </p>
+                            </div>
+                        </div>
+                        <Button variant="warning" className="end-btn mt-3">
                             Tạo Đơn Hàng
                         </Button>
                     </div>
-                    <div
-                        style={{
-                            width: "360px",
-                            height: "100%",
-                            backgroundColor: "#f9f9f9",
-                        }}
-                        className="border border-danger p-2"
-                    >
-                        <div className="d-flex justify-content-between">
-                            <p>Tổng tiền đặt hàng: </p>
-                            <p className="">
-                                {" "}
-                                <NumericFormat
-                                    disabled={true}
-                                    style={{
-                                        border: "none",
-                                        textAlign: "right",
-                                        backgroundColor: "#f9f9f9",
-                                        width: "100px",
-                                    }}
-                                    value={total}
-                                    thousandSeparator=","
-                                />{" "}
-                                đ
-                            </p>
+
+                    {/* Tổng hợp các loại phí */}
+
+                    <div className="container ms-4">
+                        <h1>Phí vận chuyển quốc tế</h1>
+
+                        {/* Phí vận chuyển trọn gói */}
+                        <div className="mt-5 ">
+                            <h5>Phí vận chuyển trọn gói</h5>
+                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                <option value="" selected> Trọng lượng</option>
+                                <option value="">&gt; 500kg</option>
+                                <option value="">200 &#8594;500kg</option>
+                                <option value="">100 &#8594;200kg</option>
+                                <option value="">30 &#8594;100kg</option>
+                                <option value="">10 &#8594;30kg</option>
+                                <option value="">0 &#8594;10kg</option>
+                            </select>
+                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                <option value="" selected>Khối lượng (tính/m3)</option>
+                                <option value="">&gt;20m3</option>
+                                <option value="">10m3 &#8594;20m3</option>
+                                <option value="">5m3 &#8594;10m3</option>
+                                <option value="">&lt;5m3</option>
+                            </select>
+                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                <option value="" selected> Khu vực</option>
+                                <option value="">Hà Nội</option>
+                                <option value="">TP.HCM</option>
+                            </select>
                         </div>
-                        <div className="d-flex justify-content-between">
-                            <div className="d-flex">
-                                <p>Phí đặt hàng</p>
-                                <span
-                                    style={{
-                                        fontSize: "16px",
-                                        paddingTop: "6px",
-                                        color: "#005e91",
-                                    }}
-                                    className="material-symbols-outlined mx-1"
-                                >
-                                    help
-                                </span>
-                                :
+                        <div className="mt-5">
+                            <h5>Phí vận chuyển chính ngạch</h5>
+                            <p>Tổng phí nhập khẩu = Phí dịch vụ + Phí vận chuyển + Thuế nhập khẩu (nếu có) + Thuế VAT</p>
+                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                <option value="" selected>Trọng lượng(kg)</option>
+                                <option value="">&gt; 500kg</option>
+                                <option value="">&gt;200 &#8594;500kg</option>
+                                <option value="">&gt;100 &#8594;200kg</option>
+                                <option value="">&gt;30 &#8594;100kg</option>
+                                <option value="">&lt; 30kg</option>
+                            </select>
+                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                <option value="" selected>Khối lượng (tính/m3)</option>
+                                <option value="">&gt;20m3</option>
+                                <option value="">&gt;10m3 &#8594;20m3</option>
+                                <option value="">&gt;5m3 &#8594;10m3</option>
+                                <option value="">&lt;5m3</option>
+                            </select>
+                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                <option value="" selected> Khu vực</option>
+                                <option value="">Hà Nội</option>
+                                <option value="">TP.HCM</option>
+                            </select>
+                            <div className="VAT text-danger" style={{ backgroundColor: '#fff1f0', marginTop: "20px" }}>
+                                <p><span style={{ fontWeight: 'bold' }}>Thuế nhập khẩu (Nếu có)</span> = % thuế x Giá trị hàng hóa <br />
+                                    <span style={{ fontWeight: 'bold' }}>Thuế VAT</span> = 10% x Giá trị hàng hóa</p>
                             </div>
-                            <p className="">
-                                {" "}
-                                <NumericFormat
-                                    disabled={true}
-                                    style={{
-                                        border: "none",
-                                        textAlign: "right",
-                                        backgroundColor: "#f9f9f9",
-                                        width: "100px",
-                                    }}
-                                    value={orderCost}
-                                    thousandSeparator=","
-                                />{" "}
-                                đ
-                            </p>
                         </div>
-                        <div className="d-flex justify-content-between">
-                            <p className="">Tổng tiền/chưa có phí ship TQ: </p>
-                            <p className="">
-                                {" "}
-                                <NumericFormat
-                                    disabled={true}
-                                    style={{
-                                        border: "none",
-                                        textAlign: "right",
-                                        backgroundColor: "#f9f9f9",
-                                        width: "100px",
-                                    }}
-                                    value={totalOrderCost}
-                                    thousandSeparator=","
-                                />{" "}
-                                đ
-                            </p>
+                        <div className="mt-5 mb-3">
+                            <h5>PHÍ KIỂM ĐẾM SẢN PHẨM</h5>
+                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                <option value="" selected>Số lượng</option>
+                                <option value="">501-10000 sản phẩm</option>
+                                <option value="">101-500 sản phẩm</option>
+                                <option value="">11-100 sản phẩm</option>
+                                <option value="">3-10 sản phẩm</option>
+                                <option value="">1-2 sản phẩm</option>
+                            </select>
                         </div>
+                        <h1>Bảng giá dịch vụ mua hàng</h1>
+                        {/* <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Ảnh Sản Phẩm</th>
+                                    <th>Thông tin hàng hóa</th>
+                                    <th>Thông Tin Số Hàng Hóa</th>
+                                    <th>Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {list.map((li, i) => (
+                                    <tr key={i}>
+                                        <td className="pt-5">  <span onClick={(i) => DeleteList(i)}>X</span> {i + 1} </td>
+                                        <td>
+                                            <img
+                                                style={{ width: "96px", height: "64px", marginTop: "24px" }}
+                                                src={li.img}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                className="w-100"
+                                                type="text"
+                                                placeholder="Mã vận đơn (*)"
+                                            />
+                                            <input
+                                                className="w-100"
+                                                type="text"
+                                                placeholder="Tên sản phẩm (*)"
+                                            />
+                                            <input
+                                                className="w-100"
+                                                type="text"
+                                                placeholder="Số kiện hàng (*)"
+                                            />
+                                            <input
+                                                className="w-100"
+                                                type="text"
+                                                placeholder="hãng vận chuyển (*)"
+                                            />
+                                        </td>
+                                        <td className="">
+                                            <input
+                                                className="w-100"
+                                                type="text"
+                                                value="Trung Quốc - Việt Nam"
+                                            />
+                                            <select style={{ width: '100%' }}>
+                                                <option value="">Chọn danh mục</option>
+                                                <option value="">Saab</option>
+                                                <option value="">Mercedes</option>
+                                                <option value="">Audi</option>
+                                            </select>
+                                            <input
+                                                className="w-100"
+                                                type="text"
+                                                value="Số lượng sản phẩm"
+                                            />
+                                            <input
+                                                className="w-100"
+                                                type="text"
+                                                value="Giá trị hàng hóa"
+                                            />
+                                        </td>
+                                        <td>
+                                            {" "}
+                                            <textarea
+                                                className="ghi_chu"
+                                                name=""
+                                                id=""
+                                                cols="30"
+                                                rows="10"
+                                                placeholder="Ghi chú sản phẩm..."
+                                            ></textarea>{" "}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table> */}
                     </div>
                 </div>
 
 
-                {/* Tổng hợp các loại phí */}
 
-                <div className="container">
-                    <h1>Bảng giá dịch vụ mua hàng</h1>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Giá trị đơn hàng</th>
-                                <th>% phí dịch vụ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>&gt; 100 triệu</th>
-                                <td>1%</td>
-                            </tr>
-                            <tr>
-                                <th>&gt; 20tr đến 100 triệu</th>
-                                <td>2%</td>
-                            </tr>
-                            <tr>
-                                <th>&gt; 2tr đến 20 triệu</th>
-                                <td>2.5%</td>
-                            </tr>
-                            <tr>
-                                <th>&lt;= 2 triệu</th>
-                                <td>3%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h1>Phí vận chuyển quốc tế</h1>
-
-                    {/* Phí vận chuyển trọn gói */}
-                    <div className="mt-5">
-                        <h5>Phí vận chuyển trọn gói</h5>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected> Trọng lượng</option>
-                            <option value="">&gt; 500kg</option>
-                            <option value="">200 &#8594;500kg</option>
-                            <option value="">100 &#8594;200kg</option>
-                            <option value="">30 &#8594;100kg</option>
-                            <option value="">10 &#8594;30kg</option>
-                            <option value="">0 &#8594;10kg</option>
-                        </select>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected>Khối lượng (tính/m3)</option>
-                            <option value="">&gt;20m3</option>
-                            <option value="">10m3 &#8594;20m3</option>
-                            <option value="">5m3 &#8594;10m3</option>
-                            <option value="">&lt;5m3</option>
-                        </select>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected> Khu vực</option>
-                            <option value="">Hà Nội</option>
-                            <option value="">TP.HCM</option>
-                        </select>
-                    </div>
-                    <div className="mt-5">
-                        <h5>Phí vận chuyển chính ngạch</h5>
-                        <p>Tổng phí nhập khẩu = Phí dịch vụ + Phí vận chuyển + Thuế nhập khẩu (nếu có) + Thuế VAT</p>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected>Trọng lượng(kg)</option>
-                            <option value="">&gt; 500kg</option>
-                            <option value="">&gt;200 &#8594;500kg</option>
-                            <option value="">&gt;100 &#8594;200kg</option>
-                            <option value="">&gt;30 &#8594;100kg</option>
-                            <option value="">&lt; 30kg</option>
-                        </select>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected>Khối lượng (tính/m3)</option>
-                            <option value="">&gt;20m3</option>
-                            <option value="">&gt;10m3 &#8594;20m3</option>
-                            <option value="">&gt;5m3 &#8594;10m3</option>
-                            <option value="">&lt;5m3</option>
-                        </select>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected> Khu vực</option>
-                            <option value="">Hà Nội</option>
-                            <option value="">TP.HCM</option>
-                        </select>
-                        <div className="VAT text-danger" style={{backgroundColor: '#fff1f0'}}>
-                            <p><span style={{fontWeight: 'bold'}}>Thuế nhập khẩu (Nếu có)</span> = % thuế x Giá trị hàng hóa <br />
-                            <span style={{fontWeight: 'bold'}}>Thuế VAT</span> = 10% x Giá trị hàng hóa</p>
-                        </div>
-                    </div>
-                    <div className="mt-5">
-                        <h5>PHÍ KIỂM ĐẾM SẢN PHẨM</h5>
-                        <select style={{ width: '200px', textAlign: 'center', padding: '4px' }}>
-                            <option value="" selected>Số lượng</option>
-                            <option value="">501-10000 sản phẩm</option>
-                            <option value="">101-500 sản phẩm</option>
-                            <option value="">11-100 sản phẩm</option>
-                            <option value="">3-10 sản phẩm</option>
-                            <option value="">1-2 sản phẩm</option>
-                        </select>
-                    </div>
-                </div>
             </div>
-
-
-            <Modal show={show} onHide={handleClose} animation={false} size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title className="title-modal">Thêm Sản Phẩm</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Row>
-                        <Col>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Tên Sản Phẩm</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="Nhập Tên Sản Phẩm"
-                                />
-                            </Row>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>
-                                    Link Sản Phẩm
-                                </Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="Nhập Link Sản Phẩm"
-                                />
-                            </Row>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Ảnh Sản Phẩm</Form.Label>
-                                <Form.Control
-                                    type="file"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                />
-                            </Row>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Ghi Chú</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="Nhập Ghi Chú"
-                                />
-                            </Row>
-                        </Col>
-                        <Col>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Màu Sắc</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="Nhập Màu"
-                                />
-                            </Row>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Kích Thước</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="Nhập Kích Thước"
-                                />
-                            </Row>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Số Lượng</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="0"
-                                />
-                            </Row>
-                            <Row>
-                                <Form.Label style={{ margin: "1% 0" }}>Giá</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    style={{ width: "93.5%", marginLeft: "3%" }}
-                                    placeholder="Nhập Giá"
-                                />
-                            </Row>
-                        </Col>
-                    </Row>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="success">XÁC NHẬN</Button>
-                    <Button variant="danger" onClick={handleClose}>
-                        HỦY
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </>
     );
 }

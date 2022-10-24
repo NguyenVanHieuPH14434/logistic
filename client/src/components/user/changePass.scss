@@ -1,0 +1,88 @@
+.change_pass {
+  margin-top: 90px;
+  width: 100%;
+  background: #f2f4fa;
+
+  input {
+    padding-left: 10px;
+  }
+  .nav_container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 30px 0 15px 0;
+    background-image: url("../../../src/assets/public/img/search-dash-bg.png");
+    .nav_left {
+      text-align: end;
+    }
+    .nav_search {
+      input {
+        padding: 12px 100px;
+        border-radius: 10px;
+      }
+      i {
+        color: #fff;
+        padding: 17px 30px;
+        background: #ff5a21;
+        margin-left: -76.3px;
+        border-radius: 10px;
+      }
+    }
+    .nav_exchange {
+      display: flex;
+      padding-top: 2px;
+      span {
+        padding-left: 10px;
+      }
+    }
+  }
+
+  .change_password_content {
+    h1 {
+        margin: 30px 0;
+      text-align: center;
+    }
+
+    form {
+      margin: 0 auto;
+      width: 50%;
+      border: 1px solid #666;
+
+      .form_content {
+        padding: 20px 0;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        .label_column {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          text-align: start;
+          font-size: 18px;
+          span {
+            color: red;
+          }
+        }
+        .input_column {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+
+      button {
+        border: none;
+        padding: 8px 14px;
+        background: #35b3ee;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 20px;
+      }
+      button:hover {
+        color: #fff;
+      }
+    }
+  }
+}
