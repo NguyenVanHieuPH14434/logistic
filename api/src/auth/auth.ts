@@ -29,7 +29,6 @@ export namespace AuthSchema {
     }
 
     export interface UpdateAuthParams {
-        phone?: string;
         fullName?: string;
         delete?: number;
         utime?: string;

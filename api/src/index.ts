@@ -51,7 +51,7 @@ export async function main() {
     app.use('/api/auth', NewAuthAPI(authController));
 
 
-    app.use((req, res, next)=>{
+    app.use((req:any, res:any, next:any)=>{
         const err:any = new Error('Not Found');
         err.status = 404;
         next(err);
