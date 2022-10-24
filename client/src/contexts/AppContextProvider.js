@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useReducer } from 'react'
 import { authReducer } from '../reducers/reducer';
-import {login} from '../api/auth'
+import {login, findUser} from '../api/auth'
 
 export const AppContext = createContext();
 const AppContextProvider = ({children}) => {
@@ -11,9 +11,11 @@ const AppContextProvider = ({children}) => {
     })
 
     // set auth
-    const loadUser = async(response) =>{
-        if(response.data.status){
-            dispatch({type:'SET_AUTH', payload:{isAuthenticated:true, user:response.data.data}});
+    const loadUser = async(id) =>{
+        const response = await findUser(id);
+        
+        if(response.data.success){
+            dispatch({type:'SET_AUTH', payload:{isAuthenticated:true, user:response.data.user}});
         }
     }
 
@@ -21,10 +23,11 @@ const AppContextProvider = ({children}) => {
 
     const login1 = async (data) => {
         const res = await login(data);
+        
         try {
         if(res.data.status){
-            await loadUser(res);
         }
+        await loadUser(res.data.data._id);
         return res.data;
         } catch (error) {
             if (error.res.data) return error.res.data
@@ -33,7 +36,7 @@ const AppContextProvider = ({children}) => {
     }
 
   return (
-   <AppContext.Provider value={{state, dispatch, loadUser}} >
+   <AppContext.Provider value={{state, dispatch, loadUser, login1}} >
     {children}
    </AppContext.Provider>
   )

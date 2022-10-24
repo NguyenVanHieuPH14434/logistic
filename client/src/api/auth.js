@@ -2,7 +2,14 @@ import instance from "./instance"
 
 const login = async(data) => {
     const url = 'auth/login';
-    return data = await instance.post(url, data);
+    const da = await instance.post(url, data);
+    return da;
+}
+
+const findUser = async(data) => {
+    const url = `auth/edit/${data}`;
+    const doc = await instance.get(url);
+    return doc
 }
 
 const register = async(data) => {
@@ -12,5 +19,6 @@ const register = async(data) => {
 
 export {
     login,
-    register
+    register,
+    findUser
 }

@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom';
 import { AppContext } from "../../../contexts/AppContextProvider";
 
 export default function Login() {
-  const {loadUser}=useContext(AppContext);
+  const {loadUser, login1}=useContext(AppContext);
   const navigate = useNavigate();
   const [data, setData] = useState({
     username: "",
@@ -28,12 +28,12 @@ export default function Login() {
     return alert('Vui lòng nhập đầy đủ thông tin!')
     }
       try {
-        const res = await login(data);
-        if(res.data.status){
+        const res = await login1(data);
+        
+        if(res.status){
           navigate('/app/deposit');
-          await loadUser(res);
         }else {
-           alert(res.data.message);
+           alert(res.message);
         }
       } catch (error) {
         console.log(error);
