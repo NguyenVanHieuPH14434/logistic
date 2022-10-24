@@ -1,9 +1,55 @@
-import React from "react";
+import {react,useState} from "react";
 import "./register.scss";
 import logo_login from "../../../assets/public/img/logo_login.png";
 import background_login from "../../../assets/public/img/image-background-login.png";
+import { Register } from "../../../api/auth";
 
-export default function Register() {
+export default function RegisterUser() {
+  const [register,setRegister]=useState({
+    fullName:"",
+    username:"",
+    phone:"",
+    password:"",
+    checkPassword:""
+  })
+  console.log(register)
+  const handleInput=(e)=>{
+    let name = e.target.name;
+    let value = e.target.value;
+    setRegister({...register,[name]:value})
+  }
+  const checkValidate = (n) => {
+    //create
+        if (
+            n.fullName !== '' &&
+            n.username !== '' &&
+            n.phone &&
+            n.password !== '' &&
+            n.checkPassword !== ''
+        ) {
+            if(n.password===n.checkPassword){
+              Register(register)
+              .then(()=>{
+                setRegister({
+                  fullName:'',
+                  username:"",
+                  phone:"",
+                  password:"",
+                  checkPassword:""
+                })
+              })
+            }
+            else{
+              return alert('check password !!!')
+            }
+        }
+        else {
+            return alert("please input!!");
+        }
+  };
+  const handleRegister=()=>{
+    checkValidate(register)
+  }
   return (
     <>
       <div className="bg_login">
@@ -24,28 +70,24 @@ export default function Register() {
           <div className="form_login">
             <div className="login_form_input">
               <span>
-                <input type="text" placeholder="Họ và tên" />
-                <i class="fa-solid fa-circle-user"></i>
+                <input type="text" onChange={handleInput} name="fullName"  value={register.fullName} placeholder="Họ và tên" />
+                <i className="fa-solid fa-circle-user"></i>
               </span>
               <span>
-                <input type="text" placeholder="Tên đăng nhập" />
-                <i class="fa-solid fa-circle-user"></i>
+                <input type="text" onChange={handleInput} name="username" value={register.username} placeholder="Tên đăng nhập" />
+                <i className="fa-solid fa-circle-user"></i>
               </span>
               <span>
-                <input type="text" placeholder="Số điện thoại" />
-                <i class="fa-solid fa-mobile-screen-button"></i>
+                <input type="text"onChange={handleInput} name="phone" value={register.phone} placeholder="Số điện thoại" />
+                <i className="fa-solid fa-mobile-screen-button"></i>
               </span>
               <span>
-                <input type="text" placeholder="Email" />
-                <i class="fa-solid fa-envelope"></i>
+                <input type="text"onChange={handleInput} name="password" value={register.password} placeholder="Mật khẩu..." />
+                <i className="fa-sharp fa-solid fa-lock"></i>
               </span>
               <span>
-                <input type="text" placeholder="Mật khẩu..." />
-                <i class="fa-sharp fa-solid fa-lock"></i>
-              </span>
-              <span>
-                <input type="text" placeholder="Nhập lại mật khẩu..." />
-                <i class="fa-sharp fa-solid fa-lock"></i>
+                <input type="text"onChange={handleInput} name="checkPassword" value={register.checkPassword} placeholder="Nhập lại mật khẩu..." />
+                <i className="fa-sharp fa-solid fa-lock"></i>
               </span>
               <div className="duy_tri">
                 <input type="checkbox" />
@@ -53,17 +95,17 @@ export default function Register() {
               </div>
             </div>
             <div className="login_form_btn">
-              <button>Đăng nhập</button>
+              <button onClick={()=>handleRegister()}>Đăng Ký</button>
             </div>
             <div className="facebook_login">
               <a href="/">
-                <i class="fa-brands fa-facebook"></i>
+                <i className="fa-brands fa-facebook"></i>
                 <p>Đăng nhập bằng Facebook</p>
               </a>
             </div>
             <div className="google_login">
               <a href="/">
-                <i class="fa-brands fa-square-google-plus"></i>
+                <i className="fa-brands fa-square-google-plus"></i>
                 <p>Đăng nhập bằng Facebook</p>
               </a>
             </div>
