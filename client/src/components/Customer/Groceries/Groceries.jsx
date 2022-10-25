@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -7,11 +7,14 @@ import image from "../../../assets/public/img/default-thumbnail.jpg";
 import "./Groceries.scss";
 import { NumericFormat } from "react-number-format";
 import { createOrder, uploadFiles } from "../../../api/orderApi";
+import { AppContext } from "../../../contexts/AppContextProvider";
 
 function Groceries() {
+  const {state:{user}} = useContext(AppContext);
   const [list, setList] = useState([
     {
       product_image: "",
+      fileImage: "",
       product_link: "",
       product_name: "",
       attribute: "",
@@ -55,6 +58,7 @@ function Groceries() {
     let newList = [...list];
     newList = {
       product_image: "",
+      fileImage: "",
       product_link: "",
       product_name: "",
       attribute: "",
@@ -103,8 +107,9 @@ function Groceries() {
   const changeInpOrder = (e) => {
     const valOrder = { ...order };
     valOrder[e.target.name] = e.target.value;
-    valOrder["user_id"] = "1";
+    valOrder["user_id"] = user._id;
     valOrder["type"] = "order";
+    valOrder["total"] = totalOrderCost;
     setOrder(valOrder);
   };
 
@@ -123,17 +128,8 @@ function Groceries() {
     // change originalName file
     const val = [...list];
     val[i][e.target.name] = e.target.files[0].name;
+    val[i]['fileImage'] = URL.createObjectURL(e.target.files[0]);
     setList(val);
-
-    // preview image
-    // let reader = new FileReader();
-    // reader.onload = function(e) {
-
-    //   setPreviewImage(e.target?.result)
-    // };
-
-    // reader.readAsDataURL(e.target.files[0]);
-    setPreviewImage(URL.createObjectURL(e.target.files[0]));
   };
   console.log("pre", previewImage);
 
@@ -150,8 +146,26 @@ function Groceries() {
       order: order,
       orderItem: list,
     };
-    await createOrder(data1);
+    await createOrder(data1)
     await uploadFiles(dataImage);
+    setList([{
+      product_image: "",
+      fileImage: "",
+      product_link: "",
+      product_name: "",
+      attribute: "",
+      product_price: 0,
+      quantity: 0,
+      note: "",
+      total_price: 0,
+    }])
+    setOrder({
+      address_TQ:'',
+      full_name:"",
+      phone:"",
+      address:""
+    })
+    alert('Tạo đơn thành công!');
   };
   console.log("order", order);
   console.log("item", list);
@@ -200,24 +214,23 @@ function Groceries() {
                       height: "64px",
                       marginTop: "24px",
                     }}
-                    src={previewImage !== null ? previewImage : image}
+                    src={li.fileImage !== '' ? li.fileImage : image}
                   />
                   <label
                     className="mt-1"
-                    htmlFor="upload-photo"
                     id="label-upload"
                   >
-                    Upload...
-                  </label>
+                 
                   <input
                     type="file"
-                    multiple
+                    multiple style={{display:"none"}}
                     name="product_image"
-                    id="upload-photo"
                     onChange={(e) => {
                       changFile(i, e);
                     }}
                   />
+                     Upload...
+                  </label>
                 </td>
                 <td>
                   <input
@@ -232,6 +245,7 @@ function Groceries() {
                     className="mt-2 attribute w-100"
                     type="text"
                     name="attribute"
+                    value={li.attribute?li.attribute:''}
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Màu sắc, size, kích thước"
                   ></textarea>
@@ -239,6 +253,7 @@ function Groceries() {
                     className="w-100"
                     type="text"
                     name="product_link"
+                    value={li.product_link ? li.product_link : ""}
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Link sản phẩm"
                   />
@@ -259,6 +274,7 @@ function Groceries() {
                     }}
                     type="text"
                     name="product_price"
+                    value={li.product_price ? li.product_price : ""}
                     // value={li.price}
                     onChange={(e) => changeInp(i, e)}
                     thousandSeparator=","
@@ -297,6 +313,8 @@ function Groceries() {
                     id=""
                     cols="30"
                     rows="10"
+                    value={li.note?li.note:''}
+                    onChange={(e) => changeInp(i, e)}
                     placeholder="Ghi chú sản phẩm..."
                   ></textarea>{" "}
                 </td>
@@ -335,12 +353,12 @@ function Groceries() {
               <label htmlFor="" className="">
                 <h5>Địa chỉ kho Trung Quốc</h5>
               </label>
-              <select name="" id="" className="p-1">
+              <select name="address_TQ" id="" className="p-1"  value={order?.address_TQ} onChange={(e)=> changeInpOrder(e)}>
                 <option value="" className="text-center">
                   --Lựa chọn kho--
                 </option>
-                <option value="quangChau">Quảng Châu</option>
-                <option value="dongHung">Đông Hưng</option>
+                <option value="Quảng Châu">Quảng Châu</option>
+                <option value="Đông Hưng">Đông Hưng</option>
               </select>
             </div>
             <div className="form">
@@ -352,6 +370,7 @@ function Groceries() {
                     className="customer-field"
                     type="text"
                     name="full_name"
+                    value={order?.full_name}
                     onChange={(e) => changeInpOrder(e)}
                     placeholder="Nhập Họ Tên"
                   />
@@ -364,6 +383,7 @@ function Groceries() {
                     className="customer-field"
                     type="text"
                     name="phone"
+                    value={order?.phone}
                     onChange={(e) => changeInpOrder(e)}
                     placeholder="Nhập Số Điện Thoại"
                   />
@@ -387,6 +407,7 @@ function Groceries() {
                   <Form.Select
                     className="customer-field"
                     name="address"
+                    value={order?.address}
                     onChange={(e) => changeInpOrder(e)}
                   >
                     <option>Vui Lòng Chọn Địa Chỉ</option>

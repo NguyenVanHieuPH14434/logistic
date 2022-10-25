@@ -13,6 +13,25 @@ export class OrderModel {
         return docs;
     }
 
+    async ListOrderByUser (userId:string) {
+        const docs = await this.col_order.find({user_id: userId}).toArray();
+        return docs;
+    }
+
+    async ListItemByOrder (_id:any) {
+        const docs = await this.col_order.aggregate([{$match:{
+            _id:{$in:_id}
+        }},{
+            $lookup:{
+                from: 'order_item',
+                localField: '_id',
+                foreignField: 'order_id',
+                as: 'orderItem'
+            }
+        }]).toArray();
+        return docs;
+    }
+
     async GetOrder (_id:string) {
         const doc = await this.col_order.findOne({_id:_id});
         return doc;

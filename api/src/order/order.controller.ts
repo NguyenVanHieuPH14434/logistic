@@ -11,6 +11,14 @@ export class OrderController {
         return this.model.ListOrder();
     }
 
+    async ListOrderByUser (userId:string){
+        return this.model.ListOrderByUser(userId);
+    }
+
+    async ListItemByOrder (_id:any){
+        return this.model.ListItemByOrder(_id);
+    }
+
     async GetOrder (_id:string){
         return this.model.GetOrder(_id);
     }
@@ -25,8 +33,11 @@ export class OrderController {
             phone: params.phone,
             address: params.address,
             type: params.type,
+            address_TQ: params.address_TQ,
+            status: params.status,
+            total: params.total,
             ctime: nowFormat,
-            utime: nowFormat
+            utime: nowFormat,
         };
         await this.model.CreateOrder(order);
         return order._id;
