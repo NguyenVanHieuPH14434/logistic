@@ -9,6 +9,7 @@ import { NumericFormat } from "react-number-format";
 import { createOrder, uploadFiles } from "../../../api/orderApi";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { Link } from "react-router-dom";
+import OrderGroceries from "./orderGroceries/orderGroceries";
 
 function Groceries() {
   const {state:{user}} = useContext(AppContext);
@@ -89,6 +90,7 @@ function Groceries() {
     }
     totalOrderCost = total + orderCost;
   }
+  const [lists,setLists]=useState()
 
   // thay đổi giá trị form sản phẩm
   const changeInp = (i, e) => {
@@ -99,6 +101,8 @@ function Groceries() {
         val[i]["product_price"].replace(/,/g, "") * val[i]["quantity"];
     }
     setList(val);
+    setLists(list)
+   
   };
 
   // thông tin khách hàng
@@ -133,7 +137,6 @@ function Groceries() {
     setList(val);
   };
   console.log("pre", previewImage);
-
   // tạo đơn
   const handleSave = async () => {
     const dataImage = new FormData();
@@ -147,25 +150,26 @@ function Groceries() {
       order: order,
       orderItem: list,
     };
+
     await createOrder(data1)
     await uploadFiles(dataImage);
-    setList([{
-      product_image: "",
-      fileImage: "",
-      product_link: "",
-      product_name: "",
-      attribute: "",
-      product_price: 0,
-      quantity: 0,
-      note: "",
-      total_price: 0,
-    }])
-    setOrder({
-      address_TQ:'',
-      full_name:"",
-      phone:"",
-      address:""
-    })
+    // setList([{
+    //   product_image: "",
+    //   fileImage: "",
+    //   product_link: "",
+    //   product_name: "",
+    //   attribute: "",
+    //   product_price: 0,
+    //   quantity: 0,
+    //   note: "",
+    //   total_price: 0,
+    // }])
+    // setOrder({
+    //   address_TQ:'',
+    //   full_name:"",
+    //   phone:"",
+    //   address:""
+    // })
     alert('Tạo đơn thành công!');
   };
   console.log("order", order);
@@ -506,6 +510,7 @@ function Groceries() {
           </div>
         </div>
       </div>
+      <OrderGroceries list2 = {lists} />
     </>
   );
 }

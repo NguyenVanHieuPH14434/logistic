@@ -1,5 +1,6 @@
 .order_groceries{
     margin: 40px;
+    margin-top: 140px;
     h1{
         text-align: center;
         margin-bottom: 40px;
@@ -18,6 +19,85 @@
         }
         .order_information{
             max-width: 500px;
+        }
+    }
+
+    // table Sản Phẩm Hiện Ra
+    .product_information{
+        table {
+            background: #fff;
+        }
+        th,
+        td {
+            text-align: center;
+            .ghi_chu {
+                height: 40px;
+                min-width: 100px;
+                min-height: 100px;
+                max-width: 200px;
+                max-height: 200px;
+            }
+        }
+        td {
+            // padding-top: 50%;
+        }
+        .soLuong {
+            padding-top: 24px;
+            margin-left: 36px;
+        }
+        .attribute {
+            width: 100vh;
+            height: 40px;
+            min-width: 345px;
+            min-height: 40px;
+            max-width: 100%;
+            max-height: 80px;
+        }
+        th {
+            color: #f5f5f5;
+            background-color: #8610e8;
+        }
+        .image {
+            width: 6em;
+            height: 4em;
+        }
+        .form {
+            display: flex;
+            width: 664px !important;
+            flex-direction: column;
+            justify-content: flex-start;
+            background: #fff;
+            margin-top: 2%;
+            width: 40%;
+            border: 0.0625em solid #ccc;
+            input,
+            select {
+                background-color: #f5f5f5;
+            }
+            .title-label {
+                text-align: center;
+                font-size: 1.5em;
+                padding: 0.1em 0;
+                margin-bottom: 0;
+                color: white;
+                background-color: #8610e8;
+            }
+            .customer-form {
+                margin-bottom: 2.5%;
+                .customer-title {
+                    margin: 1% 0;
+                }
+                .customer-field {
+                    width: 95%;
+                    margin-left: 1.5%;
+                }
+            }
+        }
+        .end-btn {
+            margin-top: 2%;
+            color: white;
+            font-weight: bold;
+            background-color: #eda82d !important;
         }
     }
 }
