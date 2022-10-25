@@ -5,8 +5,13 @@ import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import { Routes, Route, Navigate, Link } from 'react-router-dom';
 
 import { NumericFormat } from "react-number-format";
+import RouterAuth from "../../../RouterAuth";
+import RouterDasboard from "../../../RouterDasboard";
+import Order from "./orderDeposit/orderDeposit";
+import Dasboard from "../../Dasboard";
 
 function Deposit() {
     const [list, setList] = useState([
@@ -21,12 +26,8 @@ function Deposit() {
         }
 
     ]);
-    const [show, setShow] = useState(false);
 
     // Danh sách các sản phẩm
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
     // Nút thêm sản phẩm
     const handleOnIncrease = (i, e) => {
         const increase = [...list];
@@ -84,7 +85,7 @@ function Deposit() {
         }
         totalOrderCost = total + orderCost;
     }
-    
+
 
     // Thông tin khách hàng
     const [order, setOrder] = useState()
@@ -103,6 +104,11 @@ function Deposit() {
         newList.splice(i, 1)
         setList(newList)
     }
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = (e) => setShow(false);
+    const handleShow = (e) => setShow(true);  
 
     return (
         <>
@@ -330,9 +336,27 @@ function Deposit() {
                                 </p>
                             </div>
                         </div>
-                        <Button variant="warning" className="end-btn mt-3">
-                            Tạo Đơn Hàng
+                        <Button variant="warning" className="end-btn mt-3" as={Link} to="/app/orderDeposit">
+                            Tạo Đơn Ký gửi
                         </Button>
+                        {/* <Button variant="primary" onClick={handleShow}>
+                            Tạo Đơn 
+                        </Button>
+
+                        <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Modal heading</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    Close
+                                </Button>
+                                <Button variant="primary" onClick={handleClose}>
+                                    Save Changes
+                                </Button>
+                            </Modal.Footer>
+                        </Modal> */}
                     </div>
 
                     {/* Tổng hợp các loại phí */}
@@ -405,7 +429,7 @@ function Deposit() {
                             </select>
                         </div>
                         <h1>Bảng giá dịch vụ mua hàng</h1>
-                        {/* <table class="table">
+                        {/* <table className="table">
                             <thead>
                                 <tr>
                                     <th>STT</th>
@@ -487,9 +511,6 @@ function Deposit() {
                         </table> */}
                     </div>
                 </div>
-
-
-
             </div>
         </>
     );

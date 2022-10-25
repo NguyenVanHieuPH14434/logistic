@@ -12,6 +12,9 @@ import ListGroceries from './components/Customer/Groceries/listGroceries';
 import ListDeposit from './components/Customer/Deposit/listDeposit';
 import User from './components/user/user';
 import ChangePass from './components/user/changePass';
+import Order from './components/Customer/Deposit/orderDeposit/orderDeposit';
+import OrderGroceries from './components/Customer/Groceries/orderGroceries/orderGroceries';
+import OrderDeposit from './components/Customer/Deposit/orderDeposit/orderDeposit';
 
 function App() {
   return (
@@ -29,6 +32,8 @@ function App() {
           <Route path="listDeposit" element={<ListDeposit className="right" />}></Route>
           <Route path="user" element={<User className="right" />}></Route>
           <Route path="changePass" element={<ChangePass className="right" />}></Route>
+          <Route path="orderGroceries" element={<OrderGroceries className="right" />}></Route>
+          <Route path="orderDeposit" element={<OrderDeposit className="right" />}></Route>
           <Route index element={<Dasboard className="right" />}></Route>
         </Route>
       </Routes>

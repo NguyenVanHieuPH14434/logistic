@@ -8,6 +8,7 @@ import "./Groceries.scss";
 import { NumericFormat } from "react-number-format";
 import { createOrder, uploadFiles } from "../../../api/orderApi";
 import { AppContext } from "../../../contexts/AppContextProvider";
+import { Link } from "react-router-dom";
 
 function Groceries() {
   const {state:{user}} = useContext(AppContext);
@@ -422,6 +423,7 @@ function Groceries() {
               type="submit"
               onClick={handleSave}
               className="end-btn"
+              as={Link} to="/app/orderGroceries"
             >
               Tạo Đơn Hàng
             </Button>

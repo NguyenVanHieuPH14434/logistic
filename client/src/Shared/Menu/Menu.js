@@ -12,7 +12,7 @@ import "./Menu.scss";
 function Menu() {
     return (
         <>
-            <div style={{ backgroundColor: '#9470d4' }} class="menu_left">
+            <div style={{ backgroundColor: '#9470d4' }} className="menu_left">
                 <Nav className="flex-column">
                     <DropdownButton
                         key={'end'}
@@ -39,6 +39,7 @@ function Menu() {
                     >
                         <Dropdown.Item eventKey="1" as={Link} to="/app/listGroceries">Tất Cả Đơn Hàng</Dropdown.Item>
                         <Dropdown.Item eventKey="2" as={Link} to="/app/listDeposit">Tất Cả Đơn Ký Gửi</Dropdown.Item>
+                        <Dropdown.Item eventKey="3" as={Link} to="/app/order">Order</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
                         key={'end'}
