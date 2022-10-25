@@ -7,6 +7,7 @@ import image from "../../../assets/public/img/default-thumbnail.jpg";
 import "./Groceries.scss";
 import { NumericFormat } from "react-number-format";
 import { createOrder, uploadFiles } from "../../../api/orderApi";
+import { Link } from "react-router-dom";
 
 function Groceries() {
   const [list, setList] = useState([
@@ -401,6 +402,7 @@ function Groceries() {
               type="submit"
               onClick={handleSave}
               className="end-btn"
+              as={Link} to="/app/orderGroceries"
             >
               Tạo Đơn Hàng
             </Button>

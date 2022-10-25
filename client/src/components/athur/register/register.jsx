@@ -25,27 +25,27 @@ export default function Register() {
             <div className="login_form_input">
               <span>
                 <input type="text" placeholder="Họ và tên" />
-                <i class="fa-solid fa-circle-user"></i>
+                <i className="fa-solid fa-circle-user"></i>
               </span>
               <span>
                 <input type="text" placeholder="Tên đăng nhập" />
-                <i class="fa-solid fa-circle-user"></i>
+                <i className="fa-solid fa-circle-user"></i>
               </span>
               <span>
                 <input type="text" placeholder="Số điện thoại" />
-                <i class="fa-solid fa-mobile-screen-button"></i>
+                <i className="fa-solid fa-mobile-screen-button"></i>
               </span>
               <span>
                 <input type="text" placeholder="Email" />
-                <i class="fa-solid fa-envelope"></i>
+                <i className="fa-solid fa-envelope"></i>
               </span>
               <span>
                 <input type="text" placeholder="Mật khẩu..." />
-                <i class="fa-sharp fa-solid fa-lock"></i>
+                <i className="fa-sharp fa-solid fa-lock"></i>
               </span>
               <span>
                 <input type="text" placeholder="Nhập lại mật khẩu..." />
-                <i class="fa-sharp fa-solid fa-lock"></i>
+                <i className="fa-sharp fa-solid fa-lock"></i>
               </span>
               <div className="duy_tri">
                 <input type="checkbox" />
@@ -57,13 +57,13 @@ export default function Register() {
             </div>
             <div className="facebook_login">
               <a href="/">
-                <i class="fa-brands fa-facebook"></i>
+                <i className="fa-brands fa-facebook"></i>
                 <p>Đăng nhập bằng Facebook</p>
               </a>
             </div>
             <div className="google_login">
               <a href="/">
-                <i class="fa-brands fa-square-google-plus"></i>
+                <i className="fa-brands fa-square-google-plus"></i>
                 <p>Đăng nhập bằng Facebook</p>
               </a>
             </div>

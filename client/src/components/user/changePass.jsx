@@ -36,7 +36,7 @@ export default function ChangePass() {
             type="text"
             placeholder="Hello world, Chiều nay bạn muốn tìm gì?"
           />
-          <i class="fa-solid fa-magnifying-glass"></i>
+          <i className="fa-solid fa-magnifying-glass"></i>
         </div>
         <div className="nav_exchange">
           <img src={nav_exchange_rate_logo} alt="" />

@@ -65,7 +65,7 @@ console.log('..', calendarText);
             type="text"
             placeholder="Hello world, Chiều nay bạn muốn tìm gì?"
           />
-          <i class="fa-solid fa-magnifying-glass"></i>
+          <i className="fa-solid fa-magnifying-glass"></i>
         </div>
         <div className="nav_exchange">
           <img src={nav_exchange_rate_logo} alt="" />
@@ -134,7 +134,7 @@ console.log('..', calendarText);
           <i
             style={{ color: { color } }}
             onClick={() => handleOnClickCalendarIcon()}
-            class="fa-solid fa-calendar-days"
+            className="fa-solid fa-calendar-days"
           ></i>
           {show && (
             <Calendar
@@ -154,7 +154,7 @@ console.log('..', calendarText);
           <i
             style={{ color: { color } }}
             onClick={() => handleOnClickCalendarIcon()}
-            class="fa-solid fa-calendar-days"
+            className="fa-solid fa-calendar-days"
           ></i>
           {show && (
             <Calendar
@@ -165,7 +165,7 @@ console.log('..', calendarText);
           )}
         </div>
         <div className="search_icon">
-          <i class="fa-solid fa-magnifying-glass"></i>
+          <i className="fa-solid fa-magnifying-glass"></i>
           <p>Tìm kiếm</p>
         </div>
       </div>
