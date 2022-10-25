@@ -1,6 +1,6 @@
 import instance from "./instance"
 
-const Login = async(data) => {
+const login = async(data) => {
     const url = 'auth/login';
     return data = await instance.post(url, data);
 }
@@ -11,6 +11,6 @@ const Register = async(data) => {
 }
 
 export {
-    Login,
+    login,
     Register
 }

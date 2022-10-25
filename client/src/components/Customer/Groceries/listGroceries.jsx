@@ -35,7 +35,7 @@ export default function ListGroceries() {
     calendar_from: "",
     calendar_to: "",
   });
-
+  console.log(inputCalendar)
   // Function to update selected date and calander text
   const handleDateChange = (value) => {
     setSelectedDate(value);
@@ -53,14 +53,14 @@ export default function ListGroceries() {
   // Function to handle selected Month change
   const handleMonthChange = (value) => {
     const monthValue = allMonthValues[value.getMonth()];
-    setCalendarText(`${monthValue} Month  is selected`);
+    // setCalendarText(`${monthValue} Month  is selected`);
     setInputCalendar(`${monthValue} Month  is selected`)
   };
 
-  const handleOnClickCalendarIcon = () => {
-    setShow(!show);
-    setColor("#fff");
-  };
+  // const handleOnClickCalendarIcon = () => {
+  //   setShow(!show);
+  //   setColor("#fff");
+  // };
 
   const handleOnChangeInputCalendar = (e) => {
     const {name, value} = e.target;
@@ -117,16 +117,18 @@ export default function ListGroceries() {
       <div className="container calender">
         <div className="calendar_from">
           <input
+          value={inputCalendar.calendar_from}
             name="calendar_from"
-            type="text"
+            type="date"
             onChange={(e) => handleOnChangeInputCalendar(e)}
             placeholder="Từ ngày"
           />
-          <i
+          {/* <i
             style={{ color: { color } }}
             onClick={() => handleOnClickCalendarIcon()}
             class="fa-solid fa-calendar-days"
-          ></i>
+          ></i> */}
+          {/* <h2>{calendarText}</h2> */}
           {show && (
             <Calendar
               onClickMonth={handleMonthChange}
@@ -138,16 +140,17 @@ export default function ListGroceries() {
         </div>
         <div className="calendar_to">
           <input
+            value={inputCalendar.calendar_to}
             name="calendar_to"
-            type="text"
+            type="date"
             onChange={(e) => handleOnChangeInputCalendar(e)}
             placeholder="Đến ngày"
           />
-          <i
+          {/* <i
             style={{ color: { color } }}
             onClick={() => handleOnClickCalendarIcon()}
             class="fa-solid fa-calendar-days"
-          ></i>
+          ></i> */}
           {show && (
             <Calendar
               onClickMonth={handleMonthChange}
