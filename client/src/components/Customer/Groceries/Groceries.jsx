@@ -99,7 +99,7 @@ function Groceries() {
     val[i][e.target.name] = e.target.value;
     if (val[i]["quantity"]) {
       val[i]["total_price"] =
-        val[i]["product_price"].replace(/,/g, "") * val[i]["quantity"];
+        val[i]["product_price"].replace(/,/g, "") * 3650 * val[i]["quantity"];
     }
     setList(val);
     setLists(list)
