@@ -233,7 +233,7 @@ export default function ListGroceries() {
             </tr>
           </thead>
           <tbody>
-            {/* {listt.map((li, i) => {
+            {listt.map((li, i) => {
               return (
                 <tr>
                   <th scope="row"> {li._id} </th>
@@ -242,10 +242,9 @@ export default function ListGroceries() {
                   <td> {li.phone} </td>
                   <td> {li.address} </td>
                   <td> {li.status} </td>
-                  <td> {li.status} </td>
                 </tr>
               );
-            })} */}
+            })}
           </tbody>
         </table>
       </div>

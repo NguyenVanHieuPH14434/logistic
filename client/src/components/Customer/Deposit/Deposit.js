@@ -143,7 +143,7 @@ function Deposit() {
                                 </td>
                                 <td>
                                     <input
-                                        className="w-100 form-control"
+                                        className="w-100 form-control my-1 "
                                         type="text"
                                         placeholder="Mã vận đơn (*)"
                                         name="maVanDon"
