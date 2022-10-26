@@ -8,11 +8,18 @@ import "./Groceries.scss";
 import { NumericFormat } from "react-number-format";
 import { createOrder, uploadFiles } from "../../../api/orderApi";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import { Link } from "react-router-dom";
-import OrderGroceries from "./orderGroceries/orderGroceries";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; //
+import { Confirm, toastifyError, toastifySuccess } from "../../../lib/toastify";
 
 function Groceries() {
-  const {state:{user}} = useContext(AppContext);
+  const navigate = useNavigate();
+  const {
+    state: { user },
+  } = useContext(AppContext);
   const [list, setList] = useState([
     {
       product_image: "",
@@ -26,11 +33,6 @@ function Groceries() {
       total_price: 0,
     },
   ]);
-  const [show, setShow] = useState(false);
-
-  // Danh sách các sản phẩm
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   // Nút thêm sản phẩm
   const handleOnIncrease = (i, e) => {
@@ -90,19 +92,31 @@ function Groceries() {
     }
     totalOrderCost = total + orderCost;
   }
-  const [lists,setLists]=useState()
+  const [lists, setLists] = useState();
 
   // thay đổi giá trị form sản phẩm
   const changeInp = (i, e) => {
     const val = [...list];
     val[i][e.target.name] = e.target.value;
+    if (val[i]["product_price"] < 0) {
+      toast.warn("Vui lòng nhập lại đơn giá!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      val[i]["product_price"] = "";
+    }
     if (val[i]["quantity"]) {
       val[i]["total_price"] =
         val[i]["product_price"].replace(/,/g, "") * val[i]["quantity"];
     }
     setList(val);
-    setLists(list)
-   
+    setLists(list);
   };
 
   // thông tin khách hàng
@@ -118,9 +132,6 @@ function Groceries() {
     setOrder(valOrder);
   };
 
-  // preview image
-  const [previewImage, setPreviewImage] = useState(null);
-
   // file ảnh
   const [files, setFiles] = useState([]);
 
@@ -133,10 +144,9 @@ function Groceries() {
     // change originalName file
     const val = [...list];
     val[i][e.target.name] = e.target.files[0].name;
-    val[i]['fileImage'] = URL.createObjectURL(e.target.files[0]);
+    val[i]["fileImage"] = URL.createObjectURL(e.target.files[0]);
     setList(val);
   };
-  console.log("pre", previewImage);
   // tạo đơn
   const handleSave = async () => {
     const dataImage = new FormData();
@@ -151,7 +161,7 @@ function Groceries() {
       orderItem: list,
     };
 
-    await createOrder(data1)
+    await createOrder(data1);
     await uploadFiles(dataImage);
     // setList([{
     //   product_image: "",
@@ -170,7 +180,11 @@ function Groceries() {
     //   phone:"",
     //   address:""
     // })
-    alert('Tạo đơn thành công!');
+    toastifySuccess("Tạo đơn thành công!");
+
+    setTimeout(() => {
+      navigate("/app/orderGroceries");
+    }, 2000);
   };
   console.log("order", order);
   console.log("item", list);
@@ -180,6 +194,11 @@ function Groceries() {
     const newList = [...list];
     newList.splice(i, 1);
     setList(newList);
+    toastifyError("Đã xóa!");
+  };
+
+  const submit = (i) => {
+    Confirm("Delete", "Bạn có chắc chắn muốn xóa không?", DeleteList, i);
   };
 
   return (
@@ -187,7 +206,7 @@ function Groceries() {
       <div className="imgs"></div>
       <div className="groceries">
         <p className="title">Tạo đơn hàng</p>
-        <Table striped bordered hover size="lg">
+        <Table style={{ backgroundColor: "#f5f5f5" }} bordered hover size="lg">
           <thead>
             <tr>
               <th>STT</th>
@@ -205,12 +224,6 @@ function Groceries() {
                 <td className="pt-5">
                   {" "}
                   {i + 1} <br />
-                  <span style={{ cursor: "pointer" }}>
-                    <i
-                      onClick={() => DeleteList(i)}
-                      className="fa-solid fa-circle-xmark"
-                    ></i>
-                  </span>
                 </td>
                 <td>
                   <img
@@ -219,27 +232,24 @@ function Groceries() {
                       height: "64px",
                       marginTop: "24px",
                     }}
-                    src={li.fileImage !== '' ? li.fileImage : image}
+                    src={li.fileImage !== "" ? li.fileImage : image}
                   />
-                  <label
-                    className="mt-1"
-                    id="label-upload"
-                  >
-                 
-                  <input
-                    type="file"
-                    multiple style={{display:"none"}}
-                    name="product_image"
-                    onChange={(e) => {
-                      changFile(i, e);
-                    }}
-                  />
-                     Upload...
+                  <label className="mt-1" id="label-upload">
+                    <input
+                      type="file"
+                      multiple
+                      style={{ display: "none" }}
+                      name="product_image"
+                      onChange={(e) => {
+                        changFile(i, e);
+                      }}
+                    />
+                    Upload...
                   </label>
                 </td>
                 <td>
                   <input
-                    className="w-100"
+                    className="w-100 form-control"
                     type="text"
                     name="product_name"
                     value={li.product_name ? li.product_name : ""}
@@ -247,15 +257,15 @@ function Groceries() {
                     placeholder="Tên sản phẩm"
                   />
                   <textarea
-                    className="mt-2 attribute w-100"
+                    className="mt-2 attribute w-100 form-control"
                     type="text"
                     name="attribute"
-                    value={li.attribute?li.attribute:''}
+                    value={li.attribute ? li.attribute : ""}
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Màu sắc, size, kích thước"
                   ></textarea>
                   <input
-                    className="w-100"
+                    className="w-100 form-control mt-2"
                     type="text"
                     name="product_link"
                     value={li.product_link ? li.product_link : ""}
@@ -277,32 +287,34 @@ function Groceries() {
                       backgroundColor: "none",
                       width: "100%",
                     }}
+                    className=" form-control"
                     type="text"
                     name="product_price"
                     value={li.product_price ? li.product_price : ""}
                     // value={li.price}
                     onChange={(e) => changeInp(i, e)}
                     thousandSeparator=","
+                    min="1"
                   />
                 </td>
                 <td className="soLuong">
                   <div className="d-flex soLuong">
                     <div
-                      className="border border-dark px-3"
+                      className="border border-dark w-25 form-control"
                       onClick={(e) => handleOnReduced(i)}
                     >
                       {" "}
                       -{" "}
                     </div>
                     <input
-                      className="value border w-50 border-dark px-3 text-center"
+                      className="value border w-50 border-dark px-3 text-center form-control"
                       type="text"
                       value={li.quantity}
                       name="quantity"
                       onChange={(e) => changeInp(i, e)}
                     />
                     <div
-                      className="cong border border-dark px-3"
+                      className="cong border w-25 border-dark form-control"
                       onClick={(e) => handleOnIncrease(i, e)}
                     >
                       {" "}
@@ -313,12 +325,12 @@ function Groceries() {
                 <td>
                   {" "}
                   <textarea
-                    className="ghi_chu"
+                    className="ghi_chu form-control"
                     name="note"
                     id=""
                     cols="30"
                     rows="10"
-                    value={li.note?li.note:''}
+                    value={li.note ? li.note : ""}
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Ghi chú sản phẩm..."
                   ></textarea>{" "}
@@ -332,11 +344,24 @@ function Groceries() {
                         border: "none",
                         backgroundColor: "none",
                         width: "100%",
+                        textAlign: "center",
                       }}
                       value={li.total_price}
                       thousandSeparator=","
                     />{" "}
                   </p>
+                  <span style={{ cursor: "pointer" }}>
+                    <button
+                      style={{ border: "none" }}
+                      onClick={(e) => submit(e)}
+                    >
+                      {" "}
+                      <i
+                        onClick={() => submit(i)}
+                        className="fa-solid fa-circle-xmark icon_delete_list"
+                      ></i>
+                    </button>
+                  </span>
                 </td>
               </tr>
             ))}
@@ -358,7 +383,13 @@ function Groceries() {
               <label htmlFor="" className="">
                 <h5>Địa chỉ kho Trung Quốc</h5>
               </label>
-              <select name="address_TQ" id="" className="p-1"  value={order?.address_TQ} onChange={(e)=> changeInpOrder(e)}>
+              <select
+                name="address_TQ"
+                id=""
+                className="p-1 form-control"
+                value={order?.address_TQ}
+                onChange={(e) => changeInpOrder(e)}
+              >
                 <option value="" className="text-center">
                   --Lựa chọn kho--
                 </option>
@@ -427,90 +458,120 @@ function Groceries() {
               type="submit"
               onClick={handleSave}
               className="end-btn"
-              as={Link} to="/app/orderGroceries"
+              list2={lists}
             >
               Tạo Đơn Hàng
             </Button>
           </div>
-          <div
-            style={{
-              width: "360px",
-              height: "100%",
-              backgroundColor: "#f9f9f9",
-            }}
-            className="border border-danger p-2"
-          >
-            <div className="d-flex justify-content-between">
-              <p>Tổng tiền đặt hàng: </p>
-              <p className="">
-                {" "}
-                <NumericFormat
-                  disabled={true}
-                  style={{
-                    border: "none",
-                    textAlign: "right",
-                    backgroundColor: "#f9f9f9",
-                    width: "100px",
-                  }}
-                  value={total}
-                  thousandSeparator=","
-                />{" "}
-                đ
-              </p>
-            </div>
-            <div className="d-flex justify-content-between">
-              <div className="d-flex">
-                <p>Phí đặt hàng</p>
-                <span
-                  style={{
-                    fontSize: "16px",
-                    paddingTop: "6px",
-                    color: "#005e91",
-                  }}
-                  className="material-symbols-outlined mx-1"
-                >
-                  help
-                </span>
-                :
+          <div>
+            <div
+              style={{
+                width: "360px",
+                height: "120px",
+                backgroundColor: "#f9f9f9",
+              }}
+              className="border border-danger p-2"
+            >
+              <div className="d-flex justify-content-between">
+                <p>Tổng tiền đặt hàng: </p>
+                <p className="">
+                  {" "}
+                  <NumericFormat
+                    disabled={true}
+                    style={{
+                      border: "none",
+                      textAlign: "right",
+                      backgroundColor: "#f9f9f9",
+                      width: "100px",
+                    }}
+                    value={total}
+                    thousandSeparator=","
+                  />{" "}
+                  đ
+                </p>
               </div>
-              <p className="">
-                {" "}
-                <NumericFormat
-                  disabled={true}
-                  style={{
-                    border: "none",
-                    textAlign: "right",
-                    backgroundColor: "#f9f9f9",
-                    width: "100px",
-                  }}
-                  value={orderCost}
-                  thousandSeparator=","
-                />{" "}
-                đ
-              </p>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex">
+                  <p>Phí đặt hàng</p>
+                  <span
+                    style={{
+                      fontSize: "16px",
+                      paddingTop: "6px",
+                      color: "#005e91",
+                    }}
+                    className="material-symbols-outlined mx-1"
+                  >
+                    help
+                  </span>
+                  :
+                </div>
+                <p className="">
+                  {" "}
+                  <NumericFormat
+                    disabled={true}
+                    style={{
+                      border: "none",
+                      textAlign: "right",
+                      backgroundColor: "#f9f9f9",
+                      width: "100px",
+                    }}
+                    value={orderCost}
+                    thousandSeparator=","
+                  />{" "}
+                  đ
+                </p>
+              </div>
+              <div className="d-flex justify-content-between">
+                <p className="">Tổng tiền/chưa có phí ship TQ: </p>
+                <p className="">
+                  {" "}
+                  <NumericFormat
+                    disabled={true}
+                    style={{
+                      border: "none",
+                      textAlign: "right",
+                      backgroundColor: "#f9f9f9",
+                      width: "100px",
+                    }}
+                    value={totalOrderCost}
+                    thousandSeparator=","
+                  />{" "}
+                  đ
+                </p>
+              </div>
             </div>
-            <div className="d-flex justify-content-between">
-              <p className="">Tổng tiền/chưa có phí ship TQ: </p>
-              <p className="">
-                {" "}
-                <NumericFormat
-                  disabled={true}
-                  style={{
-                    border: "none",
-                    textAlign: "right",
-                    backgroundColor: "#f9f9f9",
-                    width: "100px",
-                  }}
-                  value={totalOrderCost}
-                  thousandSeparator=","
-                />{" "}
-                đ
-              </p>
+            <div className="express border border-danger mt-3">
+              <div className=" d-flex mt-3">
+                <p className="ps-2">Vận chuyển</p>
+                <div>
+                  <span className="ms-3">
+                    <input type="radio" />
+                    <label className="ps-1" htmlFor="">Nhanh</label>
+                  </span>
+                  <span className="ms-3">
+                    <input type="radio" />
+                    <label className="ps-1" htmlFor="">Thường</label>
+                  </span>
+                </div>
+              </div>
+              <div className=" d-flex justify-content-evenly">
+                <p className="ps-2">Yêu cầu khác</p>
+                <div className="d-flex flex-column">
+                  <span className="ms-3">
+                    <input type="checkbox" disabled />
+                    <label className="ps-1" htmlFor="">Kiểm hàng</label>
+                  </span>
+                  <br/>
+                  <span className="ms-3">
+                    <input type="checkbox" />
+                    <label className="ps-1" htmlFor=""> Khai thuế 100% hàng có hóa đơn GTGT</label>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <OrderGroceries list2 = {lists} />
     </>
   );
 }

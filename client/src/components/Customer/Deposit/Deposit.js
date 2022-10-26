@@ -12,6 +12,7 @@ import RouterAuth from "../../../RouterAuth";
 import RouterDasboard from "../../../RouterDasboard";
 import Order from "./orderDeposit/orderDeposit";
 import Dasboard from "../../Dasboard";
+import { Confirm } from "../../../lib/toastify";
 
 function Deposit() {
     const [list, setList] = useState([
@@ -105,10 +106,14 @@ function Deposit() {
         setList(newList)
     }
 
+    const subMit = (i) => {
+        Confirm('Delete!', 'Bạn có muốn xóa không?', DeleteList, i)
+    }
+
     const [show, setShow] = useState(false);
 
     const handleClose = (e) => setShow(false);
-    const handleShow = (e) => setShow(true);  
+    const handleShow = (e) => setShow(true);
 
     return (
         <>
@@ -122,23 +127,23 @@ function Deposit() {
                             <th>Thông tin hàng hóa</th>
                             <th>Thông Tin Số Hàng Hóa</th>
                             <th>Ghi chú</th>
+                            <th>Ghi chú</th>
                         </tr>
                     </thead>
                     <tbody>
                         {list.map((li, i) => (
                             <tr key={i}>
                                 <td className="pt-5"> {i + 1} <br />
-                                    <span style={{ cursor: 'pointer' }} onClick={() => DeleteList(i)}><i className="fa-solid fa-circle-xmark"></i></span>
                                 </td>
-                                <td>
+                                <td style={{ width: '100px' }} className="td_img">
                                     <img
-                                        style={{ width: "96px", height: "64px", marginTop: "24px" }}
+                                        style={{ width: "140px", display: 'flex', alignItems: 'center' }}
                                         src={li.img}
                                     />
                                 </td>
                                 <td>
                                     <input
-                                        className="w-100"
+                                        className="w-100 form-control"
                                         type="text"
                                         placeholder="Mã vận đơn (*)"
                                         name="maVanDon"
@@ -146,7 +151,7 @@ function Deposit() {
 
                                     />
                                     <input
-                                        className="w-100"
+                                        className="w-100 form-control"
                                         type="text"
                                         placeholder="Tên sản phẩm (*)"
                                         name="nameSanPham"
@@ -154,7 +159,7 @@ function Deposit() {
 
                                     />
                                     <input
-                                        className="w-100"
+                                        className="w-100 form-control"
                                         type="text"
                                         placeholder="Số kiện hàng (*)"
                                         name="soKienHang"
@@ -162,7 +167,7 @@ function Deposit() {
 
                                     />
                                     <input
-                                        className="w-100"
+                                        className="w-100 form-control"
                                         type="text"
                                         placeholder="hãng vận chuyển (*)"
                                         onChange={(e) => changeInpOrder(e)}
@@ -171,37 +176,40 @@ function Deposit() {
                                 </td>
                                 <td className="">
                                     <input
-                                        className="w-100"
+                                        className="w-100 form-control"
                                         type="text"
                                         value="Trung Quốc - Việt Nam"
                                     />
-                                    <select style={{ width: '100%' }}>
+                                    <select className="select_Menu form-control" style={{ width: '100%' }}>
                                         <option value="">Chọn danh mục</option>
                                         <option value="">Saab</option>
                                         <option value="">Mercedes</option>
                                         <option value="">Audi</option>
                                     </select>
                                     <input
-                                        className="w-100"
+                                        className="w-100 form-control"
                                         type="text"
                                         value="Số lượng sản phẩm"
                                     />
                                     <input
-                                        className="w-100"
+                                        className="w-100 form-control"
                                         type="text"
                                         value="Giá trị hàng hóa"
                                     />
                                 </td>
-                                <td>
+                                <td style={{ width: '220px' }}>
                                     {" "}
                                     <textarea
-                                        className="ghi_chu"
+                                        className="ghi_chu form-control"
                                         name=""
                                         id=""
                                         cols="30"
                                         rows="10"
                                         placeholder="Ghi chú sản phẩm..."
                                     ></textarea>{" "}
+                                </td>
+                                <td>
+                                    <span style={{ cursor: 'pointer' }} onClick={() => subMit(i)}><i style={{ fontSize: '30px', marginTop: '50%', transform: 'transLateX(-50%)', color: 'red' }} className="fa-solid fa-circle-xmark"></i></span>
                                 </td>
                             </tr>
                         ))}
@@ -213,7 +221,7 @@ function Deposit() {
                         <div className="addMore">
                             <button
                                 style={{ backgroundColor: "#8610e8", border: "none" }}
-                                className="py-2 px-1 rounded text-white"
+                                className="py-2 px-1 rounded text-white form-control"
                                 onClick={(e) => handleOnClickAddMore(e)}
                             >
                                 + Thêm sản sản phẩm
@@ -223,7 +231,7 @@ function Deposit() {
                             <label htmlFor="" className="">
                                 <h5>Địa chỉ kho Trung Quốc</h5>
                             </label>
-                            <select name="" id="" className="p-1">
+                            <select name="" id="" className="p-1 form-control">
                                 <option value="" className="text-center">
                                     --Lựa chọn kho--
                                 </option>
@@ -339,24 +347,6 @@ function Deposit() {
                         <Button variant="warning" className="end-btn mt-3" as={Link} to="/app/orderDeposit">
                             Tạo Đơn Ký gửi
                         </Button>
-                        {/* <Button variant="primary" onClick={handleShow}>
-                            Tạo Đơn 
-                        </Button>
-
-                        <Modal show={show} onHide={handleClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Modal heading</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={handleClose}>
-                                    Close
-                                </Button>
-                                <Button variant="primary" onClick={handleClose}>
-                                    Save Changes
-                                </Button>
-                            </Modal.Footer>
-                        </Modal> */}
                     </div>
 
                     {/* Tổng hợp các loại phí */}
@@ -367,7 +357,7 @@ function Deposit() {
                         {/* Phí vận chuyển trọn gói */}
                         <div className="mt-5 ">
                             <h5>Phí vận chuyển trọn gói</h5>
-                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                 <option value="" selected> Trọng lượng</option>
                                 <option value="">&gt; 500kg</option>
                                 <option value="">200 &#8594;500kg</option>
@@ -376,14 +366,14 @@ function Deposit() {
                                 <option value="">10 &#8594;30kg</option>
                                 <option value="">0 &#8594;10kg</option>
                             </select>
-                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                 <option value="" selected>Khối lượng (tính/m3)</option>
                                 <option value="">&gt;20m3</option>
                                 <option value="">10m3 &#8594;20m3</option>
                                 <option value="">5m3 &#8594;10m3</option>
                                 <option value="">&lt;5m3</option>
                             </select>
-                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                 <option value="" selected> Khu vực</option>
                                 <option value="">Hà Nội</option>
                                 <option value="">TP.HCM</option>
@@ -392,7 +382,7 @@ function Deposit() {
                         <div className="mt-5">
                             <h5>Phí vận chuyển chính ngạch</h5>
                             <p>Tổng phí nhập khẩu = Phí dịch vụ + Phí vận chuyển + Thuế nhập khẩu (nếu có) + Thuế VAT</p>
-                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                 <option value="" selected>Trọng lượng(kg)</option>
                                 <option value="">&gt; 500kg</option>
                                 <option value="">&gt;200 &#8594;500kg</option>
@@ -400,14 +390,14 @@ function Deposit() {
                                 <option value="">&gt;30 &#8594;100kg</option>
                                 <option value="">&lt; 30kg</option>
                             </select>
-                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                 <option value="" selected>Khối lượng (tính/m3)</option>
                                 <option value="">&gt;20m3</option>
                                 <option value="">&gt;10m3 &#8594;20m3</option>
                                 <option value="">&gt;5m3 &#8594;10m3</option>
                                 <option value="">&lt;5m3</option>
                             </select>
-                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                 <option value="" selected> Khu vực</option>
                                 <option value="">Hà Nội</option>
                                 <option value="">TP.HCM</option>
@@ -419,7 +409,7 @@ function Deposit() {
                         </div>
                         <div className="mt-5 mb-3">
                             <h5>PHÍ KIỂM ĐẾM SẢN PHẨM</h5>
-                            <select style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                 <option value="" selected>Số lượng</option>
                                 <option value="">501-10000 sản phẩm</option>
                                 <option value="">101-500 sản phẩm</option>
@@ -428,87 +418,16 @@ function Deposit() {
                                 <option value="">1-2 sản phẩm</option>
                             </select>
                         </div>
-                        <h1>Bảng giá dịch vụ mua hàng</h1>
-                        {/* <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Ảnh Sản Phẩm</th>
-                                    <th>Thông tin hàng hóa</th>
-                                    <th>Thông Tin Số Hàng Hóa</th>
-                                    <th>Ghi chú</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {list.map((li, i) => (
-                                    <tr key={i}>
-                                        <td className="pt-5">  <span onClick={(i) => DeleteList(i)}>X</span> {i + 1} </td>
-                                        <td>
-                                            <img
-                                                style={{ width: "96px", height: "64px", marginTop: "24px" }}
-                                                src={li.img}
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                className="w-100"
-                                                type="text"
-                                                placeholder="Mã vận đơn (*)"
-                                            />
-                                            <input
-                                                className="w-100"
-                                                type="text"
-                                                placeholder="Tên sản phẩm (*)"
-                                            />
-                                            <input
-                                                className="w-100"
-                                                type="text"
-                                                placeholder="Số kiện hàng (*)"
-                                            />
-                                            <input
-                                                className="w-100"
-                                                type="text"
-                                                placeholder="hãng vận chuyển (*)"
-                                            />
-                                        </td>
-                                        <td className="">
-                                            <input
-                                                className="w-100"
-                                                type="text"
-                                                value="Trung Quốc - Việt Nam"
-                                            />
-                                            <select style={{ width: '100%' }}>
-                                                <option value="">Chọn danh mục</option>
-                                                <option value="">Saab</option>
-                                                <option value="">Mercedes</option>
-                                                <option value="">Audi</option>
-                                            </select>
-                                            <input
-                                                className="w-100"
-                                                type="text"
-                                                value="Số lượng sản phẩm"
-                                            />
-                                            <input
-                                                className="w-100"
-                                                type="text"
-                                                value="Giá trị hàng hóa"
-                                            />
-                                        </td>
-                                        <td>
-                                            {" "}
-                                            <textarea
-                                                className="ghi_chu"
-                                                name=""
-                                                id=""
-                                                cols="30"
-                                                rows="10"
-                                                placeholder="Ghi chú sản phẩm..."
-                                            ></textarea>{" "}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table> */}
+                        <div className="mt-5 mb-3">
+                            <span className="d-flex">
+                                <h5>PHÍ ĐÓNG GỖ</h5>
+                                <input className="mb-2 ms-2" type="checkbox"/>
+                            </span>
+                            <span className="d-flex">
+                                <h5>PHÍ BẢO HIỂM</h5>
+                                <input className="mb-2 ms-2" type="checkbox"/>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

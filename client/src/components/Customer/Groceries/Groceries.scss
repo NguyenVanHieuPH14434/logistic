@@ -32,13 +32,17 @@
         .ghi_chu {
             height: 40px;
             min-width: 100px;
-            min-height: 100px;
+            min-height: 130px;
             max-width: 200px;
-            max-height: 200px;
+            max-height: 300px;
         }
     }
     td {
         // padding-top: 50%;
+        .icon_delete_list{
+            color: red;
+            font-size: 30px;
+        }
     }
     .soLuong {
         padding-top: 24px;

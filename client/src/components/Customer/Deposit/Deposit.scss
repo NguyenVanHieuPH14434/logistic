@@ -29,17 +29,24 @@
     }
     th,
     td {
+
+        // .td_img{
+        //     width: 100px !important;
+        // }
+
         text-align: center;
         .ghi_chu {
             height: 40px;
             min-width: 100px;
-            min-height: 100px;
+            min-height: 154px;
             max-width: 200px;
             max-height: 200px;
         }
     }
     td {
         // padding-top: 50%;
+
+
     }
     .attribute {
         width: 100vh;
@@ -54,8 +61,6 @@
         background-color: #8610e8;
     }
     .image {
-        width: 6em;
-        height: 4em;
     }
     .form {
         display: flex;

@@ -15,6 +15,11 @@ import ChangePass from './components/user/changePass';
 import Order from './components/Customer/Deposit/orderDeposit/orderDeposit';
 import OrderGroceries from './components/Customer/Groceries/orderGroceries/orderGroceries';
 import OrderDeposit from './components/Customer/Deposit/orderDeposit/orderDeposit';
+import OrderDetailGroceries from './components/Customer/Groceries/orderDetailGroceries/orderDetailGroceries';
+import OrderDetailDeposit from './components/Customer/Deposit/orderDetailDeposit/orderDetailDeposit';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
@@ -34,11 +39,29 @@ function App() {
           <Route path="changePass" element={<ChangePass className="right" />}></Route>
           <Route path="orderGroceries" element={<OrderGroceries className="right" />}></Route>
           <Route path="orderDeposit" element={<OrderDeposit className="right" />}></Route>
+          <Route path="orderDetailGroceries" element={<OrderDetailGroceries className="right" />}></Route>
+          <Route path="orderDetailDeposit" element={<OrderDetailDeposit className="right" />}></Route>
           <Route index element={<Dasboard className="right" />}></Route>
         </Route>
       </Routes>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
     </div>
   );
 }
 
 export default App;
+
