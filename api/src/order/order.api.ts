@@ -25,7 +25,7 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
         }
         const order:any = await orderController.ListItemByOrder(ordId);
         // const orItem = await orderItemController.ListItemByOrder(ordId);
-        return res.json(order)
+        return res.json({data: order})
     })
 
     router.get('/detailOrder/:orderId', async(req, res)=>{

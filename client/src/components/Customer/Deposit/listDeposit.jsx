@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Calendar } from "react-calendar";
 import "./listDeposit.scss";
 import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groceris.png";
+import { Link } from "react-router-dom";
 
 export default function ListDeposit() {
   const allMonthValues = [
@@ -169,6 +170,9 @@ console.log('..', calendarText);
           <p>Tìm kiếm</p>
         </div>
       </div>
+
+      <Link to="/app/OrderDetailDeposit"> Đơn hàng </Link>
+
     </div>
   );
 }

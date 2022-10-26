@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./listGroceries.scss";
 import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groceris.png";
 // import { Calendar } from "@natscale/react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
+import { AppContext } from "../../../contexts/AppContextProvider";
+import { listOrder } from "../../../api/orderApi";
+import { Dropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function ListGroceries() {
+  const {
+    state: { user },
+  } = useContext(AppContext);
+
   // Array to store month string values
   const allMonthValues = [
     "January",
@@ -40,21 +48,21 @@ export default function ListGroceries() {
   const handleDateChange = (value) => {
     setSelectedDate(value);
     setCalendarText(`${value.toDateString()}`);
-    setInputCalendar(`${value.toDateString()}`)
+    setInputCalendar(`${value.toDateString()}`);
   };
 
   // Function to handle selected Year change
   const handleYearChange = (value) => {
     const yearValue = value.getFullYear();
     setCalendarText(`${yearValue} Year  is selected`);
-    setInputCalendar(`${yearValue} Year  is selected`)
+    setInputCalendar(`${yearValue} Year  is selected`);
   };
 
   // Function to handle selected Month change
   const handleMonthChange = (value) => {
     const monthValue = allMonthValues[value.getMonth()];
     setCalendarText(`${monthValue} Month  is selected`);
-    setInputCalendar(`${monthValue} Month  is selected`)
+    setInputCalendar(`${monthValue} Month  is selected`);
   };
 
   const handleOnClickCalendarIcon = () => {
@@ -63,11 +71,26 @@ export default function ListGroceries() {
   };
 
   const handleOnChangeInputCalendar = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setInputCalendar((prev) => {
-      return {...prev, [name] : value}
-    })
+      return { ...prev, [name]: value };
+    });
   };
+  const [listt, setListt] = useState(
+    useEffect(() => {
+      getListt().then((re) => {
+        setListt(re.data.data);
+      });
+    }, [])
+  );
+
+  const getListt = async () => {
+    const res = await listOrder(user._id);
+    return res;
+  };
+
+  console.log("list", listt);
+
   return (
     <div className="listGroceries">
       <div className="nav_container">
@@ -192,6 +215,39 @@ export default function ListGroceries() {
           <i className="fa-solid fa-magnifying-glass"></i>
           <p>Tìm kiếm</p>
         </div>
+      </div>
+
+      <Link to="/app/orderDetailGroceries"> Đơn hàng </Link>
+
+      <div className="listOrder">
+        <table className="table text-center">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">User ID</th>
+              <th scope="col">Tên đầy đủ</th>
+              <th scope="col">Số Điện Thoại</th>
+              <th scope="col">Địa chỉ</th>
+              <th scope="col">Trạng thái</th>
+              <th scope="col">Đơn Hàng</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* {listt.map((li, i) => {
+              return (
+                <tr>
+                  <th scope="row"> {li._id} </th>
+                  <td> {li.user_id} </td>
+                  <td> {li.full_name} </td>
+                  <td> {li.phone} </td>
+                  <td> {li.address} </td>
+                  <td> {li.status} </td>
+                  <td> {li.status} </td>
+                </tr>
+              );
+            })} */}
+          </tbody>
+        </table>
       </div>
     </div>
   );
