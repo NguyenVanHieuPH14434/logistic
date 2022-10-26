@@ -51,7 +51,6 @@ export default function OrderGroceries() {
             </tr>
           </thead>
           <tbody>
-<<<<<<< HEAD
             {list2&&list2.map((li, i) => (
               <tr key={i}>
                 <td className="pt-5">
@@ -96,12 +95,6 @@ export default function OrderGroceries() {
                 </td>
                 <td className="pt-5">
                   {" "}
-                  {/* <input
-                      type="text"
-                      name="price"
-                      value={li.price}
-                      onChange={(e) => changeInp(i, e)}
-                    /> */}
                   <NumericFormat
                     style={{
                       border: "none",
@@ -111,7 +104,6 @@ export default function OrderGroceries() {
                     type="text"
                     name="product_price"
                     value={li.product_price ? li.product_price : ""}
-                    // value={li.price}
                     thousandSeparator=","
                   />
                 </td>
@@ -137,7 +129,6 @@ export default function OrderGroceries() {
                     placeholder="Ghi chú sản phẩm..."
                   ></textarea>{" "}
                 </td>
-                {/* <td className="pt-5"> {li.totalPrice} </td> */}
                 <td className="pt-5">
                   <p className="">
                     <NumericFormat
@@ -154,108 +145,8 @@ export default function OrderGroceries() {
                 </td>
               </tr>
             ))}
-=======
-            {list2.map((li, i) => (
-                  <tr key={i}>
-                    <td className="pt-5">
-                      {" "}
-                      {i + 1} <br />
-                      <span style={{ cursor: "pointer" }}>
-                        <i className="fa-solid fa-circle-xmark"></i>
-                      </span>
-                    </td>
-                    <td>
-                      <img
-                        style={{
-                          width: "96px",
-                          height: "64px",
-                          marginTop: "24px",
-                        }}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        className="w-100"
-                        type="text"
-                        name="product_name"
-                        value={li.product_name ? li.product_name : ""}
-                        placeholder="Tên sản phẩm"
-                      />
-                      <textarea
-                        className="mt-2 attribute w-100"
-                        type="text"
-                        name="attribute"
-                        value={li.attribute ? li.attribute : ""}
-                        placeholder="Màu sắc, size, kích thước"
-                      ></textarea>
-                      <input
-                        className="w-100"
-                        type="text"
-                        name="product_link"
-                        value={li.product_link ? li.product_link : ""}
-                        placeholder="Link sản phẩm"
-                      />
-                    </td>
-                    <td className="pt-5">
-                      {" "}
-                      <NumericFormat
-                        style={{
-                          border: "none",
-                          backgroundColor: "none",
-                          width: "100%",
-                        }}
-                        type="text"
-                        name="product_price"
-                        value={li.product_price ? li.product_price : ""}
-                        thousandSeparator=","
-                      />
-                    </td>
-                    <td className="soLuong">
-                      <div className="d-flex soLuong">
-                        <input
-                          className="value border w-50 border-dark px-3 text-center"
-                          type="text"
-                          value={li.quantity ? li.quantity : ""}
-                          name="quantity"
-                        />
-                      </div>
-                    </td>
-                    <td>
-                      {" "}
-                      <textarea
-                        className="ghi_chu"
-                        name="note"
-                        id=""
-                        cols="30"
-                        rows="10"
-                        value={li.note ? li.note : ""}
-                        placeholder="Ghi chú sản phẩm..."
-                      ></textarea>{" "}
-                    </td>
-                    <td className="pt-5">
-                      <p className="">
-                        <NumericFormat
-                          disabled={true}
-                          style={{
-                            border: "none",
-                            backgroundColor: "none",
-                            width: "100%",
-                          }}
-                          value={li.total_price ? li.total_price : ""}
-                          thousandSeparator=","
-                        />{" "}
-                      </p>
-                    </td>
-                  </tr>
-                ))}
->>>>>>> thien1
           </tbody>
         </Table>
-        <div>
-          {list2.map((li, i) =>(
-            <li> {li.pro} </li>
-          ))}
-        </div>
       </div>
     </div>
   );

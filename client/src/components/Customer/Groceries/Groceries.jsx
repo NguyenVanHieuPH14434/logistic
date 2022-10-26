@@ -216,8 +216,10 @@ function Groceries() {
       phone:"",
       address:""
     })
-    alert('Tạo đơn thành công!');
-    navigate('/app/orderGroceries', {state:{data:list}});
+    toastifySuccess('Tạo đơn hàng thành công!')
+    setTimeout(()=>{
+      navigate('/app/orderGroceries', {state:{data:list}});
+    },1000)
   };
   const saveData =()=>{
     checkValidate(list,order)

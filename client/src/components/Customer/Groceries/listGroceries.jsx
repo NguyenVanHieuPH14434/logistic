@@ -76,18 +76,18 @@ export default function ListGroceries() {
       return { ...prev, [name]: value };
     });
   };
-  const [listt, setListt] = useState(
-    useEffect(() => {
-      getListt().then((re) => {
-        setListt(re.data.data);
-      });
-    }, [])
-  );
+  const [listt, setListt] = useState([]);
 
   const getListt = async () => {
     const res = await listOrder(user._id);
     return res;
   };
+
+  useEffect(() => {
+    getListt().then((re) => {
+      setListt(re.data.data);
+    });
+  }, [])
 
   console.log("list", listt);
 
@@ -233,7 +233,7 @@ export default function ListGroceries() {
             </tr>
           </thead>
           <tbody>
-            {/* {listt.map((li, i) => {
+            {listt ?listt.map((li, i) => {
               return (
                 <tr>
                   <th scope="row"> {li._id} </th>
@@ -245,7 +245,7 @@ export default function ListGroceries() {
                   <td> {li.status} </td>
                 </tr>
               );
-            })} */}
+            }):[]}
           </tbody>
         </table>
       </div>
