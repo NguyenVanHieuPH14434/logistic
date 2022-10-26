@@ -5,13 +5,13 @@ import { NumericFormat } from "react-number-format";
 import "./orderGroceries.scss";
 import { useLocation } from "react-router-dom";
 
-export default function OrderGroceries({list2}) {
+export default function OrderGroceries() {
+  const location = useLocation();
   const [orderCode, setOrderCode] = useState("#6969696969");
   const [orderDate, setOrderDate] = useState("25/10/2099");
   const [orderSeller, setOrderSeller] = useState("Meo");
-  const location = useLocation()
-    console.log(location.pathname);
-  console.log("list2222222222",list2)
+  const [list2, setList2] = useState(location.state?location.state.data:'');
+
   return (
     <div className="order_groceries">
       <h1>THANH TOÁN ĐƠN HÀNG</h1>
@@ -64,7 +64,8 @@ export default function OrderGroceries({list2}) {
                       height: "64px",
                       marginTop: "24px",
                     }}
-                  alt="/"/>
+                    src={li.fileImage?li.fileImage:''}
+                  />
                 </td>
                 <td>
                   <input

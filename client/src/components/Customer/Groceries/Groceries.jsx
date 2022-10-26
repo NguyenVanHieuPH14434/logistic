@@ -9,10 +9,11 @@ import "./Groceries.scss";
 import { NumericFormat } from "react-number-format";
 import { createOrder, uploadFiles } from "../../../api/orderApi";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import { Link ,matchRoutes, useLocation} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OrderGroceries from "./orderGroceries/orderGroceries";
 
 function Groceries() {
+  const navigate = useNavigate()
   const {state:{user}} = useContext(AppContext);
   const [list, setList] = useState([
     {
@@ -27,8 +28,33 @@ function Groceries() {
       total_price: 0,
     },
   ]);
+  const checkValidate = (items,order) => {
+    //create
+  if(order.full_name !==''&& order.phone !==''&&order.address !==''){
+    let checkEmptyItems= items.every((n)=>{
+      return (
+        n.product_image !== '' &&
+        n.fileImage !== '' &&
+        n.product_link &&
+        n.product_name !== '' &&
+        n.attribute !== '' &&
+        n.product_price !== '' &&
+        n.quantity > 0 &&
+        n.total_price > 0
+      )
+    })
+      if(checkEmptyItems === true){
+        handleSave()
+      }
+      else {
+        return alert(`please check input product !!!`);
+      }
+    }
+    else {
+      return alert(`please check input information !!!`);
+    }
+  };
   const [show, setShow] = useState(false);
-
   // Danh sách các sản phẩm
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -107,8 +133,12 @@ function Groceries() {
   };
 
   // thông tin khách hàng
-  const [order, setOrder] = useState();
-
+  const [order, setOrder] = useState({
+    full_name:'',
+    phone:'',
+    address:''
+  });
+  console.log(order);
   // thay đổi giá trị thông tin khách hàng
   const changeInpOrder = (e) => {
     const valOrder = { ...order };
@@ -153,9 +183,8 @@ function Groceries() {
       orderItem: list,
     };
 
-    await createOrder(data1)
+    const res = await createOrder(data1)
     await uploadFiles(dataImage);
-    setLists(list)
     setList([{
       product_image: "",
       fileImage: "",
@@ -174,7 +203,11 @@ function Groceries() {
       address:""
     })
     alert('Tạo đơn thành công!');
+    navigate('/app/orderGroceries', {state:{data:list}});
   };
+  const saveData =()=>{
+    checkValidate(list,order)
+  }
   console.log("item", list);
   console.log("items", lists);
   const DeleteList = (i) => {
@@ -425,10 +458,9 @@ function Groceries() {
             <Button
               variant="warning"
               type="submit"
-              onClick={handleSave}
+              onClick={saveData}
               className="end-btn"
-              to="/app/orderGroceries"
-              as={Link}
+              // as={Link} to="/app/orderGroceries"
             >
               Tạo Đơn Hàng
             </Button>
@@ -511,7 +543,7 @@ function Groceries() {
           </div>
         </div>
       </div>
-      <OrderGroceries list2 = {lists} />    </>
+    </>
   );
 }
 

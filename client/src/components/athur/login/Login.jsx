@@ -44,9 +44,10 @@ export default function Login() {
          alert(error)
       }
   };
+
   if(isAuthenticated)
 return (
-  <Navigate to='/app/user' />
+  <Navigate to={'/app/deposit'}/>
 );
   return (
     <>

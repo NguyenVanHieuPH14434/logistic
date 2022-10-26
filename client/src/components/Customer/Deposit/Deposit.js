@@ -5,7 +5,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { Routes, Route, Navigate, Link } from 'react-router-dom';
+import { Routes, Route, Navigate, Link, useParams, useSearchParams } from 'react-router-dom';
 
 import { NumericFormat } from "react-number-format";
 import RouterAuth from "../../../RouterAuth";
@@ -108,8 +108,9 @@ function Deposit() {
     const [show, setShow] = useState(false);
 
     const handleClose = (e) => setShow(false);
-    const handleShow = (e) => setShow(true);  
-
+    const handleShow = (e) => setShow(true); 
+ 
+    
     return (
         <>
             <div className="deposit">
