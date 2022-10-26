@@ -2,14 +2,16 @@ import React from "react";
 import { useState } from "react";
 import { Table } from "react-bootstrap";
 import { NumericFormat } from "react-number-format";
+import {useLocation} from 'react-router-dom'
 import "./orderGroceries.scss";
 
-export default function OrderGroceries({list2}) {
+export default function OrderGroceries() {
+  const location = useLocation();
   const [orderCode, setOrderCode] = useState("#6969696969");
   const [orderDate, setOrderDate] = useState("25/10/2099");
   const [orderSeller, setOrderSeller] = useState("Meo");
-  
-  console.log("list2222222222",list2)
+  const [list2, setList2] = useState(location.state?location.state.data:'');
+
   return (
     <div className="order_groceries">
       <h1>THANH TOÁN ĐƠN HÀNG</h1>
@@ -62,6 +64,7 @@ export default function OrderGroceries({list2}) {
                       height: "64px",
                       marginTop: "24px",
                     }}
+                    src={li.fileImage?li.fileImage:''}
                   />
                 </td>
                 <td>

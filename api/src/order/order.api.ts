@@ -41,7 +41,7 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
             address: newObjOrder.address,
             type: newObjOrder.type,
             address_TQ: newObjOrder.address_TQ?newObjOrder.address_TQ:'',
-            status: "Chờ xác nhận",
+            status: 0,
             total: newObjOrder.total
         }
        
@@ -49,7 +49,7 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
 
         const doc = await orderController.CreateOrder(params);
         const docs = await orderItemController.CreateOrderItem(doc, paramItems)
-        console.log({'...pa':params, '...item':paramItems});
+        // console.log({'...pa':params, '...item':paramItems});
         res.json({doc, docs});
     });
 

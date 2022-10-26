@@ -29,7 +29,7 @@ function NewOrderItemAPI(orderItemController:OrderItemController){
         // console.log(req.file?.originalname);
       
         const file = req.files;
-        console.log('files', file);
+        // console.log('files', file);
         res.send(file);
         // const _id = 'o8HqoEU35SzxIV';
         // const params:any = [...req.body];

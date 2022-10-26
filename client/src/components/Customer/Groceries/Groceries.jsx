@@ -8,10 +8,11 @@ import "./Groceries.scss";
 import { NumericFormat } from "react-number-format";
 import { createOrder, uploadFiles } from "../../../api/orderApi";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OrderGroceries from "./orderGroceries/orderGroceries";
 
 function Groceries() {
+  const navigate = useNavigate()
   const {state:{user}} = useContext(AppContext);
   const [list, setList] = useState([
     {
@@ -151,26 +152,27 @@ function Groceries() {
       orderItem: list,
     };
 
-    await createOrder(data1)
+    const res = await createOrder(data1)
     await uploadFiles(dataImage);
-    // setList([{
-    //   product_image: "",
-    //   fileImage: "",
-    //   product_link: "",
-    //   product_name: "",
-    //   attribute: "",
-    //   product_price: 0,
-    //   quantity: 0,
-    //   note: "",
-    //   total_price: 0,
-    // }])
-    // setOrder({
-    //   address_TQ:'',
-    //   full_name:"",
-    //   phone:"",
-    //   address:""
-    // })
+    setList([{
+      product_image: "",
+      fileImage: "",
+      product_link: "",
+      product_name: "",
+      attribute: "",
+      product_price: 0,
+      quantity: 0,
+      note: "",
+      total_price: 0,
+    }])
+    setOrder({
+      address_TQ:'',
+      full_name:"",
+      phone:"",
+      address:""
+    })
     alert('Tạo đơn thành công!');
+    navigate('/app/orderGroceries', {state:{data:list}});
   };
   console.log("order", order);
   console.log("item", list);
@@ -427,7 +429,7 @@ function Groceries() {
               type="submit"
               onClick={handleSave}
               className="end-btn"
-              as={Link} to="/app/orderGroceries"
+              // as={Link} to="/app/orderGroceries"
             >
               Tạo Đơn Hàng
             </Button>
@@ -510,7 +512,6 @@ function Groceries() {
           </div>
         </div>
       </div>
-      <OrderGroceries list2 = {lists} />
     </>
   );
 }
