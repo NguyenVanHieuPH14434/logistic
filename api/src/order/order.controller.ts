@@ -19,6 +19,10 @@ export class OrderController {
         return this.model.ListItemByOrder(_id);
     }
 
+    async DetailOrder (orderId:string) {
+        return this.model.DetailOrder(orderId);
+    }
+
     async GetOrder (_id:string){
         return this.model.GetOrder(_id);
     }

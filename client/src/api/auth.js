@@ -6,13 +6,13 @@ const login = async(data) => {
     return res;
 }
 
-const register = async(data) => {
+const Register = async(data) => {
     const url = '/auth/create';
     return data = await instance.post(url, data);
 }
 
 export {
     login,
-    register,
+    Register,
 
 }

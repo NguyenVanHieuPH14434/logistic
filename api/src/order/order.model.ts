@@ -32,6 +32,23 @@ export class OrderModel {
         return docs;
     }
 
+    async DetailOrder (orderId:string) {
+        const doc = await this.col_order.aggregate([
+            {$match:{
+                _id:orderId
+            }
+        },{
+            $lookup:{
+                from: 'order_item',
+                localField: '_id',
+                foreignField: 'order_id',
+                as: 'orderItem'
+            }
+        }
+        ]).toArray();
+        return doc;
+    }
+
     async GetOrder (_id:string) {
         const doc = await this.col_order.findOne({_id:_id});
         return doc;

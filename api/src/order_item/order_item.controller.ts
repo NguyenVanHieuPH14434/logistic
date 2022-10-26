@@ -16,6 +16,7 @@ export class OrderItemController {
                 product_name: item.product_name,
                 product_link: item.product_link,
                 product_image: item.product_image,
+                fileImage: item. fileImage,
                 attribute: item.attribute,
                 quantity: item.quantity,
                 product_price: item.product_price,

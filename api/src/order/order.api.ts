@@ -28,6 +28,11 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
         return res.json(order)
     })
 
+    router.get('/detailOrder/:orderId', async(req, res)=>{
+        const detail = await orderController.DetailOrder(req.params.orderId);
+        return res.json({data:detail});
+    })
+
     router.post('/create', async(req, res)=>{
 
         const dataOrder = Array(req.body.order)

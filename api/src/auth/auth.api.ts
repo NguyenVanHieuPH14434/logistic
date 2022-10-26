@@ -45,9 +45,9 @@ function NewAuthAPI (authCOntroller: AuthController) {
             SendErr(false, CheckExits('Số điện thoại'), res)
         }
         // check same password
-        if(req.body.password !== req.body.passwordConFirm){
-            SendErr(false, SamePassword(), res)
-        }
+        // if(req.body.password !== req.body.passwordConFirm){
+        //     SendErr(false, SamePassword(), res)
+        // }
       
             const doc = await authCOntroller.CreateAuth(params);
             SendSuccess(true, MessageCreateSuccess('tài khoản'), doc, res)
