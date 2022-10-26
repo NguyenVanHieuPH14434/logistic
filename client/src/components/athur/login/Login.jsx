@@ -33,7 +33,7 @@ export default function Login() {
         const res = await loginUser(data);
         console.log(res);
         
-        if(res.data.status){
+        if(res.data.success){
           navigate('/app/deposit');
         }else {
            alert(res.data.message);

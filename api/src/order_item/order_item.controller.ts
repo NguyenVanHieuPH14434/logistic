@@ -32,4 +32,9 @@ export class OrderItemController {
     async ListOrderItem (_id:string){
         return this.model.ListOrderItem(_id);
     }
+
+    async ListItemByOrder (_id:any) {
+        return await this.model.ListItemByOrder(_id);
+      }
+  
 }

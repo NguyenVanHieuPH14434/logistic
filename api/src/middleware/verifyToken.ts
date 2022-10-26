@@ -10,8 +10,6 @@ export const verifyToken = async(req:any, res:any, next:any) =>{
     try {
         const decoded = jwt.verify(toke, typeof process.env.ACCESS_TOKEN) as JwtPayload
         req.userId = decoded.userId
-        console.log('uui', req.userId);
-        
         next()
     } catch (error) {
         console.log(error);

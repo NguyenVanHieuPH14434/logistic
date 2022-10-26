@@ -17,6 +17,17 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
         });
     });
 
+    router.get('/list/:userId', async(req, res)=>{
+        const orderByUser:any = await orderController.ListOrderByUser(req.params.userId);
+        const ordId = Array();
+        for (let i = 0; i < orderByUser.length; i++) {
+            ordId.push(orderByUser[i]._id);
+        }
+        const order:any = await orderController.ListItemByOrder(ordId);
+        // const orItem = await orderItemController.ListItemByOrder(ordId);
+        return res.json(order)
+    })
+
     router.post('/create', async(req, res)=>{
 
         const dataOrder = Array(req.body.order)
@@ -28,7 +39,10 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
             full_name: newObjOrder.full_name,
             phone: newObjOrder.phone,
             address: newObjOrder.address,
-            type: newObjOrder.type
+            type: newObjOrder.type,
+            address_TQ: newObjOrder.address_TQ?newObjOrder.address_TQ:'',
+            status: "Chờ xác nhận",
+            total: newObjOrder.total
         }
        
         const paramItems = req.body.orderItem;

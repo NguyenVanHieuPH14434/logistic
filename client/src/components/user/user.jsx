@@ -11,6 +11,8 @@ import complain from "../../../src/assets/public/img/userImg/complain.png";
 import suppliers from "../../../src/assets/public/img/userImg/suppliers.png";
 import personalInformation from "../../../src/assets/public/img/userImg/personal-information.png";
 import settings from "../../../src/assets/public/img/userImg/settings.png";
+import { Link } from "react-router-dom";
+import { Button, ButtonGroup } from "react-bootstrap";
 
 export default function User() {
   return (
@@ -25,7 +27,7 @@ export default function User() {
             type="text"
             placeholder="Hello world, Chiều nay bạn muốn tìm gì?"
           />
-          <i class="fa-solid fa-magnifying-glass"></i>
+          <i className="fa-solid fa-magnifying-glass"></i>
         </div>
         <div className="nav_exchange">
           <img src={nav_exchange_rate_logo} alt="" />
@@ -39,8 +41,10 @@ export default function User() {
       {/* User */}
       <div className="user_content">
         <div className="create_order">
-          <img src={orderImg} alt="" />
-          <p>Tạo đơn hàng</p>
+          <Button as={Link} to="/app/orderGroceries">
+            <img src={orderImg} alt="" />
+          </Button>
+            <p>Tạo đơn hàng</p>
         </div>
         <div className="create_deposit">
           <img src={depositImg} alt="" />

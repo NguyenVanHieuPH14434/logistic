@@ -45,9 +45,8 @@ export class AuthController {
 
         const user = {...params};
         user.utime = nowFormat;
-        if(params.fullName || params.phone){
+        if(params.fullName ){
             user.fullName = params.fullName;
-            user.phone = params.phone;
         }
 
         await this.model.UpdateAuth(_id, user);

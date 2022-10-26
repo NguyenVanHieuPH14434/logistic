@@ -17,4 +17,19 @@ export class OrderItemModel {
         const docs = await this.col_orderItem.find({order_id:_id}).toArray();
         return docs;
     }
+
+  async ListItemByOrder (_id:any) {
+    const docs = await this.col_orderItem.aggregate([{$match:{
+        order_id: {$in:_id}
+    }},{
+        $lookup:{
+            from: 'order',
+            localField: 'order_id',
+            foreignField: '_id',
+            as: 'order'
+        }
+    }]).toArray()
+
+    return docs;
+  }
 }

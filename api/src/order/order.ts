@@ -8,6 +8,9 @@ export namespace OrderSchema {
         phone:string;
         address:string;
         type:string;
+        address_TQ:string;
+        status: string;
+        total: string;
         ctime:string;
         utime:string;
     }
@@ -18,6 +21,9 @@ export namespace OrderSchema {
         phone:string;
         address:string;
         type:string;
+        address_TQ:string;
+        status: string;
+        total: string;
     }
 
     export interface UpdateOrderParams {
@@ -25,6 +31,9 @@ export namespace OrderSchema {
         phone?:string;
         address?:string;
         type?:string;
+        address_TQ?:string;
+        status?: string;
+        total?: string;
         utime:string;
     }
 

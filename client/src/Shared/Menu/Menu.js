@@ -12,7 +12,7 @@ import "./Menu.scss";
 function Menu() {
     return (
         <>
-            <div style={{ backgroundColor: '#9470d4' }} class="menu_left">
+            <div style={{ backgroundColor: '#9470d4' }} className="menu_left">
                 <Nav className="flex-column">
                     <DropdownButton
                         key={'end'}

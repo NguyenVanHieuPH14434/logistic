@@ -2,8 +2,8 @@ import instance from "./instance"
 
 const login = async(data) => {
     const url = '/auth/login';
-    const da = await instance.post(url, data);
-    return da;
+    const res = await instance.post(url, data);
+    return res;
 }
 
 const register = async(data) => {

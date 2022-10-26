@@ -23,7 +23,7 @@ const AppContextProvider = ({children}) => {
         const response = await axios.get('http://localhost:9000/api/auth');
         
         if(response.data.success){
-            dispatch({type:'SET_AUTH', payload:{isAuthenticated:true, user:response.data.user}});
+            dispatch({type:'SET_AUTH', payload:{isAuthenticated:true, user:response.data.data}});
         }
        } catch (error) {
             setToken(null)
@@ -38,7 +38,7 @@ const AppContextProvider = ({children}) => {
 
         const res = await login(data);
         try {
-            if(res.data.status){
+            if(res.data.success){
                 localStorage.setItem(LOCAL_TOKEN, res.data.token)
             }
              await loadUser();
