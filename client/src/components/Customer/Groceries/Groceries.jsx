@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
@@ -11,7 +12,7 @@ import { createOrder, uploadFiles } from "../../../api/orderApi";
 function Groceries() {
   const [list, setList] = useState([
     {
-      product_image: "",
+      product_image: null,
       product_link: "",
       product_name: "",
       attribute: "",
@@ -54,7 +55,7 @@ function Groceries() {
   const handleOnClickAddMore = (e) => {
     let newList = [...list];
     newList = {
-      product_image: "",
+      product_image:null,
       product_link: "",
       product_name: "",
       attribute: "",
@@ -116,24 +117,10 @@ function Groceries() {
 
   // thêm file ảnh
   const changFile = (i, e) => {
-    const file = [...files];
-    file[i] = e.target.files;
-    setFiles(file);
-
-    // change originalName file
-    const val = [...list];
-    val[i][e.target.name] = e.target.files[0].name;
-    setList(val);
-
-    // preview image
-    // let reader = new FileReader();
-    // reader.onload = function(e) {
-
-    //   setPreviewImage(e.target?.result)
-    // };
-
-    // reader.readAsDataURL(e.target.files[0]);
-    setPreviewImage(URL.createObjectURL(e.target.files[0]));
+    let name = e.target.name
+    let value = e.target.value
+    setList([{...list,[name]:value}])
+    // setPreviewImage(URL.createObjectURL(e.target.files[0]));
   };
   console.log("pre", previewImage);
 
@@ -200,7 +187,7 @@ function Groceries() {
                       height: "64px",
                       marginTop: "24px",
                     }}
-                    src={previewImage !== null ? previewImage : image}
+                    src={li.product_image !== null ? li.product_image : image}
                   />
                   <label
                     className="mt-1"
