@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useContext, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
@@ -27,8 +28,33 @@ function Groceries() {
       total_price: 0,
     },
   ]);
+  const checkValidate = (items,order) => {
+    //create
+  if(order.full_name !==''&& order.phone !==''&&order.address !==''){
+    let checkEmptyItems= items.every((n)=>{
+      return (
+        n.product_image !== '' &&
+        n.fileImage !== '' &&
+        n.product_link &&
+        n.product_name !== '' &&
+        n.attribute !== '' &&
+        n.product_price !== '' &&
+        n.quantity > 0 &&
+        n.total_price > 0
+      )
+    })
+      if(checkEmptyItems === true){
+        handleSave()
+      }
+      else {
+        return alert(`please check input product !!!`);
+      }
+    }
+    else {
+      return alert(`please check input information !!!`);
+    }
+  };
   const [show, setShow] = useState(false);
-
   // Danh sách các sản phẩm
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -91,7 +117,7 @@ function Groceries() {
     }
     totalOrderCost = total + orderCost;
   }
-  const [lists,setLists]=useState()
+  const [lists,setLists]=useState([])
 
   // thay đổi giá trị form sản phẩm
   const changeInp = (i, e) => {
@@ -102,13 +128,17 @@ function Groceries() {
         val[i]["product_price"].replace(/,/g, "") * 3650 * val[i]["quantity"];
     }
     setList(val);
-    setLists(list)
+   
    
   };
 
   // thông tin khách hàng
-  const [order, setOrder] = useState();
-
+  const [order, setOrder] = useState({
+    full_name:'',
+    phone:'',
+    address:''
+  });
+  console.log(order);
   // thay đổi giá trị thông tin khách hàng
   const changeInpOrder = (e) => {
     const valOrder = { ...order };
@@ -138,6 +168,7 @@ function Groceries() {
     setList(val);
   };
   console.log("pre", previewImage);
+    
   // tạo đơn
   const handleSave = async () => {
     const dataImage = new FormData();
@@ -174,10 +205,11 @@ function Groceries() {
     alert('Tạo đơn thành công!');
     navigate('/app/orderGroceries', {state:{data:list}});
   };
-  console.log("order", order);
+  const saveData =()=>{
+    checkValidate(list,order)
+  }
   console.log("item", list);
-  console.log("file", files);
-
+  console.log("items", lists);
   const DeleteList = (i) => {
     const newList = [...list];
     newList.splice(i, 1);
@@ -227,7 +259,6 @@ function Groceries() {
                     className="mt-1"
                     id="label-upload"
                   >
-                 
                   <input
                     type="file"
                     multiple style={{display:"none"}}
@@ -427,7 +458,7 @@ function Groceries() {
             <Button
               variant="warning"
               type="submit"
-              onClick={handleSave}
+              onClick={saveData}
               className="end-btn"
               // as={Link} to="/app/orderGroceries"
             >

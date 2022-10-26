@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Table } from "react-bootstrap";
 import { NumericFormat } from "react-number-format";
-import {useLocation} from 'react-router-dom'
 import "./orderGroceries.scss";
+import { useLocation } from "react-router-dom";
 
 export default function OrderGroceries() {
   const location = useLocation();
@@ -48,7 +48,7 @@ export default function OrderGroceries() {
             </tr>
           </thead>
           <tbody>
-            {list2 ? list2.map((li, i) => (
+            {list2&&list2.map((li, i) => (
               <tr key={i}>
                 <td className="pt-5">
                   {" "}
@@ -149,7 +149,7 @@ export default function OrderGroceries() {
                   </p>
                 </td>
               </tr>
-            )):[]}
+            ))}
           </tbody>
         </Table>
       </div>
