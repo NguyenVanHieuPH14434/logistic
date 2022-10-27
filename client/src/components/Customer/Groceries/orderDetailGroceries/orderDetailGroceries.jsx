@@ -18,7 +18,7 @@ export default function OrderDetailGroceries() {
       setList(res.data.data)
     })
   }, [])
-  console.log('list', list.orderItem);
+  console.log('list', list);
   console.log('item', item);
   return (
     <div className='OrderDetailGroceries'>
@@ -38,7 +38,7 @@ export default function OrderDetailGroceries() {
               <th scope="col">Đơn Hàng</th>
             </tr>
           </thead>
-          {/* <tbody>
+          <tbody>
             {list.orderItem.map((li, i) => {
               return (
                 <tr>
@@ -52,7 +52,7 @@ export default function OrderDetailGroceries() {
                 </tr>
               );
             })}
-          </tbody> */}
+          </tbody>
         </table>
     </div>
   )
