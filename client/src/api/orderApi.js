@@ -15,9 +15,15 @@ const listOrder = async(userId) =>{
     const res = await instance.get(url)
     return res;
 }
+const detailOrder = async(orderId) =>{
+    const url = `/order/detailOrder/${orderId}`;
+    const res = await instance.get(url)
+    return res;
+}
 
 export {
     createOrder,
     uploadFiles,
     listOrder,
+    detailOrder,
 }

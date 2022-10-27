@@ -87,7 +87,7 @@ export default function ListGroceries() {
     getListt().then((re) => {
       setListt(re.data.data);
     });
-  }, [])
+  }, []);
 
   console.log("list", listt);
 
@@ -217,15 +217,12 @@ export default function ListGroceries() {
         </div>
       </div>
 
-      <Link to="/app/orderDetailGroceries"> Đơn hàng </Link>
-
       <div className="listOrder">
         <table className="table text-center">
           <thead>
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col">User ID</th>
-              <th scope="col">Tên đầy đủ</th>
+              <th scope="col">Mã đơn hàng</th>
+              <th scope="col">Tên Khách hàng</th>
               <th scope="col">Số Điện Thoại</th>
               <th scope="col">Địa chỉ</th>
               <th scope="col">Trạng thái</th>
@@ -233,19 +230,23 @@ export default function ListGroceries() {
             </tr>
           </thead>
           <tbody>
-            {listt ?listt.map((li, i) => {
-              return (
-                <tr>
-                  <th scope="row"> {li._id} </th>
-                  <td> {li.user_id} </td>
-                  <td> {li.full_name} </td>
-                  <td> {li.phone} </td>
-                  <td> {li.address} </td>
-                  <td> {li.status} </td>
-                  <td> {li.status} </td>
-                </tr>
-              );
-            }):[]}
+            {listt
+              ? listt.map((li, i) => {
+                  return (
+                    <tr>
+                      <th scope="row"> {li._id} </th>
+                      <td> {li.full_name} </td>
+                      <td> {li.phone} </td>
+                      <td> {li.address} </td>
+                      <td> {li.status} </td>
+                      <td>
+                        {" "}
+                        {/* <Link to={`/app/orderDetailGroceries`, {state:{id:li._id}}}> Chi tiết đơn hàng </Link>   */}
+                      </td>
+                    </tr>
+                  );
+                })
+              : []}
           </tbody>
         </table>
       </div>
