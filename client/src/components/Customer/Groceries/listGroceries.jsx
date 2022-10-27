@@ -7,13 +7,13 @@ import Calendar from "react-calendar";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { listOrder } from "../../../api/orderApi";
 import { Dropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function ListGroceries() {
   const {
     state: { user },
   } = useContext(AppContext);
-
+const navi = useNavigate();
   // Array to store month string values
   const allMonthValues = [
     "January",
@@ -91,6 +91,22 @@ export default function ListGroceries() {
 
   console.log("list", listt);
 
+  const localtion = useLocation();
+  console.log(localtion.pathname.split('/',3)[2]);
+
+const renderStatus =(status)=>{
+  switch (status) {
+    case 0:
+      return 'Chờ xác nhận';
+    case 1:
+      return 'Đã xác nhận';
+    case 2:
+        return 'Đang vận chuyển về kho Trung Quốc'
+    default:
+      return 'Chờ xác nhận';
+  }
+}
+
   return (
     <div className="listGroceries">
       <div className="nav_container">
@@ -109,7 +125,7 @@ export default function ListGroceries() {
           <img src={nav_exchange_rate_logo} alt="" />
           <span>
             <p>Tỉ giá</p>
-            <h2 className="text-danger">3,600đ</h2>
+            <h2 className="text-danger">3,650đ</h2>
           </span>
         </div>
       </div>
@@ -217,12 +233,15 @@ export default function ListGroceries() {
         </div>
       </div>
 
-      <div className="listOrder">
-        <table className="table text-center">
-          <thead>
+     
+      {/* <button onClick={()=>navi("/app/orderDetailGroceries")}>Đơn hàng</button> */}
+
+      <div className="listOrder mx-4">
+        <table className="table table-bordered mt-5 text-center" >
+          <thead style={{background:'rgb(148, 112, 212)', color:'white'}}>
             <tr>
-              <th scope="col">Mã đơn hàng</th>
-              <th scope="col">Tên Khách hàng</th>
+              <th scope="col">Mã dơn hàng</th>
+              <th scope="col">Tên đầy đủ</th>
               <th scope="col">Số Điện Thoại</th>
               <th scope="col">Địa chỉ</th>
               <th scope="col">Trạng thái</th>
@@ -230,23 +249,20 @@ export default function ListGroceries() {
             </tr>
           </thead>
           <tbody>
-            {listt
-              ? listt.map((li, i) => {
-                  return (
-                    <tr>
-                      <th scope="row"> {li._id} </th>
-                      <td> {li.full_name} </td>
-                      <td> {li.phone} </td>
-                      <td> {li.address} </td>
-                      <td> {li.status} </td>
-                      <td>
-                        {" "}
-                        {/* <Link to={`/app/orderDetailGroceries`, {state:{id:li._id}}}> Chi tiết đơn hàng </Link>   */}
-                      </td>
-                    </tr>
-                  );
-                })
-              : []}
+            {listt ?listt.map((li, i) => {
+              return (
+                <tr>
+                  <th scope="row"> {li._id} </th>
+                  <td> {li.full_name} </td>
+                  <td> {li.phone} </td>
+                  <td> {li.address} </td>
+                  <td> {renderStatus(li.status)} </td>
+                  <td>  
+                    <button className="btn btn-primary" onClick={()=>navi("/app/orderDetailGroceries", {state:{id:li._id}})}>Chi tiết đơn</button> 
+                    </td>
+                </tr>
+              );
+            }):[]}
           </tbody>
         </table>
       </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Groceries from "./components/Customer/Groceries/Groceries";
 import Deposit from "./components/Customer/Deposit/Deposit";
@@ -32,7 +32,7 @@ function App() {
         </Route>
         <Route path="/app" element={<RouterDasboard className="right" />}>
           <Route path="groceries" element={<Groceries className="right" />}></Route>
-          <Route path="deposit" element={<Deposit className="right" />}></Route>
+          <Route path="deposit"  element={<Deposit className="right" />}></Route>
           <Route path="listGroceries" element={<ListGroceries className="right" />}></Route>
           <Route path="listDeposit" element={<ListDeposit className="right" />}></Route>
           <Route path="user" element={<User className="right" />}></Route>

@@ -46,7 +46,7 @@ export class OrderModel {
             }
         }
         ]).toArray();
-        return doc;
+        return doc[0];
     }
 
     async GetOrder (_id:string) {

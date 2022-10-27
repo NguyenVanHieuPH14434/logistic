@@ -13,6 +13,7 @@ import RouterDasboard from "../../../RouterDasboard";
 import Order from "./orderDeposit/orderDeposit";
 import Dasboard from "../../Dasboard";
 import { Confirm } from "../../../lib/toastify";
+import { tesst } from "../../../lib/shipFee";
 
 function Deposit() {
     const [list, setList] = useState([
@@ -27,6 +28,9 @@ function Deposit() {
         }
 
     ]);
+    const a = tesst;
+    const [lis, setLis] = useState(a)
+    console.log( a );
 
     // Danh sách các sản phẩm
     // Nút thêm sản phẩm
@@ -115,6 +119,21 @@ function Deposit() {
     const handleClose = (e) => setShow(false);
     const handleShow = (e) => setShow(true);
 
+
+    // Tính giá ship 
+    const handleOnClickRadio = (e) => {
+        console.log(e.target.value);
+        if (e.target.value === 'tronGoi') {
+            let newArea = [...area]
+            newArea.pop()
+            setArea(newArea)
+        }
+    }
+
+    const [area, setArea] = useState([{ value: 'Hà Nội', label: 'Hà Nội' }, { value: 'TP.HCM', label: 'TP.HCM' }, { value: 'Hải Phòng', label: 'Hải Phòng' }])
+    const handleOnChangeArea = (e) => {
+
+    }
     return (
         <>
             <div className="deposit">
@@ -122,12 +141,12 @@ function Deposit() {
                 <Table striped bordered hover size="lg">
                     <thead>
                         <tr>
-                            <th>STT</th>
+                            <th style={{ width: '5%' }}>STT</th>
                             <th>Ảnh Sản Phẩm</th>
                             <th>Thông tin hàng hóa</th>
                             <th>Thông Tin Số Hàng Hóa</th>
                             <th>Ghi chú</th>
-                            <th>Ghi chú</th>
+                            <th style={{ width: '5%' }}>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -355,7 +374,7 @@ function Deposit() {
                         <h1>Phí vận chuyển quốc tế</h1>
 
                         {/* Phí vận chuyển trọn gói */}
-                        <div className="mt-5 ">
+                        {/* <div className="mt-5 ">
                             <h5>Phí vận chuyển trọn gói</h5>
                             <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                 <option value="" selected> Trọng lượng</option>
@@ -378,30 +397,39 @@ function Deposit() {
                                 <option value="">Hà Nội</option>
                                 <option value="">TP.HCM</option>
                             </select>
-                        </div>
+                        </div> */}
                         <div className="mt-5">
-                            <h5>Phí vận chuyển chính ngạch</h5>
-                            <p>Tổng phí nhập khẩu = Phí dịch vụ + Phí vận chuyển + Thuế nhập khẩu (nếu có) + Thuế VAT</p>
-                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                <option value="" selected>Trọng lượng(kg)</option>
-                                <option value="">&gt; 500kg</option>
-                                <option value="">&gt;200 &#8594;500kg</option>
-                                <option value="">&gt;100 &#8594;200kg</option>
-                                <option value="">&gt;30 &#8594;100kg</option>
-                                <option value="">&lt; 30kg</option>
-                            </select>
-                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                <option value="" selected>Khối lượng (tính/m3)</option>
-                                <option value="">&gt;20m3</option>
-                                <option value="">&gt;10m3 &#8594;20m3</option>
-                                <option value="">&gt;5m3 &#8594;10m3</option>
-                                <option value="">&lt;5m3</option>
-                            </select>
-                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                <option value="" selected> Khu vực</option>
-                                <option value="">Hà Nội</option>
-                                <option value="">TP.HCM</option>
-                            </select>
+                            <div class="official">
+                                <div className="">
+                                    <input name="ship" value="tronGoi" onClick={(e) => handleOnClickRadio(e)} type="radio" />
+                                    <label className="ps-2 fs-5 fw-bold">Phí vận chuyển trọn gói</label>
+                                    <br />
+                                    <input name="ship" value="chinhNgach" className="mt-2" onClick={(e) => handleOnClickRadio(e)} type="radio" />
+                                    <label className="ps-2 fs-5 fw-bold">Phí vận chuyển chính ngạch</label>
+                                </div>
+                                <p>Tổng phí nhập khẩu = Phí dịch vụ + Phí vận chuyển + Thuế nhập khẩu (nếu có) + Thuế VAT</p>
+                                <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                    <option value="" selected>Trọng lượng(kg)</option>
+                                    <option value="">&gt; 500kg</option>
+                                    <option value="">&gt;200 &#8594;500kg</option>
+                                    <option value="">&gt;100 &#8594;200kg</option>
+                                    <option value="">&gt;30 &#8594;100kg</option>
+                                    <option value="">&lt; 30kg</option>
+                                </select>
+                                <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                    <option value="" selected>Khối lượng (tính/m3)</option>
+                                    <option value="">&gt;20m3</option>
+                                    <option value="">&gt;10m3 &#8594;20m3</option>
+                                    <option value="">&gt;5m3 &#8594;10m3</option>
+                                    <option value="">&lt;5m3</option>
+                                </select>
+                                <select onChange={(e) => handleOnChangeArea(e)} className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                    <option value="" selected> Khu vực</option>
+                                    {area.map((item, i) => (
+                                        <option value={item.value}> {item.label} </option>
+                                    ))}
+                                </select>
+                            </div>
                             <div className="VAT text-danger" style={{ backgroundColor: '#fff1f0', marginTop: "20px" }}>
                                 <p><span style={{ fontWeight: 'bold' }}>Thuế nhập khẩu (Nếu có)</span> = % thuế x Giá trị hàng hóa <br />
                                     <span style={{ fontWeight: 'bold' }}>Thuế VAT</span> = 10% x Giá trị hàng hóa</p>
@@ -421,12 +449,41 @@ function Deposit() {
                         <div className="mt-5 mb-3">
                             <span className="d-flex">
                                 <h5>PHÍ ĐÓNG GỖ</h5>
-                                <input className="mb-2 ms-2" type="checkbox"/>
+                                <input className="mb-2 ms-2" type="checkbox" />
                             </span>
                             <span className="d-flex">
                                 <h5>PHÍ BẢO HIỂM</h5>
-                                <input className="mb-2 ms-2" type="checkbox"/>
+                                <input className="mb-2 ms-2" type="checkbox" />
                             </span>
+                        </div>
+                        <div className="express border border-danger mt-3">
+                            <div className=" d-flex mt-3">
+                                <p className="ps-2">Vận chuyển</p>
+                                <div>
+                                    <span className="ms-3">
+                                        <input type="radio" />
+                                        <label className="ps-1" htmlFor="">Nhanh</label>
+                                    </span>
+                                    <span className="ms-3">
+                                        <input type="radio" />
+                                        <label className="ps-1" htmlFor="">Thường</label>
+                                    </span>
+                                </div>
+                            </div>
+                            <div className=" d-flex justify-content-evenly">
+                                <p className="ps-2">Yêu cầu khác</p>
+                                <div className="d-flex flex-column">
+                                    <span className="ms-3">
+                                        <input type="checkbox" disabled />
+                                        <label className="ps-1" htmlFor="">Kiểm hàng</label>
+                                    </span>
+                                    <br />
+                                    <span className="ms-3">
+                                        <input type="checkbox" />
+                                        <label className="ps-1" htmlFor=""> Khai thuế 100% hàng có hóa đơn GTGT</label>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

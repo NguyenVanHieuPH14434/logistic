@@ -3,9 +3,10 @@ import "./login.scss";
 import logo_login from "../../../assets/public/img/logo_login.png";
 import background_login from "../../../assets/public/img/image-background-login.png";
 import { useState } from "react";
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import { AppContext } from "../../../contexts/AppContextProvider";
 import {Navigate} from 'react-router-dom'
+import { toastifyError } from "../../../lib/toastify";
 
 
 export default function Login() {
@@ -24,29 +25,29 @@ export default function Login() {
     });
   };  
 
+  const location = useLocation();
+
   const handleOnClickLoginBtn = async (e) => {
     e.preventDefault();
     if(data.username === '' ||  data.password === ''){
-    return alert('Vui lòng nhập đầy đủ thông tin!')
+    return toastifyError('Vui lòng nhập đầy đủ thông tin!')
     }
       try {
         const res = await loginUser(data);
-        console.log(res);
         
         if(res.data.success){
           navigate('/app/deposit');
         }else {
-           alert(res.data.message);
+          toastifyError(res.data.message);
         }
       } catch (error) {
-        console.log(error);
-        
-         alert(error)
+        toastifyError(error.message)
       }
   };
 
   if(isAuthenticated)
 return (
+  // <Navigate to={'/app/deposit'}/>
   <Navigate to={'/app/deposit'}/>
 );
   return (
