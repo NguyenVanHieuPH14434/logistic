@@ -180,7 +180,8 @@ function Groceries() {
     // change originalName file
     const val = [...list];
     val[i][e.target.name] = e.target.files[0].name;
-    val[i]["fileImage"] = URL.createObjectURL(e.target.files[0]);
+    val[i]["fileImage"] = e.target.files[0];
+    // val[i]["fileImage"] = URL.createObjectURL(e.target.files[0]);
     setList(val);
   };
   // tạo đơn
@@ -268,7 +269,7 @@ function Groceries() {
                       height: "64px",
                       marginTop: "24px",
                     }}
-                    src={li.fileImage !== "" ? li.fileImage : image}
+                    src={li.fileImage !== "" ? URL.createObjectURL(li.fileImage) : image}
                   />
                   <label className="mt-1" id="label-upload">
                     <input

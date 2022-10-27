@@ -6,6 +6,7 @@ import { OrderController } from './order/order.controller';
 import { OrderModel } from './order/order.model';
 import { MongoCommon } from './lib/mongodb';
 import express from 'express';
+import path from 'path'
 import { ReadConfig } from './config';
 import cors from 'cors';
 import { NewOrderAPI } from './order/order.api';
@@ -45,6 +46,8 @@ export async function main() {
     app.use(express.json());
     app.use(cors());
     app.disable("x-powered-by");
+    // public image api 
+    app.use(express.static(path.join(__dirname, 'public')));
 
     app.use('/api/order', NewOrderAPI(orderController,orderItemController));
     app.use('/api/orderItem', NewOrderItemAPI(orderItemController));
