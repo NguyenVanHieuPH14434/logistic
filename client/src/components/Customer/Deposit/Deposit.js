@@ -13,7 +13,6 @@ import RouterDasboard from "../../../RouterDasboard";
 import Order from "./orderDeposit/orderDeposit";
 import Dasboard from "../../Dasboard";
 import { Confirm } from "../../../lib/toastify";
-import { tesst } from "../../../lib/shipFee";
 
 function Deposit() {
     const [list, setList] = useState([
@@ -28,9 +27,6 @@ function Deposit() {
         }
 
     ]);
-    const a = tesst;
-    const [lis, setLis] = useState(a)
-    console.log( a );
 
     // Danh sách các sản phẩm
     // Nút thêm sản phẩm
