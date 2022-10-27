@@ -1,48 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import './OrderDetailGroceries.scss'
+/* eslint-disable jsx-a11y/alt-text */
+import React, { useEffect, useState } from "react";
+import "./OrderDetailGroceries.scss";
 import Table from "react-bootstrap/Table";
-import {useLocation} from 'react-router-dom'
-import { deltailOrder } from '../../../../api/orderApi';
-import { NumericFormat } from 'react-number-format';
+import { useLocation } from "react-router-dom";
+import { deltailOrder } from "../../../../api/orderApi";
 
 export default function OrderDetailGroceries() {
   const location = useLocation();
-  console.log('ss', location.state.id);
-  const [list, setList] = useState({})
-  const [item, setItem] = useState([])
-  const getDetail = async() => {
+  console.log("ss", location.state.id);
+  const [list, setList] = useState({});
+  const [item, setItem] = useState([]);
+  const getDetail = async () => {
     const res = await deltailOrder(location.state.id);
     return res;
-  }
-  useEffect(()=>{
-    getDetail().then((res)=>{
-      setList(res.data.data)
-      setItem(res.data.data.orderItem)
-    })
-  }, [])
-  console.log('list', list);
-  console.log('item', item);
-  
+  };
+  useEffect(() => {
+    getDetail().then((res) => {
+      setList(res.data.data);
+      setItem(res.data.data.orderItem);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  console.log("list", list);
+  console.log("item", item);
+
   return (
-    <div className='OrderDetailGroceries'>
-        <h1>Order Detail Groceries</h1>
-        <div>
-          Mã đơn hàng: 
-        </div>
-         <Table style={{ backgroundColor: "white" }} bordered hover size="lg">
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Ảnh Sản Phẩm</th>
-              <th>Thuộc tính</th>
-              <th>Đơn giá</th>
-              <th>Số lượng</th>
-              <th>Ghi chú</th>
-              <th>Thành tiền</th>
-            </tr>
-          </thead>
-          <tbody>
-            {item.map((li, i) =>{ return (
+    <div className="OrderDetailGroceries">
+      <h1>Order Detail Groceries</h1>
+      <div>Mã đơn hàng:</div>
+      <Table style={{ backgroundColor: "white" }} bordered hover size="lg">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Ảnh Sản Phẩm</th>
+            <th>Thuộc tính</th>
+            <th>Đơn giá</th>
+            <th>Số lượng</th>
+            <th>Ghi chú</th>
+            <th>Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          {item.map((li, i) => {
+            return (
               <tr key={i}>
                 <td className="pt-5">
                   {" "}
@@ -85,35 +85,23 @@ export default function OrderDetailGroceries() {
                   />
                 </td>
                 <td className="pt-5">
-               
-                 {li.product_price ? li.product_price : ""}
-                   
+                  {li.product_price ? li.product_price : ""}
                 </td>
                 <td className="soLuong">
-                  <div className="d-flex soLuong">
-                    
-                  {li.quantity}
-                   
-                    
-                  </div>
+                  <div className="d-flex soLuong">{li.quantity}</div>
                 </td>
                 <td>
                   {" "}
-                  <div className="d-flex soLuong">
-                {li.note ? li.note : ""}
-                </div>
+                  <div className="d-flex soLuong">{li.note ? li.note : ""}</div>
                 </td>
                 <td className="pt-5">
-                  <p className="" >
-                   {li.total_price}
-                   
-                  </p>
-                
+                  <p className="">{li.total_price}</p>
                 </td>
               </tr>
-            )})}
-          </tbody>
-        </Table>
+            );
+          })}
+        </tbody>
+      </Table>
     </div>
-  )
+  );
 }
