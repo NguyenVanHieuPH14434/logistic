@@ -67,7 +67,7 @@ export default function OrderGroceries() {
                       height: "64px",
                       marginTop: "24px",
                     }}
-                    src={li.fileImage?li.fileImage:''}
+                    src={li.fileImage?URL.createObjectURL(li.fileImage):''}
                   />
                 </td>
                 <td>

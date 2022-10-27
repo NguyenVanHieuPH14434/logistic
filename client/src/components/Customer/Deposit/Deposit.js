@@ -122,12 +122,12 @@ function Deposit() {
                 <Table striped bordered hover size="lg">
                     <thead>
                         <tr>
-                            <th>STT</th>
+                            <th style={{width:'5%'}}>STT</th>
                             <th>Ảnh Sản Phẩm</th>
                             <th>Thông tin hàng hóa</th>
                             <th>Thông Tin Số Hàng Hóa</th>
                             <th>Ghi chú</th>
-                            <th>Ghi chú</th>
+                            <th style={{width:'5%'}}>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
