@@ -10,8 +10,14 @@ const uploadFiles = async(data) => {
     await instance.post(url, data);
 }
 
-const listOrder = async(userId) =>{
+const listOrder = async(userId) => {
     const url = `/order/list/${userId}`;
+    const res = await instance.get(url)
+    return res;
+}
+
+const deltailOrder = async(orderId) => {
+    const url = `/order/detailOrder/${orderId}`;
     const res = await instance.get(url)
     return res;
 }
@@ -20,4 +26,5 @@ export {
     createOrder,
     uploadFiles,
     listOrder,
+    deltailOrder
 }

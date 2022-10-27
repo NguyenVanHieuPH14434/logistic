@@ -7,13 +7,13 @@ import Calendar from "react-calendar";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { listOrder } from "../../../api/orderApi";
 import { Dropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function ListGroceries() {
   const {
     state: { user },
   } = useContext(AppContext);
-
+const navi = useNavigate();
   // Array to store month string values
   const allMonthValues = [
     "January",
@@ -91,6 +91,11 @@ export default function ListGroceries() {
 
   console.log("list", listt);
 
+  const localtion = useLocation();
+  console.log(localtion.pathname.split('/',3)[2]);
+
+
+
   return (
     <div className="listGroceries">
       <div className="nav_container">
@@ -109,7 +114,7 @@ export default function ListGroceries() {
           <img src={nav_exchange_rate_logo} alt="" />
           <span>
             <p>Tỉ giá</p>
-            <h2 className="text-danger">3,600đ</h2>
+            <h2 className="text-danger">3,650đ</h2>
           </span>
         </div>
       </div>
@@ -217,7 +222,8 @@ export default function ListGroceries() {
         </div>
       </div>
 
-      <Link to="/app/orderDetailGroceries"> Đơn hàng </Link>
+     
+      {/* <button onClick={()=>navi("/app/orderDetailGroceries")}>Đơn hàng</button> */}
 
       <div className="listOrder">
         <table className="table text-center">
@@ -242,7 +248,9 @@ export default function ListGroceries() {
                   <td> {li.phone} </td>
                   <td> {li.address} </td>
                   <td> {li.status} </td>
-                  <td> {li.status} </td>
+                  <td>  
+                    <button onClick={()=>navi("/app/orderDetailGroceries", {state:{id:li._id}})}>Đơn hàng</button> 
+                    </td>
                 </tr>
               );
             }):[]}

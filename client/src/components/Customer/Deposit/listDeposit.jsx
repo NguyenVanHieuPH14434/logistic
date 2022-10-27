@@ -72,7 +72,7 @@ console.log('..', calendarText);
           <img src={nav_exchange_rate_logo} alt="" />
           <span>
             <p>Tỉ giá</p>
-            <h2 className="text-danger">3,600đ</h2>
+            <h2 className="text-danger">3,650đ</h2>
           </span>
         </div>
       </div>

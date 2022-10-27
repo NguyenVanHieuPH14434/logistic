@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './OrderDetailGroceries.scss'
+import {useLocation} from 'react-router-dom'
+import { deltailOrder } from '../../../../api/orderApi';
 
 export default function OrderDetailGroceries() {
+  const location = useLocation();
+  console.log('ss', location.state.id);
+  const [list, setList] = useState({})
+  const [item, setItem] = useState(list.orderItem)
+  const getDetail = async() => {
+    const res = await deltailOrder(location.state.id);
+    return res;
+  }
+  useEffect(()=>{
+    getDetail().then((res)=>{
+      console.log(res);
+      setList(res.data.data)
+    })
+  }, [])
+  console.log('list', list.orderItem);
+  console.log('item', item);
   return (
     <div className='OrderDetailGroceries'>
         <h1>Order Detail Groceries</h1>
+        <div>
+          Mã đơn hàng: 
+        </div>
         <table className="table text-center">
           <thead>
             <tr>
@@ -17,21 +38,21 @@ export default function OrderDetailGroceries() {
               <th scope="col">Đơn Hàng</th>
             </tr>
           </thead>
-          <tbody>
-            {/* {listt.map((li, i) => {
+          {/* <tbody>
+            {list.orderItem.map((li, i) => {
               return (
                 <tr>
                   <th scope="row"> {li._id} </th>
-                  <td> {li.user_id} </td>
-                  <td> {li.full_name} </td>
-                  <td> {li.phone} </td>
-                  <td> {li.address} </td>
-                  <td> {li.status} </td>
-                  <td> {li.status} </td>
+                  <td> {li._id} </td>
+                  <td> {li.product_name} </td>
+                  <td> {li.product_name} </td>
+                  <td> {li.product_name}</td>
+                  <td> {li.product_name} </td>
+                  <td> {li.product_name} </td>
                 </tr>
               );
-            })} */}
-          </tbody>
+            })}
+          </tbody> */}
         </table>
     </div>
   )

@@ -392,10 +392,10 @@ function Groceries() {
                       onClick={(e) => submit(e)}
                     >
                       {" "}
-                      <i
+                      {list.length > 1 && <i
                         onClick={() => submit(i)}
                         className="fa-solid fa-circle-xmark icon_delete_list"
-                      ></i>
+                      ></i>}
                     </button>
                   </span>
                 </td>
