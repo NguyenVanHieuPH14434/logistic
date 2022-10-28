@@ -6,62 +6,40 @@ import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { Routes, Route, Navigate, Link, useParams, useSearchParams } from 'react-router-dom';
-
 import { NumericFormat } from "react-number-format";
-import RouterAuth from "../../../RouterAuth";
-import RouterDasboard from "../../../RouterDasboard";
-import Order from "./orderDeposit/orderDeposit";
-import Dasboard from "../../Dasboard";
-import { Confirm } from "../../../lib/toastify";
+
+import { Confirm, toastifyError } from "../../../lib/toastify";
+import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../lib/shipFee";
 
 function Deposit() {
     const [list, setList] = useState([
         {
-            id: '1',
-            img: "https://anhgaixinh.biz/wp-content/uploads/2022/01/gai-xinh-mac-vay-xep-ly-ngan-9.jpg",
-            attribute: "",
-            price: "",
-            amount: 0,
-            note: "",
-            totalPrice: 0,
+            image: '',
+            fileImage: '',
+            maVanDon: '',
+            nameSanPham: '',
+            soKien: '',
+            kgM3: 0,
+            donGia: 0,
+            phuPhi: 0,
+            tongTien: 0
         }
 
     ]);
 
 
-    // Danh sách các sản phẩm
-    // Nút thêm sản phẩm
-    const handleOnIncrease = (i, e) => {
-        const increase = [...list];
-        increase[i]["amount"] = parseInt(increase[i]["amount"]) + 1;
-        increase[i]["totalPrice"] = increase[i]["amount"] * increase[i]["price"].replace(/,/g, "");
-        setList(increase);
-    };
-
-    // Nút bớt sản phẩm
-    const handleOnReduced = (i) => {
-        const count = [...list];
-        if (count[i]["amount"] <= 0) {
-            count[i]["amount"] = 0;
-            count[i]["totalPrice"] = count[i]["amount"] * count[i]["price"].replace(/,/g, "");
-        } else {
-            count[i]["amount"] = count[i]["amount"] - 1;
-            count[i]["totalPrice"] = count[i]["amount"] * count[i]["price"].replace(/,/g, "");
-        }
-        setList(count);
-    };
-
     const handleOnClickAddMore = (e) => {
         let newList = [...list];
-        const newId = newList.length + 1
         newList = {
-            id: newId,
-            img: "https://anhgaixinh.biz/wp-content/uploads/2022/01/gai-xinh-mac-vay-xep-ly-ngan-10.jpg",
-            attribute: "",
-            price: "",
-            amount: 0,
-            note: "",
-            totalPrice: 0,
+            image: '',
+            fileImage: '',
+            maVanDon: '',
+            nameSanPham: '',
+            soKien: '',
+            kgM3: 0,
+            donGia: 0,
+            phuPhi: 0,
+            tongTien: 0
         };
         setList([...list, newList]);
     };
@@ -111,26 +89,124 @@ function Deposit() {
         Confirm('Delete!', 'Bạn có muốn xóa không?', DeleteList, i)
     }
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = (e) => setShow(false);
-    const handleShow = (e) => setShow(true);
-
 
     // Tính giá ship 
     const handleOnClickRadio = (e) => {
-        console.log(e.target.value);
+        setTypeShip(e.target.value)
         if (e.target.value === 'tronGoi') {
-            let newArea = [...area]
+            let newArea = location
             newArea.pop()
-            setArea(newArea)
+            return setArea(newArea)
+        } else {
+            return setArea(location)
         }
     }
 
-    const [area, setArea] = useState([{ value: 'Hà Nội', label: 'Hà Nội' }, { value: 'TP.HCM', label: 'TP.HCM' }, { value: 'Hải Phòng', label: 'Hải Phòng' }])
-    const handleOnChangeArea = (e) => {
-
+    // change input
+    const changeInp = (e, i) => {
+        const val = [...list]
+        val[i][e.target.name] = e.target.value;
+        val[i]['tongTien'] = val[i]['donGia'] * val[i]['kgM3'] + parseFloat(val[i]['phuPhi']);
+        setList(val);
     }
+
+    // file ảnh
+    const [files, setFiles] = useState([]);
+
+    // thêm file ảnh
+    const changFile = (i, e) => {
+        const file = [...files];
+        file[i] = e.target.files;
+        setFiles(file);
+
+        // change originalName file
+        const val = [...list];
+        val[i][e.target.name] = e.target.files[0].name;
+        val[i]["fileImage"] = e.target.files[0];
+        // val[i]["fileImage"] = URL.createObjectURL(e.target.files[0]);
+        setList(val);
+    };
+    console.log('listKy', list);
+    console.log('listFile', files);
+
+    // trạng thái 
+    const [status, setStatus] = useState([
+        'Đã về kho Trung Quốc',
+        'Đang vận chuyển về kho Việt Nam',
+        'Đã về kho Việt Nam',
+        'Giao hàng thành công!'
+    ])
+
+
+    const location = [{ value: 'Hà Nội', label: 'Hà Nội' }, { value: 'TP.HCM', label: 'TP.HCM' }, { value: 'Hải Phòng', label: 'Hải Phòng' }];
+    const [area, setArea] = useState([])
+    const [typeShip, setTypeShip] = useState('')
+    const [kg, setKg] = useState([])
+    const [m3, setM3] = useState([])
+    const [fee, setFee] = useState()
+    const [disM3, setDisM3] = useState(false);
+    const [disKg, setDisKg] = useState(false);
+
+    const handleOnChangeArea = (e) => {
+        const state = e.target.value + '&&' + typeShip;
+        if (!typeShip) return toastifyError('Vui lòng chọn loại phí vận chuyển trước!');
+
+        switch (state) {
+            case 'TP.HCM&&tronGoi':
+                setKg(HCMAreaFeePacketKg)
+                setM3(HCMAreaFeePacketM3)
+                return;
+            case 'Hà Nội&&tronGoi':
+                setKg(haNoiAreaFeePacketKg)
+                setM3(haNoiAreaFeePacketM3)
+                return;
+            case 'Hà Nội&&chinhNgach':
+                setKg(haNoiAreaFeeOfficicalkg)
+                setM3(haNoiAreaFeeOfficicalM3)
+                return;
+            case 'TP.HCM&&chinhNgach':
+                setKg(HCMAreaFeeOfficicalkg)
+                setM3(HCMAreaFeeOfficicalM3)
+                return;
+            case 'Hải Phòng&&chinhNgach':
+                setKg(haiPhongAreaFeeOfficicalkg)
+                setM3(haiPhongAreaFeeOfficicalM3)
+                return;
+            default:
+                return;
+        }
+    }
+
+    const changeFee = (e) => {
+        let text = '';
+        const name = e.target.name;
+        const val = e.target.value;
+        if (name && val !== 'default') {
+            text = name;
+        } else {
+            text = name + '&&' + val
+        }
+        switch (text) {
+            case 'kg':
+                return setDisM3(true);
+            case 'm3':
+                return setDisKg(true);
+            case 'kg&&default':
+                setDisM3(false);
+                setDisKg(false);
+                return
+            case 'm3&&default':
+                setDisKg(false);
+                setDisM3(false);
+                return;
+            default:
+                break;
+        }
+        setFee(e.target.value);
+    }
+
+
+
     return (
         <>
             <div className="deposit">
@@ -140,8 +216,8 @@ function Deposit() {
                         <tr>
                             <th style={{ width: '5%' }}>STT</th>
                             <th>Ảnh Sản Phẩm</th>
+                            {/* <th>Tên thuộc tính</th> */}
                             <th>Thông tin hàng hóa</th>
-                            <th>Thông Tin Số Hàng Hóa</th>
                             <th>Ghi chú</th>
                             <th style={{ width: '5%' }}>Hành động</th>
                         </tr>
@@ -149,75 +225,119 @@ function Deposit() {
                     <tbody>
                         {list.map((li, i) => (
                             <tr key={i}>
-                                <td className="pt-5"> {i + 1} <br />
-                                </td>
+                                <td > <span>{i + 1}</span></td>
                                 <td style={{ width: '100px' }} className="td_img">
                                     <img
-                                        style={{ width: "140px", display: 'flex', alignItems: 'center' }}
-                                        src={li.img}
+                                        style={{
+                                            width: "96px",
+                                            height: "64px",
+                                            marginTop: "24px",
+                                        }}
+                                        src={li.fileImage !== "" ? URL.createObjectURL(li.fileImage) : '../../default-thumbnail.jpg'}
                                     />
+                                    <label className="mt-1" id="label-upload">
+                                        <input
+                                            type="file"
+                                            multiple
+                                            style={{ display: "none" }}
+                                            name="image"
+                                            onChange={(e) => {
+                                                changFile(i, e);
+                                            }}
+                                        />
+                                        Upload...
+                                    </label>
                                 </td>
-                                <td>
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        placeholder="Mã vận đơn (*)"
-                                        name="maVanDon"
-                                        onChange={(e) => changeInpOrder(e)}
+                                {/* <td style={{ width: '150px' }}>
+                                    <label className="labelDepo mb-3" htmlFor="">Mã vận đơn</label><br />
+                                    <label className="labelDepo mb-3" htmlFor="">Tên sản phẩm</label><br />
+                                    <label className="labelDepo mb-3" htmlFor="">Số kiện hàng</label><br />
+                                    <label className="labelDepo mb-3" htmlFor="">Số cân/ số khối</label><br />
+                                    <label className="labelDepo mb-3" htmlFor="">Đơn giá</label><br />
+                                    <label className="labelDepo mb-3" htmlFor="">Phụ phí</label><br />
+                                    <label className="labelDepo mb-3" htmlFor="">Tổng tiền: </label>
+                                </td> */}
+                                <td className="td_productInformation" style={{width: '180px',}}> 
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Mã vận đơn: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            placeholder="Mã vận đơn (*)"
+                                            name="maVanDon"
+                                            onChange={(e) => changeInp(e, i)}
 
-                                    />
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        placeholder="Tên sản phẩm (*)"
-                                        name="nameSanPham"
-                                        onChange={(e) => changeInpOrder(e)}
+                                        />
+                                    </div>
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Tên sản phẩm: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            placeholder="Tên sản phẩm (*)"
+                                            name="nameSanPham"
+                                            onChange={(e) => changeInp(e, i)}
 
-                                    />
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        placeholder="Số kiện hàng (*)"
-                                        name="soKienHang"
-                                        onChange={(e) => changeInpOrder(e)}
+                                        />
+                                    </div>
 
-                                    />
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        placeholder="hãng vận chuyển (*)"
-                                        onChange={(e) => changeInpOrder(e)}
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Số kiện hàng: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            placeholder="Số kiện hàng"
+                                            name="soKien"
+                                            onChange={(e) => changeInp(e, i)}
 
-                                    />
+                                        />
+                                    </div>
+
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Số cân, số khối: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            name="kgM3"
+                                            placeholder="Số cân, số khối"
+                                            onChange={(e) => changeInp(e, i)}
+
+                                        />
+                                    </div>
+
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Đơn giá: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            name="donGia"
+                                            placeholder="Đơn giá"
+                                            onChange={(e) => changeInp(e, i)}
+
+                                        />
+                                    </div>
+
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Phụ phí: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            name="phuPhi"
+                                            placeholder="Phụ phí"
+                                            onChange={(e) => changeInp(e, i)}
+
+                                        />
+                                    </div>
+                                    <NumericFormat
+                                        className="w-75 text-center mx-auto form-control mt-1"
+                                        type="text"
+                                        disabled
+                                        style={{ background: '#EDA82D' }}
+                                        value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
+                                        placeholder="Tổng"
+                                        thousandSeparator=","
+                                    ></NumericFormat>
                                 </td>
-                                <td className="">
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        value="Trung Quốc - Việt Nam"
-                                    />
-                                    <select className="select_Menu form-control" style={{ width: '100%' }}>
-                                        <option value="">Chọn danh mục</option>
-                                        <option value="">Saab</option>
-                                        <option value="">Mercedes</option>
-                                        <option value="">Audi</option>
-                                    </select>
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        value="Số lượng sản phẩm"
-                                    />
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        value="Giá trị hàng hóa"
-                                    />
-                                </td>
+
                                 <td style={{ width: '220px' }}>
                                     {" "}
                                     <textarea
                                         className="ghi_chu form-control"
-                                        name=""
+                                        name="note"
                                         id=""
                                         cols="30"
                                         rows="10"
@@ -225,7 +345,7 @@ function Deposit() {
                                     ></textarea>{" "}
                                 </td>
                                 <td>
-                                    <span style={{ cursor: 'pointer' }} onClick={() => subMit(i)}><i style={{ fontSize: '30px', marginTop: '50%', transform: 'transLateX(-50%)', color: 'red' }} className="fa-solid fa-circle-xmark"></i></span>
+                                    <span style={{ cursor: 'pointer', }} onClick={() => subMit(i)}><i style={{ fontSize: '30px', color: 'red' }} className="fa-solid fa-circle-xmark"></i></span>
                                 </td>
                             </tr>
                         ))}
@@ -284,82 +404,6 @@ function Deposit() {
                                 </Row>
                             </Container>
                         </div>
-                        <div
-                            style={{
-                                width: "360px",
-                                marginTop: '25px',
-                                backgroundColor: "#f9f9f9",
-                            }}
-                            className="border border-secondary p-2"
-                        >
-                            <div className="d-flex justify-content-between">
-                                <p>Tổng tiền đặt hàng: </p>
-                                <p className="">
-                                    {" "}
-                                    <NumericFormat
-                                        disabled={true}
-                                        style={{
-                                            border: "none",
-                                            textAlign: "right",
-                                            backgroundColor: "#f9f9f9",
-                                            width: "100px",
-                                        }}
-                                        value={total}
-                                        thousandSeparator=","
-                                    />{" "}
-                                    đ
-                                </p>
-                            </div>
-                            <div className="d-flex justify-content-between">
-                                <div className="d-flex">
-                                    <p>Phí đặt hàng</p>
-                                    <span
-                                        style={{
-                                            fontSize: "16px",
-                                            paddingTop: "6px",
-                                            color: "#005e91",
-                                        }}
-                                        className="material-symbols-outlined mx-1"
-                                    >
-                                        help
-                                    </span>
-                                    :
-                                </div>
-                                <p className="">
-                                    {" "}
-                                    <NumericFormat
-                                        disabled={true}
-                                        style={{
-                                            border: "none",
-                                            textAlign: "right",
-                                            backgroundColor: "#f9f9f9",
-                                            width: "100px",
-                                        }}
-                                        value={orderCost}
-                                        thousandSeparator=","
-                                    />{" "}
-                                    đ
-                                </p>
-                            </div>
-                            <div className="d-flex justify-content-between">
-                                <p className="">Tổng tiền/chưa có phí ship TQ: </p>
-                                <p className="">
-                                    {" "}
-                                    <NumericFormat
-                                        disabled={true}
-                                        style={{
-                                            border: "none",
-                                            textAlign: "right",
-                                            backgroundColor: "#f9f9f9",
-                                            width: "100px",
-                                        }}
-                                        value={totalOrderCost}
-                                        thousandSeparator=","
-                                    />{" "}
-                                    đ
-                                </p>
-                            </div>
-                        </div>
                         <Button variant="warning" className="end-btn mt-3" as={Link} to="/app/orderDeposit">
                             Tạo Đơn Ký gửi
                         </Button>
@@ -369,32 +413,6 @@ function Deposit() {
 
                     <div className="container ms-4">
                         <h1>Phí vận chuyển quốc tế</h1>
-
-                        {/* Phí vận chuyển trọn gói */}
-                        {/* <div className="mt-5 ">
-                            <h5>Phí vận chuyển trọn gói</h5>
-                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                <option value="" selected> Trọng lượng</option>
-                                <option value="">&gt; 500kg</option>
-                                <option value="">200 &#8594;500kg</option>
-                                <option value="">100 &#8594;200kg</option>
-                                <option value="">30 &#8594;100kg</option>
-                                <option value="">10 &#8594;30kg</option>
-                                <option value="">0 &#8594;10kg</option>
-                            </select>
-                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                <option value="" selected>Khối lượng (tính/m3)</option>
-                                <option value="">&gt;20m3</option>
-                                <option value="">10m3 &#8594;20m3</option>
-                                <option value="">5m3 &#8594;10m3</option>
-                                <option value="">&lt;5m3</option>
-                            </select>
-                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                <option value="" selected> Khu vực</option>
-                                <option value="">Hà Nội</option>
-                                <option value="">TP.HCM</option>
-                            </select>
-                        </div> */}
                         <div className="mt-5">
                             <div class="official">
                                 <div className="">
@@ -405,25 +423,26 @@ function Deposit() {
                                     <label className="ps-2 fs-5 fw-bold">Phí vận chuyển chính ngạch</label>
                                 </div>
                                 <p>Tổng phí nhập khẩu = Phí dịch vụ + Phí vận chuyển + Thuế nhập khẩu (nếu có) + Thuế VAT</p>
-                                <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                    <option value="" selected>Trọng lượng(kg)</option>
-                                    <option value="">&gt; 500kg</option>
-                                    <option value="">&gt;200 &#8594;500kg</option>
-                                    <option value="">&gt;100 &#8594;200kg</option>
-                                    <option value="">&gt;30 &#8594;100kg</option>
-                                    <option value="">&lt; 30kg</option>
+                                <select name="kg" disabled={disKg} onChange={(e) => changeFee(e)} className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                    <option value="default" selected>Trọng lượng(kg)</option>
+                                    {kg ? kg.map((itk, index) => {
+                                        return (
+                                            <option value={itk.value}>{itk.label}</option>
+                                        )
+                                    }) : []}
                                 </select>
-                                <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                    <option value="" selected>Khối lượng (tính/m3)</option>
-                                    <option value="">&gt;20m3</option>
-                                    <option value="">&gt;10m3 &#8594;20m3</option>
-                                    <option value="">&gt;5m3 &#8594;10m3</option>
-                                    <option value="">&lt;5m3</option>
+                                <select name="m3" disabled={disM3} onChange={(e) => changeFee(e)} className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                    <option value="default" selected>Khối lượng (tính/m3)</option>
+                                    {m3 ? m3.map((itm, index) => {
+                                        return (
+                                            <option value={itm.value}>{itm.label}</option>
+                                        )
+                                    }) : []}
                                 </select>
-                                <select onChange={(e) => handleOnChangeArea(e)} className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                <select onChange={(e) => handleOnChangeArea(e)} onClick={(e) => handleOnChangeArea(e)} className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                     <option value="" selected> Khu vực</option>
                                     {area.map((item, i) => (
-                                        <option value={item.value}> {item.label} </option>
+                                        <option value={item.value} > {item.label} </option>
                                     ))}
                                 </select>
                             </div>
@@ -432,7 +451,7 @@ function Deposit() {
                                     <span style={{ fontWeight: 'bold' }}>Thuế VAT</span> = 10% x Giá trị hàng hóa</p>
                             </div>
                         </div>
-                        <div className="mt-5 mb-3">
+                        {/* <div className="mt-5 mb-3">
                             <h5>PHÍ KIỂM ĐẾM SẢN PHẨM</h5>
                             <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                 <option value="" selected>Số lượng</option>
@@ -442,7 +461,7 @@ function Deposit() {
                                 <option value="">3-10 sản phẩm</option>
                                 <option value="">1-2 sản phẩm</option>
                             </select>
-                        </div>
+                        </div> */}
                         <div className="mt-5 mb-3">
                             <span className="d-flex">
                                 <h5>PHÍ ĐÓNG GỖ</h5>
@@ -452,35 +471,6 @@ function Deposit() {
                                 <h5>PHÍ BẢO HIỂM</h5>
                                 <input className="mb-2 ms-2" type="checkbox" />
                             </span>
-                        </div>
-                        <div className="express border border-danger mt-3">
-                            <div className=" d-flex mt-3">
-                                <p className="ps-2">Vận chuyển</p>
-                                <div>
-                                    <span className="ms-3">
-                                        <input type="radio" />
-                                        <label className="ps-1" htmlFor="">Nhanh</label>
-                                    </span>
-                                    <span className="ms-3">
-                                        <input type="radio" />
-                                        <label className="ps-1" htmlFor="">Thường</label>
-                                    </span>
-                                </div>
-                            </div>
-                            <div className=" d-flex justify-content-evenly">
-                                <p className="ps-2">Yêu cầu khác</p>
-                                <div className="d-flex flex-column">
-                                    <span className="ms-3">
-                                        <input type="checkbox" disabled />
-                                        <label className="ps-1" htmlFor="">Kiểm hàng</label>
-                                    </span>
-                                    <br />
-                                    <span className="ms-3">
-                                        <input type="checkbox" />
-                                        <label className="ps-1" htmlFor=""> Khai thuế 100% hàng có hóa đơn GTGT</label>
-                                    </span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

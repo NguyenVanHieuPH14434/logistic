@@ -58,6 +58,18 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
         res.json({doc, docs});
     });
 
+    router.get('/searchByDate/:userId', async(req, res)=>{
+        let dateTo = ''
+        if(req.query.from && req.query.to){
+            dateTo = String(req.query.to)
+        }else if(req.query.from && !req.query.to){
+            dateTo = String(req.query.from)
+        }
+        // const newDateTo = Commons.newToDate(dateTo);
+        const data = await orderController.SearchByDate(String(req.params.userId),String(req.query.from), dateTo)
+        res.json({data:data})
+    })
+
     return router;
 }
 

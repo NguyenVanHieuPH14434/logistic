@@ -46,4 +46,12 @@ export class OrderController {
         await this.model.CreateOrder(order);
         return order._id;
     }
+
+    async Search (filter:any) {
+        return this.model.Search(filter);
+    }
+
+    async SearchByDate (userId:string, from:any, to:any) {
+        return this.model.SearchByDate(userId, from, to);
+    }
 }
