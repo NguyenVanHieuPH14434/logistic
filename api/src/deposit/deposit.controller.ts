@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { DepositSchema, CreateDepositParams } from './deposit';
+import { DepositSchema } from './deposit';
 import { DepositModel } from './deposit.model';
 export class DepositController {
     constructor(private model:DepositModel){}

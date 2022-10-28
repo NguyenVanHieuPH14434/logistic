@@ -14,15 +14,15 @@ import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOff
 function Deposit() {
     const [list, setList] = useState([
         {
-            image: '',
-            fileImage: '',
-            maVanDon: '',
-            nameSanPham: '',
-            soKien: '',
-            kgM3: 0,
-            donGia: 0,
-            phuPhi: 0,
-            tongTien: 0
+            image:'',
+            fileImage:[],
+            maVanDon:'',
+            nameSanPham:'',
+            soKien:'',
+            kgM3:0,
+            donGia:0,
+            phuPhi:0,
+            tongTien:0
         }
 
     ]);
@@ -31,15 +31,15 @@ function Deposit() {
     const handleOnClickAddMore = (e) => {
         let newList = [...list];
         newList = {
-            image: '',
-            fileImage: '',
-            maVanDon: '',
-            nameSanPham: '',
-            soKien: '',
-            kgM3: 0,
-            donGia: 0,
-            phuPhi: 0,
-            tongTien: 0
+            image:'',
+            fileImage:[],
+            maVanDon:'',
+            nameSanPham:'',
+            soKien:'',
+            kgM3:0,
+            donGia:0,
+            phuPhi:0,
+            tongTien:0
         };
         setList([...list, newList]);
     };
@@ -119,13 +119,16 @@ function Deposit() {
         file[i] = e.target.files;
         setFiles(file);
 
-        // change originalName file
-        const val = [...list];
-        val[i][e.target.name] = e.target.files[0].name;
-        val[i]["fileImage"] = e.target.files[0];
-        // val[i]["fileImage"] = URL.createObjectURL(e.target.files[0]);
-        setList(val);
-    };
+    // change originalName file
+    const val = [...list];
+    val[i][e.target.name] = e.target.files[0].name;
+//    let as = Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
+    val[i]["fileImage"] = Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
+    // val[i]["fileImage"] = URL.createObjectURL(e.target.files[0]);
+    // console.log('asss', as);
+    
+    setList(val);
+  };
     console.log('listKy', list);
     console.log('listFile', files);
 
@@ -206,7 +209,6 @@ function Deposit() {
     }
 
 
-
     return (
         <>
             <div className="deposit">
@@ -227,26 +229,31 @@ function Deposit() {
                             <tr key={i}>
                                 <td > <span>{i + 1}</span></td>
                                 <td style={{ width: '100px' }} className="td_img">
-                                    <img
-                                        style={{
-                                            width: "96px",
-                                            height: "64px",
-                                            marginTop: "24px",
-                                        }}
-                                        src={li.fileImage !== "" ? URL.createObjectURL(li.fileImage) : '../../default-thumbnail.jpg'}
-                                    />
-                                    <label className="mt-1" id="label-upload">
-                                        <input
-                                            type="file"
-                                            multiple
-                                            style={{ display: "none" }}
-                                            name="image"
-                                            onChange={(e) => {
-                                                changFile(i, e);
-                                            }}
-                                        />
-                                        Upload...
-                                    </label>
+                            
+                            {li.fileImage.map((preview)=>{
+                                return (
+                                  <img
+                                  style={{
+                                    width: "96px",
+                                    height: "64px",
+                                    marginTop: "24px",
+                                  }}
+                                  src={preview}
+                                />
+                            )})}
+                            
+                  <label className="mt-1" id="label-upload">
+                    <input
+                      type="file"
+                      multiple
+                      style={{ display: "none" }}
+                      name="image"
+                      onChange={(e) => {
+                        changFile(i, e);
+                      }}
+                    />
+                    Upload...
+                  </label>
                                 </td>
                                 {/* <td style={{ width: '150px' }}>
                                     <label className="labelDepo mb-3" htmlFor="">Mã vận đơn</label><br />
