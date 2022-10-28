@@ -257,83 +257,80 @@ function Deposit() {
                                     <label className="labelDepo mb-3" htmlFor="">Phụ phí</label><br />
                                     <label className="labelDepo mb-3" htmlFor="">Tổng tiền: </label>
                                 </td> */}
-                                <td className="td_productInformation" style={{width: '180px',}}> 
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Mã vận đơn: </label>
-                                        <input
-                                            className="w-100 mt-1 form-control"
-                                            type="text"
-                                            placeholder="Mã vận đơn (*)"
-                                            name="maVanDon"
-                                            onChange={(e) => changeInp(e, i)}
-
-                                        />
+                                <td className="td_productInformation">
+                                    <div className="d-flex information_content">
+                                        <div className="label_product_information mt-2">
+                                            <p className="text-end me-2">Mã vận đơn: </p>
+                                            <p className="text-end me-2 pt-2">Tên sản phẩm: </p>
+                                            <p className="text-end me-2">Số kiện hàng: </p>
+                                            <p className="text-end me-2 pt-1">Số cân, số khối: </p>
+                                            <p className="text-end me-2 pt-1">Đơn giá: </p>
+                                            <p className="text-end me-2">Phụ phí: </p>
+                                            <h4 style={{position: 'absolute', bottom: '10px', left: '40px'}} classname="">Tổng: </h4>
+                                        </div>
+                                        <div class="input_information_product">
+                                            <input
+                                                style={{ width: '720px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
+                                                placeholder="Mã vận đơn (*)"
+                                                name="maVanDon"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                            <input
+                                                style={{ width: '720px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
+                                                placeholder="Tên sản phẩm (*)"
+                                                name="nameSanPham"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                            <input
+                                                style={{ width: '720px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
+                                                placeholder="Số kiện hàng"
+                                                name="soKien"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                            <input
+                                                style={{ width: '720px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
+                                                name="kgM3"
+                                                placeholder="Số cân, số khối"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                            <input
+                                                style={{ width: '720px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
+                                                name="donGia"
+                                                placeholder="Đơn giá"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                            <input
+                                                style={{ width: '720px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
+                                                name="phuPhi"
+                                                placeholder="Phụ phí"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                        </div>
                                     </div>
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Tên sản phẩm: </label>
-                                        <input
-                                            className="w-100 mt-1 form-control"
+                                        <NumericFormat
+                                            className="w-75 text-center mx-auto form-control mt-1"
                                             type="text"
-                                            placeholder="Tên sản phẩm (*)"
-                                            name="nameSanPham"
-                                            onChange={(e) => changeInp(e, i)}
-
-                                        />
-                                    </div>
-
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Số kiện hàng: </label>
-                                        <input
-                                            className="w-100 mt-1 form-control"
-                                            type="text"
-                                            placeholder="Số kiện hàng"
-                                            name="soKien"
-                                            onChange={(e) => changeInp(e, i)}
-
-                                        />
-                                    </div>
-
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Số cân, số khối: </label>
-                                        <input
-                                            className="w-100 mt-1 form-control"
-                                            type="text"
-                                            name="kgM3"
-                                            placeholder="Số cân, số khối"
-                                            onChange={(e) => changeInp(e, i)}
-
-                                        />
-                                    </div>
-
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Đơn giá: </label>
-                                        <input
-                                            className="w-100 mt-1 form-control"
-                                            type="text"
-                                            name="donGia"
-                                            placeholder="Đơn giá"
-                                            onChange={(e) => changeInp(e, i)}
-
-                                        />
-                                    </div>
-
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Phụ phí: </label>
-                                        <input
-                                            className="w-100 mt-1 form-control"
-                                            type="text"
-                                            name="phuPhi"
-                                            placeholder="Phụ phí"
-                                            onChange={(e) => changeInp(e, i)}
-
-                                        />
-                                    </div>
-                                    <NumericFormat
-                                        className="w-75 text-center mx-auto form-control mt-1"
-                                        type="text"
-                                        disabled
-                                        style={{ background: '#EDA82D' }}
-                                        value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
-                                        placeholder="Tổng"
-                                        thousandSeparator=","
-                                    ></NumericFormat>
+                                            disabled
+                                            style={{ background: '#EDA82D' }}
+                                            value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
+                                            placeholder="Tổng"
+                                            thousandSeparator=","
+                                        ></NumericFormat>
                                 </td>
 
-                                <td style={{ width: '220px' }}>
+                                <td>
                                     {" "}
                                     <textarea
                                         className="ghi_chu form-control"

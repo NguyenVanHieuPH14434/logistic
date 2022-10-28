@@ -594,7 +594,7 @@ function Groceries() {
               </div>
               <div className=" d-flex justify-content-evenly">
                 <p className="ps-2">Yêu cầu khác</p>
-                <div className="d-flex flex-column">
+                <div className="d-flex flex-column">Ảnh Sản Phẩm
                   <span className="ms-3">
                     <input type="checkbox" disabled />
                     <label className="ps-1" htmlFor="">Kiểm hàng</label>
