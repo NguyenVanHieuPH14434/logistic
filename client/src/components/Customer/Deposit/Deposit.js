@@ -16,7 +16,7 @@ function Deposit() {
     const [list, setList] = useState([
         {
             image:'',
-            fileImage:'',
+            fileImage:[],
             maVanDon:'',
             nameSanPham:'',
             soKien:'',
@@ -33,7 +33,7 @@ function Deposit() {
         let newList = [...list];
         newList = {
             image:'',
-            fileImage:'',
+            fileImage:[],
             maVanDon:'',
             nameSanPham:'',
             soKien:'',
@@ -123,8 +123,11 @@ function Deposit() {
     // change originalName file
     const val = [...list];
     val[i][e.target.name] = e.target.files[0].name;
-    val[i]["fileImage"] = e.target.files[0];
+//    let as = Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
+    val[i]["fileImage"] = Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
     // val[i]["fileImage"] = URL.createObjectURL(e.target.files[0]);
+    // console.log('asss', as);
+    
     setList(val);
   };
     console.log('listKy', list);
@@ -206,8 +209,6 @@ function Deposit() {
             setFee(e.target.value);
         }
 
-        
-
     return (
         <>
             <div className="deposit">
@@ -229,14 +230,19 @@ function Deposit() {
                                 <td className="pt-5"> {i + 1} <br />
                                 </td>
                                 <td style={{ width: '100px' }} className="td_img">
-                                <img
-                    style={{
-                      width: "96px",
-                      height: "64px",
-                      marginTop: "24px",
-                    }}
-                    src={li.fileImage !== "" ? URL.createObjectURL(li.fileImage) : '../../default-thumbnail.jpg'}
-                  />
+                            
+                            {li.fileImage.map((preview)=>{
+                                return (
+                                  <img
+                                  style={{
+                                    width: "96px",
+                                    height: "64px",
+                                    marginTop: "24px",
+                                  }}
+                                  src={preview}
+                                />
+                            )})}
+                            
                   <label className="mt-1" id="label-upload">
                     <input
                       type="file"
