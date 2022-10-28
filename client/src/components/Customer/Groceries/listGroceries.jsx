@@ -10,12 +10,13 @@ import ReactPaginate from 'react-paginate';
 import { useNavigate } from "react-router-dom";
 import  Axios  from 'axios';
 
+
 export default function ListGroceries() {
   const {
     state: { user },
   } = useContext(AppContext);
   const [lists, setLists] = useState([]);
-  const [listt, setListt] = useState();
+  const [listt, setListt] = useState([])
   console.log(lists)
   console.log(listt)
   const [inputCalendar, setInputCalendar] = useState({
@@ -23,11 +24,16 @@ export default function ListGroceries() {
     calendar_to: "",
   });
   console.log(inputCalendar)
+
   //find
   const searchProduct = useMemo(()=>{
-    let date = inputCalendar.calendar_from.split("-").reverse().join("/")
-    return setListt(lists.filter(el=> el.ctime.includes(date)))
+    setListt(lists.filter((el)=>{
+      let dateFrom = inputCalendar.calendar_from.split("-").reverse().join("/")
+      let dateTo = inputCalendar.calendar_to.split("-").reverse().join("/")
+      return el.ctime >= dateFrom && el.ctime <= dateTo
+      }))
   },[inputCalendar,lists])
+
   // const getListt = async () => {
   //   const res = await listOrder(user._id);
   //   setLists(res.data.data)
@@ -35,11 +41,19 @@ export default function ListGroceries() {
   // };
   useEffect(() => {
     //getListt()
-    Axios.get(`http://localhost:9000/api/order/list/${user._id}`)
-    .then((res)=>{
-      setListt(()=>setLists(res.data.data));
-    })
+    async function fetchData() {
+      const response = await Axios.get(`http://localhost:9000/api/order/list/${user._id}`)
+      const info = await response.data.data
+      setLists(info)
+      setListt(info)
+    }
+    fetchData();
   }, []);
+  //find
+  // const findProduct =()=>{
+  //   let date = inputCalendar.calendar_from.split("-").reverse().join("/")
+  //   return setListt(lists.filter(el=> el.ctime.includes(date)))
+  // }
 const navi = useNavigate();
   // Array to store month string values
   const allMonthValues = [
@@ -129,7 +143,7 @@ const renderStatus =(status)=>{
         </li>
       </ul>
       <hr />
-      {searchProduct}
+      
       <div className="container calender">
         <div className="calendar_from">
           <input
@@ -178,10 +192,10 @@ const renderStatus =(status)=>{
             <option value="">Đã hủy</option>
           </select>
         </div>
-        <div className="search_icon">
+        <button onClick={searchProduct} style={{border:'none',borderRadius:'3px'}} className="search_icon">
           <i className="fa-solid fa-magnifying-glass"></i>
           <p>Tìm kiếm</p>
-        </div>
+        </button>
       </div>
       <div className="listOrder mx-4">
         <table className="table table-bordered mt-5 text-center" >
@@ -213,7 +227,9 @@ const renderStatus =(status)=>{
               );
             }).slice(pagesVisited, pagesVisited + productPerPage):[]}
           </tbody>
+          
         </table>
+        {searchProduct}
         <div className='d-flex justify-content-center'>
                 <ReactPaginate
                     nextLabel="next >"
