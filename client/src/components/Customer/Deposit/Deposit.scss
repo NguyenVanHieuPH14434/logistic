@@ -29,11 +29,9 @@
     }
     th,
     td {
-
         // .td_img{
         //     width: 100px !important;
         // }
-
         text-align: center;
         .ghi_chu {
             height: 40px;
@@ -45,8 +43,6 @@
     }
     td {
         // padding-top: 50%;
-
-
     }
     .attribute {
         width: 100vh;
@@ -60,8 +56,7 @@
         color: #f5f5f5;
         background-color: #8610e8;
     }
-    .image {
-    }
+    .image {}
     .form {
         display: flex;
         width: 664px !important;
@@ -99,6 +94,9 @@
         color: white;
         font-weight: bold;
         background-color: #eda82d !important;
+    }
+    .labelDepo {
+        text-align: left !important;
     }
 }
 
