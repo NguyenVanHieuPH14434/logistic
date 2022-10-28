@@ -19,6 +19,7 @@ import OrderDetailGroceries from './components/Customer/Groceries/orderDetailGro
 import OrderDetailDeposit from './components/Customer/Deposit/orderDetailDeposit/orderDetailDeposit';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Express from './components/user/express/express';
 
 
 function App() {
@@ -41,6 +42,21 @@ function App() {
           <Route path="orderDeposit" element={<OrderDeposit className="right" />}></Route>
           <Route path="orderDetailGroceries" element={<OrderDetailGroceries className="right" />}></Route>
           <Route path="orderDetailDeposit" element={<OrderDetailDeposit className="right" />}></Route>
+          <Route path="express" element={<Express className="right" />}></Route>
+          <Route index element={<Dasboard className="right" />}></Route>
+        </Route>
+        <Route path="/admin" rols="admin" element={<RouterDasboard className="right" />}>
+          <Route path="groceries" element={<Groceries className="right" />}></Route>
+          <Route path="deposit"  element={<Deposit className="right" />}></Route>
+          <Route path="listGroceries" element={<ListGroceries className="right" />}></Route>
+          <Route path="listDeposit" element={<ListDeposit className="right" />}></Route>
+          <Route path="user" element={<User className="right" />}></Route>
+          <Route path="changePass" element={<ChangePass className="right" />}></Route>
+          <Route path="orderGroceries" element={<OrderGroceries className="right" />}></Route>
+          <Route path="orderDeposit" element={<OrderDeposit className="right" />}></Route>
+          <Route path="orderDetailGroceries" element={<OrderDetailGroceries className="right" />}></Route>
+          <Route path="orderDetailDeposit" element={<OrderDetailDeposit className="right" />}></Route>
+          <Route path="express" element={<Express className="right" />}></Route>
           <Route index element={<Dasboard className="right" />}></Route>
         </Route>
       </Routes>

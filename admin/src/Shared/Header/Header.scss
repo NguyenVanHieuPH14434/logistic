@@ -1,49 +1,36 @@
-.navbar {
-    display: flex;
-    justify-content: space-between;
-
-    .logo {
+.Header {
+    width: 100%;
+    padding: 20px 7%;
+    background-color: #9470d4 !important;
+    position: fixed;
+    z-index: 999;
+    .navbar {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        flex-direction: row;
-        margin-left: 5em;
-
-        .text1 {
-            color: rgb(255, 255, 51);
-            font-size: 2.4em;
-            font-weight: bold;
+        .logo {
+            width: 30%;
         }
-
-        .text2 {
-            margin-top: 0.2em;
-            margin-left: 0.1em;
-            color: rgb(138, 43, 226);
-            font-size: 2em;
-            font-weight: bold;
-        }
-
-        .special {
-            margin-top: 0.85em;
-            margin-left: 0.1em;
-            color: rgb(138, 43, 226);
-            font-size: 1.4em;
-            font-weight: bold;
-        }
-    }
-
-    .end {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        .icon1 {
-            font-size: 2em;
-            margin-right: 1.5em;
-        }
-
-        .icon2 {
-            font-size: 4em;
-            margin-right: 1em;
+        .end {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 20%;
+            color: #ffff;
+            .icon1 {
+                font-size: 1.8em;
+            }
+            .icon2 {
+                font-size: 2em;
+            }
+            .dropdown-toggle {
+                background: none !important;
+                border: none !important;
+                outline: none !important;
+                &:focus {
+                    box-shadow: none !important;
+                }
+            }
         }
     }
 }

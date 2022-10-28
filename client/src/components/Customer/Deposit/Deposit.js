@@ -11,9 +11,8 @@ import RouterAuth from "../../../RouterAuth";
 import RouterDasboard from "../../../RouterDasboard";
 import Order from "./orderDeposit/orderDeposit";
 import Dasboard from "../../Dasboard";
-import { Confirm } from "../../../lib/toastify";
-import { TiDatabase } from "react-icons/ti";
-import { haNoiAreaFeePacketKg } from "../../../lib/shipFee";
+import { Confirm, toastifyError } from "../../../lib/toastify";
+import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../lib/shipFee";
 
 function Deposit() {
     const [list, setList] = useState([
@@ -114,45 +113,86 @@ function Deposit() {
 
     // Tính giá ship 
     const handleOnClickRadio = (e) => {
-        console.log(e.target.value);
-        if (e.target.value === 'tronGoi') {
-            let newArea = [...area]
+        setTypeShip(e.target.value)
+      if (e.target.value === 'tronGoi') {
+            let newArea = location
             newArea.pop()
-            setArea(() => newArea)
-        } else if (e.target.value === 'chinNgach') {
-            let newArea = [...area]
-            setArea(newArea)
+            return setArea(newArea)
+        }else {
+          return setArea(location)
         }
     }
 
-    // Biến khu vực
-    const [area, setArea] = useState([
-        { value: 'Hà Nội', label: 'Hà Nội' },
-        { value: 'TP.HCM', label: 'TP.HCM' },
-        {
-            value: 'Hải Phòng', label: 'Hải Phòng'
-        }])
+    const location = [{ value: 'Hà Nội', label: 'Hà Nội' }, { value: 'TP.HCM', label: 'TP.HCM' }, { value: 'Hải Phòng', label: 'Hải Phòng' }];
+    const [area, setArea] = useState([])
+    const [typeShip, setTypeShip] = useState('')
+    const [kg, setKg] = useState([])
+    const [m3, setM3] = useState([])
+    const [fee, setFee] = useState()
+    const [disM3, setDisM3] = useState(false);
+    const [disKg, setDisKg] = useState(false);
+    
     const handleOnChangeArea = (e) => {
+        const state = e.target.value + '&&' + typeShip;
+        if(!typeShip) return toastifyError('Vui lòng chọn loại phí vận chuyển trước!');
+        
+        switch (state) {
+            case 'TP.HCM&&tronGoi':
+                setKg(HCMAreaFeePacketKg) 
+                setM3(HCMAreaFeePacketM3)
+                return;
+            case 'Hà Nội&&tronGoi':
+                setKg(haNoiAreaFeePacketKg) 
+                setM3(haNoiAreaFeePacketM3)
+                return;
+            case 'Hà Nội&&chinhNgach':
+                setKg(haNoiAreaFeeOfficicalkg) 
+                setM3(haNoiAreaFeeOfficicalM3)
+                return;
+            case 'TP.HCM&&chinhNgach':
+                setKg(HCMAreaFeeOfficicalkg) 
+                setM3(HCMAreaFeeOfficicalM3)
+                return;
+            case 'Hải Phòng&&chinhNgach':
+                setKg(haiPhongAreaFeeOfficicalkg) 
+                setM3(haiPhongAreaFeeOfficicalM3)
+                return;
+                default:
+                    return;
+                }
+            }
 
-    }
-
-    // State giá phí vận chuyển trọn gói
-    const [haNoiAreaFeePacketKg1, setHaNoiAreaFeePacketKg] = useState(haNoiAreaFeePacketKg)
-    console.log("mweo", haNoiAreaFeePacketKg1);
-    // Phí đóng gỗ và phí bảo hiểm
-    const handleOnClickOtherFee = (e) => {
-
-    }
-
-    const [show, setShow] = useState(true)
-    const handleOnChangePacket = (e) => {
-        if(e.target.value === 'packet'){
-            show(false)
+        const changeFee = (e) => {
+            let text = '';
+            const name = e.target.name;
+            const val = e.target.value;
+            if(name && val !== 'default'){
+                text = name;
+            }else {
+                text = name + '&&' + val
+            }
+          switch (text) {
+            case 'kg':
+                return setDisM3(true);
+                case 'm3':
+                return setDisKg(true);
+            case 'kg&&default':
+                 setDisM3(false);
+                 setDisKg(false);
+                 return 
+                 case 'm3&&default':
+                     setDisKg(false);
+                     setDisM3(false);
+                return;
+            default:
+                break;
+          }
+            setFee(e.target.value);
         }
-    }
-    const handleOnChangeOfficical = (e) => {
 
-    }
+        console.log('feeee', fee);
+        
+
     return (
         <>
             <div className="deposit">
@@ -391,32 +431,6 @@ function Deposit() {
 
                     <div className="container ms-4">
                         <h1>Phí vận chuyển quốc tế</h1>
-
-                        {/* Phí vận chuyển trọn gói */}
-                        {/* <div className="mt-5 ">
-                            <h5>Phí vận chuyển trọn gói</h5>
-                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                <option value="" selected> Trọng lượng</option>
-                                <option value="">&gt; 500kg</option>
-                                <option value="">200 &#8594;500kg</option>
-                                <option value="">100 &#8594;200kg</option>
-                                <option value="">30 &#8594;100kg</option>
-                                <option value="">10 &#8594;30kg</option>
-                                <option value="">0 &#8594;10kg</option>
-                            </select>
-                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                <option value="" selected>Khối lượng (tính/m3)</option>
-                                <option value="">&gt;20m3</option>
-                                <option value="">10m3 &#8594;20m3</option>
-                                <option value="">5m3 &#8594;10m3</option>
-                                <option value="">&lt;5m3</option>
-                            </select>
-                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                <option value="" selected> Khu vực</option>
-                                <option value="">Hà Nội</option>
-                                <option value="">TP.HCM</option>
-                            </select>
-                        </div> */}
                         <div className="mt-5">
                             <div class="official">
                                 <div className="">
@@ -427,28 +441,26 @@ function Deposit() {
                                     <label className="ps-2 fs-5 fw-bold">Phí vận chuyển chính ngạch</label>
                                 </div>
                                 <p>Tổng phí nhập khẩu = Phí dịch vụ + Phí vận chuyển + Thuế nhập khẩu (nếu có) + Thuế VAT</p>
-                                <select value="packet" onClick={(e) => handleOnChangePacket(e)} className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                    <option value="" selected>Trọng lượng(kg)</option>
-                                    {haNoiAreaFeePacketKg1.map((li, i) => (
-                                        <option value=""> {li.label} </option>
-
-                                    ))}
-                                    {/* <option value="">&gt; 500kg</option>
-                                    <option value="">&gt;100 &#8594;200kg</option>
-                                    <option value="">&gt;30 &#8594;100kg</option>
-                                    <option value="">&lt; 30kg</option> */}
+                                <select name="kg" disabled={disKg} onChange={(e)=> changeFee(e)} className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                    <option value="default" selected>Trọng lượng(kg)</option>
+                                    {kg?kg.map((itk, index)=>{
+                                        return (
+                                            <option value={itk.value}>{itk.label}</option>
+                                        )
+                                    }):[]}
                                 </select>
-                                <select value="officical" onClick={(e) => handleOnChangeOfficical(e)} className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                    <option value="" selected>Khối lượng (tính/m3)</option>
-                                    <option value="">&gt;20m3</option>
-                                    <option value="">&gt;10m3 &#8594;20m3</option>
-                                    <option value="">&gt;5m3 &#8594;10m3</option>
-                                    <option value="">&lt;5m3</option>
+                                <select name="m3" disabled={disM3} onChange={(e)=> changeFee(e)} className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                    <option value="default" selected>Khối lượng (tính/m3)</option>
+                                    {m3?m3.map((itm, index)=>{
+                                        return (
+                                            <option value={itm.value}>{itm.label}</option>
+                                        )
+                                    }):[]}
                                 </select>
-                                <select onChange={(e) => handleOnChangeArea(e)} className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                <select onChange={(e) => handleOnChangeArea(e)} onClick={(e)=>handleOnChangeArea(e)}  className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                     <option value="" selected> Khu vực</option>
                                     {area.map((item, i) => (
-                                        <option value={item.value}> {item.label} </option>
+                                        <option value={item.value} > {item.label} </option>
                                     ))}
                                 </select>
                             </div>
@@ -471,11 +483,11 @@ function Deposit() {
                         <div className="mt-5 mb-3">
                             <span className="d-flex">
                                 <h5>PHÍ ĐÓNG GỖ</h5>
-                                <input onClick={(e) => handleOnClickOtherFee(e)} className="mb-2 ms-2" type="checkbox" />
+                                <input className="mb-2 ms-2" type="checkbox" />
                             </span>
                             <span className="d-flex">
                                 <h5>PHÍ BẢO HIỂM</h5>
-                                <input onClick={(e) => handleOnClickOtherFee(e)} className="mb-2 ms-2" type="checkbox" />
+                                <input className="mb-2 ms-2" type="checkbox" />
                             </span>
                         </div>
                         <div className="express border border-danger mt-3 mb-5">
