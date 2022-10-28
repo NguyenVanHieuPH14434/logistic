@@ -68,4 +68,21 @@ export class OrderModel {
         const doc = await this.col_order.deleteOne({_id:_id});
         return doc;
     }
+
+    async Search (filter:any) {
+        const docs = await this.col_order.find({$or:[
+        {_id:filter}, {address:filter}, {status:filter}
+        ]}).toArray()
+        return docs;
+    }
+
+    async SearchByDate (userId:string, from:any, to:any) {
+        const docs = await this.col_order.find({
+            $and:[{
+                user_id: userId
+            },
+            {ctime:{$gte:from, $lte:to}}]
+    }).toArray()
+        return docs;
+    }
 }

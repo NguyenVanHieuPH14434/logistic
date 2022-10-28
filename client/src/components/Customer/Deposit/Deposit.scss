@@ -29,24 +29,32 @@
     }
     th,
     td {
-
         // .td_img{
         //     width: 100px !important;
         // }
-
-        text-align: center;
+        position: relative;
+        span, #label-upload{
+            position: absolute;
+            top: 50%;
+            margin-left: 40%;
+            transform: translateX(-50%);
+        }
+        img{
+            position: absolute;
+            top: 20%;
+            margin-left: 40%;
+            transform: translateX(-50%);
+        }
         .ghi_chu {
             height: 40px;
-            min-width: 100px;
-            min-height: 154px;
+            min-width: 100;
+            min-height: 270px;
             max-width: 200px;
-            max-height: 200px;
+            max-height: 370px;
         }
     }
     td {
         // padding-top: 50%;
-
-
     }
     .attribute {
         width: 100vh;
@@ -60,8 +68,7 @@
         color: #f5f5f5;
         background-color: #8610e8;
     }
-    .image {
-    }
+    .image {}
     .form {
         display: flex;
         width: 664px !important;
@@ -99,6 +106,9 @@
         color: white;
         font-weight: bold;
         background-color: #eda82d !important;
+    }
+    .labelDepo {
+        text-align: left !important;
     }
 }
 
