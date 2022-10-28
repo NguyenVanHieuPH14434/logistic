@@ -1,5 +1,4 @@
-//   // State giá phí vận chuyển chính ngạch
-
+// State giá phí vận chuyển trọn gói
 
 const haNoiAreaFeePacketKg = () => [
   { label: ">500kg", value: "Liên Hệ" },
@@ -33,7 +32,7 @@ const HCMAreaFeePacketM3 = () => [
   { label: "<5m3", value: 4200000 },
 ];
 
-// Chính ngạch
+//Phí vận chuyển Chính ngạch
 
 const haNoiAreaFeeOfficicalkg = () => [
   { label: ">500kg", value: "Liên Hệ" },
@@ -75,12 +74,43 @@ const haiPhongAreaFeeOfficicalM3 = () => [
   { label: "<5m3", value: 1850000 },
 ];
 
+// Phí kiểm đếm sản phẩm
+
+const quantity = () => [
+  { label: "501-10000 sản phẩm", value: 1000 },
+  { label: "101-500 sản phẩm", value: 1500 },
+  { label: "11-100 sản phẩm", value: 2000 },
+  { label: "3-10 sản phẩm", value: 3500 },
+  { label: "1-2 sản phẩm", value: 5000 },
+];
+
+const quantityPrice = () => [
+  { label: ">20m3", value: 1150000 },
+  { label: "10m3 -> 20m3", value: 1350000 },
+  { label: "5m3 -> 10m3", value: 1550000 },
+  { label: "<5m3", value: 1850000 },
+];
+
+// Phí đóng gỗ  
+
+const woodClosingFee = () =>[
+  {label: 'Phí đóng kiện', value: 3650*20}
+]
+const woodClosingFeeForTheNextOrder = (nextKg) =>[
+  {label: 'Phí đóng kiện', value: (3650*20) + (3650 * nextKg)}
+]
+
+// Phí bảo hiểm
+const insurenceFees = (orderPrice) =>[
+  {label: 'Phí bảo hiểm', value: orderPrice * 0.05}
+]
 export {
+  // Phí vận chuyển trọn gói
   haNoiAreaFeePacketKg,
   haNoiAreaFeePacketM3,
   HCMAreaFeePacketKg,
   HCMAreaFeePacketM3,
-  //   Chính ngạch
+  //  Phí vận chuyển Chính ngạch
   haNoiAreaFeeOfficicalkg,
   haNoiAreaFeeOfficicalM3,
   HCMAreaFeeOfficicalkg,

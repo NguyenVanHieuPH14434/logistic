@@ -6,14 +6,14 @@ import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { Routes, Route, Navigate, Link, useParams, useSearchParams } from 'react-router-dom';
-
 import { NumericFormat } from "react-number-format";
 import RouterAuth from "../../../RouterAuth";
 import RouterDasboard from "../../../RouterDasboard";
 import Order from "./orderDeposit/orderDeposit";
 import Dasboard from "../../Dasboard";
 import { Confirm } from "../../../lib/toastify";
-import { tesst } from "../../../lib/shipFee";
+import { TiDatabase } from "react-icons/ti";
+import { haNoiAreaFeePacketKg } from "../../../lib/shipFee";
 
 function Deposit() {
     const [list, setList] = useState([
@@ -28,9 +28,6 @@ function Deposit() {
         }
 
     ]);
-    const a = tesst;
-    const [lis, setLis] = useState(a)
-    console.log( a );
 
     // Danh sách các sản phẩm
     // Nút thêm sản phẩm
@@ -114,11 +111,6 @@ function Deposit() {
         Confirm('Delete!', 'Bạn có muốn xóa không?', DeleteList, i)
     }
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = (e) => setShow(false);
-    const handleShow = (e) => setShow(true);
-
 
     // Tính giá ship 
     const handleOnClickRadio = (e) => {
@@ -126,12 +118,39 @@ function Deposit() {
         if (e.target.value === 'tronGoi') {
             let newArea = [...area]
             newArea.pop()
+            setArea(() => newArea)
+        } else if (e.target.value === 'chinNgach') {
+            let newArea = [...area]
             setArea(newArea)
         }
     }
 
-    const [area, setArea] = useState([{ value: 'Hà Nội', label: 'Hà Nội' }, { value: 'TP.HCM', label: 'TP.HCM' }, { value: 'Hải Phòng', label: 'Hải Phòng' }])
+    // Biến khu vực
+    const [area, setArea] = useState([
+        { value: 'Hà Nội', label: 'Hà Nội' },
+        { value: 'TP.HCM', label: 'TP.HCM' },
+        {
+            value: 'Hải Phòng', label: 'Hải Phòng'
+        }])
     const handleOnChangeArea = (e) => {
+
+    }
+
+    // State giá phí vận chuyển trọn gói
+    const [haNoiAreaFeePacketKg1, setHaNoiAreaFeePacketKg] = useState(haNoiAreaFeePacketKg)
+    console.log("mweo", haNoiAreaFeePacketKg1);
+    // Phí đóng gỗ và phí bảo hiểm
+    const handleOnClickOtherFee = (e) => {
+
+    }
+
+    const [show, setShow] = useState(true)
+    const handleOnChangePacket = (e) => {
+        if(e.target.value === 'packet'){
+            show(false)
+        }
+    }
+    const handleOnChangeOfficical = (e) => {
 
     }
     return (
@@ -228,7 +247,7 @@ function Deposit() {
                                     ></textarea>{" "}
                                 </td>
                                 <td>
-                                    <span style={{ cursor: 'pointer' }} onClick={() => subMit(i)}><i style={{ fontSize: '30px', marginTop: '50%', transform: 'transLateX(-50%)', color: 'red' }} className="fa-solid fa-circle-xmark"></i></span>
+                                    <span style={{ cursor: 'pointer', }} onClick={() => subMit(i)}><i style={{ fontSize: '30px', color: 'red', paddingTop: '60px' }} className="fa-solid fa-circle-xmark"></i></span>
                                 </td>
                             </tr>
                         ))}
@@ -408,15 +427,18 @@ function Deposit() {
                                     <label className="ps-2 fs-5 fw-bold">Phí vận chuyển chính ngạch</label>
                                 </div>
                                 <p>Tổng phí nhập khẩu = Phí dịch vụ + Phí vận chuyển + Thuế nhập khẩu (nếu có) + Thuế VAT</p>
-                                <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                <select value="packet" onClick={(e) => handleOnChangePacket(e)} className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                     <option value="" selected>Trọng lượng(kg)</option>
-                                    <option value="">&gt; 500kg</option>
-                                    <option value="">&gt;200 &#8594;500kg</option>
+                                    {haNoiAreaFeePacketKg1.map((li, i) => (
+                                        <option value=""> {li.label} </option>
+
+                                    ))}
+                                    {/* <option value="">&gt; 500kg</option>
                                     <option value="">&gt;100 &#8594;200kg</option>
                                     <option value="">&gt;30 &#8594;100kg</option>
-                                    <option value="">&lt; 30kg</option>
+                                    <option value="">&lt; 30kg</option> */}
                                 </select>
-                                <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
+                                <select value="officical" onClick={(e) => handleOnChangeOfficical(e)} className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                     <option value="" selected>Khối lượng (tính/m3)</option>
                                     <option value="">&gt;20m3</option>
                                     <option value="">&gt;10m3 &#8594;20m3</option>
@@ -435,7 +457,7 @@ function Deposit() {
                                     <span style={{ fontWeight: 'bold' }}>Thuế VAT</span> = 10% x Giá trị hàng hóa</p>
                             </div>
                         </div>
-                        <div className="mt-5 mb-3">
+                        {/* <div className="mt-5 mb-3">
                             <h5>PHÍ KIỂM ĐẾM SẢN PHẨM</h5>
                             <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
                                 <option value="" selected>Số lượng</option>
@@ -445,18 +467,18 @@ function Deposit() {
                                 <option value="">3-10 sản phẩm</option>
                                 <option value="">1-2 sản phẩm</option>
                             </select>
-                        </div>
+                        </div> */}
                         <div className="mt-5 mb-3">
                             <span className="d-flex">
                                 <h5>PHÍ ĐÓNG GỖ</h5>
-                                <input className="mb-2 ms-2" type="checkbox" />
+                                <input onClick={(e) => handleOnClickOtherFee(e)} className="mb-2 ms-2" type="checkbox" />
                             </span>
                             <span className="d-flex">
                                 <h5>PHÍ BẢO HIỂM</h5>
-                                <input className="mb-2 ms-2" type="checkbox" />
+                                <input onClick={(e) => handleOnClickOtherFee(e)} className="mb-2 ms-2" type="checkbox" />
                             </span>
                         </div>
-                        <div className="express border border-danger mt-3">
+                        <div className="express border border-danger mt-3 mb-5">
                             <div className=" d-flex mt-3">
                                 <p className="ps-2">Vận chuyển</p>
                                 <div>
@@ -471,16 +493,16 @@ function Deposit() {
                                 </div>
                             </div>
                             <div className=" d-flex justify-content-evenly">
-                                <p className="ps-2">Yêu cầu khác</p>
+                                <p className="ps-2 pt-4">Yêu cầu khác</p>
                                 <div className="d-flex flex-column">
-                                    <span className="ms-3">
+                                    <span className="">
                                         <input type="checkbox" disabled />
                                         <label className="ps-1" htmlFor="">Kiểm hàng</label>
                                     </span>
                                     <br />
-                                    <span className="ms-3">
+                                    <span className="">
                                         <input type="checkbox" />
-                                        <label className="ps-1" htmlFor=""> Khai thuế 100% hàng có hóa đơn GTGT</label>
+                                        <label className="ps-1 pb-2" htmlFor=""> Khai thuế 100% hàng có hóa đơn GTGT</label>
                                     </span>
                                 </div>
                             </div>
