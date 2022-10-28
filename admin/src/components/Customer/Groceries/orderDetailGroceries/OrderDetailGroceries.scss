@@ -1,0 +1,50 @@
+.OrderDetailGroceries {
+    width: 100%;
+    margin-top: 100px;
+    padding: 0 25px;
+    h1 {
+        text-align: center;
+    }
+    table {
+        background: #fff;
+    }
+    th,
+    td {
+        text-align: center;
+        .ghi_chu {
+            height: 40px;
+            min-width: 100px;
+            min-height: 130px;
+            max-width: 200px;
+            max-height: 300px;
+        }
+    }
+    td {
+        // padding-top: 50%;
+        .icon_delete_list {
+            color: red;
+            font-size: 30px;
+        }
+    }
+    .soLuong {
+        width: 100px;
+        padding-top: 24px;
+        margin-left: 44px;
+    }
+    .attribute {
+        width: 100vh;
+        height: 40px;
+        min-width: 345px;
+        min-height: 40px;
+        max-width: 100%;
+        max-height: 80px;
+    }
+    th {
+        color: #f5f5f5;
+        background-color: #8610e8;
+    }
+    .image {
+        width: 6em;
+        height: 4em;
+    }
+}
