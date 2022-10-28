@@ -11,5 +11,15 @@ export namespace Commons {
     });
 
     export const upload = multer({storage:fileStore});
+
+
+    export const newToDate = (reqToDate:string) =>{
+        let day = reqToDate.split('/')[0];
+        let month = reqToDate.split('/')[1];
+        let year = reqToDate.split('/')[2];
+        let newDay = String(Number(day) +1);
+        return newDay + '/' + month + '/' + year;
+    }
     
 }
+

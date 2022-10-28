@@ -44,10 +44,8 @@ export default function Login() {
         toastifyError(error.message)
       }
   };
-
   if(isAuthenticated)
 return (
-  // <Navigate to={'/app/deposit'}/>
   <Navigate to={'/app/deposit'}/>
 );
   return (
