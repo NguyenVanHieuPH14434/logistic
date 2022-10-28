@@ -1,117 +1,121 @@
 .material-symbols-outlined {
-    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 }
 
 .deposit {
-    width: 100%;
-    padding: 0 40px;
-    margin-top: 90px;
-    .title {
-        text-align: center;
-        color: #eda82d;
-        padding-top: 15px;
-        font-weight: bold;
-        font-size: 2em;
-    }
-    .align-btn {
-        display: flex;
-        justify-content: flex-end;
-        margin: 1.5% 2%;
-        .start-btn {
-            font-weight: bold;
-        }
-    }
+  width: 100%;
+  padding: 0 40px;
+  margin-top: 90px;
+  .title {
+    text-align: center;
+    color: #eda82d;
+    padding-top: 15px;
+    font-weight: bold;
+    font-size: 2em;
+  }
+  .align-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1.5% 2%;
     .start-btn {
-        background-color: #8610e8;
+      font-weight: bold;
     }
-    table {
-        background: rgba(255, 255, 255, 0.384);
+  }
+  .start-btn {
+    background-color: #8610e8;
+  }
+  table {
+    background: rgba(255, 255, 255, 0.384);
+  }
+  th,
+  td {
+    // .td_img{
+    //     width: 100px !important;
+    // }
+    position: relative;
+    text-align: center;
+    span,
+    #label-upload {
+      position: absolute;
+      top: 50%;
+      transform: translateX(-50%);
     }
-    th,
-    td {
-        // .td_img{
-        //     width: 100px !important;
-        // }
-        position: relative;
-        span, #label-upload{
-            position: absolute;
-            top: 50%;
-            margin-left: 40%;
-            transform: translateX(-50%);
-        }
-        img{
-            position: absolute;
-            top: 20%;
-            margin-left: 40%;
-            transform: translateX(-50%);
-        }
-        .ghi_chu {
-            height: 40px;
-            min-width: 100;
-            min-height: 270px;
-            max-width: 200px;
-            max-height: 370px;
-        }
+    .td_productInformation{
+        width: 100px;
     }
-    td {
-        // padding-top: 50%;
+    img {
+      position: absolute;
+      top: 20%;
+      transform: translateX(-50%);
     }
-    .attribute {
-        width: 100vh;
-        height: 40px;
-        min-width: 345px;
-        min-height: 40px;
-        max-width: 100%;
-        max-height: 80px;
+    .ghi_chu {
+      height: 40px;
+      min-width: 100%;
+      min-height: 270px;
+      max-width: 200px;
+      max-height: 370px;
     }
-    th {
-        color: #f5f5f5;
-        background-color: #8610e8;
+  }
+  td {
+    // padding-top: 50%;
+  }
+  .attribute {
+    width: 100vh;
+    height: 40px;
+    min-width: 345px;
+    min-height: 40px;
+    max-width: 100%;
+    max-height: 80px;
+  }
+  th {
+    color: #f5f5f5;
+    background-color: #8610e8;
+  }
+  .image {
+  }
+  .form {
+    display: flex;
+    width: 664px !important;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: #fff;
+    margin-top: 2%;
+    width: 40%;
+    border: 0.0625em solid #ccc;
+    input,
+    select {
+      background-color: #f5f5f5;
     }
-    .image {}
-    .form {
-        display: flex;
-        width: 664px !important;
-        flex-direction: column;
-        justify-content: flex-start;
-        background: #fff;
-        margin-top: 2%;
-        width: 40%;
-        border: 0.0625em solid #ccc;
-        input,
-        select {
-            background-color: #f5f5f5;
-        }
-        .title-label {
-            text-align: center;
-            font-size: 1.5em;
-            padding: 0.1em 0;
-            margin-bottom: 0;
-            color: white;
-            background-color: #8610e8;
-        }
-        .customer-form {
-            margin-bottom: 2.5%;
-            .customer-title {
-                margin: 1% 0;
-            }
-            .customer-field {
-                width: 95%;
-                margin-left: 1.5%;
-            }
-        }
+    .title-label {
+      text-align: center;
+      font-size: 1.5em;
+      padding: 0.1em 0;
+      margin-bottom: 0;
+      color: white;
+      background-color: #8610e8;
     }
-    .end-btn {
-        margin-top: 2%;
-        color: white;
-        font-weight: bold;
-        background-color: #eda82d !important;
+    .customer-form {
+      margin-bottom: 2.5%;
+      .customer-title {
+        margin: 1% 0;
+      }
+      .customer-field {
+        width: 95%;
+        margin-left: 1.5%;
+      }
     }
-    .labelDepo {
-        text-align: left !important;
-    }
+  }
+  .end-btn {
+    margin-top: 2%;
+    color: white;
+    font-weight: bold;
+    background-color: #eda82d !important;
+  }
+  .labelDepo {
+    text-align: left !important;
+  }
 }
 
 .title-modal {
-    color: #eda82d;
+  color: #eda82d;
 }

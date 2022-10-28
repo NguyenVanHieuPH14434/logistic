@@ -216,7 +216,7 @@ function Deposit() {
                         <tr>
                             <th style={{ width: '5%' }}>STT</th>
                             <th>Ảnh Sản Phẩm</th>
-                            <th>Tên thuộc tính</th>
+                            {/* <th>Tên thuộc tính</th> */}
                             <th>Thông tin hàng hóa</th>
                             <th>Ghi chú</th>
                             <th style={{ width: '5%' }}>Hành động</th>
@@ -248,11 +248,7 @@ function Deposit() {
                                         Upload...
                                     </label>
                                 </td>
-                                <td style={{ width: '150px' }}>
-
-
-
-
+                                {/* <td style={{ width: '150px' }}>
                                     <label className="labelDepo mb-3" htmlFor="">Mã vận đơn</label><br />
                                     <label className="labelDepo mb-3" htmlFor="">Tên sản phẩm</label><br />
                                     <label className="labelDepo mb-3" htmlFor="">Số kiện hàng</label><br />
@@ -260,60 +256,74 @@ function Deposit() {
                                     <label className="labelDepo mb-3" htmlFor="">Đơn giá</label><br />
                                     <label className="labelDepo mb-3" htmlFor="">Phụ phí</label><br />
                                     <label className="labelDepo mb-3" htmlFor="">Tổng tiền: </label>
-                                </td>
-                                <td>
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        placeholder="Mã vận đơn (*)"
-                                        name="maVanDon"
-                                        onChange={(e) => changeInp(e, i)}
+                                </td> */}
+                                <td className="td_productInformation" style={{width: '180px',}}> 
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Mã vận đơn: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            placeholder="Mã vận đơn (*)"
+                                            name="maVanDon"
+                                            onChange={(e) => changeInp(e, i)}
 
-                                    />
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        placeholder="Tên sản phẩm (*)"
-                                        name="nameSanPham"
-                                        onChange={(e) => changeInp(e, i)}
+                                        />
+                                    </div>
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Tên sản phẩm: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            placeholder="Tên sản phẩm (*)"
+                                            name="nameSanPham"
+                                            onChange={(e) => changeInp(e, i)}
 
-                                    />
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        placeholder="Số kiện hàng"
-                                        name="soKien"
-                                        onChange={(e) => changeInp(e, i)}
+                                        />
+                                    </div>
 
-                                    />
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        name="kgM3"
-                                        placeholder="Số cân, số khối"
-                                        onChange={(e) => changeInp(e, i)}
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Số kiện hàng: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            placeholder="Số kiện hàng"
+                                            name="soKien"
+                                            onChange={(e) => changeInp(e, i)}
 
-                                    />
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        name="donGia"
+                                        />
+                                    </div>
 
-                                        placeholder="Đơn giá"
-                                        onChange={(e) => changeInp(e, i)}
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Số cân, số khối: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            name="kgM3"
+                                            placeholder="Số cân, số khối"
+                                            onChange={(e) => changeInp(e, i)}
 
-                                    />
-                                    <input
-                                        className="w-100 form-control"
-                                        type="text"
-                                        name="phuPhi"
+                                        />
+                                    </div>
 
-                                        placeholder="Phụ phí"
-                                        onChange={(e) => changeInp(e, i)}
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Đơn giá: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            name="donGia"
+                                            placeholder="Đơn giá"
+                                            onChange={(e) => changeInp(e, i)}
 
-                                    />
+                                        />
+                                    </div>
+
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Phụ phí: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            name="phuPhi"
+                                            placeholder="Phụ phí"
+                                            onChange={(e) => changeInp(e, i)}
+
+                                        />
+                                    </div>
                                     <NumericFormat
-                                        className="w-100 form-control"
+                                        className="w-75 text-center mx-auto form-control mt-1"
                                         type="text"
                                         disabled
                                         style={{ background: '#EDA82D' }}
