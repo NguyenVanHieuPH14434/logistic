@@ -242,7 +242,7 @@ function Deposit() {
                                   src={preview}
                                 />
                             )})}
-                            
+                            {/* /// */}
                   <label className="mt-1" id="label-upload">
                     <input
                       type="file"
