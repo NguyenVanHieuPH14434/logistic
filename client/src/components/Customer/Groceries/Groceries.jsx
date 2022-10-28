@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; //
 import { Confirm, toastifyError, toastifySuccess } from "../../../lib/toastify";
+import { tyGia } from "../../../lib/shipFee";
 
 function Groceries() {
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ function Groceries() {
     const increase = [...list];
     increase[i]["quantity"] = parseInt(increase[i]["quantity"]) + 1;
     increase[i]["total_price"] =
-      increase[i]["quantity"] * increase[i]["product_price"].replace(/,/g, "");
+      increase[i]["quantity"] * tyGia() * increase[i]["product_price"].replace(/,/g, "");
     setList(increase);
   };
 
@@ -80,11 +81,11 @@ function Groceries() {
     if (count[i]["quantity"] <= 0) {
       count[i]["quantity"] = 0;
       count[i]["total_price"] =
-        count[i]["quantity"] * count[i]["product_price"].replace(/,/g, "");
+        count[i]["quantity"] * tyGia() * count[i]["product_price"].replace(/,/g, "");
     } else {
       count[i]["quantity"] = count[i]["quantity"] - 1;
       count[i]["total_price"] =
-        count[i]["quantity"] * count[i]["product_price"].replace(/,/g, "");
+        count[i]["quantity"] * tyGia() * count[i]["product_price"].replace(/,/g, "");
     }
     setList(count);
   };
@@ -144,7 +145,7 @@ function Groceries() {
     }
     if (val[i]["quantity"]) {
       val[i]["total_price"] =
-        val[i]["product_price"].replace(/,/g, "") * 3650 * val[i]["quantity"];
+        val[i]["product_price"].replace(/,/g, "") * tyGia() * val[i]["quantity"];
     }
     setList(val);
    
