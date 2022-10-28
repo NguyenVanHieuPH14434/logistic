@@ -228,9 +228,10 @@ function Deposit() {
                         {list.map((li, i) => (
                             <tr key={i}>
                                 <td > <span>{i + 1}</span></td>
-                                <td style={{ width: '100px' }} className="td_img">
+                                <td  className="td_img col-2">
                             
-                            {li.fileImage.map((preview)=>{
+                       <div>
+                       {li.fileImage.map((preview)=>{
                                 return (
                                   <img
                                   style={{
@@ -240,9 +241,10 @@ function Deposit() {
                                   }}
                                   src={preview}
                                 />
-                            )})}
+                            )})} 
+                       </div>
                             {/* /// */}
-                  <label className="mt-1" id="label-upload">
+                  <label className="mt-1" id="label-upload1">
                     <input
                       type="file"
                       multiple
@@ -264,7 +266,7 @@ function Deposit() {
                                     <label className="labelDepo mb-3" htmlFor="">Phụ phí</label><br />
                                     <label className="labelDepo mb-3" htmlFor="">Tổng tiền: </label>
                                 </td> */}
-                                <td className="td_productInformation" style={{width: '180px',}}> 
+                                <td className="td_productInformation col-6" > 
                                     <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Mã vận đơn: </label>
                                         <input
                                             className="w-100 mt-1 form-control"
@@ -328,19 +330,22 @@ function Deposit() {
                                             onChange={(e) => changeInp(e, i)}
 
                                         />
-                                    </div>
+                                    </div >
+                                   <div style={{padding: '0 10px'}} className="d-flex justify-content-between">
+                                   <label  className="text-end me-2 mt-2 w-50"  htmlFor="">Tổng tiền: </label>
                                     <NumericFormat
-                                        className="w-75 text-center mx-auto form-control mt-1"
+                                        className="w-100 text-center mx-auto form-control mt-1"
                                         type="text"
                                         disabled
                                         style={{ background: '#EDA82D' }}
-                                        value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
-                                        placeholder="Tổng"
+                                        value={li.tongTien}
+                                        placeholder="Tổng tiền thanh toán"
                                         thousandSeparator=","
                                     ></NumericFormat>
+                                   </div>
                                 </td>
 
-                                <td style={{ width: '220px' }}>
+                                <td className="col-3">
                                     {" "}
                                     <textarea
                                         className="ghi_chu form-control"

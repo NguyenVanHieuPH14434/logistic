@@ -1,38 +1,40 @@
 // Reponse scss
+
 /* For Desktop View */
 
 @media screen and (min-width: 1024px) {
-.Header {
-    width: 100%;
-    padding: 20px 7%;
-    background-color: #9470d4 !important;
-    position: fixed;
-    z-index: 999;
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .logo {
-            width: 30%;
-        }
-        .end {
+    .Header {
+        width: 100%;
+        padding: 20px 7%;
+        background-color: #9470d4 !important;
+        position: fixed;
+        z-index: 999;
+        .navbar {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: space-evenly;
-            width: 20%;
-            color: #ffff;
-            .icon1 {
-                font-size: 1.8em;
+            .logo {
+                width: 30%;
             }
-            .icon2 {
-                font-size: 2em;
-            }
-            .dropdown-toggle {
-                background: none !important;
-                border: none !important;
-                outline: none !important;
-                &:focus {
-                    box-shadow: none !important;
+            .end {
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                width: 20%;
+                color: #ffff;
+                .icon1 {
+                    font-size: 1.8em;
+                }
+                .icon2 {
+                    font-size: 2em;
+                }
+                .dropdown-toggle {
+                    background: none !important;
+                    border: none !important;
+                    outline: none !important;
+                    &:focus {
+                        box-shadow: none !important;
+                    }
                 }
             }
         }
@@ -40,25 +42,24 @@
 }
 
 
-}
- 
 /* For Tablet View */
+
 // @media screen and (min-device-width: 768px)
 // and (max-device-width: 1024px) {
-    
 // }
- 
+
 /* For Mobile Portrait View */
-@media screen and (max-device-width: 480px)
-and (orientation: portrait) {
-}
- 
+
+@media screen and (max-device-width: 480px) and (orientation: portrait) {}
+
+
 /* For Mobile Landscape View */
-@media screen and (max-device-width: 640px)
-and (orientation: landscape) {
-}
- 
+
+@media screen and (max-device-width: 640px) and (orientation: landscape) {}
+
+
 /* For Mobile Phones Portrait or Landscape View */
+
 @media screen and (max-device-width: 640px) {
     .Header {
         width: 100%;
@@ -92,7 +93,7 @@ and (orientation: landscape) {
                     right: -350px;
                     color: #000;
                 }
-                .icon2:focus{
+                .icon2:focus {
                     color: red;
                 }
                 .dropdown-toggle {
@@ -106,20 +107,19 @@ and (orientation: landscape) {
             }
         }
     }
-    
 }
- 
+
+
 /* For iPhone 4 Portrait or Landscape View */
-@media screen and (min-device-width: 320px)
-and (-webkit-min-device-pixel-ratio: 2) {
-}
- 
+
+@media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {}
+
+
 /* For iPhone 5 Portrait or Landscape View */
-@media (device-height: 568px) and (device-width: 320px)
-and (-webkit-min-device-pixel-ratio: 2) {
-}
- 
+
+@media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {}
+
+
 /* For iPhone 6 and 6 plus Portrait or Landscape View */
-@media (min-device-height: 667px) and (min-device-width: 375px)
-and (-webkit-min-device-pixel-ratio: 3) {
-}
+
+@media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3) {}

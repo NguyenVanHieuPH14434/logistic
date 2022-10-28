@@ -496,20 +496,18 @@ function Groceries() {
                     onChange={(e) => changeInpOrder(e)}
                     placeholder="Nhập Số Điện Thoại"
                   />
-                  {/* <Form.Control
-                      className="customer-field"
-                      type="hidden"
-                      name="type"
-                      onChange={(e) => changeInpOrder(e)}
-                      placeholder="Nhập Số Điện Thoại"
-                    />
-                    <Form.Control
-                      className="customer-field"
-                      type="hidden"
-                      name="phone"
-                      onChange={(e) => changeInpOrder(e)}
-                      placeholder="Nhập Số Điện Thoại"
-                    /> */}
+                </Row>
+                <Row>
+                  <Form.Label className="customer-title">
+                      Tiền đặt cọc
+                  </Form.Label>
+                  <Form.Control
+                    className="customer-field"
+                    type="text"
+                    name="datCoc"
+                    onChange={(e) => changeInpOrder(e)}
+                    placeholder="Nhập Số Tiền Đặt Cọc"
+                  />
                 </Row>
                 <Row>
                   <Form.Label className="customer-title">Địa chỉ</Form.Label>

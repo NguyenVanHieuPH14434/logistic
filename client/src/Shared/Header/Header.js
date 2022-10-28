@@ -22,7 +22,7 @@ function Header() {
         <div className="Header">
             <div className="container">
                 <div className="row">
-                    <div className="col-sm-6">
+                    <div className="col-sm-12">
                         <Navbar expand="lg" className="navbar navbar-expand-lg">
                             <div className="logo">
                                 <img src={LOGO} />

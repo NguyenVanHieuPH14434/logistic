@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Groceries from "./components/Customer/Groceries/Groceries";
+import Groceries from "./components/Customer/Groceries/Groceries.jsx";
 import Deposit from "./components/Customer/Deposit/Deposit";
 import './App.scss';
 import Login from './components/athur/login/Login';
