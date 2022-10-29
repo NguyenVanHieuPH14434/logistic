@@ -360,7 +360,7 @@ function Deposit() {
                                 + Thêm sản sản phẩm
                             </button>
                         </div>
-                        <div className="d-flex flex-column w-100">
+                        <div className="address d-flex flex-column w-100">
                             <label htmlFor="" className="">
                                 <h5>Địa chỉ kho Trung Quốc</h5>
                             </label>
@@ -408,7 +408,7 @@ function Deposit() {
 
                     {/* Tổng hợp các loại phí */}
 
-                    <div className="container ms-4">
+                    <div className="container fee ms-4">
                         <h1>Phí vận chuyển quốc tế</h1>
                         <div className="mt-5">
                             <div class="official">

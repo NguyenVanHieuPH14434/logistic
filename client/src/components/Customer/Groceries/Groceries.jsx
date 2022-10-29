@@ -259,12 +259,13 @@ function Groceries() {
           <tbody>
             {list.map((li, i) => (
               <tr key={i}>
-                <td className="pt-5">
+                <td className="pt-5 stt">
                   {" "}
                   {i + 1} <br />
                 </td>
                 <td>
                   <img
+                  className="img_load_groceries"
                     style={{
                       width: "96px",
                       height: "64px",
@@ -333,6 +334,7 @@ function Groceries() {
                     onChange={(e) => changeInp(i, e)}
                     thousandSeparator=","
                     min="1"
+                    placeholder="Đơn giá"
                   />
                 </td>
                 <td className="soLuong">

@@ -90,6 +90,7 @@
           tr {
             display: flex;
             flex-direction: column;
+            visibility: hidden;
             th {
               width: 100% !important;
               font-size: 10px;
@@ -103,31 +104,169 @@
             display: flex;
             flex-direction: column;
             td {
-              margin: 6px 10px;
+              margin: 20px 10px;
               --bs-table-accent-bg: none;
               border: none !important;
               border-style: none !important;
               border-width: none !important;
-              #label-upload {
-                margin: 30px 0 100px 0 !important;
-              }
+              margin-left: -100px;
               .td_productInformation {
                 .information_content {
                   .label_product_information {
+                    h4 {
+                    }
                   }
                 }
               }
               .input_information_product {
                 input {
-                  width: 100px !important;
+                  width: 150px !important;
                 }
               }
             }
 
             .td_img {
+              padding: 10px 0 100px 140px;
+              margin-top: -50px;
+              img {
+              }
+              #label-upload {
+                margin-top: 60px !important;
+                input {
+                }
+              }
             }
           }
         }
+      }
+    }
+
+    .container {
+      display: flex !important;
+      flex-direction: column;
+      .form_custom {
+        .addMore {
+          button {
+            width: 200px;
+          }
+        }
+        .address {
+          select {
+            width: 200px;
+          }
+        }
+        .form {
+          width: 200px !important;
+        }
+      }
+      .fee {
+        margin-top: 20px !important;
+        margin-left: -30px !important;
+      }
+    }
+
+    // Groceries reponsive
+    .groceries {
+      .title {
+        font-size: 28px;
+        position: absolute;
+        top: 40px;
+      }
+      .table {
+        width: 300px !important;
+        overflow-y: scroll;
+        white-space: nowrap;
+        display: flex;
+        position: relative;
+        top: 0;
+        left: -30px;
+        thead {
+          tr {
+            display: flex;
+            flex-direction: column;
+            visibility: hidden;
+            th {
+              width: 100% !important;
+              font-size: 10px;
+              margin: 20px 0;
+              padding: 2px;
+            }
+          }
+        }
+        tbody {
+          tr {
+            display: flex;
+            flex-direction: column;
+            .stt {
+              margin-left: -60px !important;
+            }
+            td {
+              margin-left: -70px !important;
+              margin: 20px 10px;
+              --bs-table-accent-bg: none;
+              border: none !important;
+              border-style: none !important;
+              border-width: none !important;
+              margin-left: -100px;
+
+              img.img_load_groceries {
+                position: absolute;
+                left: 100px;
+                top: 70px;
+              }
+
+              label#label-upload {
+                position: absolute;
+                margin-top: 20px !important;
+                margin-left: -34px;
+              }
+              input {
+                width: 260px !important;
+              }
+              .attribute {
+                min-width: 260px !important;
+              }
+              .td_img {
+                padding: 10px 0 100px 140px;
+
+                #label-upload {
+                  input {
+                  }
+                }
+              }
+              input.value.border.w-50.border-dark.px-3.text-center.form-control {
+                width: 100px !important;
+              }
+              textarea.ghi_chu.form-control {
+                min-width: 270px !important;
+              }
+            }
+          }
+        }
+      }
+      .form {
+        min-width: 240px !important;
+      }
+      .form_custom {
+        margin-left: -20px;
+        button.py-2.px-1.rounded.text-white {
+          margin-left: 20px;
+        }
+        select.p-1.form-control {
+          width: 240px;
+        }
+      }
+      .border.border-danger.p-2 {
+        margin-top: 10px;
+        margin-left: -57px;
+        width: 300px !important;
+        height: 160px !important;
+      }
+      .express.border.border-danger.mt-3 {
+        margin-top: 10px;
+        margin-left: -57px;
+        width: 300px !important;
+        height: 160px !important;
       }
     }
   }
