@@ -22,6 +22,7 @@ function Deposit() {
             kgM3:0,
             donGia:0,
             phuPhi:0,
+            note: '',
             tongTien:0
         }
 
@@ -39,6 +40,7 @@ function Deposit() {
             kgM3:0,
             donGia:0,
             phuPhi:0,
+            note: '',
             tongTien:0
         };
         setList([...list, newList]);

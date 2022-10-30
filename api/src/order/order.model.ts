@@ -14,7 +14,7 @@ export class OrderModel {
     }
 
     async ListOrderByUser (userId:string) {
-        const docs = await this.col_order.find({user_id: userId}).toArray();
+        const docs = await this.col_order.find({$and:[{user_id: userId}, {type:'order'}]}).toArray();
         return docs;
     }
 

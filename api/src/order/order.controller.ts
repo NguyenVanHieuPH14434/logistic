@@ -47,6 +47,15 @@ export class OrderController {
         return order._id;
     }
 
+    async UpdateOrder (_id:string, params:OrderSchema.UpdateOrderParams){
+        const now = dayjs();
+        const nowFormat = now.format('DD/MM/YYYY');
+        const order = params;
+        order.utime = nowFormat;
+        await this.model.UpdateOrder(_id, order)
+        return order;
+    }
+
     async Search (filter:any) {
         return this.model.Search(filter);
     }

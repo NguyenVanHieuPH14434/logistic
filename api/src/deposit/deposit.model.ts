@@ -13,7 +13,12 @@ export class DepositModel {
     }
 
     async CreateDeposit (deposit:any) {
-        const doc = await this.col_deposit.insertMany(deposit);
-        return doc;
+        const docs = await this.col_deposit.insertMany(deposit);
+        return docs;
+    }
+
+    async UpdateDeposit (deposit:any) {
+        const docs = await this.col_deposit.updateOne({_id:deposit._id}, {$set:deposit});
+        return docs;
     }
 }

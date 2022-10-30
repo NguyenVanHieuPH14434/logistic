@@ -1,3 +1,5 @@
+import { DepositModel } from './deposit/deposit.model';
+import { DepositController } from './deposit/deposit.controller';
 import { AuthController } from './auth/auth.controller';
 import { AuthModel } from './auth/auth.model';
 import { OrderItemController } from './order_item/order_item.controller';
@@ -12,6 +14,7 @@ import cors from 'cors';
 import { NewOrderAPI } from './order/order.api';
 import { NewOrderItemAPI } from './order_item/order_item.api';
 import { NewAuthAPI } from './auth/auth.api';
+import { NewDepositAPI } from './deposit/deposit.api';
 
 export async function main() {
     const config = await ReadConfig();
@@ -22,7 +25,7 @@ export async function main() {
 
     const database = client.db(config.database.db_name);
 
-    // Order
+    // Order + Deposit
     const orderModel = new OrderModel(database);
     await orderModel.init();
     const orderController = new OrderController(orderModel);
@@ -33,6 +36,12 @@ export async function main() {
     await orderItemModel.init();
     const orderItemController = new OrderItemController(orderItemModel);
     await orderItemController.init();
+
+    // Deposit Item
+    const depositItemModel = new DepositModel(database);
+    await depositItemModel.init();
+    const depositItemController = new DepositController(depositItemModel);
+    await depositItemController.init();
 
     // Auth
     const authModel = new AuthModel(database);
@@ -49,8 +58,10 @@ export async function main() {
     // public image api 
     app.use(express.static(path.join(__dirname, 'public')));
 
-    app.use('/api/order', NewOrderAPI(orderController,orderItemController));
+    // app.use('/api/order', NewOrderAPI(orderController, orderItemController));
+    app.use('/api/order', NewOrderAPI(orderController, orderItemController, depositItemController));
     app.use('/api/orderItem', NewOrderItemAPI(orderItemController));
+    app.use('/api/depo', NewDepositAPI(depositItemController));
     app.use('/api/auth', NewAuthAPI(authController));
 
 
