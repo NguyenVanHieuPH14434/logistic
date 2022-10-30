@@ -61,7 +61,9 @@ export default function RegisterUser() {
         </div>
         <div className="container">
           <h2>
-            <span className="login_title">Đăng nhập</span>
+          <span className="login_title">
+              <a href="/login">Đăng nhập</a>
+            </span>
             <span> | </span>
             <span className="register_title">
               <a href="/">Đăng ký</a>

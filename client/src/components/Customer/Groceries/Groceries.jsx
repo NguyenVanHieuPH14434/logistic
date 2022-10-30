@@ -35,29 +35,27 @@ function Groceries() {
       total_price: 0,
     },
   ]);
-  const checkValidate = (items,order) => {
+  const checkValidate = (items, order) => {
     //create
-  if(order.full_name !==''&& order.phone !==''&&order.address !==''){
-    let checkEmptyItems= items.every((n)=>{
-      return (
-        n.product_image !== '' &&
-        n.fileImage !== '' &&
-        n.product_link &&
-        n.product_name !== '' &&
-        n.attribute !== '' &&
-        n.product_price !== '' &&
-        n.quantity > 0 &&
-        n.total_price > 0
-      )
-    })
-      if(checkEmptyItems === true){
-        handleSave()
-      }
-      else {
+    if (order.full_name !== "" && order.phone !== "" && order.address !== "") {
+      let checkEmptyItems = items.every((n) => {
+        return (
+          n.product_image !== "" &&
+          n.fileImage !== "" &&
+          n.product_link &&
+          n.product_name !== "" &&
+          n.attribute !== "" &&
+          n.product_price !== "" &&
+          n.quantity > 0 &&
+          n.total_price > 0
+        );
+      });
+      if (checkEmptyItems === true) {
+        handleSave();
+      } else {
         return alert(`please check input product !!!`);
       }
-    }
-    else {
+    } else {
       return alert(`please check input information !!!`);
     }
   };
@@ -71,7 +69,9 @@ function Groceries() {
     const increase = [...list];
     increase[i]["quantity"] = parseInt(increase[i]["quantity"]) + 1;
     increase[i]["total_price"] =
-      increase[i]["quantity"] * tyGia() * increase[i]["product_price"].replace(/,/g, "");
+      increase[i]["quantity"] *
+      tyGia() *
+      increase[i]["product_price"].replace(/,/g, "");
     setList(increase);
   };
 
@@ -81,11 +81,15 @@ function Groceries() {
     if (count[i]["quantity"] <= 0) {
       count[i]["quantity"] = 0;
       count[i]["total_price"] =
-        count[i]["quantity"] * tyGia() * count[i]["product_price"].replace(/,/g, "");
+        count[i]["quantity"] *
+        tyGia() *
+        count[i]["product_price"].replace(/,/g, "");
     } else {
       count[i]["quantity"] = count[i]["quantity"] - 1;
       count[i]["total_price"] =
-        count[i]["quantity"] * tyGia() * count[i]["product_price"].replace(/,/g, "");
+        count[i]["quantity"] *
+        tyGia() *
+        count[i]["product_price"].replace(/,/g, "");
     }
     setList(count);
   };
@@ -145,18 +149,18 @@ function Groceries() {
     }
     if (val[i]["quantity"]) {
       val[i]["total_price"] =
-        val[i]["product_price"].replace(/,/g, "") * tyGia() * val[i]["quantity"];
+        val[i]["product_price"].replace(/,/g, "") *
+        tyGia() *
+        val[i]["quantity"];
     }
     setList(val);
-   
-   
   };
 
   // thông tin khách hàng
   const [order, setOrder] = useState({
-    full_name:'',
-    phone:'',
-    address:''
+    full_name: "",
+    phone: "",
+    address: "",
   });
   console.log(order);
   // thay đổi giá trị thông tin khách hàng
@@ -199,33 +203,35 @@ function Groceries() {
       orderItem: list,
     };
 
-    const res = await createOrder(data1)
+    const res = await createOrder(data1);
     await uploadFiles(dataImage);
-    setList([{
-      product_image: "",
-      fileImage: "",
-      product_link: "",
-      product_name: "",
-      attribute: "",
-      product_price: 0,
-      quantity: 0,
-      note: "",
-      total_price: 0,
-    }])
+    setList([
+      {
+        product_image: "",
+        fileImage: "",
+        product_link: "",
+        product_name: "",
+        attribute: "",
+        product_price: 0,
+        quantity: 0,
+        note: "",
+        total_price: 0,
+      },
+    ]);
     setOrder({
-      address_TQ:'',
-      full_name:"",
-      phone:"",
-      address:""
-    })
-    toastifySuccess('Tạo đơn hàng thành công!')
-    setTimeout(()=>{
-      navigate('/app/orderGroceries', {state:{data:list}});
-    },1000)
+      address_TQ: "",
+      full_name: "",
+      phone: "",
+      address: "",
+    });
+    toastifySuccess("Tạo đơn hàng thành công!");
+    setTimeout(() => {
+      navigate("/app/orderGroceries", { state: { data: list } });
+    }, 1000);
   };
-  const saveData =()=>{
-    checkValidate(list,order)
-  }
+  const saveData = () => {
+    checkValidate(list, order);
+  };
   console.log("item", list);
   console.log("items", lists);
   const DeleteList = (i) => {
@@ -250,7 +256,6 @@ function Groceries() {
               <th>STT</th>
               <th>Ảnh Sản Phẩm</th>
               <th>Thuộc tính</th>
-              <th>Đơn giá</th>
               <th>Số lượng</th>
               <th>Ghi chú</th>
               <th>Thành tiền</th>
@@ -259,25 +264,29 @@ function Groceries() {
           <tbody>
             {list.map((li, i) => (
               <tr key={i}>
-                <td className="pt-5 stt">
+                <td style={{ paddingTop: "200px" }} className="stt">
                   {" "}
                   {i + 1} <br />
                 </td>
-                <td>
+                <td sytle={{}} className="col-1 pt-5">
                   <img
-                  className="img_load_groceries"
                     style={{
                       width: "96px",
                       height: "64px",
                       marginTop: "24px",
                     }}
-                    src={li.fileImage !== "" ? URL.createObjectURL(li.fileImage) : image}
+                    src={
+                      li.fileImage !== ""
+                        ? URL.createObjectURL(li.fileImage)
+                        : image
+                    }
                   />
+                  <br></br>
                   <label className="mt-1" id="label-upload">
                     <input
                       type="file"
                       multiple
-                      style={{ display: "none" }}
+                      style={{ display: "none", position: 'relative', top: '0' }}
                       name="product_image"
                       onChange={(e) => {
                         changFile(i, e);
@@ -286,7 +295,7 @@ function Groceries() {
                     Upload...
                   </label>
                 </td>
-                <td>
+                <td className="col-4">
                   <input
                     className="w-100 form-control"
                     type="text"
@@ -311,22 +320,14 @@ function Groceries() {
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Link sản phẩm"
                   />
-                </td>
-                <td className="pt-5">
-                  {" "}
-                  {/* <input
-                      type="text"
-                      name="price"
-                      value={li.price}
-                      onChange={(e) => changeInp(i, e)}
-                    /> */}
                   <NumericFormat
+                    placeholder="Giá sản phẩm"
                     style={{
                       border: "none",
                       backgroundColor: "none",
                       width: "100%",
                     }}
-                    className=" form-control"
+                    className=" form-control mt-2"
                     type="text"
                     name="product_price"
                     value={li.product_price ? li.product_price : ""}
@@ -334,13 +335,49 @@ function Groceries() {
                     onChange={(e) => changeInp(i, e)}
                     thousandSeparator=","
                     min="1"
-                    placeholder="Đơn giá"
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    placeholder="Mã vận đơn (*)"
+                    name="maVanDon"
+                    onChange={(e) => changeInp(e, i)}
+                  />
+
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    placeholder="Số kiện hàng"
+                    name="soKien"
+                    onChange={(e) => changeInp(e, i)}
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="kgM3"
+                    placeholder="Số cân, số khối"
+                    onChange={(e) => changeInp(e, i)}
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="donGia"
+                    placeholder="Cước vận chuyển"
+                    onChange={(e) => changeInp(e, i)}
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="phuPhi"
+                    placeholder="Phụ phí"
+                    onChange={(e) => changeInp(e, i)}
                   />
                 </td>
-                <td className="soLuong">
+
+                <td style={{paddingTop: '160px', paddingRight:'40px'}}  className="soLuong col-2">
                   <div className="d-flex soLuong">
                     <div
-                      className="border border-dark w-25 form-control"
+                      className="border px-3 d-flex justify-content-center border-dark w-25 form-control"
                       onClick={(e) => handleOnReduced(i)}
                     >
                       {" "}
@@ -354,7 +391,7 @@ function Groceries() {
                       onChange={(e) => changeInp(i, e)}
                     />
                     <div
-                      className="cong border w-25 border-dark form-control"
+                      className="cong px-3 d-flex justify-content-center border w-25 border-dark form-control"
                       onClick={(e) => handleOnIncrease(i, e)}
                     >
                       {" "}
@@ -362,7 +399,7 @@ function Groceries() {
                     </div>
                   </div>
                 </td>
-                <td>
+                <td className="col-3">
                   {" "}
                   <textarea
                     className="ghi_chu form-control"
@@ -376,7 +413,7 @@ function Groceries() {
                   ></textarea>{" "}
                 </td>
                 {/* <td className="pt-5"> {li.totalPrice} </td> */}
-                <td className="pt-5">
+                <td style={{paddingTop: '200px'}}>
                   <p className="">
                     <NumericFormat
                       disabled={true}
@@ -396,10 +433,12 @@ function Groceries() {
                       onClick={(e) => submit(e)}
                     >
                       {" "}
-                      {list.length > 1 && <i
-                        onClick={() => submit(i)}
-                        className="fa-solid fa-circle-xmark icon_delete_list"
-                      ></i>}
+                      {list.length > 1 && (
+                        <i
+                          onClick={() => submit(i)}
+                          className="fa-solid fa-circle-xmark icon_delete_list"
+                        ></i>
+                      )}
                     </button>
                   </span>
                 </td>
@@ -586,25 +625,34 @@ function Groceries() {
                 <div>
                   <span className="ms-3">
                     <input type="radio" />
-                    <label className="ps-1" htmlFor="">Nhanh</label>
+                    <label className="ps-1" htmlFor="">
+                      Nhanh
+                    </label>
                   </span>
                   <span className="ms-3">
                     <input type="radio" />
-                    <label className="ps-1" htmlFor="">Thường</label>
+                    <label className="ps-1" htmlFor="">
+                      Thường
+                    </label>
                   </span>
                 </div>
               </div>
               <div className=" d-flex justify-content-evenly">
                 <p className="ps-2">Yêu cầu khác</p>
-                <div className="d-flex flex-column">Ảnh Sản Phẩm
+                <div className="d-flex flex-column">
                   <span className="ms-3">
                     <input type="checkbox" disabled />
-                    <label className="ps-1" htmlFor="">Kiểm hàng</label>
+                    <label className="ps-1" htmlFor="">
+                      Kiểm hàng
+                    </label>
                   </span>
-                  <br/>
+                  <br />
                   <span className="ms-3">
                     <input type="checkbox" />
-                    <label className="ps-1" htmlFor=""> Khai thuế 100% hàng có hóa đơn GTGT</label>
+                    <label className="ps-1" htmlFor="">
+                      {" "}
+                      Khai thuế 100% hàng có hóa đơn GTGT
+                    </label>
                   </span>
                 </div>
               </div>
