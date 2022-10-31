@@ -20,6 +20,7 @@ function NewAuthAPI (authCOntroller: AuthController) {
         }
     })
 
+    ////
     router.get('/list', async(req, res)=>{
         const docs = await authCOntroller.ListAuth();
         SendSuccess(true, 'Danh sách tài khoản!', docs, res)

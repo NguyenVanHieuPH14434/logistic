@@ -1,5 +1,5 @@
 import "./Deposit.scss";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -10,19 +10,23 @@ import { NumericFormat } from "react-number-format";
 
 import { Confirm, toastifyError } from "../../../lib/toastify";
 import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../lib/shipFee";
+import { AppContext } from "../../../contexts/AppContextProvider";
+import { createDeposit, uploadFilesDeposit } from "../../../api/depositApi";
 
 function Deposit() {
+    const {state:{user}} = useContext(AppContext)
     const [list, setList] = useState([
         {
-            image: '',
-            fileImage: '',
-            maVanDon: '',
-            nameSanPham: '',
-            soKien: '',
-            kgM3: 0,
-            donGia: 0,
-            phuPhi: 0,
-            tongTien: 0
+            image:[],
+            fileImage:[],
+            maVanDon:'',
+            nameSanPham:'',
+            soKien:'',
+            kgM3:0,
+            donGia:0,
+            phuPhi:0,
+            note: '',
+            tongTien:0
         }
 
     ]);
@@ -31,15 +35,16 @@ function Deposit() {
     const handleOnClickAddMore = (e) => {
         let newList = [...list];
         newList = {
-            image: '',
-            fileImage: '',
-            maVanDon: '',
-            nameSanPham: '',
-            soKien: '',
-            kgM3: 0,
-            donGia: 0,
-            phuPhi: 0,
-            tongTien: 0
+            image:[],
+            fileImage:[],
+            maVanDon:'',
+            nameSanPham:'',
+            soKien:'',
+            kgM3:0,
+            donGia:0,
+            phuPhi:0,
+            note: '',
+            tongTien:0
         };
         setList([...list, newList]);
     };
@@ -68,16 +73,22 @@ function Deposit() {
 
 
     // Thông tin khách hàng
-    const [order, setOrder] = useState()
+    const [order, setOrder] = useState({
+        full_name:'',
+        phone:'',
+        address:''
+      })
 
     // thay đổi giá trị thông tin khách hàng
     const changeInpOrder = (e) => {
         const valOrder = { ...order };
         valOrder[e.target.name] = e.target.value;
-        valOrder["user_id"] = "1";
-        valOrder["type"] = "order";
+        valOrder["user_id"] = user._id;
+        valOrder["type"] = "deposit";
         setOrder(valOrder);
     };
+    console.log('customer', order);
+    
 
     const DeleteList = (i) => {
         const newList = [...list]
@@ -119,13 +130,35 @@ function Deposit() {
         file[i] = e.target.files;
         setFiles(file);
 
-        // change originalName file
-        const val = [...list];
-        val[i][e.target.name] = e.target.files[0].name;
-        val[i]["fileImage"] = e.target.files[0];
-        // val[i]["fileImage"] = URL.createObjectURL(e.target.files[0]);
-        setList(val);
-    };
+    // change originalName file
+    const val = [...list];
+    // val[i][e.target.name] = e.target.files.name;Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
+    val[i][e.target.name] = Array.from(e.target.files).map((im)=>im.name);
+    val[i]["fileImage"] = Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
+
+    
+    setList(val);
+  };
+
+  // handelSubmit 
+  const HandleSubmit = async(e)=>{
+    const data = {
+        "deposit":order,
+        "depositItem":list
+    }
+    const dataImg = new FormData();
+    for (let index = 0; index < files.length; index++) {
+        for (let i = 0; i < files[index].length; i++) {
+          const element = files[index][i];
+          dataImg.append("image", element)
+        }
+    }
+    const res = await createDeposit(data);
+    await uploadFilesDeposit(dataImg)
+
+    console.log('response', res);
+    alert('ok');
+  }
     console.log('listKy', list);
     console.log('listFile', files);
 
@@ -206,7 +239,6 @@ function Deposit() {
     }
 
 
-
     return (
         <>
             <div className="deposit">
@@ -226,27 +258,34 @@ function Deposit() {
                         {list.map((li, i) => (
                             <tr key={i}>
                                 <td > <span>{i + 1}</span></td>
-                                <td style={{ width: '100px' }} className="td_img">
-                                    <img
-                                        style={{
-                                            width: "96px",
-                                            height: "64px",
-                                            marginTop: "24px",
-                                        }}
-                                        src={li.fileImage !== "" ? URL.createObjectURL(li.fileImage) : '../../default-thumbnail.jpg'}
-                                    />
-                                    <label className="mt-1" id="label-upload">
-                                        <input
-                                            type="file"
-                                            multiple
-                                            style={{ display: "none" }}
-                                            name="image"
-                                            onChange={(e) => {
-                                                changFile(i, e);
-                                            }}
-                                        />
-                                        Upload...
-                                    </label>
+                                <td  className="td_img col-2">
+                            
+                       <div>
+                       {li.fileImage.map((preview)=>{
+                                return (
+                                  <img
+                                  style={{
+                                    width: "96px",
+                                    height: "64px",
+                                    marginTop: "24px",
+                                  }}
+                                  src={preview}
+                                />
+                            )})} 
+                       </div>
+                            {/* /// */}
+                  <label className="mt-1" id="label-upload1">
+                    <input
+                      type="file"
+                      multiple
+                      style={{ display: "none" }}
+                      name="image"
+                      onChange={(e) => {
+                        changFile(i, e);
+                      }}
+                    />
+                    Upload...
+                  </label>
                                 </td>
                                 {/* <td style={{ width: '150px' }}>
                                     <label className="labelDepo mb-3" htmlFor="">Mã vận đơn</label><br />
@@ -257,80 +296,83 @@ function Deposit() {
                                     <label className="labelDepo mb-3" htmlFor="">Phụ phí</label><br />
                                     <label className="labelDepo mb-3" htmlFor="">Tổng tiền: </label>
                                 </td> */}
-                                <td className="td_productInformation">
-                                    <div className="d-flex information_content">
-                                        <div className="label_product_information mt-2">
-                                            <p className="text-end me-2">Mã vận đơn: </p>
-                                            <p className="text-end me-2 pt-2">Tên sản phẩm: </p>
-                                            <p className="text-end me-2">Số kiện hàng: </p>
-                                            <p className="text-end me-2 pt-1">Số cân, số khối: </p>
-                                            <p className="text-end me-2 pt-1">Đơn giá: </p>
-                                            <p className="text-end me-2">Phụ phí: </p>
-                                            <h4 style={{position: 'absolute', bottom: '10px', left: '40px'}} classname="">Tổng: </h4>
-                                        </div>
-                                        <div class="input_information_product">
-                                            <input
-                                                style={{ width: '720px' }}
-                                                className="mt-1 form-control"
-                                                type="text"
-                                                placeholder="Mã vận đơn (*)"
-                                                name="maVanDon"
-                                                onChange={(e) => changeInp(e, i)}
-                                            />
-                                            <input
-                                                style={{ width: '720px' }}
-                                                className="mt-1 form-control"
-                                                type="text"
-                                                placeholder="Tên sản phẩm (*)"
-                                                name="nameSanPham"
-                                                onChange={(e) => changeInp(e, i)}
-                                            />
-                                            <input
-                                                style={{ width: '720px' }}
-                                                className="mt-1 form-control"
-                                                type="text"
-                                                placeholder="Số kiện hàng"
-                                                name="soKien"
-                                                onChange={(e) => changeInp(e, i)}
-                                            />
-                                            <input
-                                                style={{ width: '720px' }}
-                                                className="mt-1 form-control"
-                                                type="text"
-                                                name="kgM3"
-                                                placeholder="Số cân, số khối"
-                                                onChange={(e) => changeInp(e, i)}
-                                            />
-                                            <input
-                                                style={{ width: '720px' }}
-                                                className="mt-1 form-control"
-                                                type="text"
-                                                name="donGia"
-                                                placeholder="Đơn giá"
-                                                onChange={(e) => changeInp(e, i)}
-                                            />
-                                            <input
-                                                style={{ width: '720px' }}
-                                                className="mt-1 form-control"
-                                                type="text"
-                                                name="phuPhi"
-                                                placeholder="Phụ phí"
-                                                onChange={(e) => changeInp(e, i)}
-                                            />
-                                        </div>
-                                    </div>
-                                        <NumericFormat
-                                            className="w-75 text-center mx-auto form-control mt-1"
+                                <td className="td_productInformation" style={{width: '180px',}}> 
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Mã vận đơn: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
                                             type="text"
-                                            disabled
-                                            style={{ background: '#EDA82D' }}
-                                            value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
-                                            placeholder="Tổng"
-                                            thousandSeparator=","
-                                        ></NumericFormat>
+                                            placeholder="Mã vận đơn (*)"
+                                            name="maVanDon"
+                                            onChange={(e) => changeInp(e, i)}
+
+                                        />
+                                    </div>
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Tên sản phẩm: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            placeholder="Tên sản phẩm (*)"
+                                            name="nameSanPham"
+                                            onChange={(e) => changeInp(e, i)}
+
+                                        />
+                                    </div>
+
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Số kiện hàng: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            placeholder="Số kiện hàng"
+                                            name="soKien"
+                                            onChange={(e) => changeInp(e, i)}
+
+                                        />
+                                    </div>
+
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Số cân, số khối: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            name="kgM3"
+                                            placeholder="Số cân, số khối"
+                                            onChange={(e) => changeInp(e, i)}
+
+                                        />
+                                    </div>
+
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Đơn giá: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            name="donGia"
+                                            placeholder="Đơn giá"
+                                            onChange={(e) => changeInp(e, i)}
+
+                                        />
+                                    </div>
+
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Phụ phí: </label>
+                                        <input
+                                            className="w-100 mt-1 form-control"
+                                            type="text"
+                                            name="phuPhi"
+                                            placeholder="Phụ phí"
+                                            onChange={(e) => changeInp(e, i)}
+
+                                        />
+                                    </div>
+                                    <NumericFormat
+                                        className="w-75 text-center mx-auto form-control mt-1"
+                                        type="text"
+                                        disabled
+                                        style={{ background: '#EDA82D' }}
+                                        value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
+                                        placeholder="Tổng"
+                                        thousandSeparator=","
+                                    ></NumericFormat>
                                 </td>
 
-                                <td>
+                                <td style={{ width: '220px' }}>
                                     {" "}
                                     <textarea
                                         className="ghi_chu form-control"
@@ -338,6 +380,7 @@ function Deposit() {
                                         id=""
                                         cols="30"
                                         rows="10"
+                                        onChange={(e)=>changeInp(e)}
                                         placeholder="Ghi chú sản phẩm..."
                                     ></textarea>{" "}
                                 </td>
@@ -380,6 +423,8 @@ function Deposit() {
                                     <Form.Control
                                         className="customer-field"
                                         type="text"
+                                        name="full_name"
+                                        onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Họ Tên"
                                     />
                                 </Row>
@@ -390,18 +435,25 @@ function Deposit() {
                                     <Form.Control
                                         className="customer-field"
                                         type="text"
+                                        name="phone"
+                                        onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Số Điện Thoại"
                                     />
                                 </Row>
                                 <Row>
                                     <Form.Label className="customer-title">Địa chỉ</Form.Label>
-                                    <Form.Select className="customer-field">
+                                    <Form.Select className="customer-field" name="address" onChange={(e)=>changeInpOrder(e)}>
                                         <option>Vui Lòng Chọn Địa Chỉ</option>
+                                        <option value="Hà Nội">Hà Nội</option>
+                                        <option value="TP.HCM">TP.HCM</option>
+                                        <option value="Hải Phòng">Hải Phòng</option>
                                     </Form.Select>
                                 </Row>
                             </Container>
                         </div>
-                        <Button variant="warning" className="end-btn mt-3" as={Link} to="/app/orderDeposit">
+                        <Button variant="warning" className="end-btn mt-3" onClick={HandleSubmit}
+                        // as={Link} to="/app/orderDeposit"> 
+                        >
                             Tạo Đơn Ký gửi
                         </Button>
                     </div>

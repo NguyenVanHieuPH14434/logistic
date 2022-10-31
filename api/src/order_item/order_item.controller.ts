@@ -1,21 +1,24 @@
 import { OrderItemModel } from "./order_item.model";
 import dayjs from "dayjs";
 import { Order_item_Schema } from "./order_item";
+import { Commons } from "../common/common";
+
 
 export class OrderItemController {
     constructor(private model:OrderItemModel){}
-
+    
     async init () {}
 
     async CreateOrderItem (_id:string,params:any){
         const now = dayjs();
         const  nowFormat = now.format('DD/MM/YYYY');
+        const  nowFormatIMG = now.format('DDMMYYYY');
         const orderItem :Order_item_Schema.Order_item = params.map((item:any)=>({
                 _id: Order_item_Schema.Generate.NewOrderItemId(),
                 order_id: _id,
                 product_name: item.product_name,
                 product_link: item.product_link,
-                product_image: item.product_image,
+                product_image: Commons.folderImageOrder + nowFormatIMG + '_' + item.product_image,
                 attribute: item.attribute,
                 quantity: item.quantity,
                 product_price: item.product_price,

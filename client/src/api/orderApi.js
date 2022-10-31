@@ -11,18 +11,13 @@ const uploadFiles = async(data) => {
 }
 
 const listOrder = async(userId) => {
-    const url = `/order/list/${userId}`;
-    const res = await instance.get(url)                            
-    return res;
-}
-const detailOrder = async(orderId) =>{
-    const url = `/order/detailOrder/${orderId}`;
+    const url = `/order/list/${userId}?type=order`;
     const res = await instance.get(url)
     return res;
 }
 
 const deltailOrder = async(orderId) => {
-    const url = `/order/detailOrder/${orderId}`;
+    const url = `/order/detailOrder/${orderId}?type=order`;
     const res = await instance.get(url)
     return res;
 }

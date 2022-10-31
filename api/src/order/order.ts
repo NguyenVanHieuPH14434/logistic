@@ -34,7 +34,7 @@ export namespace OrderSchema {
         address_TQ?:string;
         status?: number;
         total?: string;
-        utime:string;
+        utime?:string;
     }
 
     export const Generate = {

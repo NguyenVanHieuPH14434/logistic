@@ -7,26 +7,32 @@ export class OrderController {
 
     async init (){}
 
+    // get all list order
     async ListOrder (){
         return this.model.ListOrder();
     }
 
-    async ListOrderByUser (userId:string){
-        return this.model.ListOrderByUser(userId);
+    // get list order with userID login 
+    async ListByUserId (userId:string, type:string){
+        return this.model.ListByUserId(userId, type);
     }
 
-    async ListItemByOrder (_id:any){
-        return this.model.ListItemByOrder(_id);
+    // get list order (parent) and order item (children)
+    async ListItem (_id:any, type:string){
+        return this.model.ListItem(_id, type);
     }
 
-    async DetailOrder (orderId:string) {
-        return this.model.DetailOrder(orderId);
+    // get detail order by orderId (parent) and order item (children)
+    async DetailOrder (orderId:string, type:string) {
+        return this.model.DetailOrder(orderId, type);
     }
 
+    // get order by _id
     async GetOrder (_id:string){
         return this.model.GetOrder(_id);
     }
 
+    // create order || deposit
     async CreateOrder (params:OrderSchema.CreateOrderParams){
         const now = dayjs();
         const nowFormat = now.format('DD/MM/YYYY');
@@ -47,10 +53,22 @@ export class OrderController {
         return order._id;
     }
 
+    // update order || deposit
+    async UpdateOrder (_id:string, params:OrderSchema.UpdateOrderParams){
+        const now = dayjs();
+        const nowFormat = now.format('DD/MM/YYYY');
+        const order = params;
+        order.utime = nowFormat;
+         await this.model.UpdateOrder(_id, order)
+        return order;
+    }
+
+
     async Search (filter:any) {
         return this.model.Search(filter);
     }
 
+    // search by date
     async SearchByDate (userId:string, from:any, to:any) {
         return this.model.SearchByDate(userId, from, to);
     }
