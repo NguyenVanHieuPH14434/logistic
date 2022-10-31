@@ -256,7 +256,6 @@ function Groceries() {
               <th>STT</th>
               <th>Ảnh Sản Phẩm</th>
               <th>Thuộc tính</th>
-              <th>Đơn giá</th>
               <th>Số lượng</th>
               <th>Ghi chú</th>
               <th>Thành tiền</th>
@@ -269,7 +268,7 @@ function Groceries() {
                   {" "}
                   {i + 1} <br />
                 </td>
-                <td>
+                <td sytle={{}} className="col-1 pt-5">
                   <img
                     style={{
                       width: "96px",
@@ -296,7 +295,7 @@ function Groceries() {
                     Upload...
                   </label>
                 </td>
-                <td>
+                <td className="col-4">
                   <input
                     className="w-100 form-control"
                     type="text"
@@ -321,22 +320,14 @@ function Groceries() {
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Link sản phẩm"
                   />
-                </td>
-                <td className="pt-5">
-                  {" "}
-                  {/* <input
-                      type="text"
-                      name="price"
-                      value={li.price}
-                      onChange={(e) => changeInp(i, e)}
-                    /> */}
                   <NumericFormat
+                    placeholder="Giá sản phẩm"
                     style={{
                       border: "none",
                       backgroundColor: "none",
                       width: "100%",
                     }}
-                    className=" form-control"
+                    className=" form-control mt-2"
                     type="text"
                     name="product_price"
                     value={li.product_price ? li.product_price : ""}
@@ -345,8 +336,45 @@ function Groceries() {
                     thousandSeparator=","
                     min="1"
                   />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    placeholder="Mã vận đơn (*)"
+                    name="maVanDon"
+                    onChange={(e) => changeInp(e, i)}
+                  />
+
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    placeholder="Số kiện hàng"
+                    name="soKien"
+                    onChange={(e) => changeInp(e, i)}
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="kgM3"
+                    placeholder="Số cân, số khối"
+                    onChange={(e) => changeInp(e, i)}
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="donGia"
+                    placeholder="Cước vận chuyển"
+                    onChange={(e) => changeInp(e, i)}
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="phuPhi"
+                    placeholder="Phụ phí"
+                    onChange={(e) => changeInp(e, i)}
+                  />
                 </td>
-                <td className="soLuong">
+
+                <td style={{paddingTop: '160px', paddingRight:'40px'}}  className="soLuong col-2">
                   <div className="d-flex soLuong">
                     <div
                       className="border px-3 d-flex justify-content-center border-dark w-25 form-control"
@@ -371,7 +399,7 @@ function Groceries() {
                     </div>
                   </div>
                 </td>
-                <td>
+                <td className="col-3">
                   {" "}
                   <textarea
                     className="ghi_chu form-control"
@@ -385,7 +413,7 @@ function Groceries() {
                   ></textarea>{" "}
                 </td>
                 {/* <td className="pt-5"> {li.totalPrice} </td> */}
-                <td className="pt-5">
+                <td style={{paddingTop: '200px'}}>
                   <p className="">
                     <NumericFormat
                       disabled={true}
@@ -474,18 +502,20 @@ function Groceries() {
                     onChange={(e) => changeInpOrder(e)}
                     placeholder="Nhập Số Điện Thoại"
                   />
+                 
                 </Row>
                 <Row>
                   <Form.Label className="customer-title">
-                      Tiền đặt cọc
+                    Đặt cọc
                   </Form.Label>
                   <Form.Control
                     className="customer-field"
                     type="text"
                     name="datCoc"
                     onChange={(e) => changeInpOrder(e)}
-                    placeholder="Nhập Số Tiền Đặt Cọc"
+                    placeholder="Nhập Số tiền cọc"
                   />
+                 
                 </Row>
                 <Row>
                   <Form.Label className="customer-title">Địa chỉ</Form.Label>

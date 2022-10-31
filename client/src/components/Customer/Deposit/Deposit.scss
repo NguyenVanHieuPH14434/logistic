@@ -40,13 +40,22 @@
             top: 50%;
             transform: translateX(-50%);
         }
+        #label-upload1 {
+            cursor: pointer;
+            border: 1px solid #8610e8;
+            border-radius: 5px;
+            color: white;
+            padding: 2px 7px;
+            background-color: #8610e8;
+            /* Style as you please, it will become the visible UI component. */
+        }
         .td_productInformation {
             width: 100px;
         }
         img {
-            position: absolute;
-            top: 20%;
-            transform: translateX(-50%);
+            // position: absolute;
+            // top: 20%;
+            // transform: translateX(-50%);
         }
         .ghi_chu {
             height: 40px;
@@ -104,6 +113,10 @@
             }
         }
     }
+    .text-end {
+        text-align: left !important;
+        width: 25% !important;
+    }
     .end-btn {
         margin-top: 2%;
         color: white;
@@ -119,43 +132,20 @@
     color: #eda82d;
 }
 
-// Reponse scss
-
-/* For Desktop View */
-
-@media screen and (min-width: 1024px) {}
-
-
-/* For Tablet View */
-
-@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {}
-
-
-/* For Mobile Portrait View */
-
-@media screen and (max-device-width: 480px) and (orientation: portrait) {}
-
-
-/* For Mobile Landscape View */
-
-@media screen and (max-device-width: 640px) and (orientation: landscape) {}
-
-
-/* For Mobile Phones Portrait or Landscape View */
-
-@media screen and (max-device-width: 640px) {}
-
-
-/* For iPhone 4 Portrait or Landscape View */
-
-@media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {}
-
-
-/* For iPhone 5 Portrait or Landscape View */
-
-@media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {}
-
-
-/* For iPhone 6 and 6 plus Portrait or Landscape View */
-
-@media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3) {}
+// // Reponse scss
+// /* For Desktop View */
+// @media screen and (min-width: 1024px) {}
+// /* For Tablet View */
+// @media screen and (min-device-width: 768px) and (max-device-width: 1024px) {}
+// /* For Mobile Portrait View */
+// @media screen and (max-device-width: 480px) and (orientation: portrait) {}
+// /* For Mobile Landscape View */
+// @media screen and (max-device-width: 640px) and (orientation: landscape) {}
+// /* For Mobile Phones Portrait or Landscape View */
+// @media screen and (max-device-width: 640px) {}
+// /* For iPhone 4 Portrait or Landscape View */
+// @media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {}
+// /* For iPhone 5 Portrait or Landscape View */
+// @media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {}
+// /* For iPhone 6 and 6 plus Portrait or Landscape View */
+// @media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3) {}

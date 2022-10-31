@@ -31,7 +31,7 @@ function Deposit() {
 
     ]);
 
-////
+
     const handleOnClickAddMore = (e) => {
         let newList = [...list];
         newList = {
@@ -296,7 +296,7 @@ function Deposit() {
                                     <label className="labelDepo mb-3" htmlFor="">Phụ phí</label><br />
                                     <label className="labelDepo mb-3" htmlFor="">Tổng tiền: </label>
                                 </td> */}
-                                <td className="td_productInformation" style={{width: '180px',}}> 
+                                <td className="td_productInformation col-6" > 
                                     <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Mã vận đơn: </label>
                                         <input
                                             className="w-100 mt-1 form-control"
@@ -360,19 +360,22 @@ function Deposit() {
                                             onChange={(e) => changeInp(e, i)}
 
                                         />
-                                    </div>
+                                    </div >
+                                   <div style={{padding: '0 10px'}} className="d-flex justify-content-between">
+                                   <label  className="text-end me-2 mt-2 w-50"  htmlFor="">Tổng tiền: </label>
                                     <NumericFormat
-                                        className="w-75 text-center mx-auto form-control mt-1"
+                                        className="w-100 text-center mx-auto form-control mt-1"
                                         type="text"
                                         disabled
                                         style={{ background: '#EDA82D' }}
-                                        value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
-                                        placeholder="Tổng"
+                                        value={li.tongTien}
+                                        placeholder="Tổng tiền thanh toán"
                                         thousandSeparator=","
                                     ></NumericFormat>
+                                   </div>
                                 </td>
 
-                                <td style={{ width: '220px' }}>
+                                <td className="col-3">
                                     {" "}
                                     <textarea
                                         className="ghi_chu form-control"
@@ -403,7 +406,7 @@ function Deposit() {
                                 + Thêm sản sản phẩm
                             </button>
                         </div>
-                        <div className="address d-flex flex-column w-100">
+                        <div className="d-flex flex-column w-100">
                             <label htmlFor="" className="">
                                 <h5>Địa chỉ kho Trung Quốc</h5>
                             </label>
@@ -460,7 +463,7 @@ function Deposit() {
 
                     {/* Tổng hợp các loại phí */}
 
-                    <div className="container fee ms-4">
+                    <div className="container ms-4">
                         <h1>Phí vận chuyển quốc tế</h1>
                         <div className="mt-5">
                             <div class="official">
