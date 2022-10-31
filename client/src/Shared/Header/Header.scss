@@ -63,6 +63,27 @@
         }
       }
     }
+
+
+    .show.dropdown {
+      background: #eda82d;
+      width: 63px;
+    }
+    .dropdown-menu.show {
+      margin-left: -100px;
+    }
+  }
+
+  .login {
+    position: absolute;
+    width: 412px;
+    background-color: rgba(53, 53, 53, 0.431372549);
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10%;
+    padding: 10px;
+    text-align: center;
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
   }
 
   .row-container {
@@ -71,6 +92,10 @@
       top: -100px;
       left: 0;
     }
+    #dropdown-button-drop-end .container2 .icon3 {
+      font-size: 2em;
+      margin-left: 23px;
+  }
     .deposit {
       .title {
         font-size: 28px;
@@ -199,6 +224,7 @@
             flex-direction: column;
             .stt {
               margin-left: -60px !important;
+              margin: -80px 0 -100px 100px;
             }
             td {
               margin-left: -70px !important;
@@ -268,6 +294,107 @@
         width: 300px !important;
         height: 160px !important;
       }
+    }
+
+    // List groceries reponsive
+    .nav_container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: -10px;
+      width: 314px;
+      margin-top: -100px !important;
+    }
+    .listGroceries .nav_container .nav_search input {
+      padding: 12px 10px;
+      border-radius: 10px;
+      width: 280px;
+    }
+    .listGroceries hr {
+      margin-top: 0;
+      width: 304px;
+    }
+    ul.menu_groceries {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 290px;
+    }
+    .listGroceries .menu_groceries li {
+      margin: 4px 26px;
+    }
+    .listGroceries .calender {
+      margin-top: 100px;
+    }
+    .listGroceries .calender .search_icon {
+      width: 200px;
+    }
+    table.table.table-bordered.mt-5.text-center {
+      margin-top: 100px !important;
+    }
+    .listDeposit .nav_container .nav_search input {
+      padding: 12px 10px;
+      border-radius: 10px;
+      width: 280px;
+    }
+    .listDeposit .calender {
+      margin-top: 100px;
+    }
+    .listDeposit .menu_deposit {
+      flex-wrap: wrap;
+    }
+    .user .nav_container .nav_search input {
+      padding: 12px 10px;
+      border-radius: 10px;
+      width: 280px;
+    }
+    .user .user_content {
+      width: 304px !important;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .user .user_content img {
+      width: 80px;
+      height: 80px;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      padding: 20px;
+      background: #fff;
+      border-radius: 20px;
+    }
+    .user .user_content p {
+      font-size: 12px;
+    }
+    .change_pass .nav_container .nav_search input {
+      padding: 12px 10px;
+      border-radius: 10px;
+      width: 280px;
+    }
+    .change_pass .change_password_content form {
+      margin: 0 auto;
+      width: 100%;
+      border: 1px solid #666;
+    }
+    .change_pass .change_password_content form .form_content .label_column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: start;
+      font-size: 18px;
+      visibility: hidden;
+    }
+    .change_pass .change_password_content form .form_content .input_column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      /* text-align: center; */
+      margin-left: -185px;
+    }
+    .listOrder.mx-4 {
+      width: 294px;
+      overflow-x: scroll;
+      margin-left: 1px !important;
     }
   }
 }

@@ -3,6 +3,7 @@ import "./register.scss";
 import logo_login from "../../../assets/public/img/logo_login.png";
 import background_login from "../../../assets/public/img/image-background-login.png";
 import { Register } from "../../../api/auth";
+import { Link } from "react-router-dom";
 
 export default function RegisterUser() {
   const [register,setRegister]=useState({
@@ -61,10 +62,17 @@ export default function RegisterUser() {
         </div>
         <div className="container">
           <h2>
-            <span className="login_title">Đăng nhập</span>
+          <span className="login_title">
+          <Link as={Link} to="/login">
+            Đăng nhập
+          </Link>
+            </span>
             <span> | </span>
             <span className="register_title">
-              <a href="/">Đăng ký</a>
+              <Link as={Link} to="/register">
+                Đăng ký
+          </Link>
+              
             </span>
           </h2>
           <div className="form_login">
