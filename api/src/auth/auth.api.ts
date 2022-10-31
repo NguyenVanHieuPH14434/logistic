@@ -12,7 +12,7 @@ function NewAuthAPI (authCOntroller: AuthController) {
         try {
             const user = await authCOntroller.GetAuth(req.userId);
             if (!user) return SendErr(false, DoesNotExits('Tài khoản'), res);
-            const data = {'_id':user._id, 'fullname':user.fullName, 'phone':user.phone, 'username':user.username};
+            const data = {'_id':user._id, 'fullname':user.fullName, 'phone':user.phone, 'username':user.username, 'role':user.role};
             SendResult(true, 'Thông tin tài khoản!', data, ' ', res);
         } catch (error) {
             console.log(error);
