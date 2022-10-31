@@ -304,7 +304,7 @@ function Deposit() {
                                         </div>
                                         <div class="input_information_product">
                                             <input
-                                                style={{ width: '720px' }}
+                                                style={{ width: '520px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 placeholder="Mã vận đơn (*)"
@@ -312,7 +312,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '720px' }}
+                                                style={{ width: '520px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 placeholder="Tên sản phẩm (*)"
@@ -320,7 +320,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '720px' }}
+                                                style={{ width: '520px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 placeholder="Số kiện hàng"
@@ -328,7 +328,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '720px' }}
+                                                style={{ width: '520px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="kgM3"
@@ -336,7 +336,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '720px' }}
+                                                style={{ width: '520px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="donGia"
@@ -344,7 +344,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '720px' }}
+                                                style={{ width: '520px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="phuPhi"
@@ -414,6 +414,8 @@ function Deposit() {
                                     <Form.Control
                                         className="customer-field"
                                         type="text"
+                                        name="full_name"
+                                        onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Họ Tên"
                                     />
                                 </Row>
@@ -424,22 +426,29 @@ function Deposit() {
                                     <Form.Control
                                         className="customer-field"
                                         type="text"
+                                        name="phone"
+                                        onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Số Điện Thoại"
                                     />
                                 </Row>
                                 <Row>
                                     <Form.Label className="customer-title">Địa chỉ</Form.Label>
-                                    <Form.Select className="customer-field">
+                                    <Form.Select className="customer-field" name="address" onChange={(e)=>changeInpOrder(e)}>
                                         <option>Vui Lòng Chọn Địa Chỉ</option>
+                                        <option value="Hà Nội">Hà Nội</option>
+                                        <option value="TP.HCM">TP.HCM</option>
+                                        <option value="Hải Phòng">Hải Phòng</option>
                                     </Form.Select>
                                 </Row>
                             </Container>
                         </div>
-                        <Button variant="warning" className="end-btn mt-3" as={Link} to="/app/orderDeposit">
+                        <Button variant="warning" className="end-btn mt-3" onClick={HandleSubmit}
+                        // as={Link} to="/app/orderDeposit"> 
+                        >
                             Tạo Đơn Ký gửi
                         </Button>
                     </div>
-
+                        
                     {/* Tổng hợp các loại phí */}
 
                     <div className="container fee ms-4">
