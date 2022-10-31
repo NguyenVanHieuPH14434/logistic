@@ -1,392 +1,398 @@
 .Header {
-    width: 100%;
-    padding: 20px 7%;
-    background-color: #9470d4 !important;
-    position: fixed;
-    z-index: 999;
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .logo {
-            width: 30%;
-        }
-        .end {
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            width: 20%;
-            color: #ffff;
-            .icon1 {
-                font-size: 1.8em;
-            }
-            .icon2 {
-                font-size: 2em;
-            }
-            .dropdown-toggle {
-                background: none !important;
-                border: none !important;
-                outline: none !important;
-                &:focus {
-                    box-shadow: none !important;
-                }
-            }
-        }
+  width: 100%;
+  padding: 20px 7%;
+  background-color: #9470d4 !important;
+  position: fixed;
+  z-index: 999;
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .logo {
+      width: 30%;
     }
+    .end {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 20%;
+      color: #ffff;
+      .icon1 {
+        font-size: 1.8em;
+      }
+      .icon2 {
+        font-size: 2em;
+      }
+      .dropdown-toggle {
+        background: none !important;
+        border: none !important;
+        outline: none !important;
+        &:focus {
+          box-shadow: none !important;
+        }
+      }
+    }
+  }
 }
-
 
 /* For mobile phones: */
 
 [class*="col-"] {
-    width: 100%;
+  width: 100%;
 }
-
 
 /* For mobile phones: */
 
 @media only screen and (max-width: 600px) {
-    .Header {
-        height: 30px;
-        position: relative;
-        .navbar {
-            .end {
-                display: flex;
-                flex-direction: row;
-                width: 200px;
-                position: absolute;
-                top: -22px;
-                right: -30px;
-            }
-            .logo {
-                img {
-                    width: 100px;
-                    height: 30px;
-                    position: absolute;
-                    top: -14px;
-                }
-            }
-        }
-        .show.dropdown {
-            background: #eda82d;
-            width: 63px;
-        }
-        .dropdown-menu.show {
-            margin-left: -100px;
-        }
-    }
-    .login {
+  .Header {
+    height: 30px;
+    position: relative;
+    .navbar {
+      .end {
+        display: flex;
+        flex-direction: row;
+        width: 200px;
         position: absolute;
-        width: 412px;
-        background-color: rgba(53, 53, 53, 0.431372549);
-        margin-left: 50%;
-        transform: translateX(-50%);
-        margin-top: 10%;
-        padding: 10px;
-        text-align: center;
-        box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+        top: -22px;
+        right: -30px;
+      }
+      .logo {
+        img {
+          width: 100px;
+          height: 30px;
+          position: absolute;
+          top: -14px;
+        }
+      }
     }
-    .row-container {
-        .menu_left {
-            position: relative;
-            top: -100px;
-            left: 0;
-        }
-        #dropdown-button-drop-end .container2 .icon3 {
-            font-size: 2em;
-            margin-left: 23px;
-        }
-        .deposit {
-            .title {
-                font-size: 28px;
-                position: absolute;
-                top: 40px;
-            }
-            .table {
-                width: 300px !important;
-                overflow-y: scroll;
-                white-space: nowrap;
-                // display: flex;
-                position: relative;
-                top: 0;
-                left: -30px;
-                thead {
-                    tr {
-                        display: flex;
-                        flex-direction: column;
-                        visibility: hidden;
-                        th {
-                            width: 100% !important;
-                            font-size: 10px;
-                            margin: 20px 0;
-                            padding: 2px;
-                        }
-                    }
-                }
-                tbody {
-                    tr {
-                        display: flex;
-                        flex-direction: column;
-                        td {
-                            margin: 20px 10px;
-                            --bs-table-accent-bg: none;
-                            border: none !important;
-                            border-style: none !important;
-                            border-width: none !important;
-                            margin-left: -100px;
-                            .td_productInformation {
-                                .information_content {
-                                    .label_product_information {
-                                        h4 {}
-                                    }
-                                }
-                            }
-                            .input_information_product {
-                                input {
-                                    width: 150px !important;
-                                }
-                            }
-                        }
-                        .td_img {
-                            padding: 10px 0 100px 140px;
-                            margin-top: -50px;
-                            img {}
-                            #label-upload {
-                                margin-top: 60px !important;
-                                input {}
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        .container {
-            display: flex !important;
-            flex-direction: column;
-            .form_custom {
-                .addMore {
-                    button {
-                        width: 200px;
-                    }
-                }
-                .address {
-                    select {
-                        width: 200px;
-                    }
-                }
-                .form {
-                    width: 200px !important;
-                }
-            }
-            .fee {
-                margin-top: 20px !important;
-                margin-left: -30px !important;
-            }
-        }
-        // Groceries reponsive
-        .groceries {
-            .title {
-                font-size: 28px;
-                position: absolute;
-                top: 40px;
-            }
-            .table {
-                width: 300px !important;
-                overflow-y: scroll;
-                white-space: nowrap;
-                display: flex;
-                position: relative;
-                top: 0;
-                left: -30px;
-                thead {
-                    tr {
-                        display: flex;
-                        flex-direction: column;
-                        visibility: hidden;
-                        th {
-                            width: 100% !important;
-                            font-size: 10px;
-                            margin: 20px 0;
-                            padding: 2px;
-                        }
-                    }
-                }
-                tbody {
-                    tr {
-                        display: flex;
-                        flex-direction: column;
-                        .stt {
-                            margin-left: -60px !important;
-                            margin: -80px 0 -100px 100px;
-                        }
-                        td {
-                            margin-left: -70px !important;
-                            margin: 20px 10px;
-                            --bs-table-accent-bg: none;
-                            border: none !important;
-                            border-style: none !important;
-                            border-width: none !important;
-                            margin-left: -100px;
-                            img.img_load_groceries {
-                                position: absolute;
-                                left: 100px;
-                                top: 70px;
-                            }
-                            label#label-upload {
-                                position: absolute;
-                                margin-top: 20px !important;
-                                margin-left: -34px;
-                            }
-                            input {
-                                width: 260px !important;
-                            }
-                            .attribute {
-                                min-width: 260px !important;
-                            }
-                            .td_img {
-                                padding: 10px 0 100px 140px;
-                                #label-upload {
-                                    input {}
-                                }
-                            }
-                            input.value.border.w-50.border-dark.px-3.text-center.form-control {
-                                width: 100px !important;
-                            }
-                            textarea.ghi_chu.form-control {
-                                min-width: 270px !important;
-                            }
-                        }
-                    }
-                }
-            }
-            .form {
-                min-width: 240px !important;
-            }
-            .form_custom {
-                margin-left: -20px;
-                button.py-2.px-1.rounded.text-white {
-                    margin-left: 20px;
-                }
-                select.p-1.form-control {
-                    width: 240px;
-                }
-            }
-            .border.border-danger.p-2 {
-                margin-top: 10px;
-                margin-left: -57px;
-                width: 300px !important;
-                height: 160px !important;
-            }
-            .express.border.border-danger.mt-3 {
-                margin-top: 10px;
-                margin-left: -57px;
-                width: 300px !important;
-                height: 160px !important;
-            }
-        }
-        // List groceries reponsive
-        .nav_container {
+    .show.dropdown {
+      background: #eda82d;
+      width: 63px;
+    }
+    .dropdown-menu.show {
+      margin-left: -100px;
+    }
+  }
+  .login {
+    position: absolute;
+    width: 412px;
+    background-color: rgba(53, 53, 53, 0.431372549);
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10%;
+    padding: 10px;
+    text-align: center;
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+  }
+  .row-container {
+    .menu_left {
+      position: relative;
+      top: -100px;
+      left: 0;
+    }
+    #dropdown-button-drop-end .container2 .icon3 {
+      font-size: 2em;
+      margin-left: 23px;
+    }
+    .deposit {
+      .title {
+        font-size: 28px;
+        position: absolute;
+        top: 40px;
+      }
+      .table {
+        width: 300px !important;
+        overflow-y: scroll;
+        white-space: nowrap;
+        // display: flex;
+        position: relative;
+        top: 0;
+        left: -30px;
+        thead {
+          tr {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            margin-left: -10px;
-            width: 314px;
-            margin-top: -100px !important;
-        }
-        .listGroceries .nav_container .nav_search input {
-            padding: 12px 10px;
-            border-radius: 10px;
-            width: 280px;
-        }
-        .listGroceries hr {
-            margin-top: 0;
-            width: 304px;
-        }
-        ul.menu_groceries {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            width: 290px;
-        }
-        .listGroceries .menu_groceries li {
-            margin: 4px 26px;
-        }
-        .listGroceries .calender {
-            margin-top: 100px;
-        }
-        .listGroceries .calender .search_icon {
-            width: 200px;
-        }
-        table.table.table-bordered.mt-5.text-center {
-            margin-top: 100px !important;
-        }
-        .listDeposit .nav_container .nav_search input {
-            padding: 12px 10px;
-            border-radius: 10px;
-            width: 280px;
-        }
-        .listDeposit .calender {
-            margin-top: 100px;
-        }
-        .listDeposit .menu_deposit {
-            flex-wrap: wrap;
-        }
-        .user .nav_container .nav_search input {
-            padding: 12px 10px;
-            border-radius: 10px;
-            width: 280px;
-        }
-        .user .user_content {
-            width: 304px !important;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .user .user_content img {
-            width: 80px;
-            height: 80px;
-            margin-left: 50%;
-            transform: translateX(-50%);
-            padding: 20px;
-            background: #fff;
-            border-radius: 20px;
-        }
-        .user .user_content p {
-            font-size: 12px;
-        }
-        .change_pass .nav_container .nav_search input {
-            padding: 12px 10px;
-            border-radius: 10px;
-            width: 280px;
-        }
-        .change_pass .change_password_content form {
-            margin: 0 auto;
-            width: 100%;
-            border: 1px solid #666;
-        }
-        .change_pass .change_password_content form .form_content .label_column {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            text-align: start;
-            font-size: 18px;
             visibility: hidden;
+            th {
+              width: 100% !important;
+              font-size: 10px;
+              margin: 20px 0;
+              padding: 2px;
+            }
+          }
         }
-        .change_pass .change_password_content form .form_content .input_column {
+        tbody {
+          tr {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            /* text-align: center; */
-            margin-left: -185px;
+            td {
+              margin: 20px 10px;
+              --bs-table-accent-bg: none;
+              border: none !important;
+              border-style: none !important;
+              border-width: none !important;
+              .td_productInformation {
+                .information_content {
+                  .label_product_information {
+                    h4 {
+                    }
+                  }
+                }
+              }
+              .input_information_product {
+                input {
+                  width: 150px !important;
+                }
+              }
+            }
+            .td_img {
+              padding: 10px 0 100px 140px;
+              margin-top: -50px;
+              img {
+              }
+              #label-upload {
+                margin-top: 60px !important;
+                input {
+                }
+              }
+            }
+          }
         }
-        .listOrder.mx-4 {
-            width: 294px;
-            overflow-x: scroll;
-            margin-left: 1px !important;
-        }
+      }
+      thead {
+        display: none;
+      }
     }
+    .container {
+      display: flex !important;
+      flex-direction: column;
+      .form_custom {
+        .addMore {
+          button {
+            width: 200px;
+          }
+        }
+        .address {
+          select {
+            width: 200px;
+          }
+        }
+        .form {
+          width: 200px !important;
+        }
+      }
+      .fee {
+        margin-top: 20px !important;
+        margin-left: -30px !important;
+      }
+    }
+    // Groceries reponsive
+    .groceries {
+      .title {
+        font-size: 28px;
+        position: absolute;
+        top: 40px;
+      }
+      .table {
+        width: 300px !important;
+        overflow-y: scroll;
+        white-space: nowrap;
+        display: flex;
+        position: relative;
+        top: 0;
+        left: -30px;
+        thead {
+          tr {
+            display: flex;
+            flex-direction: column;
+            visibility: hidden;
+            th {
+              width: 100% !important;
+              font-size: 10px;
+              margin: 20px 0;
+              padding: 2px;
+            }
+          }
+        }
+        tbody {
+          tr {
+            display: flex;
+            flex-direction: column;
+            .stt {
+              margin-left: -60px !important;
+              margin: -80px 0 -100px 100px;
+            }
+            td {
+              margin-left: -70px !important;
+              margin: 20px 10px;
+              --bs-table-accent-bg: none;
+              border: none !important;
+              border-style: none !important;
+              border-width: none !important;
+              margin-left: -100px;
+              img.img_load_groceries {
+                position: absolute;
+                left: 100px;
+                top: 70px;
+              }
+              label#label-upload {
+                position: absolute;
+                margin-top: 20px !important;
+                margin-left: -34px;
+              }
+              input {
+                width: 260px !important;
+              }
+              .attribute {
+                min-width: 260px !important;
+              }
+              .td_img {
+                padding: 10px 0 100px 140px;
+                #label-upload {
+                  input {
+                  }
+                }
+              }
+              input.value.border.w-50.border-dark.px-3.text-center.form-control {
+                width: 100px !important;
+              }
+              textarea.ghi_chu.form-control {
+                min-width: 270px !important;
+              }
+            }
+          }
+        }
+      }
+      .form {
+        min-width: 240px !important;
+      }
+      .form_custom {
+        margin-left: -20px;
+        button.py-2.px-1.rounded.text-white {
+          margin-left: 20px;
+        }
+        select.p-1.form-control {
+          width: 240px;
+        }
+      }
+      .border.border-danger.p-2 {
+        margin-top: 10px;
+        margin-left: -57px;
+        width: 300px !important;
+        height: 160px !important;
+      }
+      .express.border.border-danger.mt-3 {
+        margin-top: 10px;
+        margin-left: -57px;
+        width: 300px !important;
+        height: 160px !important;
+      }
+    }
+    // List groceries reponsive
+    .nav_container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: -10px;
+      width: 314px;
+      margin-top: -100px !important;
+    }
+    .listGroceries .nav_container .nav_search input {
+      padding: 12px 10px;
+      border-radius: 10px;
+      width: 280px;
+    }
+    .listGroceries hr {
+      margin-top: 0;
+      width: 304px;
+    }
+    ul.menu_groceries {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 290px;
+    }
+    .listGroceries .menu_groceries li {
+      margin: 4px 26px;
+    }
+    .listGroceries .calender {
+      margin-top: 100px;
+    }
+    .listGroceries .calender .search_icon {
+      width: 200px;
+    }
+    table.table.table-bordered.mt-5.text-center {
+      margin-top: 100px !important;
+    }
+    .listDeposit .nav_container .nav_search input {
+      padding: 12px 10px;
+      border-radius: 10px;
+      width: 280px;
+    }
+    .listDeposit .calender {
+      margin-top: 100px;
+    }
+    .listDeposit .menu_deposit {
+      flex-wrap: wrap;
+    }
+    .user .nav_container .nav_search input {
+      padding: 12px 10px;
+      border-radius: 10px;
+      width: 280px;
+    }
+    .user .user_content {
+      width: 304px !important;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .user .user_content img {
+      width: 80px;
+      height: 80px;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      padding: 20px;
+      background: #fff;
+      border-radius: 20px;
+    }
+    .user .user_content p {
+      font-size: 12px;
+    }
+    .change_pass .nav_container .nav_search input {
+      padding: 12px 10px;
+      border-radius: 10px;
+      width: 280px;
+    }
+    .change_pass .change_password_content form {
+      margin: 0 auto;
+      width: 100%;
+      border: 1px solid #666;
+    }
+    .change_pass .change_password_content form .form_content .label_column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: start;
+      font-size: 18px;
+      visibility: hidden;
+    }
+    .change_pass .change_password_content form .form_content .input_column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      /* text-align: center; */
+      margin-left: -185px;
+    }
+    .listOrder.mx-4 {
+      width: 294px;
+      overflow-x: scroll;
+      margin-left: 1px !important;
+    }
+  }
 }
 
-@media screen and (min-width: 600px) and (max-width: 1024px) {}
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+}
 
-@media screen and (min-width: 1024) {}
+@media screen and (min-width: 1024) {
+}

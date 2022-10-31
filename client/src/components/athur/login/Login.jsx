@@ -65,7 +65,7 @@ export default function Login() {
             <span> | </span>
             <span className="register_title">
               <Link as={Link} to="/register">
-                Đăng nhập
+                Đăng ký
               </Link>
             </span>
           </h2>
