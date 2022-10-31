@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Nav from 'react-bootstrap/Nav';
@@ -10,10 +10,16 @@ import { BiUser } from "react-icons/bi";
 import "./Menu.scss";
 
 function Menu() {
+    const [show, setShow] = useState(false)
+
+    const handleOnClickBtn = (e) =>{
+        setShow(!show)
+    }
     return (
         <>
             <div style={{ backgroundColor: '#9470d4' }} className="menu_left">
-                <Nav className="flex-column">
+                <i onClick={(e) => handleOnClickBtn(e)} class="fa-solid fa-bars mt-5  d-lg-none d-md-none d-sm-block d-block"></i>
+                <Nav value={show} className="flex-column d-lg-block d-md-block d-sm-none d-none">
                     <DropdownButton
                         key={'end'}
                         id={`dropdown-button-drop-${'end'}`}

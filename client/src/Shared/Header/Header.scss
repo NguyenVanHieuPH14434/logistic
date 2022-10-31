@@ -64,7 +64,6 @@
       }
     }
 
-
     .show.dropdown {
       background: #eda82d;
       width: 63px;
@@ -92,10 +91,22 @@
       top: -100px;
       left: 0;
     }
+    #dropdown-button-drop-end .container2 .para {
+      margin: 0 0;
+      font-size: 10px;
+    }
     #dropdown-button-drop-end .container2 .icon3 {
-      font-size: 2em;
-      margin-left: 23px;
-  }
+      font-size: 1em;
+      margin-left: 18px;
+    }
+
+    #dropdown-button-drop-end .container1 .icon3 {
+      font-size: 1em;
+    }
+    #dropdown-button-drop-end .container1 .para {
+      margin: 0 0;
+      font-size: 10px;
+    }
     .deposit {
       .title {
         font-size: 28px;

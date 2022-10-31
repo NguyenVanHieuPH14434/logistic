@@ -15,7 +15,7 @@ function Deposit() {
     const [list, setList] = useState([
         {
             image: '',
-            fileImage: '',
+            fileImage: [],
             maVanDon: '',
             nameSanPham: '',
             soKien: '',
@@ -32,7 +32,7 @@ function Deposit() {
         let newList = [...list];
         newList = {
             image: '',
-            fileImage: '',
+            fileImage: [],
             maVanDon: '',
             nameSanPham: '',
             soKien: '',
@@ -119,13 +119,15 @@ function Deposit() {
         file[i] = e.target.files;
         setFiles(file);
 
-        // change originalName file
-        const val = [...list];
-        val[i][e.target.name] = e.target.files[0].name;
-        val[i]["fileImage"] = e.target.files[0];
-        // val[i]["fileImage"] = URL.createObjectURL(e.target.files[0]);
-        setList(val);
-    };
+    // change originalName file
+    const val = [...list];
+    // val[i][e.target.name] = e.target.files.name;Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
+    val[i][e.target.name] = Array.from(e.target.files).map((im)=>im.name);
+    val[i]["fileImage"] = Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
+
+    
+    setList(val);
+  };
     console.log('listKy', list);
     console.log('listFile', files);
 
@@ -226,28 +228,35 @@ function Deposit() {
                         {list.map((li, i) => (
                             <tr key={i}>
                                 <td > <span>{i + 1}</span></td>
-                                <td style={{ width: '100px' }} className="td_img">
-                                    <img
-                                        style={{
-                                            width: "96px",
-                                            height: "64px",
-                                            marginTop: "24px",
-                                        }}
-                                        src={li.fileImage !== "" ? URL.createObjectURL(li.fileImage) : '../../default-thumbnail.jpg'}
-                                    />
-                                    <label className="mt-1" id="label-upload">
-                                        <input
-                                            type="file"
-                                            multiple
-                                            style={{ display: "none" }}
-                                            name="image"
-                                            onChange={(e) => {
-                                                changFile(i, e);
-                                            }}
-                                        />
-                                        Upload...
-                                    </label>
-                                </td>
+                                <td  className="td_img col-2">
+                            
+                            <div>
+                            {li.fileImage.map((preview)=>{
+                                     return (
+                                       <img
+                                       style={{
+                                         width: "96px",
+                                         height: "64px",
+                                         marginTop: "24px",
+                                       }}
+                                       src={preview}
+                                     />
+                                 )})} 
+                            </div>
+                                 {/* /// */}
+                       <label className="mt-1" id="label-upload1">
+                         <input
+                           type="file"
+                           multiple
+                           style={{ display: "none" }}
+                           name="image"
+                           onChange={(e) => {
+                             changFile(i, e);
+                           }}
+                         />
+                         Upload...
+                       </label>
+                                     </td>
                                 {/* <td style={{ width: '150px' }}>
                                     <label className="labelDepo mb-3" htmlFor="">Mã vận đơn</label><br />
                                     <label className="labelDepo mb-3" htmlFor="">Tên sản phẩm</label><br />
