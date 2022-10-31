@@ -1,5 +1,5 @@
 import "./Deposit.scss";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -10,11 +10,14 @@ import { NumericFormat } from "react-number-format";
 
 import { Confirm, toastifyError } from "../../../lib/toastify";
 import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../lib/shipFee";
+import { AppContext } from "../../../contexts/AppContextProvider";
+import { createDeposit, uploadFilesDeposit } from "../../../api/depositApi";
 
 function Deposit() {
+    const {state:{user}} = useContext(AppContext)
     const [list, setList] = useState([
         {
-            image:'',
+            image:[],
             fileImage:[],
             maVanDon:'',
             nameSanPham:'',
@@ -32,7 +35,7 @@ function Deposit() {
     const handleOnClickAddMore = (e) => {
         let newList = [...list];
         newList = {
-            image:'',
+            image:[],
             fileImage:[],
             maVanDon:'',
             nameSanPham:'',
@@ -70,16 +73,22 @@ function Deposit() {
 
 
     // Thông tin khách hàng
-    const [order, setOrder] = useState()
+    const [order, setOrder] = useState({
+        full_name:'',
+        phone:'',
+        address:''
+      })
 
     // thay đổi giá trị thông tin khách hàng
     const changeInpOrder = (e) => {
         const valOrder = { ...order };
         valOrder[e.target.name] = e.target.value;
-        valOrder["user_id"] = "1";
-        valOrder["type"] = "order";
+        valOrder["user_id"] = user._id;
+        valOrder["type"] = "deposit";
         setOrder(valOrder);
     };
+    console.log('customer', order);
+    
 
     const DeleteList = (i) => {
         const newList = [...list]
@@ -123,14 +132,33 @@ function Deposit() {
 
     // change originalName file
     const val = [...list];
-    val[i][e.target.name] = e.target.files[0].name;
-//    let as = Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
+    // val[i][e.target.name] = e.target.files.name;Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
+    val[i][e.target.name] = Array.from(e.target.files).map((im)=>im.name);
     val[i]["fileImage"] = Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
-    // val[i]["fileImage"] = URL.createObjectURL(e.target.files[0]);
-    // console.log('asss', as);
+
     
     setList(val);
   };
+
+  // handelSubmit 
+  const HandleSubmit = async(e)=>{
+    const data = {
+        "deposit":order,
+        "depositItem":list
+    }
+    const dataImg = new FormData();
+    for (let index = 0; index < files.length; index++) {
+        for (let i = 0; i < files[index].length; i++) {
+          const element = files[index][i];
+          dataImg.append("image", element)
+        }
+    }
+    const res = await createDeposit(data);
+    await uploadFilesDeposit(dataImg)
+
+    console.log('response', res);
+    alert('ok');
+  }
     console.log('listKy', list);
     console.log('listFile', files);
 
@@ -355,6 +383,7 @@ function Deposit() {
                                         id=""
                                         cols="30"
                                         rows="10"
+                                        onChange={(e)=>changeInp(e)}
                                         placeholder="Ghi chú sản phẩm..."
                                     ></textarea>{" "}
                                 </td>
@@ -397,6 +426,8 @@ function Deposit() {
                                     <Form.Control
                                         className="customer-field"
                                         type="text"
+                                        name="full_name"
+                                        onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Họ Tên"
                                     />
                                 </Row>
@@ -407,18 +438,25 @@ function Deposit() {
                                     <Form.Control
                                         className="customer-field"
                                         type="text"
+                                        name="phone"
+                                        onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Số Điện Thoại"
                                     />
                                 </Row>
                                 <Row>
                                     <Form.Label className="customer-title">Địa chỉ</Form.Label>
-                                    <Form.Select className="customer-field">
+                                    <Form.Select className="customer-field" name="address" onChange={(e)=>changeInpOrder(e)}>
                                         <option>Vui Lòng Chọn Địa Chỉ</option>
+                                        <option value="Hà Nội">Hà Nội</option>
+                                        <option value="TP.HCM">TP.HCM</option>
+                                        <option value="Hải Phòng">Hải Phòng</option>
                                     </Form.Select>
                                 </Row>
                             </Container>
                         </div>
-                        <Button variant="warning" className="end-btn mt-3" as={Link} to="/app/orderDeposit">
+                        <Button variant="warning" className="end-btn mt-3" onClick={HandleSubmit}
+                        // as={Link} to="/app/orderDeposit"> 
+                        >
                             Tạo Đơn Ký gửi
                         </Button>
                     </div>

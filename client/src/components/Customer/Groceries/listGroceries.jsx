@@ -9,6 +9,7 @@ import React, {
 import "./listGroceries.scss";
 import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groceris.png";
 // import { Calendar } from "@natscale/react-calendar";
+
 import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { listOrder } from "../../../api/orderApi";
@@ -16,7 +17,6 @@ import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-toastify";
-
 export default function ListGroceries() {
   const {
     state: { user },
@@ -49,19 +49,21 @@ export default function ListGroceries() {
     setListt(
       lists &&
         lists.filter((el) => {
+          
+          let toDate = ''
+          if (dateFrom && !dateTo && search) {
+            toDate = dateFrom
+          }
           if (dateFrom && dateTo && search) {
-            return (
-              el.ctime >= dateFrom &&
-              el.ctime <= dateTo &&
-              el._id.toLowerCase().includes(search.idProduct.toLowerCase())
-            );
+            toDate = dateTo
           }
-          if (dateFrom) {
-            return el.ctime >= dateFrom;
-          }
-          if (dateTo) {
-            return el.ctime <= dateTo;
-          }
+         if(dateFrom && search || dateFrom && dateTo && search){
+          return (
+            el.ctime >= dateFrom &&
+            el.ctime <= toDate &&
+            el._id.toLowerCase().includes(search.idProduct.toLowerCase())
+          );
+         }
           if (search) {
             return el._id
               .toLowerCase()
@@ -82,7 +84,7 @@ export default function ListGroceries() {
   // };
   async function fetchData() {
     const response = await Axios.get(
-      `http://localhost:9000/api/order/list/${user._id}`
+      `http://localhost:9000/api/order/list/${user._id}?type=order`
     );
     const info = response.data.data;
     console.log(info);
@@ -248,7 +250,7 @@ export default function ListGroceries() {
           <thead style={{ background: "rgb(148, 112, 212)", color: "white" }}>
             <tr>
               <th scope="col">STT</th>
-              <th scope="col">Mã dơn hàng</th>
+              <th scope="col">ID</th>
               <th scope="col">Tên đầy đủ</th>
               <th scope="col">Số Điện Thoại</th>
               <th scope="col">Địa chỉ</th>

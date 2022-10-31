@@ -1,3 +1,4 @@
+import { Commons } from './../common/common';
 import dayjs from 'dayjs';
 import { DepositSchema } from './deposit';
 import { DepositModel } from './deposit.model';
@@ -9,9 +10,10 @@ export class DepositController {
     async CreateDeposit (depoId:string, params:any){
         const now = dayjs();
         const nowFormat = now.format('DD/MM/YYYY');
+        const nowFormatIMG = now.format('DDMMYYYY');
         const deposit:DepositSchema.Deposit = params.map((item:any)=>({
             _id: DepositSchema.Generate.NewDepositId(),
-            image: item.image,
+            image: item.image.map((it:any)=> Commons.folderImageDeposit+ nowFormatIMG + '_' +it),
             deposit_id:depoId,
             maVanDon: item.maVanDon,
             nameSanPham: item.nameSanPham,
@@ -28,28 +30,15 @@ export class DepositController {
         return deposit;
     }
 
-    async UpdateDeposit (depoId:string, params:any){
+    async UpdateDeposit (params:any){
         const now = dayjs();
         const nowFormat = now.format('DD/MM/YYYY');
-        // const deposit = params
-        // const deposit:DepositSchema.UpdateDepositParams = params.map((item:any)=>({
-        //     image: item.image,
-        //     deposit_id:depoId,
-        //     maVanDon: item.maVanDon,
-        //     nameSanPham: item.nameSanPham,
-        //     soKien: item.soKien,
-        //     kgM3: item.kgM3,
-        //     donGia: item.donGia,
-        //     phuPhi: item.phuPhi,
-        //     note:item.note,
-        //     tongTien: item.tongTien,
-        //     utime: nowFormat,
-        // }));
         for (let i = 0; i < params.length; i++) {
-            await this.model.UpdateDeposit(params[i]);
+            let deposit = params[i];
+            deposit.utime = nowFormat
+           await this.model.UpdateDeposit(deposit);
         }
-        // return deposit;
-        return params.length
+        return params;
     }
 
     async ListDeposit () {

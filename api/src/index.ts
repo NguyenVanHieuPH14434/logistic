@@ -56,7 +56,7 @@ export async function main() {
     app.use(cors());
     app.disable("x-powered-by");
     // public image api 
-    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.static(path.join(__dirname)));
 
     // app.use('/api/order', NewOrderAPI(orderController, orderItemController));
     app.use('/api/order', NewOrderAPI(orderController, orderItemController, depositItemController));

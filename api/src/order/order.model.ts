@@ -8,61 +8,76 @@ export class OrderModel {
 
     private col_order = this.db.collection('order');
 
+    // get all list order
     async ListOrder () {
         const docs = await this.col_order.find().toArray();
         return docs;
     }
 
-    async ListOrderByUser (userId:string) {
-        const docs = await this.col_order.find({$and:[{user_id: userId}, {type:'order'}]}).toArray();
+    // get list order with userID login 
+    async ListByUserId (userId:string, type:string) {
+        const docs = await this.col_order.find({$and:[{user_id: userId}, {type:type}]}).toArray();
+        // const docs = await this.col_order.find({$and:[{user_id: userId}, {type:'order'}]}).toArray();
         return docs;
     }
 
-    async ListItemByOrder (_id:any) {
+     // get list order (parent) and order item (children)
+    async ListItem (_id:any, type:string) {
         const docs = await this.col_order.aggregate([{$match:{
             _id:{$in:_id}
         }},{
             $lookup:{
-                from: 'order_item',
+                from:  `${type}_item`,
                 localField: '_id',
-                foreignField: 'order_id',
-                as: 'orderItem'
+                foreignField: `${type}_id`,
+                as: `${type}Item`
             }
+            // $lookup:{
+            //     from: 'order_item',
+            //     localField: '_id',
+            //     foreignField: 'order_id',
+            //     as: 'orderItem'
+            // }
         }]).toArray();
         return docs;
     }
 
-    async DetailOrder (orderId:string) {
+    // get detail order by orderId (parent) and order item (children)
+    async DetailOrder (orderId:string, type:string) {
         const doc = await this.col_order.aggregate([
             {$match:{
                 _id:orderId
             }
         },{
             $lookup:{
-                from: 'order_item',
+                from: `${type}_item`,
                 localField: '_id',
-                foreignField: 'order_id',
-                as: 'orderItem'
+                foreignField: `${type}_id`,
+                as: `${type}Item`
             }
         }
         ]).toArray();
         return doc[0];
     }
 
+    // get order by _id
     async GetOrder (_id:string) {
         const doc = await this.col_order.findOne({_id:_id});
         return doc;
     }
 
+    // create order || deposit
     async CreateOrder (order:OrderSchema.CreateOrderParams) {
         const doc = await this.col_order.insertOne(order);
         return doc;
     }
 
+    // update order || deposit
     async UpdateOrder (_id:string, order:OrderSchema.UpdateOrderParams){
         const doc = await this.col_order.updateOne({_id:_id}, {$set:order});
         return doc;
     }
+
 
     async DeleteOrder (_id:string){
         const doc = await this.col_order.deleteOne({_id:_id});
