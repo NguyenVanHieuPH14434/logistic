@@ -269,7 +269,7 @@ function Deposit() {
                                   src={`${preview}`}
                                 />
                             )})} 
-                                    <label className="mt-1" id="label-upload">
+                                    <label className="mt-1" id="label-upload1">
                                         <input
                                             type="file"
                                             multiple
