@@ -1,61 +1,30 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .App {
+  display: flex;
+  flex-direction: column;
+  .row-container {
     display: flex;
-    flex-direction: column;
-    .row-container {
-        display: flex;
-        .left {
-            width: 10%;
-        }
-        .right {
-            width: 80%;
-            margin-left: 5%;
-        }
+    .left {
+      width: 10%;
     }
+    .right {
+      width: 80%;
+      margin-left: 5%;
+    }
+  }
 }
 
+/* For mobile phones: */
+@media only screen and (max-width: 600px) {
+}
 
-// Reponse scss
-/* For Desktop View */
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 600px) and (max-width: 1024px) {
 }
- 
-/* For Tablet View */
-@media screen and (min-device-width: 768px)
-and (max-device-width: 1024px) {
-    
-}
- 
-/* For Mobile Portrait View */
-@media screen and (max-device-width: 480px)
-and (orientation: portrait) {
-}
- 
-/* For Mobile Landscape View */
-@media screen and (max-device-width: 640px)
-and (orientation: landscape) {
-}
- 
-/* For Mobile Phones Portrait or Landscape View */
-@media screen and (max-device-width: 640px) {
-}
- 
-/* For iPhone 4 Portrait or Landscape View */
-@media screen and (min-device-width: 320px)
-and (-webkit-min-device-pixel-ratio: 2) {
-}
- 
-/* For iPhone 5 Portrait or Landscape View */
-@media (device-height: 568px) and (device-width: 320px)
-and (-webkit-min-device-pixel-ratio: 2) {
-}
- 
-/* For iPhone 6 and 6 plus Portrait or Landscape View */
-@media (min-device-height: 667px) and (min-device-width: 375px)
-and (-webkit-min-device-pixel-ratio: 3) {
+
+@media screen and (min-width: 1024) {
 }

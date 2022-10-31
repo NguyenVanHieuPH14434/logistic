@@ -12,7 +12,6 @@ import { Confirm, toastifyError } from "../../../lib/toastify";
 import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../lib/shipFee";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { createDeposit, uploadFilesDeposit } from "../../../api/depositApi";
-
 function Deposit() {
     const {state:{user}} = useContext(AppContext)
     const [list, setList] = useState([
@@ -258,10 +257,8 @@ function Deposit() {
                         {list.map((li, i) => (
                             <tr key={i}>
                                 <td > <span>{i + 1}</span></td>
-                                <td  className="td_img col-2">
-                            
-                       <div>
-                       {li.fileImage.map((preview)=>{
+                                <td style={{ width: '100px' }} className="td_img">
+                                {li.fileImage.map((preview)=>{
                                 return (
                                   <img
                                   style={{
@@ -269,23 +266,21 @@ function Deposit() {
                                     height: "64px",
                                     marginTop: "24px",
                                   }}
-                                  src={preview}
+                                  src={`${preview}`}
                                 />
                             )})} 
-                       </div>
-                            {/* /// */}
-                  <label className="mt-1" id="label-upload1">
-                    <input
-                      type="file"
-                      multiple
-                      style={{ display: "none" }}
-                      name="image"
-                      onChange={(e) => {
-                        changFile(i, e);
-                      }}
-                    />
-                    Upload...
-                  </label>
+                                    <label className="mt-1" id="label-upload">
+                                        <input
+                                            type="file"
+                                            multiple
+                                            style={{ display: "none" }}
+                                            name="image"
+                                            onChange={(e) => {
+                                                changFile(i, e);
+                                            }}
+                                        />
+                                        Upload...
+                                    </label>
                                 </td>
                                 {/* <td style={{ width: '150px' }}>
                                     <label className="labelDepo mb-3" htmlFor="">Mã vận đơn</label><br />
@@ -296,86 +291,80 @@ function Deposit() {
                                     <label className="labelDepo mb-3" htmlFor="">Phụ phí</label><br />
                                     <label className="labelDepo mb-3" htmlFor="">Tổng tiền: </label>
                                 </td> */}
-                                <td className="td_productInformation col-6" > 
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Mã vận đơn: </label>
-                                        <input
-                                            className="w-100 mt-1 form-control"
-                                            type="text"
-                                            placeholder="Mã vận đơn (*)"
-                                            name="maVanDon"
-                                            onChange={(e) => changeInp(e, i)}
-
-                                        />
+                                <td className="td_productInformation">
+                                    <div className="d-flex information_content">
+                                        <div className="label_product_information mt-2">
+                                            <p className="text-end me-2">Mã vận đơn: </p>
+                                            <p className="text-end me-2 pt-2">Tên sản phẩm: </p>
+                                            <p className="text-end me-2">Số kiện hàng: </p>
+                                            <p className="text-end me-2 pt-1">Số cân, số khối: </p>
+                                            <p className="text-end me-2 pt-1">Đơn giá: </p>
+                                            <p className="text-end me-2">Phụ phí: </p>
+                                            <h4 style={{position: 'absolute', bottom: '10px', left: '40px'}} classname="">Tổng: </h4>
+                                        </div>
+                                        <div class="input_information_product">
+                                            <input
+                                                style={{ width: '720px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
+                                                placeholder="Mã vận đơn (*)"
+                                                name="maVanDon"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                            <input
+                                                style={{ width: '720px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
+                                                placeholder="Tên sản phẩm (*)"
+                                                name="nameSanPham"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                            <input
+                                                style={{ width: '720px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
+                                                placeholder="Số kiện hàng"
+                                                name="soKien"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                            <input
+                                                style={{ width: '720px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
+                                                name="kgM3"
+                                                placeholder="Số cân, số khối"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                            <input
+                                                style={{ width: '720px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
+                                                name="donGia"
+                                                placeholder="Đơn giá"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                            <input
+                                                style={{ width: '720px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
+                                                name="phuPhi"
+                                                placeholder="Phụ phí"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                        </div>
                                     </div>
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Tên sản phẩm: </label>
-                                        <input
-                                            className="w-100 mt-1 form-control"
+                                        <NumericFormat
+                                            className="w-75 text-center mx-auto form-control mt-1"
                                             type="text"
-                                            placeholder="Tên sản phẩm (*)"
-                                            name="nameSanPham"
-                                            onChange={(e) => changeInp(e, i)}
-
-                                        />
-                                    </div>
-
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Số kiện hàng: </label>
-                                        <input
-                                            className="w-100 mt-1 form-control"
-                                            type="text"
-                                            placeholder="Số kiện hàng"
-                                            name="soKien"
-                                            onChange={(e) => changeInp(e, i)}
-
-                                        />
-                                    </div>
-
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Số cân, số khối: </label>
-                                        <input
-                                            className="w-100 mt-1 form-control"
-                                            type="text"
-                                            name="kgM3"
-                                            placeholder="Số cân, số khối"
-                                            onChange={(e) => changeInp(e, i)}
-
-                                        />
-                                    </div>
-
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Đơn giá: </label>
-                                        <input
-                                            className="w-100 mt-1 form-control"
-                                            type="text"
-                                            name="donGia"
-                                            placeholder="Đơn giá"
-                                            onChange={(e) => changeInp(e, i)}
-
-                                        />
-                                    </div>
-
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Phụ phí: </label>
-                                        <input
-                                            className="w-100 mt-1 form-control"
-                                            type="text"
-                                            name="phuPhi"
-                                            placeholder="Phụ phí"
-                                            onChange={(e) => changeInp(e, i)}
-
-                                        />
-                                    </div >
-                                   <div style={{padding: '0 10px'}} className="d-flex justify-content-between">
-                                   <label  className="text-end me-2 mt-2 w-50"  htmlFor="">Tổng tiền: </label>
-                                    <NumericFormat
-                                        className="w-100 text-center mx-auto form-control mt-1"
-                                        type="text"
-                                        disabled
-                                        style={{ background: '#EDA82D' }}
-                                        value={li.tongTien}
-                                        placeholder="Tổng tiền thanh toán"
-                                        thousandSeparator=","
-                                    ></NumericFormat>
-                                   </div>
+                                            disabled
+                                            style={{ background: '#EDA82D' }}
+                                            value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
+                                            placeholder="Tổng"
+                                            thousandSeparator=","
+                                        ></NumericFormat>
                                 </td>
 
-                                <td className="col-3">
+                                <td>
                                     {" "}
                                     <textarea
                                         className="ghi_chu form-control"
@@ -383,7 +372,6 @@ function Deposit() {
                                         id=""
                                         cols="30"
                                         rows="10"
-                                        onChange={(e)=>changeInp(e)}
                                         placeholder="Ghi chú sản phẩm..."
                                     ></textarea>{" "}
                                 </td>
@@ -406,7 +394,7 @@ function Deposit() {
                                 + Thêm sản sản phẩm
                             </button>
                         </div>
-                        <div className="d-flex flex-column w-100">
+                        <div className="address d-flex flex-column w-100">
                             <label htmlFor="" className="">
                                 <h5>Địa chỉ kho Trung Quốc</h5>
                             </label>
@@ -426,8 +414,6 @@ function Deposit() {
                                     <Form.Control
                                         className="customer-field"
                                         type="text"
-                                        name="full_name"
-                                        onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Họ Tên"
                                     />
                                 </Row>
@@ -438,32 +424,25 @@ function Deposit() {
                                     <Form.Control
                                         className="customer-field"
                                         type="text"
-                                        name="phone"
-                                        onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Số Điện Thoại"
                                     />
                                 </Row>
                                 <Row>
                                     <Form.Label className="customer-title">Địa chỉ</Form.Label>
-                                    <Form.Select className="customer-field" name="address" onChange={(e)=>changeInpOrder(e)}>
+                                    <Form.Select className="customer-field">
                                         <option>Vui Lòng Chọn Địa Chỉ</option>
-                                        <option value="Hà Nội">Hà Nội</option>
-                                        <option value="TP.HCM">TP.HCM</option>
-                                        <option value="Hải Phòng">Hải Phòng</option>
                                     </Form.Select>
                                 </Row>
                             </Container>
                         </div>
-                        <Button variant="warning" className="end-btn mt-3" onClick={HandleSubmit}
-                        // as={Link} to="/app/orderDeposit"> 
-                        >
+                        <Button variant="warning" className="end-btn mt-3" as={Link} to="/app/orderDeposit">
                             Tạo Đơn Ký gửi
                         </Button>
                     </div>
 
                     {/* Tổng hợp các loại phí */}
 
-                    <div className="container ms-4">
+                    <div className="container fee ms-4">
                         <h1>Phí vận chuyển quốc tế</h1>
                         <div className="mt-5">
                             <div class="official">

@@ -28,13 +28,11 @@
     }
     th,
     td {
-        // text-align: center;
-        position: relative;
         text-align: center;
         .ghi_chu {
             height: 40px;
             min-width: 100px;
-            min-height: 130px;
+            min-height: 406px;
             max-width: 200px;
             max-height: 300px;
         }
@@ -119,3 +117,12 @@
     background-color: #8610e8;
     /* Style as you please, it will become the visible UI component. */
 }
+
+
+/* For mobile phones: */
+
+@media only screen and (max-width: 600px) {}
+
+@media screen and (min-width: 600px) and (max-width: 1024px) {}
+
+@media screen and (min-width: 1024) {}

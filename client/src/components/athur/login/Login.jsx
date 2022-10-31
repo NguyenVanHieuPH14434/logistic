@@ -3,15 +3,16 @@ import "./login.scss";
 import logo_login from "../../../assets/public/img/logo_login.png";
 import background_login from "../../../assets/public/img/image-background-login.png";
 import { useState } from "react";
-import {useLocation, useNavigate} from 'react-router-dom';
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import {Navigate} from 'react-router-dom'
+import { Navigate } from "react-router-dom";
 import { toastifyError } from "../../../lib/toastify";
 
-
 export default function Login() {
-  const {state:{isAuthenticated}} = useContext(AppContext);
-  const {loginUser}=useContext(AppContext);
+  const {
+    state: { isAuthenticated },
+  } = useContext(AppContext);
+  const { loginUser } = useContext(AppContext);
   const navigate = useNavigate();
   const [data, setData] = useState({
     username: "",
@@ -23,31 +24,28 @@ export default function Login() {
       ...data,
       [e.target.name]: e.target.value,
     });
-  };  
+  };
 
   const location = useLocation();
 
   const handleOnClickLoginBtn = async (e) => {
     e.preventDefault();
-    if(data.username === '' ||  data.password === ''){
-    return toastifyError('Vui lòng nhập đầy đủ thông tin!')
+    if (data.username === "" || data.password === "") {
+      return toastifyError("Vui lòng nhập đầy đủ thông tin!");
     }
-      try {
-        const res = await loginUser(data);
-        
-        if(res.data.success){
-          navigate('/app/deposit');
-        }else {
-          toastifyError(res.data.message);
-        }
-      } catch (error) {
-        toastifyError(error.message)
+    try {
+      const res = await loginUser(data);
+
+      if (res.data.success) {
+        navigate("/app/deposit");
+      } else {
+        toastifyError(res.data.message);
       }
+    } catch (error) {
+      toastifyError(error.message);
+    }
   };
-  if(isAuthenticated)
-return (
-  <Navigate to={'/app/deposit'}/>
-);
+  if (isAuthenticated) return <Navigate to={"/app/deposit"} />;
   return (
     <>
       <div className="bg_login">
@@ -59,10 +57,16 @@ return (
         </div>
         <div className="container">
           <h2>
-            <span className="login_title">Đăng nhập</span>
+            <span className="login_title">
+              <Link as={Link} to="/login">
+                Đăng nhập
+              </Link>
+            </span>
             <span> | </span>
             <span className="register_title">
-              <a href="/register">Đăng ký</a>
+              <Link as={Link} to="/register">
+                Đăng nhập
+              </Link>
             </span>
           </h2>
           <div className="form_login">
@@ -91,7 +95,9 @@ return (
               </div>
             </div>
             <div className="login_form_btn">
-              <button onClick={(e) => handleOnClickLoginBtn(e)}>Đăng nhập</button>
+              <button onClick={(e) => handleOnClickLoginBtn(e)}>
+                Đăng nhập
+              </button>
             </div>
             <div className="facebook_login">
               <a href="/">
