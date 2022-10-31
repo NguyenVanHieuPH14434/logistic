@@ -3,7 +3,7 @@ import "./login.scss";
 import logo_login from "../../../assets/public/img/logo_login.png";
 import background_login from "../../../assets/public/img/image-background-login.png";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { Navigate } from "react-router-dom";
 import { toastifyError } from "../../../lib/toastify";
@@ -58,11 +58,15 @@ export default function Login() {
         <div className="container">
           <h2>
             <span className="login_title">
-              <a href="/login">Đăng nhập</a>
+              <Link as={Link} to="/login">
+                Đăng nhập
+              </Link>
             </span>
             <span> | </span>
             <span className="register_title">
-              <a href="/register">Đăng ký</a>
+              <Link as={Link} to="/register">
+                Đăng nhập
+              </Link>
             </span>
           </h2>
           <div className="form_login">
