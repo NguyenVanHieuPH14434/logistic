@@ -40,6 +40,15 @@
             top: 50%;
             transform: translateX(-50%);
         }
+        #label-upload1 {
+            cursor: pointer;
+            border: 1px solid #8610e8;
+            border-radius: 5px;
+            color: white;
+            padding: 2px 7px;
+            background-color: #8610e8;
+            /* Style as you please, it will become the visible UI component. */
+        }
         .td_productInformation {
             .information_content {
                 .label_product_information {
