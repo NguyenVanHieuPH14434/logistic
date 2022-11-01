@@ -19,6 +19,7 @@
       color: #ffff;
       .icon1 {
         font-size: 1.8em;
+        margin-top: 10px;
       }
       .icon2 {
         font-size: 2em;
@@ -32,6 +33,35 @@
         }
       }
     }
+    .dropdown-menu {
+      border-radius: 0;
+      padding: 0;
+      margin: 0;
+      background-color: none;
+    }
+    .dropdown-menu.show {
+      margin-left: -100px;
+      background: #9470d4;
+    }
+    .dropdown-menu .dropdown-item {
+      border-bottom: 0.005em solid rgba(255, 255, 255, 0.1);
+      color: white;
+      top: 43px;
+      background: #9470d4;
+      right: -10px;
+      width: 80px !important;
+    }
+  }
+
+  .dropdown,
+  .dropdown-center,
+  .dropend,
+  .dropstart,
+  .dropup,
+  .dropup-center {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
 
@@ -122,6 +152,7 @@
     }
     .deposit {
       width: 100%;
+      margin-left: 22px;
       .title {
         font-size: 28px;
         position: absolute;
@@ -205,6 +236,7 @@
         }
       }
     }
+
     .container {
       display: flex !important;
       flex-direction: column;
@@ -328,7 +360,7 @@
               }
               p.total_price {
                 margin-top: -200px;
-            }
+              }
             }
           }
         }
@@ -340,7 +372,6 @@
         width: 100%;
         margin-left: -32px;
         button.py-2.px-1.rounded.text-white {
-
         }
         select.p-1.form-control {
           width: 240px;
@@ -348,7 +379,7 @@
       }
       .border.border-danger.p-2 {
         margin-top: 10px;
-            margin-left: -32px;
+        margin-left: -32px;
         width: 300px !important;
         height: 160px !important;
       }
@@ -365,7 +396,7 @@
       flex-direction: column;
       justify-content: center;
       margin-left: -10px;
-      width: 314px;
+      width: 100% !important;
       margin-top: -100px !important;
     }
     .listGroceries .nav_container .nav_search input {
@@ -373,21 +404,27 @@
       border-radius: 10px;
       width: 280px;
     }
+    .listGroceries input {
+      padding-left: 10px;
+      margin: 2px;
+    }
     .listGroceries hr {
       margin-top: 0;
-      width: 304px;
+      width: 100%;
     }
     ul.menu_groceries {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      width: 290px;
+      width: 100%;
+      margin-left: -32px;
     }
     .listGroceries .menu_groceries li {
       margin: 4px 26px;
     }
     .listGroceries .calender {
       margin-top: 100px;
+      margin-left: 18%;
     }
     .listGroceries .calender .search_icon {
       width: 200px;
@@ -412,7 +449,7 @@
       width: 280px;
     }
     .user .user_content {
-      width: 304px !important;
+      width: 100% !important;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -433,6 +470,16 @@
       padding: 12px 10px;
       border-radius: 10px;
       width: 280px;
+    }
+    .change_pass .change_password_content form .form_content {
+      padding: 20px 0;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-left: 20%;
+      /* transform: translateX(-50%); */
     }
     .change_pass .change_password_content form {
       margin: 0 auto;
@@ -455,19 +502,81 @@
       margin-left: -185px;
     }
     .listOrder.mx-4 {
-      width: 294px;
+      width: 100%;
       overflow-x: scroll;
       margin-left: 1px !important;
     }
 
-
     // addMember reponsive
-
+    .addMember .nav_container {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 104% !important;
+      padding: 30px 0 15px 0;
+      background-image: url(http://localhost:3000/static/media/search-dash-bg.ded2338….png);
+    }
+    .addMember .login {
+      position: relative;
+      top: -100px;
+      width: 100%;
+      background-color: rgba(53, 53, 53, 0.431372549);
+      padding: 10px;
+      text-align: center;
+      box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    }
   }
 }
 
 @media screen and (min-width: 600px) and (max-width: 1024px) {
+  .header {
+    .row-container {
+      .deposit {
+        .title {
+        }
+        .table {
+          thead {
+            tr {
+              th {
+              }
+            }
+          }
+          tbody {
+            tr {
+              td {
+                .label_product_information.mt-2 {
+                  visibility: hidden !important;
+              }
+                .input_information_product {
+                  input {
+                  }
+                }
+              }
+              .td_img {
+                img {
+                }
+                #label-upload1 {
+                  input {
+                  }
+                }
+              }
+              .td_productInformation {
+                .information_content {
+                  .label_product_information {
+                    h4 {
+                      visibility: hidden !important;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
-@media screen and (min-width: 1024) {
+@media screen and (min-width: 1024px) {
+
 }

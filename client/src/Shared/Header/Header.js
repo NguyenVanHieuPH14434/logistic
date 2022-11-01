@@ -25,8 +25,6 @@ function Header() {
                     <img src={LOGO} />
                 </div>
                 <Nav className="end nav navbar-">
-                    <TiShoppingCart className="icon1" />
-                    <MdEmail className="icon1" />
                     <AiOutlineBell className="icon1" />
                     <Dropdown>
                         <Dropdown.Toggle variant="success" id="dropdown-basic">

@@ -297,7 +297,7 @@ function Deposit() {
                                         </div>
                                         <div class="input_information_product">
                                             <input
-                                                style={{ width: '680px' }}
+                                                style={{ width: '596px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 placeholder="Mã vận đơn (*)"
@@ -305,7 +305,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '680px' }}
+                                                style={{ width: '596px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 placeholder="Tên sản phẩm (*)"
@@ -313,7 +313,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '680px' }}
+                                                style={{ width: '596px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 placeholder="Số kiện hàng"
@@ -321,7 +321,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '680px' }}
+                                                style={{ width: '596px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="kgM3"
@@ -329,7 +329,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '680px' }}
+                                                style={{ width: '596px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="donGia"
@@ -337,7 +337,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '680px' }}
+                                                style={{ width: '596px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="phuPhi"
@@ -348,7 +348,7 @@ function Deposit() {
                                             className=" text-center mx-auto form-control mt-1"
                                             type="text"
                                             disabled
-                                            style={{ background: '#EDA82D', width:'680px'}}
+                                            style={{ background: '#EDA82D', width:'596px'}}
                                             value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
                                             placeholder="Tổng"
                                             thousandSeparator=","

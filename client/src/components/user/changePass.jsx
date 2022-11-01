@@ -52,14 +52,12 @@ export default function ChangePass() {
         <form action="">
           <div className="form_content">
               <div className="label_column">
-                <label htmlFor="">Mật khẩu hiện tại <span>*</span></label>
+                <label htmlFor="">Số điện thoại<span>*</span></label>
                 <label htmlFor="">Mật khẩu mới<span>*</span></label>
-                <label htmlFor="">Nhập lại mật khẩu mới<span>*</span></label>
               </div>
               <div className="input_column">
-                <input type="text" name="active_password" placeholder="Mật khẩu hiện tại" onChange={(e) => handleOnChangeInput(e)} />
+                <input type="text" name="active_password" placeholder="Số điện thoại" onChange={(e) => handleOnChangeInput(e)} />
                 <input type="text" name="new_password" placeholder="Mật khẩu mới" onChange={(e) => handleOnChangeInput(e)} />
-                <input type="text" name="re_password" placeholder="Nhập lại mật khẩu mới" onChange={(e) => handleOnChangeInput(e)} />
               </div>
           </div>
           <button onClick={(e) => handleOnSubmit(e)} type="submit">Lưu thay đổi</button>

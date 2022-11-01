@@ -103,7 +103,7 @@ export default function AddMember() {
                 />
                 <i className="fa-sharp fa-solid fa-lock"></i>
               </span>
-              <span>
+              <span style={{marginLeft: '10px', marginBottom: '10px'}}>
                   <select name="role" style={{width:'300px'}} className="form-control text-center d-flex mx-auto mt-2" onChange={handleInput} id="">
                     <option value="">Chọn vai trò</option>
                     <option value="user">User</option>
