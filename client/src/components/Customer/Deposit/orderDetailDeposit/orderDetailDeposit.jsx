@@ -43,7 +43,8 @@ export default function OrderDetailDeposit() {
                         {item.map((li, i) => (
                             <tr key={i}>
                                 <td > <span>{i + 1}</span></td>
-                                <td  className="td_img col-2">
+                                {/* <td  className="td_img col-1"> */}
+                                <td style={{width:'15%'}}>
                             
                        <div>
                        {li.image.map((preview)=>{
@@ -54,13 +55,14 @@ export default function OrderDetailDeposit() {
                                     height: "64px",
                                     marginTop: "24px",
                                   }}
+                                  alt=''
                                   src={`http://localhost:9000/${preview}`}
                                 />
                             )})} 
                        </div>
-                        </td>
-                                <td className="td_productInformation col-6" > 
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Mã vận đơn: </label>
+                        </td >
+                                <td className="td_productInformation " style={{width:'50%'}}> 
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-start me-2 mt-2 w-25">Mã vận đơn: </label>
                                         <input
                                         disabled
                                             className="w-100 mt-1 form-control"
@@ -71,7 +73,7 @@ export default function OrderDetailDeposit() {
 
                                         />
                                     </div>
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Tên sản phẩm: </label>
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-start me-2 mt-2 w-25">Tên sản phẩm: </label>
                                         <input
                                             className="w-100 mt-1 form-control"
                                             type="text"
@@ -82,7 +84,7 @@ export default function OrderDetailDeposit() {
                                         />
                                     </div>
 
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Số kiện hàng: </label>
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-start me-2 mt-2 w-25">Số kiện hàng: </label>
                                         <input
                                             className="w-100 mt-1 form-control"
                                             type="text"
@@ -94,7 +96,7 @@ export default function OrderDetailDeposit() {
                                         />
                                     </div>
 
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Số cân, số khối: </label>
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-start me-2 mt-2 w-25">Số cân, số khối: </label>
                                         <input
                                             className="w-100 mt-1 form-control"
                                             type="text"
@@ -105,7 +107,7 @@ export default function OrderDetailDeposit() {
                                         />
                                     </div>
 
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Đơn giá: </label>
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-start me-2 mt-2 w-25">Đơn giá: </label>
                                         <NumericFormat
                                             className="w-100 mt-1 form-control"
                                             type="text"
@@ -117,7 +119,7 @@ export default function OrderDetailDeposit() {
                                         />
                                     </div>
 
-                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-end me-2 mt-2 w-50">Phụ phí: </label>
+                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between"><label className="text-start me-2 mt-2 w-25">Phụ phí: </label>
                                         <NumericFormat
                                             className="w-100 mt-1 form-control"
                                             type="text"
@@ -129,7 +131,7 @@ export default function OrderDetailDeposit() {
                                         />
                                     </div >
                                    <div style={{padding: '0 10px'}} className="d-flex justify-content-between">
-                                   <label  className="text-end me-2 mt-2 w-50"  htmlFor="">Tổng tiền: </label>
+                                   <label  className="text-start me-2 mt-2 w-25"  htmlFor="">Tổng tiền: </label>
                                     <NumericFormat
                                         className="w-100 text-center mx-auto form-control mt-1"
                                         type="text"
@@ -142,10 +144,10 @@ export default function OrderDetailDeposit() {
                                    </div>
                                 </td>
 
-                                <td className="col-3">
+                                <td style={{width:'35%', padding:'10px 15px'}}>
                                     {" "}
                                     <textarea
-                                        className="ghi_chu form-control"
+                                        className="form-control"
                                         disabled
                                         name="note"
                                         id=""

@@ -23,6 +23,11 @@ export class OrderItemController {
                 quantity: item.quantity,
                 product_price: item.product_price,
                 note: item.note,
+                maVanDon:item.maVanDon,
+                soKien:item.soKien,
+                kgM3:item.kgM3,
+                donGia:item.donGia,
+                phuPhi:item.phuPhi,
                 total_price: item.total_price,
                 ctime: nowFormat,
                 utime: nowFormat

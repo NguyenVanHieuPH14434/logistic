@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Nav from 'react-bootstrap/Nav';
@@ -8,8 +8,10 @@ import { GoChecklist } from "react-icons/go";
 import { BiBox } from "react-icons/bi";
 import { BiUser } from "react-icons/bi";
 import "./Menu.scss";
+import { AppContext } from "../../contexts/AppContextProvider";
 
 function Menu() {
+    const {state:{user}} = useContext(AppContext)
     return (
         <>
             <div style={{ backgroundColor: '#9470d4' }} className="menu_left">
@@ -40,7 +42,7 @@ function Menu() {
                         <Dropdown.Item eventKey="1" as={Link} to="/app/listGroceries">Tất Cả Đơn Hàng</Dropdown.Item>
                         <Dropdown.Item eventKey="2" as={Link} to="/app/listDeposit">Tất Cả Đơn Ký Gửi</Dropdown.Item>
                     </DropdownButton>
-                    <DropdownButton
+                    {user.role == 'admin'|| user.role == 'manager'? (<DropdownButton
                         key={'end'}
                         id={`dropdown-button-drop-${'end'}`}
                         drop={'end'}
@@ -52,7 +54,7 @@ function Menu() {
                     >
                         <Dropdown.Item eventKey="1" as={Link} to="/app/user">Thông Tin Cá Nhân</Dropdown.Item>
                         <Dropdown.Item eventKey="2" as={Link} to="/app/changePass">Thay Đổi Mật Khẩu</Dropdown.Item>
-                    </DropdownButton>
+                    </DropdownButton>):''}
                 </Nav>
             </div>
         </>

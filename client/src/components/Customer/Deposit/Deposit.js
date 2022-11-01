@@ -282,15 +282,7 @@ function Deposit() {
                                         Upload...
                                     </label>
                                 </td>
-                                {/* <td style={{ width: '150px' }}>
-                                    <label className="labelDepo mb-3" htmlFor="">Mã vận đơn</label><br />
-                                    <label className="labelDepo mb-3" htmlFor="">Tên sản phẩm</label><br />
-                                    <label className="labelDepo mb-3" htmlFor="">Số kiện hàng</label><br />
-                                    <label className="labelDepo mb-3" htmlFor="">Số cân/ số khối</label><br />
-                                    <label className="labelDepo mb-3" htmlFor="">Đơn giá</label><br />
-                                    <label className="labelDepo mb-3" htmlFor="">Phụ phí</label><br />
-                                    <label className="labelDepo mb-3" htmlFor="">Tổng tiền: </label>
-                                </td> */}
+                              
                                 <td className="td_productInformation">
                                     <div className="d-flex information_content">
                                         <div className="label_product_information mt-2">
@@ -482,17 +474,7 @@ function Deposit() {
                                     <span style={{ fontWeight: 'bold' }}>Thuế VAT</span> = 10% x Giá trị hàng hóa</p>
                             </div>
                         </div>
-                        {/* <div className="mt-5 mb-3">
-                            <h5>PHÍ KIỂM ĐẾM SẢN PHẨM</h5>
-                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                <option value="" selected>Số lượng</option>
-                                <option value="">501-10000 sản phẩm</option>
-                                <option value="">101-500 sản phẩm</option>
-                                <option value="">11-100 sản phẩm</option>
-                                <option value="">3-10 sản phẩm</option>
-                                <option value="">1-2 sản phẩm</option>
-                            </select>
-                        </div> */}
+                       
                         <div className="mt-5 mb-3">
                             <span className="d-flex">
                                 <h5>PHÍ ĐÓNG GỖ</h5>

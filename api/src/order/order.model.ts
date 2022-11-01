@@ -17,7 +17,6 @@ export class OrderModel {
     // get list order with userID login 
     async ListByUserId (userId:string, type:string) {
         const docs = await this.col_order.find({$and:[{user_id: userId}, {type:type}]}).toArray();
-        // const docs = await this.col_order.find({$and:[{user_id: userId}, {type:'order'}]}).toArray();
         return docs;
     }
 
@@ -32,12 +31,6 @@ export class OrderModel {
                 foreignField: `${type}_id`,
                 as: `${type}Item`
             }
-            // $lookup:{
-            //     from: 'order_item',
-            //     localField: '_id',
-            //     foreignField: 'order_id',
-            //     as: 'orderItem'
-            // }
         }]).toArray();
         return docs;
     }
