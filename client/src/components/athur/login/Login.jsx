@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./login.scss";
 import logo_login from "../../../assets/public/img/logo_login.png";
 import background_login from "../../../assets/public/img/image-background-login.png";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { Navigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import { toastifyError } from "../../../lib/toastify";
 
 export default function Login() {
   const {
-    state: { isAuthenticated },
+    state: { isAuthenticated,user }, logout
   } = useContext(AppContext);
   const { loginUser } = useContext(AppContext);
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export default function Login() {
       [e.target.name]: e.target.value,
     });
   };
-
+  
   const location = useLocation();
 
   const handleOnClickLoginBtn = async (e) => {
@@ -38,6 +38,10 @@ export default function Login() {
 
       if (res.data.success) {
         navigate("/app/deposit");
+        // setInterval(() => {
+        //   console.log('logout1')
+        //   logout()
+        // }, 10000);
       } else {
         toastifyError(res.data.message);
       }
@@ -45,6 +49,7 @@ export default function Login() {
       toastifyError(error.message);
     }
   };
+  
   if (isAuthenticated) return <Navigate to={"/app/deposit"} />;
   return (
     <>
