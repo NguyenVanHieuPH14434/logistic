@@ -174,11 +174,15 @@ function Groceries() {
       });
       val[i]["product_price"] = "";
     }
-    if (val[i]["quantity"] && val[i]["product_price"]) {
+   
+    if (val[i]["quantity"] && val[i]["product_price"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
+      let kgm3 = val[i]["kgM3"]?val[i]["kgM3"]:0
+     let dongia = val[i]["donGia"]?val[i]["donGia"]:0
+      let phuphi = val[i]["phuPhi"]?val[i]["phuPhi"]:0
       val[i]["total_price"] =
-        val[i]["product_price"].replace(/,/g, "") *
+        (val[i]["product_price"].replace(/,/g, "") *
         tyGia() *
-        val[i]["quantity"];
+        val[i]["quantity"]) + (parseFloat(kgm3) * parseFloat(dongia)) + parseFloat(phuphi);
     }
     setList(val);
   };

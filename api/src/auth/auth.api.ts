@@ -35,14 +35,14 @@ function NewAuthAPI (authCOntroller: AuthController) {
         }
         
         // check exits username
-        const checkUserNameExits = await authCOntroller.Login(req.body.username);
-        if(checkUserNameExits){
-            SendErr(false, CheckExits('Tên đăng nhập'), res)
-        }
+        // const checkUserNameExits = await authCOntroller.Login(req.body.username);
+        // if(checkUserNameExits){
+        //     SendErr(false, CheckExits('Tên đăng nhập'), res)
+        // }
         // check exits phone
         const checkPhoneExits = await authCOntroller.Login(req.body.phone);
         if(checkPhoneExits){
-            SendErr(false, CheckExits('Số điện thoại'), res)
+          return SendErr(false, CheckExits('Số điện thoại'), res)
         }
         // check same password
         // if(req.body.password !== req.body.passwordConFirm){

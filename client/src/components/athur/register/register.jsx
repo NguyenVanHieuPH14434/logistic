@@ -4,6 +4,7 @@ import logo_login from "../../../assets/public/img/logo_login.png";
 import background_login from "../../../assets/public/img/image-background-login.png";
 import { Register } from "../../../api/auth";
 import { Link } from "react-router-dom";
+import { toastifyError, toastifySuccess } from "../../../lib/toastify";
 
 export default function RegisterUser() {
   const [register,setRegister]=useState({
@@ -29,21 +30,29 @@ export default function RegisterUser() {
         ) {
             if(n.password===n.checkPassword){
               Register(register)
-              .then(()=>{
+              .then((res)=>{
+               if(res.data.success){
                 setRegister({
                   fullName:'',
                   phone:"",
                   password:"",
                   checkPassword:""
                 })
+                toastifySuccess('Tạo tài khoản thành công!')
+              }else {
+                toastifyError(res.data.message)
+              }
+              })
+              .catch((err)=>{
+                toastifyError(err.message)
               })
             }
             else{
-              return alert('check password !!!')
+              return toastifyError('Xác nhận mật khẩu không đúng!')
             }
         }
         else {
-            return alert("please input!!");
+            return toastifyError("Vui lòng nhập đầy đủ thông tin!");
         }
   };
   const handleRegister=()=>{
