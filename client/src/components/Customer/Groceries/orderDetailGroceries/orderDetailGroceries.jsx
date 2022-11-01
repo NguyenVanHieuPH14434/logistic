@@ -48,7 +48,7 @@ export default function OrderDetailGroceries() {
                   {" "}
                   {i + 1} <br />
                 </td>
-                <td>
+                <td style={{maxWidth:'150px'}}>
                   <img
                     style={{
                       width: "96px",

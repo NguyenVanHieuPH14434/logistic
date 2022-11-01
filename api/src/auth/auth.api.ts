@@ -28,7 +28,6 @@ function NewAuthAPI (authCOntroller: AuthController) {
 
     router.post('/create', async(req, res, next)=> {
         const params:AuthSchema.CreateAuthParams = {
-            username:req.body.username,
             phone: req.body.phone,
             fullName: req.body.fullName,
             role: req.body.role?req.body.role:"user",

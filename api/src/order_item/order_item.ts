@@ -11,6 +11,11 @@ export namespace Order_item_Schema {
         quantity:string;
         product_price:number;
         note:any;
+        maVanDon?:string,
+        soKien:number,
+        kgM3:number,
+        donGia:number,
+        phuPhi:number,
         total_price:number;
         ctime:string;
         utime:string;
@@ -25,6 +30,11 @@ export namespace Order_item_Schema {
         quantity:string;
         product_price:number;
         note:any;
+        maVanDon?:string,
+        soKien:number,
+        kgM3:number,
+        donGia:number,
+        phuPhi:number,
         total_price:number;
     }
 
@@ -36,6 +46,11 @@ export namespace Order_item_Schema {
         quantity?:string;
         product_price?:number;
         note?:any;
+        maVanDon?:string,
+        soKien?:number,
+        kgM3?:number,
+        donGia?:number,
+        phuPhi?:number,
         total_price?:number;
         utime:string;
     }

@@ -23,7 +23,6 @@ export default function AddMember() {
     //create
     if (
       n.fullName !== "" &&
-      n.username !== "" &&
       n.phone &&
       n.password !== "" &&
       n.checkPassword !== ""
@@ -32,7 +31,6 @@ export default function AddMember() {
         Register(register).then(() => {
           setRegister({
             fullName: "",
-            username: "",
             phone: "",
             password: "",
             checkPassword: "",
@@ -89,16 +87,6 @@ export default function AddMember() {
                 <input
                   type="text"
                   onChange={handleInput}
-                  name="username"
-                  value={register.username}
-                  placeholder="Tên đăng nhập"
-                />
-                <i className="fa-solid fa-circle-user"></i>
-              </span>
-              <span>
-                <input
-                  type="text"
-                  onChange={handleInput}
                   name="phone"
                   value={register.phone}
                   placeholder="Số điện thoại"
@@ -116,14 +104,12 @@ export default function AddMember() {
                 <i className="fa-sharp fa-solid fa-lock"></i>
               </span>
               <span>
-                <input
-                  type="text"
-                  onChange={handleInput}
-                  name="checkPassword"
-                  value={register.checkPassword}
-                  placeholder="Nhập lại mật khẩu..."
-                />
-                <i className="fa-sharp fa-solid fa-lock"></i>
+                  <select name="role" style={{width:'300px'}} className="form-control text-center d-flex mx-auto mt-2" onChange={handleInput} id="">
+                    <option value="">Chọn vai trò</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                    <option value="manager">Manager</option>
+                  </select>
               </span>
             </div>
             <div className="login_form_btn">

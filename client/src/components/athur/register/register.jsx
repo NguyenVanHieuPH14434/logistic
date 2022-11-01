@@ -23,7 +23,6 @@ export default function RegisterUser() {
     //create
         if (
             n.fullName !== '' &&
-            n.username !== '' &&
             n.phone &&
             n.password !== '' &&
             n.checkPassword !== ''
@@ -33,7 +32,6 @@ export default function RegisterUser() {
               .then(()=>{
                 setRegister({
                   fullName:'',
-                  username:"",
                   phone:"",
                   password:"",
                   checkPassword:""
@@ -79,10 +77,6 @@ export default function RegisterUser() {
             <div className="login_form_input">
               <span>
                 <input type="text" onChange={handleInput} name="fullName"  value={register.fullName} placeholder="Họ và tên" />
-                <i className="fa-solid fa-circle-user"></i>
-              </span>
-              <span>
-                <input type="text" onChange={handleInput} name="username" value={register.username} placeholder="Tên đăng nhập" />
                 <i className="fa-solid fa-circle-user"></i>
               </span>
               <span>
