@@ -263,7 +263,7 @@ export default function ListGroceries() {
                         >
                           Chi tiết đơn
                         </button>
-                        <button
+                        {user.role == 'admin' || user.role == 'manager'?(<button
                           className="btn btn-danger"
                           onClick={() =>
                             navi("/app/updateGroceries", {
@@ -272,7 +272,7 @@ export default function ListGroceries() {
                           }
                         >
                           Sửa
-                        </button>
+                        </button>):''}
                       </td>
                     </tr>
                   );

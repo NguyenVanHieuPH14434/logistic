@@ -268,7 +268,7 @@ export default function ListDeposit() {
                         >
                           Chi tiết đơn
                         </button>
-                        <button
+                        {user.role == 'admin' || user.role == 'manager' ? (<button
                           className="btn btn-danger"
                           onClick={() =>
                             navi("/app/updateDeposit", {
@@ -277,7 +277,7 @@ export default function ListDeposit() {
                           }
                         >
                         Sửa
-                        </button>
+                        </button>):''}
                       </td>
                     </tr>
                   );
