@@ -20,6 +20,7 @@ import OrderDetailDeposit from './components/Customer/Deposit/orderDetailDeposit
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Express from './components/user/express/express';
+import AddMember from './components/user/addMember/addMember.jsx';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path="listDeposit" element={<ListDeposit className="right" />}></Route>
           <Route path="user" element={<User className="right" />}></Route>
           <Route path="changePass" element={<ChangePass className="right" />}></Route>
+          <Route path="addMember" element={<AddMember className="right" />}></Route>
           <Route path="orderGroceries" element={<OrderGroceries className="right" />}></Route>
           <Route path="orderDeposit" element={<OrderDeposit className="right" />}></Route>
           <Route path="orderDetailGroceries" element={<OrderDetailGroceries className="right" />}></Route>

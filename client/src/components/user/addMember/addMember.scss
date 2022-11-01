@@ -1,0 +1,117 @@
+.addMember{
+    width: 100%;
+    min-height: 960px;
+    background: #f2f4fa;
+    margin-top: 90px;
+    .nav_container {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 30px 0 15px 0;
+        background-image: url("../../../assets/public/img/search-dash-bg.png");
+        .nav_left {
+          text-align: end;
+        }
+        .nav_search {
+          input {
+            padding: 12px 100px;
+            border-radius: 10px;
+          }
+          i {
+            color: #fff;
+            padding: 17px 30px;
+            background: #ff5a21;
+            margin-left: -76.3px;
+            border-radius: 10px;
+          }
+        }
+        .nav_exchange {
+          display: flex;
+          padding-top: 2px;
+          span {
+            padding-left: 10px;
+          }
+        }
+      }
+
+
+      // f0
+.login {
+    position: relative;
+    top: -100px;
+    width: 1000px;
+    background-color: #3535356e;
+    padding: 10px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    .container {
+      // border: 1px solid red;
+  
+      // f1
+      h2 {
+        text-shadow: 2px 2px 2px #000;
+        text-align: center;
+        .login_title {
+          color: #eda82d;
+          font-weight: bold;
+        }
+        .login_title {
+          font-weight: bold;
+          a {
+            color: #8610e8;
+            text-decoration: none;
+          }
+        }
+      }
+  
+      // f1
+      .form_login {
+        justify-content: center;
+        .login_form_input {
+          display: flex;
+          flex-direction: column;
+          span {
+            input {
+              height: 40px;
+              width: 300px;
+              padding-right: 20px;
+              padding-left: 10px;
+              border-radius: 6px;
+              margin: 3px 0;
+            }
+            i {
+              width: 20px;
+              height: 20px;
+              margin-left: -30px;
+            }
+          }
+          .duy_tri {
+            display: flex;
+            justify-content: center;
+            margin-top: -12px;
+            margin-right: 142px;
+            p {
+              color: #fff;
+              margin-top: 15px;
+              margin-left: 2px;
+            }
+          }
+        }
+  
+        // f1
+        .login_form_btn {
+          margin-left: 10px;
+          text-align: center;
+          // f3
+          button {
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+          }
+        }
+      }
+    }
+  }
+}

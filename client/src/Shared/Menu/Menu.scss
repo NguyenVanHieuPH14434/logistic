@@ -56,6 +56,27 @@
   }
 }
 
+.admin_role{
+  color: #fff;
+  text-decoration: none;
+  padding: 2.26em 0.6em;
+  &:focus {
+    box-shadow: none;
+    color: white !important;
+    background-color: #8610e8;
+  }
+  i {
+    font-size: 2em;
+    margin-left: 45%;
+    margin-top: 30px;
+    transform: translateX(-50%);
+  }
+  &:hover {
+    color: white;
+    background-color: #8610e8;
+  }
+}
+
 .dropdown-menu {
   border-radius: 0;
   padding: 0;
@@ -74,7 +95,6 @@
 
 /* For mobile phones: */
 @media only screen and (max-width: 600px) {
-    
 }
 
 @media screen and (min-width: 600px) and (max-width: 1024px) {

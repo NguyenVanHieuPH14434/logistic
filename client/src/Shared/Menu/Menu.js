@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Nav from 'react-bootstrap/Nav';
@@ -8,12 +8,22 @@ import { GoChecklist } from "react-icons/go";
 import { BiBox } from "react-icons/bi";
 import { BiUser } from "react-icons/bi";
 import "./Menu.scss";
+import meomeo from "../../assets/public/img/options.png"
 
 function Menu() {
+
+    const [show, setShow] = useState('d-none')
+
+    const handleOnClickBtn = (e) => {
+        setShow(() => show === 'd-none' ? 'd-block' : 'd-none')
+    }
+
     return (
         <>
             <div style={{ backgroundColor: '#9470d4' }} className="menu_left">
-                <Nav className="flex-column">
+                {/* <img style={{position: 'relative', top: '100px', left: '100px', zIndex: '999999'}} onClick={(e) => handleOnClickBtn(e)} className="w-25 d-lg-none d-md-none d-sm-block d-block" src={meomeo} alt=""/> */}
+                <i style={{ fontSize: '40px' }} onClick={(e) => handleOnClickBtn(e)} class="fa-solid fa-bars text-white border border-info text-center mt-5 d-lg-none d-md-none d-sm-block d-block"></i>
+                <Nav value={show} className={`flex-column d-lg-block d-md-block d-sm-none ${show}`}>
                     <DropdownButton
                         key={'end'}
                         id={`dropdown-button-drop-${'end'}`}
@@ -50,8 +60,9 @@ function Menu() {
                             <p className="para">CÁ NHÂN</p>
                         </Container>}
                     >
-                        <Dropdown.Item eventKey="1" as={Link} to="/app/user">Thông Tin Cá Nhân</Dropdown.Item>
+                        <Dropdown.Item eventKey="1" as={Link} to="/app/user">Home</Dropdown.Item>
                         <Dropdown.Item eventKey="2" as={Link} to="/app/changePass">Thay Đổi Mật Khẩu</Dropdown.Item>
+                        <Dropdown.Item eventKey="3" as={Link} to="/app/addMember">Tạo tài khoản</Dropdown.Item>
                     </DropdownButton>
                 </Nav>
             </div>

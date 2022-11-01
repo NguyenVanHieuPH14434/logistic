@@ -300,7 +300,7 @@ function Deposit() {
                                             <p className="text-end me-2 pt-1">Số cân, số khối: </p>
                                             <p className="text-end me-2 pt-1">Đơn giá: </p>
                                             <p className="text-end me-2">Phụ phí: </p>
-                                            <h4 style={{position: 'absolute', bottom: '10px', left: '40px'}} classname="">Tổng: </h4>
+                                            <h4 style={{position: 'absolute', bottom: '10px', left: '30px'}} classname="">Tổng: </h4>
                                         </div>
                                         <div class="input_information_product">
                                             <input

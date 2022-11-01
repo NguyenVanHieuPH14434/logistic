@@ -269,7 +269,7 @@ function Groceries() {
                   {i + 1} <br />
                 </td>
                 <td sytle={{}} className="col-1 pt-5">
-                  <img
+                  <img className="img_stt"
                     style={{
                       width: "96px",
                       height: "64px",
@@ -414,7 +414,7 @@ function Groceries() {
                 </td>
                 {/* <td className="pt-5"> {li.totalPrice} </td> */}
                 <td style={{paddingTop: '200px'}}>
-                  <p className="">
+                  <p className="total_price">
                     <NumericFormat
                       disabled={true}
                       style={{
