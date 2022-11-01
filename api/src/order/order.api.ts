@@ -49,9 +49,10 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
             phone: newObjOrder.phone,
             address: newObjOrder.address,
             type: newObjOrder.type,
-            address_TQ: newObjOrder.address_TQ?newObjOrder.address_TQ:'',
+            address_TQ: newObjOrder.address_TQ ? newObjOrder.address_TQ : '',
+            datCoc: newObjOrder.datCoc,
             status: 0,
-            total: newObjOrder.total
+            total: newObjOrder.total,
         }
        
         const paramItems = req.body.orderItem;
@@ -89,6 +90,7 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
             address: req.body.deposit.address,
             type: req.body.deposit.type,
             address_TQ: req.body.deposit.address_TQ?req.body.deposit.address_TQ:'',
+            datCoc: 0,
             status: 0,
             total: req.body.deposit.total
         }

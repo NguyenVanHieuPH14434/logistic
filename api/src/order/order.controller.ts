@@ -44,6 +44,7 @@ export class OrderController {
             address: params.address,
             type: params.type,
             address_TQ: params.address_TQ,
+            datCoc: params.datCoc?params.datCoc:0,
             status: params.status,
             total: params.total,
             ctime: nowFormat,

@@ -9,6 +9,7 @@ export namespace OrderSchema {
         address:string;
         type:string;
         address_TQ:string;
+        datCoc:number;
         status: number;
         total: string;
         ctime:string;
@@ -22,6 +23,7 @@ export namespace OrderSchema {
         address:string;
         type:string;
         address_TQ:string;
+        datCoc:number;
         status: number;
         total: string;
     }
@@ -30,8 +32,8 @@ export namespace OrderSchema {
         full_name?:string;
         phone?:string;
         address?:string;
-        type?:string;
         address_TQ?:string;
+        datCoc:number;
         status?: number;
         total?: string;
         utime?:string;

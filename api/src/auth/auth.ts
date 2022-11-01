@@ -9,7 +9,6 @@ export namespace AuthSchema {
 
     export interface Auth {
         _id: string;
-        username: string;
         phone: string;
         fullName: string;
         role: string;
@@ -21,7 +20,6 @@ export namespace AuthSchema {
     }
 
     export interface CreateAuthParams {
-        username: string;
         phone: string;
         fullName: string;
         role: string;

@@ -24,7 +24,6 @@ export class AuthController {
         const hashPassword = await bcrypt.hash(params.password, 8);
         const user : AuthSchema.Auth = {
             _id: AuthSchema.Generate.NewIdAuth(),
-            username: params.username,
             phone: params.phone,
             fullName: params.fullName,
             role: params.role,

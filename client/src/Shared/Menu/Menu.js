@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Nav from 'react-bootstrap/Nav';
@@ -8,7 +8,7 @@ import { GoChecklist } from "react-icons/go";
 import { BiBox } from "react-icons/bi";
 import { BiUser } from "react-icons/bi";
 import "./Menu.scss";
-import meomeo from "../../assets/public/img/options.png"
+import { AppContext } from "../../contexts/AppContextProvider";
 
 function Menu() {
 
@@ -17,7 +17,7 @@ function Menu() {
     const handleOnClickBtn = (e) => {
         setShow(() => show === 'd-none' ? 'd-block' : 'd-none')
     }
-
+    const {state:{user}} = useContext(AppContext)
     return (
         <>
             <div style={{ backgroundColor: '#9470d4' }} className="menu_left">
@@ -50,7 +50,7 @@ function Menu() {
                         <Dropdown.Item eventKey="1" as={Link} to="/app/listGroceries">Tất Cả Đơn Hàng</Dropdown.Item>
                         <Dropdown.Item eventKey="2" as={Link} to="/app/listDeposit">Tất Cả Đơn Ký Gửi</Dropdown.Item>
                     </DropdownButton>
-                    <DropdownButton
+                  <DropdownButton
                         key={'end'}
                         id={`dropdown-button-drop-${'end'}`}
                         drop={'end'}
@@ -62,7 +62,7 @@ function Menu() {
                     >
                         <Dropdown.Item eventKey="1" as={Link} to="/app/user">Home</Dropdown.Item>
                         <Dropdown.Item eventKey="2" as={Link} to="/app/changePass">Thay Đổi Mật Khẩu</Dropdown.Item>
-                        <Dropdown.Item eventKey="3" as={Link} to="/app/addMember">Tạo tài khoản</Dropdown.Item>
+                        {user.role == 'admin'|| user.role == 'manager'? (<Dropdown.Item eventKey="3" as={Link} to="/app/addMember">Tạo tài khoản</Dropdown.Item>):''}
                     </DropdownButton>
                 </Nav>
             </div>

@@ -282,29 +282,22 @@ function Deposit() {
                                         Upload...
                                     </label>
                                 </td>
-                                {/* <td style={{ width: '150px' }}>
-                                    <label className="labelDepo mb-3" htmlFor="">Mã vận đơn</label><br />
-                                    <label className="labelDepo mb-3" htmlFor="">Tên sản phẩm</label><br />
-                                    <label className="labelDepo mb-3" htmlFor="">Số kiện hàng</label><br />
-                                    <label className="labelDepo mb-3" htmlFor="">Số cân/ số khối</label><br />
-                                    <label className="labelDepo mb-3" htmlFor="">Đơn giá</label><br />
-                                    <label className="labelDepo mb-3" htmlFor="">Phụ phí</label><br />
-                                    <label className="labelDepo mb-3" htmlFor="">Tổng tiền: </label>
-                                </td> */}
+                              
                                 <td className="td_productInformation">
                                     <div className="d-flex information_content">
                                         <div className="label_product_information mt-2">
-                                            <p className="text-end me-2">Mã vận đơn: </p>
-                                            <p className="text-end me-2 pt-2">Tên sản phẩm: </p>
-                                            <p className="text-end me-2">Số kiện hàng: </p>
-                                            <p className="text-end me-2 pt-1">Số cân, số khối: </p>
-                                            <p className="text-end me-2 pt-1">Đơn giá: </p>
-                                            <p className="text-end me-2">Phụ phí: </p>
-                                            <h4 style={{position: 'absolute', bottom: '10px', left: '30px'}} classname="">Tổng: </h4>
+                                            <p className="text-start me-2">Mã vận đơn: </p>
+                                            <p className="text-start me-2 pt-2">Tên sản phẩm: </p>
+                                            <p className="text-start me-2">Số kiện hàng: </p>
+                                            <p className="text-start me-2 pt-1">Số cân, số khối: </p>
+                                            <p className="text-start me-2 pt-1">Đơn giá: </p>
+                                            <p className="text-start me-2">Phụ phí: </p>
+                                            <p className="text-start me-2"><b>Tổng: </b> </p>
+                                            {/* <h4 style={{position: 'absolute', bottom: '10px', left: '30px'}} classname="">Tổng: </h4> */}
                                         </div>
                                         <div class="input_information_product">
                                             <input
-                                                style={{ width: '520px' }}
+                                                style={{ width: '680px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 placeholder="Mã vận đơn (*)"
@@ -312,7 +305,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '520px' }}
+                                                style={{ width: '680px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 placeholder="Tên sản phẩm (*)"
@@ -320,7 +313,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '520px' }}
+                                                style={{ width: '680px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 placeholder="Số kiện hàng"
@@ -328,7 +321,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '520px' }}
+                                                style={{ width: '680px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="kgM3"
@@ -336,7 +329,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '520px' }}
+                                                style={{ width: '680px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="donGia"
@@ -344,24 +337,24 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '520px' }}
+                                                style={{ width: '680px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="phuPhi"
                                                 placeholder="Phụ phí"
                                                 onChange={(e) => changeInp(e, i)}
                                             />
-                                        </div>
-                                    </div>
                                         <NumericFormat
-                                            className="w-75 text-center mx-auto form-control mt-1"
+                                            className=" text-center mx-auto form-control mt-1"
                                             type="text"
                                             disabled
-                                            style={{ background: '#EDA82D' }}
+                                            style={{ background: '#EDA82D', width:'680px'}}
                                             value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
                                             placeholder="Tổng"
                                             thousandSeparator=","
                                         ></NumericFormat>
+                                        </div>
+                                    </div>
                                 </td>
 
                                 <td>
@@ -491,17 +484,7 @@ function Deposit() {
                                     <span style={{ fontWeight: 'bold' }}>Thuế VAT</span> = 10% x Giá trị hàng hóa</p>
                             </div>
                         </div>
-                        {/* <div className="mt-5 mb-3">
-                            <h5>PHÍ KIỂM ĐẾM SẢN PHẨM</h5>
-                            <select className="form-control d-inline mx-1" style={{ width: '150px', textAlign: 'center', padding: '4px' }}>
-                                <option value="" selected>Số lượng</option>
-                                <option value="">501-10000 sản phẩm</option>
-                                <option value="">101-500 sản phẩm</option>
-                                <option value="">11-100 sản phẩm</option>
-                                <option value="">3-10 sản phẩm</option>
-                                <option value="">1-2 sản phẩm</option>
-                            </select>
-                        </div> */}
+                       
                         <div className="mt-5 mb-3">
                             <span className="d-flex">
                                 <h5>PHÍ ĐÓNG GỖ</h5>
