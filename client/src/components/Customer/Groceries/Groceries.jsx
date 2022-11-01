@@ -40,6 +40,19 @@ function Groceries() {
       total_price: 0,
     },
   ]);
+ 
+  const setTotalPriceALL = (val, i) =>{
+    if (val[i]["quantity"] && val[i]["product_price"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
+    let kgm3 = val[i]["kgM3"]?val[i]["kgM3"]:0
+    let dongia = val[i]["donGia"]?val[i]["donGia"]:0
+    let phuphi = val[i]["phuPhi"]?val[i]["phuPhi"]:0
+    val[i]["total_price"] =
+        (val[i]["product_price"].replace(/,/g, "") *
+        tyGia() *
+    val[i]["quantity"]) + (parseFloat(kgm3) * parseFloat(dongia)) + parseFloat(phuphi);
+    }
+  }
+
   const checkValidate = (items, order) => {
     //create
     if (order.full_name !== "" && order.phone !== "" && order.address !== "") {
@@ -73,33 +86,18 @@ function Groceries() {
   const handleOnIncrease = (i, e) => {
     const increase = [...list];
     increase[i]["quantity"] = parseInt(increase[i]["quantity"]) + 1;
-    if (increase[i]["quantity"] && increase[i]["product_price"]) {
-    increase[i]["total_price"] =
-      increase[i]["quantity"] *
-      tyGia() *
-      increase[i]["product_price"].replace(/,/g, "");
-    }
+    setTotalPriceALL(increase, i)
     setList(increase);
   };
 
   // Nút bớt sản phẩm
   const handleOnReduced = (i) => {
     const count = [...list];
-    if (count[i]["quantity"] <= 0) {
-      count[i]["quantity"] = 1;
-      count[i]["total_price"] =
-        count[i]["quantity"] *
-        tyGia() *
-        count[i]["product_price"].replace(/,/g, "");
-    } else {
       count[i]["quantity"] = count[i]["quantity"] - 1;
-      if (count[i]["quantity"] && count[i]["product_price"]) {
-      count[i]["total_price"] =
-        count[i]["quantity"] *
-        tyGia() *
-        count[i]["product_price"].replace(/,/g, "");
+      if (count[i]["quantity"] <= 0) {
+        count[i]["quantity"] = 1;
       }
-    }
+      setTotalPriceALL(count, i)
     setList(count);
   };
 
@@ -155,7 +153,6 @@ function Groceries() {
     }
     totalOrderCost = total + orderCost - tienCoc;
   }
-  const [lists, setLists] = useState();
 
   // thay đổi giá trị form sản phẩm
   const changeInp = (i, e) => {
@@ -174,16 +171,7 @@ function Groceries() {
       });
       val[i]["product_price"] = "";
     }
-   
-    if (val[i]["quantity"] && val[i]["product_price"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
-      let kgm3 = val[i]["kgM3"]?val[i]["kgM3"]:0
-     let dongia = val[i]["donGia"]?val[i]["donGia"]:0
-      let phuphi = val[i]["phuPhi"]?val[i]["phuPhi"]:0
-      val[i]["total_price"] =
-        (val[i]["product_price"].replace(/,/g, "") *
-        tyGia() *
-        val[i]["quantity"]) + (parseFloat(kgm3) * parseFloat(dongia)) + parseFloat(phuphi);
-    }
+      setTotalPriceALL(val, i)
     setList(val);
   };
 
@@ -263,7 +251,6 @@ function Groceries() {
     checkValidate(list, order);
   };
   console.log("item", list);
-  console.log("items", lists);
   const DeleteList = (i) => {
     const newList = [...list];
     newList.splice(i, 1);
