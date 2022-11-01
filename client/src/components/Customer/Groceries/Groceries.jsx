@@ -377,21 +377,21 @@ function Groceries() {
                     name="soKien"
                     onChange={(e) => changeInp(i, e)}
                   />
-                  <input
+                  <NumericFormat
                     className="w-100 form-control mt-2"
                     type="text"
                     name="kgM3"
                     placeholder="Số cân, số khối"
                     onChange={(e) => changeInp(i, e)}
                   />
-                  <input
+                  <NumericFormat
                     className="w-100 form-control mt-2"
                     type="text"
                     name="donGia"
                     placeholder="Cước vận chuyển"
                     onChange={(e) => changeInp(i, e)}
                   />
-                  <input
+                  <NumericFormat
                     className="w-100 form-control mt-2"
                     type="text"
                     name="phuPhi"
