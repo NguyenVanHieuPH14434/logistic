@@ -60,7 +60,7 @@ function Menu() {
                             <p className="para">CÁ NHÂN</p>
                         </Container>}
                     >
-                        <Dropdown.Item eventKey="1" as={Link} to="/app/user">Home</Dropdown.Item>
+                        <Dropdown.Item eventKey="1"  as={Link} to="/app/home">Home</Dropdown.Item>
                         <Dropdown.Item eventKey="2" as={Link} to="/app/changePass">Thay Đổi Mật Khẩu</Dropdown.Item>
                         {user.role == 'admin'|| user.role == 'manager'? (<Dropdown.Item eventKey="3" as={Link} to="/app/addMember">Tạo tài khoản</Dropdown.Item>):''}
                     </DropdownButton>

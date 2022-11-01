@@ -37,7 +37,7 @@ function App() {
           <Route path="deposit"  element={<Deposit className="right" />}></Route>
           <Route path="listGroceries" element={<ListGroceries className="right" />}></Route>
           <Route path="listDeposit" element={<ListDeposit className="right" />}></Route>
-          <Route path="user" element={<User className="right" />}></Route>
+          <Route path="home" element={<User className="right" />}></Route>
           <Route path="changePass" element={<ChangePass className="right" />}></Route>
           <Route path="addMember" element={<AddMember className="right" />}></Route>
           <Route path="orderGroceries" element={<OrderGroceries className="right" />}></Route>

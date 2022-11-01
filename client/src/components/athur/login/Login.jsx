@@ -50,7 +50,7 @@ export default function Login() {
     }
   };
   
-  if (isAuthenticated) return <Navigate to={"/app/deposit"} />;
+  if (isAuthenticated) return <Navigate to={"/app/home"} />;
   return (
     <>
       <div className="bg_login">

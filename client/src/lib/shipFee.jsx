@@ -4,6 +4,7 @@ const tyGia = () => {
     return 3650
 }
 
+
 const haNoiAreaFeePacketKg = () => [
     { label: ">500kg", value: "Liên Hệ" },
     { label: "200kg -> 500kg", value: 22000 },
@@ -81,33 +82,55 @@ const haiPhongAreaFeeOfficicalM3 = () => [
 // Phí kiểm đếm sản phẩm
 
 const quantity = () => [
-  { label: "501-10000 sản phẩm", value: 1000 },
-  { label: "101-500 sản phẩm", value: 1500 },
-  { label: "11-100 sản phẩm", value: 2000 },
-  { label: "3-10 sản phẩm", value: 3500 },
-  { label: "1-2 sản phẩm", value: 5000 },
+    { label: "501-10000 sản phẩm", value: 1000 },
+    { label: "101-500 sản phẩm", value: 1500 },
+    { label: "11-100 sản phẩm", value: 2000 },
+    { label: "3-10 sản phẩm", value: 3500 },
+    { label: "1-2 sản phẩm", value: 5000 },
 ];
 
 const quantityPrice = () => [
-  { label: ">20m3", value: 1150000 },
-  { label: "10m3 -> 20m3", value: 1350000 },
-  { label: "5m3 -> 10m3", value: 1550000 },
-  { label: "<5m3", value: 1850000 },
+    { label: ">20m3", value: 1150000 },
+    { label: "10m3 -> 20m3", value: 1350000 },
+    { label: "5m3 -> 10m3", value: 1550000 },
+    { label: "<5m3", value: 1850000 },
 ];
 
 // Phí đóng gỗ  
 
-const woodClosingFee = () =>[
-  {label: 'Phí đóng kiện', value: 3650*20}
+const woodClosingFee = () => [
+    { label: 'Phí đóng kiện', value: 3650 * 20 }
 ]
-const woodClosingFeeForTheNextOrder = (nextKg) =>[
-  {label: 'Phí đóng kiện', value: (3650*20) + (3650 * nextKg)}
+const woodClosingFeeForTheNextOrder = (nextKg) => [
+    { label: 'Phí đóng kiện', value: (3650 * 20) + (3650 * nextKg) }
 ]
 
 // Phí bảo hiểm
-const insurenceFees = (orderPrice) =>[
-  {label: 'Phí bảo hiểm', value: orderPrice * 0.05}
+const insurenceFees = (orderPrice) => [
+    { label: 'Phí bảo hiểm', value: orderPrice * 0.05 }
 ]
+
+const renderStatus = (status) => {
+    switch (status) {
+        case 0:
+            return "Chờ xác nhận";
+        case 1:
+            return "Đã xác nhận";
+        case 2:
+            return "Đang vận chuyển về kho Trung Quốc";
+        case 3:
+            return "Đã về kho Trung Quốc";
+        case 4:
+            return "Đã về kho Trung QuốcĐang vận chuyển về kho Việt Nam";
+        case 5:
+            return "Đã về kho Việt Nam";
+        case 6:
+            return "Giao hàng thành công";
+        default:
+            return "Chờ xác nhận";
+    }
+}
+
 export {
     haNoiAreaFeePacketKg,
     haNoiAreaFeePacketM3,
@@ -120,5 +143,6 @@ export {
     HCMAreaFeeOfficicalM3,
     haiPhongAreaFeeOfficicalkg,
     haiPhongAreaFeeOfficicalM3,
-    tyGia
+    tyGia,
+    renderStatus
 };

@@ -4,7 +4,6 @@ import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import image from "../../../assets/public/img/default-thumbnail.jpg";
 import "./Groceries.scss";
 import { NumericFormat } from "react-number-format";
 import { createOrder, uploadFiles } from "../../../api/orderApi";
@@ -12,7 +11,6 @@ import { AppContext } from "../../../contexts/AppContextProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; //
 import { Confirm, toastifyError, toastifySuccess } from "../../../lib/toastify";
 import { tyGia } from "../../../lib/shipFee";
@@ -128,6 +126,7 @@ function Groceries() {
       phone: "",
       address: "",
       datCoc: 0,
+      total: 0
     });
     console.log(order);
 
@@ -199,9 +198,9 @@ function Groceries() {
     const val = [...list];
     val[i][e.target.name] = e.target.files[0].name;
     val[i]["fileImage"] = e.target.files[0];
-    // val[i]["fileImage"] = URL.createObjectURL(e.target.files[0]);
     setList(val);
   };
+
   // tạo đơn
   const handleSave = async () => {
     const dataImage = new FormData();
@@ -247,10 +246,13 @@ function Groceries() {
       navigate("/app/orderGroceries", { state: { data: list } });
     }, 1000);
   };
+  // submit tạo đơn hàng
   const saveData = () => {
     checkValidate(list, order);
   };
   console.log("item", list);
+
+  //
   const DeleteList = (i) => {
     const newList = [...list];
     newList.splice(i, 1);
@@ -258,6 +260,7 @@ function Groceries() {
     toastifyError("Đã xóa!");
   };
 
+  // xóa cột sản phẩm
   const submit = (i) => {
     Confirm("Delete", "Bạn có chắc chắn muốn xóa không?", DeleteList, i);
   };
@@ -295,7 +298,7 @@ function Groceries() {
                     src={
                       li.fileImage !== ""
                         ? URL.createObjectURL(li.fileImage)
-                        : image
+                        : '../../default-thumbnail.jpg'
                     }
                   />
                   <br></br>
@@ -525,19 +528,12 @@ function Groceries() {
                   <Form.Label className="customer-title">
                       Tiền đặt cọc
                   </Form.Label>
-                  {/* <Form.Control
-                    className="customer-field"
-                    type="text"
-                    name="datCoc"
-                    // value={order.datCoc.}
-                    onChange={(e) => changeInpOrder(e)}
-                    placeholder="Nhập Số Tiền Đặt Cọc"
-                  /> */}
                     <NumericFormat
                      className="form-control customer-field"
                     name="datCoc"
                     onChange={(e) => changeInpOrder(e)}
                     thousandSeparator=","
+                    placeholder="Tiền đặt cọc"
                   />{" "}
                 </Row>
                 {/*  */}
@@ -550,8 +546,8 @@ function Groceries() {
                     onChange={(e) => changeInpOrder(e)}
                   >
                     <option>Vui Lòng Chọn Địa Chỉ</option>
-                    <option value="hanoi">Ha Noi</option>
-                    <option value="haiphong">Hai Phong</option>
+                    <option value="Hà Nội">Hà Nội</option>
+                    <option value="Hải Phòng">Hải Phòng</option>
                   </Form.Select>
                 </Row>
               </Container>

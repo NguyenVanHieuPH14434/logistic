@@ -51,23 +51,8 @@ function Deposit() {
     //In ra tổng tiền
 
     var total = 0;
-    var totalOrderCost = 0;
-    var orderCost = 0;
     for (var li of list) {
-        total += li.totalPrice;
-        if (total <= 2000000) {
-            orderCost = total * (3 / 100);
-        }
-        else if (total <= 20000000) {
-            orderCost = ((2.5) / 100) * total;
-        }
-        else if (total <= 100000000) {
-            orderCost = total * (2 / 100);
-        }
-        else if (total > 100000000) {
-            orderCost = total * (1 / 100);
-        }
-        totalOrderCost = total + orderCost;
+        total += li.tongTien;
     }
 
 
@@ -75,7 +60,10 @@ function Deposit() {
     const [order, setOrder] = useState({
         full_name:'',
         phone:'',
-        address:''
+        address:'',
+        address_TQ:'',
+        datCoc:0,
+        total:0
       })
 
     // thay đổi giá trị thông tin khách hàng
@@ -84,6 +72,7 @@ function Deposit() {
         valOrder[e.target.name] = e.target.value;
         valOrder["user_id"] = user._id;
         valOrder["type"] = "deposit";
+        valOrder["total"] = total;
         setOrder(valOrder);
     };
     console.log('customer', order);
@@ -116,7 +105,7 @@ function Deposit() {
     const changeInp = (e, i) => {
         const val = [...list]
         val[i][e.target.name] = e.target.value;
-        val[i]['tongTien'] = val[i]['donGia'] * val[i]['kgM3'] + parseFloat(val[i]['phuPhi']);
+        val[i]['tongTien'] = val[i]['donGia'] * val[i]['kgM3'] + parseFloat(val[i]['phuPhi']?val[i]['phuPhi']:0);
         setList(val);
     }
 
@@ -268,7 +257,8 @@ function Deposit() {
                                   }}
                                   src={`${preview}`}
                                 />
-                            )})} 
+                                )})} 
+                              
                                     <label className="mt-1" id="label-upload1">
                                         <input
                                             type="file"
@@ -374,6 +364,12 @@ function Deposit() {
                             </tr>
                         ))}
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colSpan='3'><b>Tổng tiền thanh toán: </b></th>
+                            <th colSpan='2'><NumericFormat style={{background:'none', color:'white', border:'none', textAlign:'right'}} value={total?total:0} thousandSeparator="," /> đ</th>
+                        </tr>
+                    </tfoot>
                 </Table>
 
                 <div className="container d-flex justify-content-between mt-4">
@@ -391,12 +387,12 @@ function Deposit() {
                             <label htmlFor="" className="">
                                 <h5>Địa chỉ kho Trung Quốc</h5>
                             </label>
-                            <select name="" id="" className="p-1 form-control">
+                            <select name="address_TQ" id="" onChange={(e)=>changeInpOrder(e)} className="p-1 form-control">
                                 <option value="" className="text-center">
                                     --Lựa chọn kho--
                                 </option>
-                                <option value="quangChau">Quảng Châu</option>
-                                <option value="dongHung">Đông Hưng</option>
+                                <option value="Quảng Châu">Quảng Châu</option>
+                                <option value="Đông Hưng">Đông Hưng</option>
                             </select>
                         </div>
                         <div className="form">

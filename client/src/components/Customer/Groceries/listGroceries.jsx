@@ -17,6 +17,7 @@ import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-toastify";
+import { renderStatus } from "../../../lib/shipFee";
 export default function ListGroceries() {
   const {
     state: { user },
@@ -118,30 +119,11 @@ export default function ListGroceries() {
   ];
   const handleOnChangeInputCalendar = (e) => {
     const { name, value } = e.target;
-    // if(inputCalendar.calendar_from || inputCalendar.calendar_to!==''){
-    //   if(inputCalendar.calendar_from >= inputCalendar.calendar_to){
-    //     alert('vui lòng không để thời gian bắt đầu cao hơn thời gian kết thúc')
-    //   }
-    //   else{
-    //     searchProduct()
-    //   }
-    // }
     setInputCalendar((prev) => {
       return { ...prev, [name]: value };
     });
   };
-  const renderStatus = (status) => {
-    switch (status) {
-      case 0:
-        return "Chờ xác nhận";
-      case 1:
-        return "Đã xác nhận";
-      case 2:
-        return "Đang vận chuyển về kho Trung Quốc";
-      default:
-        return "Chờ xác nhận";
-    }
-  };
+  
   return (
     <div className="listGroceries">
       <div className="nav_container">
