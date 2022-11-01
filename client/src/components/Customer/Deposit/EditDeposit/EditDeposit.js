@@ -1,4 +1,4 @@
-import "./Deposit.scss";
+import "../Deposit.scss";
 import React, { useContext, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
@@ -8,11 +8,12 @@ import Modal from "react-bootstrap/Modal";
 import { Routes, Route, Navigate, Link, useParams, useSearchParams } from 'react-router-dom';
 import { NumericFormat } from "react-number-format";
 
-import { Confirm, toastifyError } from "../../../lib/toastify";
-import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../lib/shipFee";
-import { AppContext } from "../../../contexts/AppContextProvider";
-import { createDeposit, uploadFilesDeposit } from "../../../api/depositApi";
-function Deposit() {
+import { Confirm, toastifyError } from "../../../../lib/toastify";
+import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../../lib/shipFee";
+import { AppContext } from "../../../../contexts/AppContextProvider";
+import { createDeposit, uploadFilesDeposit } from "../../../../api/depositApi";
+
+function EditDeposit() {
     const {state:{user}} = useContext(AppContext)
     const [list, setList] = useState([
         {
@@ -221,7 +222,7 @@ function Deposit() {
     return (
         <>
             <div className="deposit">
-                <p className="title">Tạo đơn ký gửi</p>
+                <p className="title">Cập nhật đơn ký gửi</p>
                 <Table striped bordered hover size="lg">
                     <thead>
                         <tr>
@@ -489,4 +490,4 @@ function Deposit() {
     );
 }
 
-export default Deposit;
+export default EditDeposit

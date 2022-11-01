@@ -14,6 +14,7 @@ import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-toastify";
+import { renderStatus } from "../../../lib/shipFee";
 
 export default function ListDeposit() {
   const {
@@ -127,18 +128,7 @@ export default function ListDeposit() {
       return { ...prev, [name]: value };
     });
   };
-  const renderStatus = (status) => {
-    switch (status) {
-      case 0:
-        return "Chờ xác nhận";
-      case 1:
-        return "Đã xác nhận";
-      case 2:
-        return "Đang vận chuyển về kho Trung Quốc";
-      default:
-        return "Chờ xác nhận";
-    }
-  };
+
   return (
     <div className="listGroceries">
       <div className="nav_container">
@@ -277,6 +267,16 @@ export default function ListDeposit() {
                           }
                         >
                           Chi tiết đơn
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() =>
+                            navi("/app/updateDeposit", {
+                              state: { id: li._id },
+                            })
+                          }
+                        >
+                        Sửa
                         </button>
                       </td>
                     </tr>

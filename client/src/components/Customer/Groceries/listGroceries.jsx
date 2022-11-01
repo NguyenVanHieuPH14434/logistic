@@ -263,6 +263,16 @@ export default function ListGroceries() {
                         >
                           Chi tiết đơn
                         </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() =>
+                            navi("/app/updateGroceries", {
+                              state: { id: li._id },
+                            })
+                          }
+                        >
+                          Sửa
+                        </button>
                       </td>
                     </tr>
                   );

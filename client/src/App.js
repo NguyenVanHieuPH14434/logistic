@@ -21,6 +21,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Express from './components/user/express/express';
 import AddMember from './components/user/addMember/addMember.jsx';
+import EditDeposit from './components/Customer/Deposit/EditDeposit/EditDeposit.js';
+import EditGroceries from './components/Customer/Groceries/EditGroceries/EditGroceries.js';
 
 
 function App() {
@@ -34,7 +36,9 @@ function App() {
         </Route>
         <Route path="/app" element={<RouterDasboard className="right" />}>
           <Route path="groceries" element={<Groceries className="right" />}></Route>
+          <Route path="updateGroceries" element={<EditGroceries className="right" />}></Route>
           <Route path="deposit"  element={<Deposit className="right" />}></Route>
+          <Route path="updateDeposit"  element={<EditDeposit className="right" />}></Route>
           <Route path="listGroceries" element={<ListGroceries className="right" />}></Route>
           <Route path="listDeposit" element={<ListDeposit className="right" />}></Route>
           <Route path="home" element={<User className="right" />}></Route>
