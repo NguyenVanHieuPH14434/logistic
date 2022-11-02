@@ -24,10 +24,9 @@ export default function AddMember() {
     if (
       n.fullName !== "" &&
       n.phone &&
-      n.password !== "" &&
-      n.checkPassword !== ""
+      n.password !== ""
     ) {
-      if (n.password === n.checkPassword) {
+      if (n.password) {
         Register(register).then(() => {
           setRegister({
             fullName: "",

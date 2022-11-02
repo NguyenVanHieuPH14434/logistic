@@ -21,7 +21,6 @@ function Menu() {
     return (
         <>
             <div style={{ backgroundColor: '#9470d4' }} className="menu_left">
-                {/* <img style={{position: 'relative', top: '100px', left: '100px', zIndex: '999999'}} onClick={(e) => handleOnClickBtn(e)} className="w-25 d-lg-none d-md-none d-sm-block d-block" src={meomeo} alt=""/> */}
                 <i style={{ fontSize: '40px' }} onClick={(e) => handleOnClickBtn(e)} class="fa-solid fa-bars text-white border border-info text-center mt-5 d-lg-none d-md-none d-sm-block d-block"></i>
                 <Nav value={show} className={`flex-column d-lg-block d-md-block d-sm-none ${show}`}>
                     <DropdownButton

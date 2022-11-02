@@ -559,17 +559,22 @@
       align-items: center;
       width: 104% !important;
       padding: 30px 0 15px 0;
-      background-image: url(http://localhost:3000/static/media/search-dash-bg.ded2338….png);
+      // background-image: url(http://localhost:3000/static/media/search-dash-bg.ded2338….png);
     }
     .addMember .login {
       position: relative;
-      top: -100px;
+      top: -40px;
       width: 100%;
       background-color: rgba(53, 53, 53, 0.431372549);
       padding: 10px;
       text-align: center;
       box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
     }
+    .addMember .nav_container .nav_search input {
+      padding: 12px 60px;
+      border-radius: 10px;
+      width: 100%;
+  }
   }
 }
 
