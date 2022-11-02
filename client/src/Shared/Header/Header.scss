@@ -28,6 +28,7 @@
         background: none !important;
         border: none !important;
         outline: none !important;
+        margin-top: 12px;
         &:focus {
           box-shadow: none !important;
         }
@@ -77,6 +78,7 @@
   .Header {
     height: 50px;
     position: relative;
+    z-index: 1;
     .navbar {
       .end {
         display: flex;
@@ -85,6 +87,12 @@
         position: absolute;
         top: -13px;
         right: -30px;
+        .dropdown-toggle {
+          background: none !important;
+          border: none !important;
+          outline: none !important;
+          margin-top: 0;
+      }
       }
       .logo {
         img {
@@ -92,6 +100,7 @@
           height: 30px;
           position: absolute;
           top: -10px;
+          left: 34%;
         }
       }
     }
@@ -145,6 +154,12 @@
       left: 0;
       margin-top: 0;
       z-index: 99;
+      i.fa-solid.fa-bars.text-white.border.border-info.text-center.mt-5.d-lg-none.d-md-none.d-sm-block.d-block {
+        position: absolute;
+        z-index: 2;
+        top: -94px;
+        left: 10px;
+    }
     }
     #dropdown-button-drop-end .container2 .icon3 {
       font-size: 2em;
@@ -529,44 +544,113 @@
 }
 
 @media screen and (min-width: 600px) and (max-width: 1024px) {
-  .header {
-    .row-container {
-      .deposit {
-        .title {
+  .Header {
+    height: 50px;
+    position: relative;
+    width: 107%;
+    .navbar {
+      .end {
+        display: flex;
+        flex-direction: row;
+        width: 200px;
+        position: absolute;
+        top: -13px;
+        right: -30px;
+      }
+      .logo {
+        img {
+          width: 100px;
+          height: 30px;
+          position: absolute;
+          top: -10px;
         }
-        .table {
-          thead {
-            tr {
-              th {
+      }
+    }
+    .show.dropdown {
+      background: #eda82d;
+      width: 63px;
+    }
+    .dropdown-menu .dropdown-item {
+      border-bottom: 0.005em solid rgba(255, 255, 255, 0.1);
+      color: white;
+      top: 43px;
+      background: #000;
+      right: 27px;
+    }
+    .dropdown-menu.show {
+      margin-left: -100px;
+    }
+  }
+  .Header .navbar .end .dropdown-toggle .icon2 {
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    font-size: 19px;
+  }
+  .Header .dropdown-menu .dropdown-item {
+    border-bottom: 0.005em solid rgba(255, 255, 255, 0.1);
+    color: white;
+    top: 43px;
+    background: #000;
+    right: -10px;
+    width: 80px !important;
+  }
+  .Header .navbar .end .icon1 {
+    font-size: 21px;
+  }
+
+  .login {
+    position: absolute;
+    width: 412px;
+    background-color: rgba(53, 53, 53, 0.431372549);
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10%;
+    padding: 10px;
+    text-align: center;
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+  }
+  .row-container {
+    .menu_left {
+      position: relative;
+      left: 0;
+      margin-top: 0;
+      z-index: 99;
+    }
+    #dropdown-button-drop-end .container2 .icon3 {
+      font-size: 2em;
+    }
+    .deposit {
+    }
+    .table {
+      thead {
+        tr {
+          th {
+          }
+        }
+      }
+      tbody {
+        tr {
+          td {
+            .input_information_product {
+              input {
+                width: 452px !important;
               }
             }
           }
-          tbody {
-            tr {
-              td {
-                .label_product_information.mt-2 {
-                  visibility: hidden !important;
+          .td_img {
+            img {
+            }
+            #label-upload1 {
+              input {
               }
-                .input_information_product {
-                  input {
-                  }
-                }
-              }
-              .td_img {
-                img {
-                }
-                #label-upload1 {
-                  input {
-                  }
-                }
-              }
-              .td_productInformation {
-                .information_content {
-                  .label_product_information {
-                    h4 {
-                      visibility: hidden !important;
-                    }
-                  }
+            }
+          }
+          .td_productInformation {
+            .information_content {
+              .label_product_information {
+                display: none !important;
+                h4 {
                 }
               }
             }
@@ -574,9 +658,39 @@
         }
       }
     }
+    .listGroceries{
+      .calender{
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+    }
+  }
+
+  .container {
+    .form_custom {
+      .addMore {
+        button {
+        }
+      }
+      .address {
+        width: 300px;
+        label {
+          h5 {
+          }
+        }
+        select {
+        }
+      }
+      .form {
+      }
+      .end-btn {
+      }
+    }
+    .fee {
+    }
   }
 }
 
-@media screen and (min-width: 1024px) {
 
+@media screen and (min-width: 1024px) {
 }
