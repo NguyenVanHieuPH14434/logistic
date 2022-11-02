@@ -92,7 +92,7 @@
           border: none !important;
           outline: none !important;
           margin-top: 0;
-      }
+        }
       }
       .logo {
         img {
@@ -159,7 +159,7 @@
         z-index: 2;
         top: -94px;
         left: 10px;
-    }
+      }
     }
     #dropdown-button-drop-end .container2 .icon3 {
       font-size: 2em;
@@ -301,7 +301,7 @@
         font-size: 28px;
         position: absolute;
         top: 40px;
-        margin-left: 23px;
+        margin-left: 67px;
       }
       .table {
         width: 100% !important;
@@ -327,6 +327,7 @@
           tr {
             display: flex;
             flex-direction: column;
+            padding: 22px;
             .stt {
               margin-left: -60px !important;
               margin: -200px 0 -100px 100px;
@@ -352,7 +353,7 @@
               label#label-upload {
                 position: absolute;
                 margin-top: 20px !important;
-                margin-left: -26px;
+                margin-left: -38px;
               }
               input {
                 width: 260px !important;
@@ -405,6 +406,18 @@
         height: 160px !important;
       }
     }
+    .groceries th .ghi_chu, .groceries td .ghi_chu {
+    height: 40px;
+    min-width: 100px;
+    min-height: 406px;
+    max-width: 100%;
+    max-height: 500px;
+    margin-left: -11px;
+    }
+    .groceries .soLuong {
+      padding-top: 24px;
+      margin-left: 40px;
+  }
     // List groceries reponsive
     .nav_container {
       display: flex;
@@ -556,6 +569,12 @@
         position: absolute;
         top: -13px;
         right: -30px;
+        .dropdown-toggle {
+          background: none !important;
+          border: none !important;
+          outline: none !important;
+          margin-top: 0;
+        }
       }
       .logo {
         img {
@@ -621,6 +640,14 @@
       font-size: 2em;
     }
     .deposit {
+      .title {
+        text-align: center;
+        color: #eda82d;
+        padding-top: 15px;
+        font-weight: bold;
+        font-size: 2em;
+        margin-top: -100px;
+      }
     }
     .table {
       thead {
@@ -658,8 +685,21 @@
         }
       }
     }
-    .listGroceries{
-      .calender{
+    .groceries{
+      .title {
+        text-align: center;
+        color: #eda82d;
+        padding-top: 15px;
+        font-weight: bold;
+        font-size: 2em;
+        margin-top: -100px;
+      }
+    }
+    .nav_container{
+      margin-top: -100px;
+    }
+    .listGroceries {
+      .calender {
         flex-wrap: wrap;
         gap: 10px;
       }
@@ -690,7 +730,6 @@
     }
   }
 }
-
 
 @media screen and (min-width: 1024px) {
 }
