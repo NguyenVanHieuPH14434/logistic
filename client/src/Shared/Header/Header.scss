@@ -251,6 +251,22 @@
         }
       }
     }
+    .deposit th .ghi_chu,
+    .deposit td .ghi_chu {
+      height: 40px;
+      min-width: 100%;
+      min-height: 270px;
+      max-width: 200px;
+      max-height: 370px;
+      margin-left: 12px;
+    }
+    .deposit th {
+      color: #f5f5f5;
+      background-color: #8610e8;
+      float: left;
+      margin: 2px 0;
+      margin-left: 53px;
+    }
 
     .container {
       display: flex !important;
@@ -406,18 +422,19 @@
         height: 160px !important;
       }
     }
-    .groceries th .ghi_chu, .groceries td .ghi_chu {
-    height: 40px;
-    min-width: 100px;
-    min-height: 406px;
-    max-width: 100%;
-    max-height: 500px;
-    margin-left: -11px;
+    .groceries th .ghi_chu,
+    .groceries td .ghi_chu {
+      height: 40px;
+      min-width: 100px;
+      min-height: 406px;
+      max-width: 100%;
+      max-height: 500px;
+      margin-left: -11px;
     }
     .groceries .soLuong {
       padding-top: 24px;
       margin-left: 40px;
-  }
+    }
     // List groceries reponsive
     .nav_container {
       display: flex;
@@ -685,7 +702,7 @@
         }
       }
     }
-    .groceries{
+    .groceries {
       .title {
         text-align: center;
         color: #eda82d;
@@ -695,7 +712,7 @@
         margin-top: -100px;
       }
     }
-    .nav_container{
+    .nav_container {
       margin-top: -100px;
     }
     .listGroceries {

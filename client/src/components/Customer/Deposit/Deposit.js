@@ -356,9 +356,9 @@ function Deposit() {
                         ))}
                     </tbody>
                     <tfoot>
-                        <tr>
+                        <tr className="total_sum">
                             <th colSpan='3'><b>Tổng tiền thanh toán: </b></th>
-                            <th colSpan='2'><NumericFormat style={{background:'none', color:'white', border:'none', textAlign:'right'}} value={total?total:0} thousandSeparator="," /> đ</th>
+                            <th colSpan='2'><NumericFormat style={{background:'none', color:'white', border:'none', textAlign:'right'}} disabled value={total?total:0} thousandSeparator="," /> đ</th>
                         </tr>
                     </tfoot>
                 </Table>
