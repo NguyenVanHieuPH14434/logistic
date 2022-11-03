@@ -243,7 +243,7 @@ function Groceries() {
     });
     toastifySuccess("Tạo đơn hàng thành công!");
     setTimeout(() => {
-      navigate("/app/orderGroceries", { state: { data: list } });
+      navigate("/app/orderGroceries", { state: { data: list, order: order }});
     }, 1000);
   };
   // submit tạo đơn hàng
