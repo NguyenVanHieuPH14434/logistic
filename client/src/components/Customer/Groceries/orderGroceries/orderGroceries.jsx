@@ -49,7 +49,7 @@ export default function OrderGroceries() {
           </p>
         </div>
         {list2.map((li, i) => (
-          <div className="order_label" key={i}>
+          <div className="order_label ms-5" key={i}>
             <p>
               Tên sản phẩm:
               <span className="order_code"> {li.product_name}</span>{" "}
