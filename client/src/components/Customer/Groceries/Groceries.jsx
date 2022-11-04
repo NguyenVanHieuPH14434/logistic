@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css"; //
-import { Confirm, toastifyError, toastifySuccess } from "../../../lib/toastify";
+import { Confirm, toastifyError, toastifySuccess, toastifyWarning } from "../../../lib/toastify";
 import { tyGia } from "../../../lib/shipFee";
 
 function Groceries() {
@@ -53,7 +53,7 @@ function Groceries() {
 
   const checkValidate = (items, order) => {
     //create
-    if (order.full_name !== "" && order.phone !== "" && order.address !== "") {
+    if (order.full_name !== "" &&  order.phone !== "" && order.address !== "") {
       let checkEmptyItems = items.every((n) => {
         return (
           n.product_image !== "" &&
@@ -67,12 +67,16 @@ function Groceries() {
         );
       });
       if (checkEmptyItems === true) {
-        handleSave();
+        if(isVietnamesePhoneNumber(order.phone) == false){
+        return toastifyError('Số điện thoại không đúng định dạng!');
+        }else{
+          handleSave();
+        }
       } else {
-        return alert(`please check input product !!!`);
+        return toastifyError(`Vui lòng nhập đầy đủ các trường có dấu (*)!`);
       }
     } else {
-      return alert(`please check input information !!!`);
+      return toastifyError(`Vui lòng nhập đầy đủ thông tin khách hàng!`);
     }
   };
   const [show, setShow] = useState(false);
@@ -158,16 +162,7 @@ function Groceries() {
     const val = [...list];
     val[i][e.target.name] = e.target.value;
     if (val[i]["product_price"] < 0) {
-      toast.warn("Vui lòng nhập lại đơn giá!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toastifyWarning('Đơn giá phải lớn hơn 0!')
       val[i]["product_price"] = "";
     }
       setTotalPriceALL(val, i)
@@ -182,6 +177,11 @@ function Groceries() {
     valOrder["user_id"] = user._id;
     valOrder["type"] = "order";
     valOrder["total"] = totalOrderCost;
+    if(valOrder["phone"] !== '' && isRegexNumber(valOrder["phone"]) == false){
+      valOrder["phone"] = "";
+      setOrder(valOrder);
+      return toastifyWarning('Số điện thoại phải là ký tự số!')
+    } 
     setOrder(valOrder);
   };
 
@@ -264,6 +264,14 @@ function Groceries() {
   const submit = (i) => {
     Confirm("Delete", "Bạn có chắc chắn muốn xóa không?", DeleteList, i);
   };
+
+  const isVietnamesePhoneNumber = (number) => {
+    return /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/.test(number);
+  }
+
+  const isRegexNumber = (number) => {
+    return /[0-9]\b/.test(number);
+  }
 
   return (
     <>

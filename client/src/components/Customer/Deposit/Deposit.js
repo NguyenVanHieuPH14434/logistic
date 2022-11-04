@@ -5,10 +5,10 @@ import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { Routes, Route, Navigate, Link, useParams, useSearchParams, useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { NumericFormat } from "react-number-format";
 
-import { Confirm, toastifyError } from "../../../lib/toastify";
+import { Confirm, toastifyError, toastifySuccess } from "../../../lib/toastify";
 import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../lib/shipFee";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { createDeposit, uploadFilesDeposit } from "../../../api/depositApi";
@@ -53,7 +53,11 @@ function Deposit() {
 
     var total = 0;
     for (var li of list) {
+       if(li.length > 1){
         total += li.tongTien;
+       }else {
+        total = li.tongTien;
+       }
     }
 
 
@@ -144,11 +148,31 @@ function Deposit() {
     }
     const res = await createDeposit(data);
     await uploadFilesDeposit(dataImg)
-
+    setList([{
+        image:[],
+        fileImage:[],
+        maVanDon:'',
+        nameSanPham:'',
+        soKien:'',
+        kgM3:0,
+        donGia:0,
+        phuPhi:0,
+        note: '',
+        tongTien:0
+    }])
+    setOrder({
+        full_name:'',
+        phone:'',
+        address:'',
+        address_TQ:'',
+        datCoc:0,
+        total:0
+      })
     console.log('response', res);
+    toastifySuccess("Tạo đơn ký gửi thành công!");
     setTimeout(() => {
-        navigate("/app/orderDeposit", { state: { data: list, order:order } });
-      }, 1000);
+      navigate("/app/orderDeposit", { state: { data: list, order:order } });
+    }, 1000);
   }
     console.log('listKy', list);
     console.log('listFile', files);
@@ -286,6 +310,7 @@ function Deposit() {
                                                 type="text"
                                                 placeholder="Mã vận đơn (*)"
                                                 name="maVanDon"
+                                                value={li.maVanDon}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
@@ -294,6 +319,7 @@ function Deposit() {
                                                 type="text"
                                                 placeholder="Tên sản phẩm (*)"
                                                 name="nameSanPham"
+                                                value={li.nameSanPham}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
@@ -302,6 +328,7 @@ function Deposit() {
                                                 type="text"
                                                 placeholder="Số kiện hàng"
                                                 name="soKien"
+                                                value={li.soKien}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
@@ -310,6 +337,7 @@ function Deposit() {
                                                 type="text"
                                                 name="kgM3"
                                                 placeholder="Số cân, số khối"
+                                                value={li.kgM3}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
@@ -318,6 +346,7 @@ function Deposit() {
                                                 type="text"
                                                 name="donGia"
                                                 placeholder="Đơn giá"
+                                                value={li.donGia}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
@@ -326,6 +355,7 @@ function Deposit() {
                                                 type="text"
                                                 name="phuPhi"
                                                 placeholder="Phụ phí"
+                                                value={li.phuPhi}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                         <NumericFormat
@@ -333,7 +363,7 @@ function Deposit() {
                                             type="text"
                                             disabled
                                             style={{ background: '#EDA82D', width:'596px'}}
-                                            value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
+                                            value={li.tongTien ? li.tongTien : 0}
                                             placeholder="Tổng"
                                             thousandSeparator=","
                                         ></NumericFormat>
@@ -349,6 +379,7 @@ function Deposit() {
                                         id=""
                                         cols="30"
                                         rows="10"
+                                        value={li.note}
                                         placeholder="Ghi chú sản phẩm..."
                                     ></textarea>{" "}
                                 </td>
@@ -381,7 +412,7 @@ function Deposit() {
                             <label htmlFor="" className="">
                                 <h5>Địa chỉ kho Trung Quốc</h5>
                             </label>
-                            <select name="address_TQ" id="" onChange={(e)=>changeInpOrder(e)} className="p-1 form-control">
+                            <select name="address_TQ"  value={order.address_TQ} id="" onChange={(e)=>changeInpOrder(e)} className="p-1 form-control">
                                 <option value="" className="text-center">
                                     --Lựa chọn kho--
                                 </option>
@@ -399,6 +430,7 @@ function Deposit() {
                                         type="text"
                                         name="full_name"
                                         onChange={(e)=>changeInpOrder(e)}
+                                        value={order.full_name}
                                         placeholder="Nhập Họ Tên"
                                     />
                                 </Row>
@@ -410,13 +442,14 @@ function Deposit() {
                                         className="customer-field"
                                         type="text"
                                         name="phone"
+                                        value={order.phone}
                                         onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Số Điện Thoại"
                                     />
                                 </Row>
                                 <Row>
                                     <Form.Label className="customer-title">Địa chỉ</Form.Label>
-                                    <Form.Select className="customer-field" name="address" onChange={(e)=>changeInpOrder(e)}>
+                                    <Form.Select className="customer-field" value={order.address} name="address" onChange={(e)=>changeInpOrder(e)}>
                                         <option>Vui Lòng Chọn Địa Chỉ</option>
                                         <option value="Hà Nội">Hà Nội</option>
                                         <option value="TP.HCM">TP.HCM</option>

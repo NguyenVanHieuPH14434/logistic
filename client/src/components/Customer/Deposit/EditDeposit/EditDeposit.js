@@ -1,54 +1,39 @@
 import "../Deposit.scss";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { Routes, Route, Navigate, Link, useParams, useSearchParams } from 'react-router-dom';
+import { Routes, Route, Navigate, Link, useParams, useSearchParams, useLocation } from 'react-router-dom';
 import { NumericFormat } from "react-number-format";
 
 import { Confirm, toastifyError } from "../../../../lib/toastify";
 import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../../lib/shipFee";
 import { AppContext } from "../../../../contexts/AppContextProvider";
-import { createDeposit, uploadFilesDeposit } from "../../../../api/depositApi";
+import { createDeposit, deltailDeposit, uploadFilesDeposit } from "../../../../api/depositApi";
 
 function EditDeposit() {
     const {state:{user}} = useContext(AppContext)
-    const [list, setList] = useState([
-        {
-            image:[],
-            fileImage:[],
-            maVanDon:'',
-            nameSanPham:'',
-            soKien:'',
-            kgM3:0,
-            donGia:0,
-            phuPhi:0,
-            note: '',
-            tongTien:0
-        }
+    const [list, setList] = useState([]);
+    const [order1, setOrder1] = useState({});
 
-    ]);
-
-
-    const handleOnClickAddMore = (e) => {
-        let newList = [...list];
-        newList = {
-            image:[],
-            fileImage:[],
-            maVanDon:'',
-            nameSanPham:'',
-            soKien:'',
-            kgM3:0,
-            donGia:0,
-            phuPhi:0,
-            note: '',
-            tongTien:0
-        };
-        setList([...list, newList]);
+    const locationState = useLocation();
+    const getDetail = async () => {
+        const res = await deltailDeposit(locationState.state.id);
+        return res;
     };
+    useEffect(() => {
+        getDetail().then((res) => {
+            setOrder1(res.data.data);
+            setList(res.data.data.depositItem);
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+   
+    console.log('state', list);
 
+    
     //In ra tổng tiền
 
     var total = 0;
@@ -239,7 +224,7 @@ function EditDeposit() {
                             <tr key={i}>
                                 <td > <span>{i + 1}</span></td>
                                 <td style={{ width: '100px' }} className="td_img">
-                                {li.fileImage.map((preview)=>{
+                                {li.image.map((preview)=>{
                                 return (
                                   <img
                                   style={{
@@ -247,7 +232,7 @@ function EditDeposit() {
                                     height: "64px",
                                     marginTop: "24px",
                                   }}
-                                  src={`${preview}`}
+                                  src={`http://localhost:9000/${preview}`}
                                 />
                                 )})} 
                               
@@ -284,6 +269,7 @@ function EditDeposit() {
                                                 type="text"
                                                 placeholder="Mã vận đơn (*)"
                                                 name="maVanDon"
+                                                value={li.maVanDon}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
@@ -292,6 +278,7 @@ function EditDeposit() {
                                                 type="text"
                                                 placeholder="Tên sản phẩm (*)"
                                                 name="nameSanPham"
+                                                value={li.nameSanPham}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
@@ -300,6 +287,7 @@ function EditDeposit() {
                                                 type="text"
                                                 placeholder="Số kiện hàng"
                                                 name="soKien"
+                                                value={li.soKien}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
@@ -307,6 +295,7 @@ function EditDeposit() {
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="kgM3"
+                                                value={li.kgM3}
                                                 placeholder="Số cân, số khối"
                                                 onChange={(e) => changeInp(e, i)}
                                             />
@@ -316,6 +305,7 @@ function EditDeposit() {
                                                 type="text"
                                                 name="donGia"
                                                 placeholder="Đơn giá"
+                                                value={li.donGia}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
@@ -323,6 +313,7 @@ function EditDeposit() {
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="phuPhi"
+                                                value={li.phuPhi}
                                                 placeholder="Phụ phí"
                                                 onChange={(e) => changeInp(e, i)}
                                             />
@@ -366,7 +357,7 @@ function EditDeposit() {
 
                 <div className="container d-flex justify-content-between mt-4">
                     <div className="form_custom">
-                        <div className="addMore">
+                        {/* <div className="addMore">
                             <button
                                 style={{ backgroundColor: "#8610e8", border: "none" }}
                                 className="py-2 px-1 rounded text-white form-control"
@@ -374,7 +365,7 @@ function EditDeposit() {
                             >
                                 + Thêm sản sản phẩm
                             </button>
-                        </div>
+                        </div> */}
                         <div className="address d-flex flex-column w-100">
                             <label htmlFor="" className="">
                                 <h5>Địa chỉ kho Trung Quốc</h5>

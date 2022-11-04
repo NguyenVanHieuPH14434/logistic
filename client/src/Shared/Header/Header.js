@@ -6,6 +6,7 @@ import { MdEmail } from "react-icons/md";
 import { AiOutlineBell } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import "./Header.scss";
+import "../../components/Customer/Deposit/listDeposit.scss"
 import LOGO from '../../assets/public/img/logo-logistic-footer.png';
 import { Dropdown } from "react-bootstrap";
 import { AppContext } from "../../contexts/AppContextProvider";
@@ -19,7 +20,7 @@ function Header() {
         naviagte('/login')
     }
     return (
-        <div className="Header">
+        <div className="Header noPrint">
             <Navbar expand="lg" className="navbar navbar-expand-lg">
                 <div className="logo">
                     <img src={LOGO} />

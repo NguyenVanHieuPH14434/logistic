@@ -1,182 +1,237 @@
-import React, { useState } from "react";
-import { Table } from "react-bootstrap";
+// import "./OrderDetailDeposit.scss";
+import React, { useEffect, useState } from "react";
+import Table from "react-bootstrap/Table";
 import { useLocation } from "react-router-dom";
+import { deltailOrder } from "../../../../api/orderApi";
+import { deltailDeposit } from "../../../../api/depositApi";
+import { NumericFormat } from "react-number-format";
 import "./orderDeposit.scss";
 import LOGO from "../../../../assets/public/img/logo_login.png";
-import { NumericFormat } from "react-number-format";
-
+// import { NumericFormat } from "react-number-format";
 
 export default function OrderDeposit() {
   const location = useLocation();
-  const [orderCode, setOrderCode] = useState("#6969696969");
-  const [orderDate, setOrderDate] = useState("25/10/2099");
-  const [orderSeller, setOrderSeller] = useState("Meo");
-  const [list2, setList2] = useState(location.state ? location.state.data : "");
-  const [order2, setOrder2] = useState(
-    location.state ? location.state.order : ""
-  );
-  const total = location.state ? location.state.total : ""
-  console.log("order2", order2);
+  console.log("ss", location.state.id);
+  const [list, setList] = useState(location.state ? location.state.data : "");
+  let newDate = new Date();
+  let date =
+    newDate.getDate() < 10 ? "0" + newDate.getDate() : newDate.getDate();
+  let month =
+    newDate.getMonth() + 1 < 10
+      ? "0" + (newDate.getMonth() + 1)
+      : newDate.getMonth() + 1;
+  let year = newDate.getFullYear();
+
+  function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
 
   return (
-    <div className="order_groceries">
+    <div className="OrderDetailGroceries">
       <div className="d-flex justify-content-between">
-        <img src={LOGO} alt="" />
+        <img style={{width: '300px', height: '112px'}} src={LOGO} alt="" />
         <div className="company_information">
           <h3>Công ty TNHH 1 con Mèo</h3>
           <div className="d-flex">
             <i className="fa-solid fa-location-dot mt-1"></i>
-            <p className="ms-1">
+            <p style={{margin: '0'}} className="ms-1">
               Địa chỉ: Tầng 22, Tòa nhà NB902, P.Thành Thái, Q.Cầu Giấy, HN
             </p>
           </div>
-          <p>ĐT Hotline: 0333 333 333</p>
-          <p>Website: meomeo@meow.com</p>
+          <p style={{margin: '0'}}>ĐT Hotline: 0333 333 333</p>
+          <p style={{margin: '0'}}>Website: meomeo@meow.com</p>
         </div>
       </div>
       <h1>THANH TOÁN ĐƠN HÀNG</h1>
-      <div className="order_information d-flex">
-        <div className="order_label mb-3">
-          <p>
-            Tên khách hàng:
-            <span className="order_code"> {order2.full_name} </span>{" "}
-          </p>
-          <p>
-            Số điện thoại:<span className="order_code"> {order2.phone} </span>{" "}
-          </p>
-          <p>
-            Địa chỉ:<span className="order_code"> {order2.address} </span>{" "}
-          </p>
-        </div>
+      <p style={{margin: '0'}}>Tên khách hàng: {location.state.order.full_name}</p>
+      <div
+        className="location"
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <i className="fa-solid me-2 fa-location-dot"></i>
+        <span>Địa chỉ nhận hàng: {location.state.order.address}</span>
       </div>
-      <div className="product_information">
-        <Table striped bordered hover size="lg">
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Ảnh Sản Phẩm</th>
-              <th>Thuộc tính</th>
-              <th>Đơn giá</th>
-              <th>Số lượng</th>
-              <th>Ghi chú</th>
-              <th>Thành tiền</th>
-            </tr>
-          </thead>
-          <tbody>
-            {list2 &&
-              list2.map((li, i) => (
-                <tr key={i}>
-                  <td className="pt-5">
-                    {" "}
-                    {i + 1} <br />
-                  </td>
-                  <td>
-                    <img
-                      style={{
-                        width: "96px",
-                        height: "64px",
-                        marginTop: "24px",
-                      }}
-                      src={
-                        li.fileImage ? URL.createObjectURL(li.fileImage) : ""
-                      }
-                    />
-                  </td>
-                  <td>
+      <p style={{margin: '0'}}>Số điện thoại: {location.state.order.phone}</p>
+      <p style={{margin: '0'}}>Tổng tiền thanh toán: {formatNumber(location.state.order.total)} đ</p>
+      <br />
+      <Table striped bordered hover size="lg">
+        <thead>
+          <tr>
+            <th style={{ width: "5%" }}>STT</th>
+            <th>Ảnh Sản Phẩm</th>
+            {/* <th>Tên thuộc tính</th> */}
+            <th>Thông tin hàng hóa</th>
+            <th>Ghi chú</th>
+          </tr>
+        </thead>
+        <tbody>
+          {list &&
+            list.map((li, i) => (
+              <tr key={i}>
+                <td>
+                  {" "}
+                  <span>{i + 1}</span>
+                </td>
+                {/* <td  className="td_img col-1"> */}
+                <td style={{ width: "15%" }}>
+                  <div>
+                    {li.fileImage.map((preview) => {
+                      return (
+                        <img
+                          style={{
+                            width: "96px",
+                            height: "64px",
+                            marginTop: "24px",
+                          }}
+                          alt=""
+                          src={preview}
+                        />
+                      );
+                    })}
+                  </div>
+                </td>
+                <td className="td_productInformation " style={{ width: "50%" }}>
+                  <div
+                    style={{ padding: "0 10px" }}
+                    className="d-flex justify-content-between"
+                  >
+                    <label className="text-start me-2 mt-2 w-25">
+                      Mã vận đơn:{" "}
+                    </label>
                     <input
                       disabled
-                      className="w-100 form-control"
+                      className="w-100 mt-1 form-control"
                       type="text"
-                      name="product_name"
-                      value={li.product_name ? li.product_name : ""}
-                      placeholder="Tên sản phẩm"
+                      placeholder="Mã vận đơn (*)"
+                      name="maVanDon"
+                      value={li.maVanDon}
                     />
-                    <textarea
-                      disabled
-                      className="mt-2 attribute w-100 form-control"
-                      type="text"
-                      name="attribute"
-                      value={li.attribute ? li.attribute : ""}
-                      placeholder="Màu sắc, size, kích thước"
-                    ></textarea>
+                  </div>
+                  <div
+                    style={{ padding: "0 10px" }}
+                    className="d-flex justify-content-between"
+                  >
+                    <label className="text-start me-2 mt-2 w-25">
+                      Tên sản phẩm:{" "}
+                    </label>
                     <input
-                      disabled
-                      className="w-100 form-control mt-2"
+                      className="w-100 mt-1 form-control"
                       type="text"
-                      name="product_link"
-                      value={li.product_link ? li.product_link : ""}
-                      placeholder="Link sản phẩm"
-                    />
-                  </td>
-                  <td className="pt-5">
-                    {" "}
-                    <NumericFormat
+                      placeholder="Tên sản phẩm (*)"
+                      name="nameSanPham"
+                      value={li.nameSanPham}
                       disabled
-                      style={{
-                        border: "none",
-                        backgroundColor: "none",
-                        width: "100%",
-                      }}
-                      type="text"
-                      name="product_price"
-                      value={li.product_price ? li.product_price : ""}
-                      thousandSeparator=","
                     />
-                  </td>
-                  <td className="soLuong">
-                    <div className="d-flex soLuong">
-                      <input
-                        disabled
-                        className="value border border-none w-50 px-3 text-center"
-                        type="text"
-                        value={li.quantity ? li.quantity : ""}
-                        name="quantity"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    {" "}
-                    <textarea
-                    disabled
-                      className="ghi_chu"
-                      name="note"
-                      id=""
-                      cols="30"
-                      rows="10"
-                      value={li.note ? li.note : ""}
-                      placeholder="Ghi chú sản phẩm..."
-                    ></textarea>{" "}
-                  </td>
-                  <td className="pt-5">
-                    <p className="">
-                      <NumericFormat
-                        disabled={true}
-                        style={{
-                          border: "none",
-                          backgroundColor: "none",
-                          width: "100%",
-                        }}
-                        value={li.total_price ? li.total_price : ""}
-                        thousandSeparator=","
-                      />{" "}
-                    </p>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <th colSpan='5'>
-                Tổng tiền thanh toán
+                  </div>
 
-              </th>
-              <th colSpan='2'>
-                {total}
-              </th>
-            </tr>
-          </tfoot>
-        </Table>
-      </div>
+                  <div
+                    style={{ padding: "0 10px" }}
+                    className="d-flex justify-content-between"
+                  >
+                    <label className="text-start me-2 mt-2 w-25">
+                      Số kiện hàng:{" "}
+                    </label>
+                    <input
+                      className="w-100 mt-1 form-control"
+                      type="text"
+                      placeholder="Số kiện hàng"
+                      name="soKien"
+                      value={li.soKien}
+                      disabled
+                    />
+                  </div>
+
+                  <div
+                    style={{ padding: "0 10px" }}
+                    className="d-flex justify-content-between"
+                  >
+                    <label className="text-start me-2 mt-2 w-25">
+                      Số cân, số khối:{" "}
+                    </label>
+                    <input
+                      className="w-100 mt-1 form-control"
+                      type="text"
+                      name="kgM3"
+                      placeholder="Số cân, số khối"
+                      value={li.kgM3}
+                      disabled
+                    />
+                  </div>
+
+                  <div
+                    style={{ padding: "0 10px" }}
+                    className="d-flex justify-content-between"
+                  >
+                    <label className="text-start me-2 mt-2 w-25">
+                      Đơn giá:{" "}
+                    </label>
+                    <NumericFormat
+                      className="w-100 mt-1 form-control"
+                      type="text"
+                      name="donGia"
+                      placeholder="Đơn giá"
+                      value={li.donGia}
+                      thousandSeparator=","
+                      disabled
+                    />
+                  </div>
+
+                  <div
+                    style={{ padding: "0 10px" }}
+                    className="d-flex justify-content-between"
+                  >
+                    <label className="text-start me-2 mt-2 w-25">
+                      Phụ phí:{" "}
+                    </label>
+                    <NumericFormat
+                      className="w-100 mt-1 form-control"
+                      type="text"
+                      name="phuPhi"
+                      placeholder="Phụ phí"
+                      value={li.phuPhi}
+                      thousandSeparator=","
+                      disabled
+                    />
+                  </div>
+                  <div
+                    style={{ padding: "0 10px" }}
+                    className="d-flex justify-content-between"
+                  >
+                    <label className="text-start me-2 mt-2 w-25" htmlFor="">
+                      Tổng tiền:{" "}
+                    </label>
+                    <NumericFormat
+                      className="w-100 text-center mx-auto form-control mt-1"
+                      type="text"
+                      disabled
+                      style={{ background: "#EDA82D" }}
+                      value={li.tongTien}
+                      placeholder="Tổng tiền thanh toán"
+                      thousandSeparator=","
+                    ></NumericFormat>
+                  </div>
+                </td>
+
+                <td style={{ width: "35%", padding: "10px 15px" }}>
+                  {" "}
+                  <textarea
+                    className="form-control"
+                    disabled
+                    name="note"
+                    id=""
+                    cols="30"
+                    rows="10"
+                    value={li.note}
+                    placeholder="Ghi chú sản phẩm..."
+                  ></textarea>{" "}
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </Table>
 
       <h6 className="mt-5">
         Cộng thành tiền (Viết bằng chữ):

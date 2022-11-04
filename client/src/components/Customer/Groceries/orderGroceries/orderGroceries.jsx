@@ -114,8 +114,8 @@ export default function OrderGroceries() {
                       disabled
                       style={{
                         border: "none",
-                        backgroundColor: "none",
-                        width: "100%",
+                        backgroundColor: "white"
+                     
                       }}
                       type="text"
                       name="product_price"
