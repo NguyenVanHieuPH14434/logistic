@@ -20,10 +20,10 @@ export default function OrderGroceries() {
 
   return (
     <div className="order_groceries">
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between d-none">
         <img src={LOGO} alt="" />
         <div className="company_information">
-          <h3>Công ty TNHH 1 con Mèo</h3>
+          <h5>Công ty TNHH 1 con Mèo</h5>
           <div className="d-flex">
             <i className="fa-solid fa-location-dot mt-1"></i>
             <p className="ms-1">
@@ -198,7 +198,7 @@ export default function OrderGroceries() {
         </div>
       </div>
       <div className="capture text-end">
-        <button onClick={(e) => window.print()} style={{border: 'none'}} className="p-2">Dowload</button>
+        <button onClick={(e) => window.print()} style={{border: 'none',background: '#9470d4'}} className="p-2">Dowload</button>
       </div>
     </div>
   );
