@@ -197,6 +197,9 @@ export default function OrderGroceries() {
           <p>(Ký, ghi rõ họ tên)</p>
         </div>
       </div>
+      <div className="capture text-end">
+        <button onClick={(e) => window.print()} style={{border: 'none'}} className="p-2">Dowload</button>
+      </div>
     </div>
   );
 }
