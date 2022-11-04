@@ -7,60 +7,60 @@ import { useLocation } from "react-router-dom";
 
 export default function OrderGroceries() {
   const location = useLocation();
-  const [orderCode, setOrderCode] = useState("#6969696969");
-  const [orderDate, setOrderDate] = useState("25/10/2099");
-  const [orderSeller, setOrderSeller] = useState("Meo");
+  
   const [list2, setList2] = useState(location.state?location.state.data:'');
 
   return (
     <div className="order_groceries">
       <h1>THANH TOÁN ĐƠN HÀNG</h1>
-      {/* {newList.map((li, i) => {
-        return <div>{li.product_name}</div>;
-      })} */}
-      <p>Xin chào Nguyễn Anh D Thiện</p>
+      <p>Xin chào: {location.state.order.full_name}!</p>
       <p>
-        Đơn hàng <span className="order_code"> {orderCode} </span> của bạn đã
-        được đặt thành công trong ngày <span> {orderDate} </span>
+        Đơn hàng <span className="order_code"></span> của bạn đã được đặt thành
+        công 
       </p>
-      <div className="location">
-        <i className="fa-solid fa-location-dot"></i>
-        <p>Địa chỉ nhận hàng</p>
+      <div
+        className="location mb-3"
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <i className="fa-solid me-2 fa-location-dot"></i>
+        <span>Địa chỉ nhận hàng: {location.state.order.address}</span>
       </div>
-      <h3>THÔNG TIN ĐƠN HÀNG - DÀNH CHO NGƯỜI MUA</h3>
-      <div className="order_information d-flex">
-        <div className="order_label">
-          <p>
-            Mã đơn hàng:<span className="order_code"> {orderCode} </span>{" "}
-          </p>
-          <p>Ngày đặt hàng: {orderDate} </p>
-          <p>Người bán: {orderSeller} </p>
-        </div>
-      </div>
-      <div className="product_information">
-        <Table striped bordered hover size="lg">
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Ảnh Sản Phẩm</th>
-              <th>Thuộc tính</th>
-              <th>Đơn giá</th>
-              <th>Số lượng</th>
-              <th>Ghi chú</th>
-              <th>Thành tiền</th>
-            </tr>
-          </thead>
-          <tbody>
-            {list2&&list2.map((li, i) => (
+        <p >Số điện thoại: {location.state.order.phone}</p>
+        <p >Số tiền cọc: {location.state.order.datCoc} đ</p>
+        <p >Tổng tiền thanh toán: <span><NumericFormat
+                      disabled={true}
+                      style={{
+                        border: "none",
+                        backgroundColor: "white",
+                      }}
+                     
+                      value={location.state.order.total}
+                      thousandSeparator=","
+                    /></span>đ</p><br />
+      <Table style={{ backgroundColor: "white" }} bordered hover size="lg">
+        <thead style={{ backgroundColor: "#8610e8", color:'white'}}>
+          <tr>
+            <th>STT</th>
+            <th>Ảnh Sản Phẩm</th>
+            <th>Thuộc tính</th>
+            <th>Đơn giá</th>
+            <th>Số lượng</th>
+            <th>Ghi chú</th>
+            <th>Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          {list2&&list2.map((li, i) => {
+            return (
               <tr key={i}>
                 <td className="pt-5">
                   {" "}
                   {i + 1} <br />
-                  <span style={{ cursor: "pointer" }}>
-                    <i className="fa-solid fa-circle-xmark"></i>
-                  </span>
                 </td>
-                <td>
+                <td style={{ maxWidth: "150px" }}>
                   <img
                     style={{
                       width: "96px",
@@ -70,84 +70,188 @@ export default function OrderGroceries() {
                     src={li.fileImage?URL.createObjectURL(li.fileImage):''}
                   />
                 </td>
-                <td>
-                  <input
-                    className="w-100"
-                    type="text"
-                    name="product_name"
-                    value={li.product_name ? li.product_name : ""}
-                    placeholder="Tên sản phẩm"
-                  />
-                  <textarea
-                    className="mt-2 attribute w-100"
-                    type="text"
-                    name="attribute"
-                    value={li.attribute ? li.attribute : ""}
-                    placeholder="Màu sắc, size, kích thước"
-                  ></textarea>
-                  <input
-                    className="w-100"
-                    type="text"
-                    name="product_link"
-                    value={li.product_link ? li.product_link : ""}
-                    placeholder="Link sản phẩm"
-                  />
-                </td>
-                <td className="pt-5">
-                  {" "}
-                  <NumericFormat
+                <td className="" sytle={{ with: "35%" }}>
+                  <div
                     style={{
-                      border: "none",
-                      backgroundColor: "none",
-                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     }}
-                    type="text"
-                    name="product_price"
-                    value={li.product_price ? li.product_price : ""}
-                    thousandSeparator=","
-                  />
-                </td>
-                <td className="soLuong">
-                  <div className="d-flex soLuong">
+                  >
+                    <label htmlFor="">Tên SP:</label>
                     <input
-                      className="value border w-50 border-dark px-3 text-center"
+                      disabled
+                      className="w-75 form-control"
                       type="text"
-                      value={li.quantity ? li.quantity:""}
-                      name="quantity"
+                      name="product_name"
+                      value={li.product_name ? li.product_name : ""}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Màu sắc, size:</label>
+                    <textarea
+                      disabled
+                      className="mt-2 attribute w-75 form-control"
+                      type="text"
+                      name="attribute"
+                      value={li.attribute ? li.attribute : ""}
+                    ></textarea>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Link SP:</label>
+                    <input
+                      disabled
+                      className="w-75 form-control mt-2"
+                      type="text"
+                      name="product_link"
+                      value={li.product_link ? li.product_link : ""}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Giá SP:</label>
+                    <NumericFormat
+                      disabled
+                      className="w-75 form-control mt-2"
+                      type="text"
+                      name="product_price"
+                      value={li.product_price ? li.product_price : ""}
+                      // value={li.price}
+                      thousandSeparator=","
+                      min="1"
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Mã vận đơn:</label>
+                    <input
+                      disabled
+                      className="w-75 form-control mt-2"
+                      type="text"
+                      placeholder="Mã vận đơn (*)"
+                      name="maVanDon"
+                      value={li.maVanDon}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Số kiện hàng:</label>
+                    <input
+                      disabled
+                      className="w-75 form-control mt-2"
+                      type="text"
+                      placeholder="Số kiện hàng"
+                      name="soKien"
+                      value={li.soKien}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Số cân, số khối:</label>
+                    <input
+                      disabled
+                      className="w-75 form-control mt-2"
+                      type="text"
+                      name="kgM3"
+                      value={li.kgM3}
+                      placeholder="Số cân, số khối"
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">gia vận chuyển:</label>
+                    <input
+                      disabled
+                      className="w-75 form-control mt-2"
+                      type="text"
+                      name="donGia"
+                      value={li.donGia}
+                      placeholder="Cước vận chuyển"
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Phụ phí:</label>
+                    <input
+                      disabled
+                      className="w-75 form-control mt-2"
+                      type="text"
+                      name="phuPhi"
+                      value={li.phuPhi}
+                      placeholder="Phụ phí"
                     />
                   </div>
                 </td>
+                <td className="pt-5">
+                  {li.product_price ? li.product_price : ""}
+                </td>
+                <td className="soLuong">
+                  <div className="d-flex soLuong">{li.quantity}</div>
+                </td>
                 <td>
                   {" "}
-                  <textarea
-                    className="ghi_chu"
-                    name="note"
-                    id=""
-                    cols="30"
-                    rows="10"
-                    value={li.note ? li.note : ""}
-                    placeholder="Ghi chú sản phẩm..."
-                  ></textarea>{" "}
+                  <div className="d-flex soLuong">{li.note ? li.note : ""}</div>
                 </td>
                 <td className="pt-5">
-                  <p className="">
-                    <NumericFormat
+                  <p className=""><NumericFormat
                       disabled={true}
                       style={{
                         border: "none",
-                        backgroundColor: "none",
-                        width: "100%",
+                        backgroundColor: "white"
+                     
                       }}
-                      value={li.total_price ? li.total_price :""}
+                     
+                      value={li.total_price} 
                       thousandSeparator=","
-                    />{" "}
-                  </p>
+                    /></p>
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </div>
+            );
+          })}
+        </tbody>
+      </Table>
     </div>
   );
 }

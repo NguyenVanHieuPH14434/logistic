@@ -11,7 +11,7 @@ export namespace Order_item_Schema {
         quantity:string;
         product_price:number;
         note:any;
-        maVanDon?:string,
+        maVanDon:string,
         soKien:number,
         kgM3:number,
         donGia:number,
@@ -30,7 +30,7 @@ export namespace Order_item_Schema {
         quantity:string;
         product_price:number;
         note:any;
-        maVanDon?:string,
+        maVanDon:string,
         soKien:number,
         kgM3:number,
         donGia:number,

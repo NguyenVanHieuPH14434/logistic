@@ -120,19 +120,19 @@
             margin-left: -100px;
         }
     }
+    .Header .navbar .dropdown-menu .dropdown-item {
+        border-bottom: 0.005em solid rgba(255, 255, 255, 0.1);
+        color: white;
+        top: 43px;
+        background: #9470d4;
+        right: -10px;
+        width: 162px !important;
+    }
     .Header .navbar .end .dropdown-toggle .icon2 {
         background: none !important;
         border: none !important;
         outline: none !important;
         font-size: 19px;
-    }
-    .Header .dropdown-menu .dropdown-item {
-        border-bottom: 0.005em solid rgba(255, 255, 255, 0.1);
-        color: white;
-        top: 43px;
-        background: #000;
-        right: -10px;
-        width: 80px !important;
     }
     .Header .navbar .end .icon1 {
         font-size: 21px;

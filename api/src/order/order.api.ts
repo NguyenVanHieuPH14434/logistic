@@ -111,28 +111,34 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
 
     //update deposit and deposit item
     router.post('/deposit/update/:_id', async(req, res)=>{
-        // const params:OrderSchema.UpdateOrderParams={
-        //     full_name: req.body.deposit.full_name,
-        //     phone: req.body.deposit.phone,
-        //     address: req.body.deposit.address,
-        //     type: req.body.deposit.type,
-        //     address_TQ: req.body.deposit.address_TQ ? req.body.deposit.address_TQ : '',
-        //     status: req.body.deposit.status?req.body.deposit.status:0,
-        //     total: req.body.deposit.total,
-        // }
+        const params:OrderSchema.UpdateOrderParams={
+            full_name: req.body.deposit.full_name,
+            phone: req.body.deposit.phone,
+            address: req.body.deposit.address,
+            datCoc: req.body.deposit.datCoc,
+            address_TQ: req.body.deposit.address_TQ ? req.body.deposit.address_TQ : '',
+            status: req.body.deposit.status?req.body.deposit.status:0,
+            total: req.body.deposit.total,
+        }
 
-        // const paramsItem = req.body.depositItem;
+        const paramsItem = req.body.depositItem;
 
-        // const depo = await orderController.UpdateOrder(req.params._id,params);
+        const depo = await orderController.UpdateOrder(req.params._id,params);
+        const depoItem = await depositItemController.UpdateDeposit(paramsItem);
         // const depoItem = await depositItemController.UpdateDeposit(paramsItem)
         // return res.json({
         //     deposit: depo,
         //     depositItem: depoItem
         // })
-        console.log('pa',req.body.deposit);
-        console.log('ite',req.body.depositItem);
+        // console.log('pa',req.body.deposit);
+        // console.log('ite',req.body.depositItem);
+
+        const data = {
+            depo:req.body.deposit,
+            depoItem:depoItem
+        }
         
-        res.json({depo:req.body.deposit, depoItem:req.body.depositItem})
+       return res.json(data)
     })
 
     return router;

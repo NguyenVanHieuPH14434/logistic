@@ -174,7 +174,6 @@ export default function ListDeposit() {
         </li>
       </ul>
       <hr />
-
       <div className="container calender">
         <div className="calendar_from">
           <span>Form: </span>

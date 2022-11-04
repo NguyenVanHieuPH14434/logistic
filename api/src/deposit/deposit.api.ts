@@ -8,6 +8,7 @@ function NewDepositAPI(depoControll:DepositController){
    
     router.post('/update', async(req, res)=>{
         const params = req.body.depositItem
+        // res.json({'pa': params})
         const data = await depoControll.UpdateDeposit(params)
         return res.json({data:data})
     })
