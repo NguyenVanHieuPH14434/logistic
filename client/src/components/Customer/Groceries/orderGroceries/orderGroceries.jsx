@@ -15,6 +15,7 @@ export default function OrderGroceries() {
   const [order2, setOrder2] = useState(
     location.state ? location.state.order : ""
   );
+  const total = location.state ? location.state.total : ""
   console.log("order2", order2);
 
   return (
@@ -34,9 +35,8 @@ export default function OrderGroceries() {
         </div>
       </div>
       <h1>THANH TOÁN ĐƠN HÀNG</h1>
-      <h2>THÔNG TIN ĐƠN HÀNG - DÀNH CHO NGƯỜI MUA</h2>
       <div className="order_information d-flex">
-        <div className="order_label ms-5">
+        <div className="order_label mb-3">
           <p>
             Tên khách hàng:
             <span className="order_code"> {order2.full_name} </span>{" "}
@@ -48,14 +48,6 @@ export default function OrderGroceries() {
             Địa chỉ:<span className="order_code"> {order2.address} </span>{" "}
           </p>
         </div>
-        {list2.map((li, i) => (
-          <div className="order_label ms-5" key={i}>
-            <p>
-              Tên sản phẩm:
-              <span className="order_code"> {li.product_name}</span>{" "}
-            </p>
-          </div>
-        ))}
       </div>
       <div className="product_information">
         <Table striped bordered hover size="lg">
@@ -77,9 +69,6 @@ export default function OrderGroceries() {
                   <td className="pt-5">
                     {" "}
                     {i + 1} <br />
-                    <span style={{ cursor: "pointer" }}>
-                      <i className="fa-solid fa-circle-xmark"></i>
-                    </span>
                   </td>
                   <td>
                     <img
@@ -148,6 +137,7 @@ export default function OrderGroceries() {
                   <td>
                     {" "}
                     <textarea
+                    disabled
                       className="ghi_chu"
                       name="note"
                       id=""
@@ -174,6 +164,17 @@ export default function OrderGroceries() {
                 </tr>
               ))}
           </tbody>
+          <tfoot>
+            <tr>
+              <th colSpan='5'>
+                Tổng tiền thanh toán
+
+              </th>
+              <th colSpan='2'>
+                {total}
+              </th>
+            </tr>
+          </tfoot>
         </Table>
       </div>
 

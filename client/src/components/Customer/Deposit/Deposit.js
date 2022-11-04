@@ -5,7 +5,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { Routes, Route, Navigate, Link, useParams, useSearchParams } from 'react-router-dom';
+import { Routes, Route, Navigate, Link, useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { NumericFormat } from "react-number-format";
 
 import { Confirm, toastifyError } from "../../../lib/toastify";
@@ -13,6 +13,7 @@ import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOff
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { createDeposit, uploadFilesDeposit } from "../../../api/depositApi";
 function Deposit() {
+    const navigate = useNavigate();
     const {state:{user}} = useContext(AppContext)
     const [list, setList] = useState([
         {
@@ -145,7 +146,9 @@ function Deposit() {
     await uploadFilesDeposit(dataImg)
 
     console.log('response', res);
-    alert('ok');
+    setTimeout(() => {
+        navigate("/app/orderDeposit", { state: { data: list, order:order } });
+      }, 1000);
   }
     console.log('listKy', list);
     console.log('listFile', files);
