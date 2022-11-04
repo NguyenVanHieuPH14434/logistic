@@ -13,7 +13,7 @@ export class DepositController {
         const nowFormatIMG = now.format('DDMMYYYY');
         const deposit:DepositSchema.Deposit = params.map((item:any)=>({
             _id: DepositSchema.Generate.NewDepositId(),
-            image: item.image.map((it:any)=> Commons.folderImageDeposit+ nowFormatIMG + '_' +it),
+            image: item.image?item.image.map((it:any)=> Commons.folderImageDeposit+ nowFormatIMG + '_' +it):item.image,
             deposit_id:depoId,
             maVanDon: item.maVanDon,
             nameSanPham: item.nameSanPham,

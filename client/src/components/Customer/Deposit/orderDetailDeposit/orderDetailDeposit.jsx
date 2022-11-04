@@ -4,6 +4,7 @@ import Table from "react-bootstrap/Table";
 import { useLocation } from "react-router-dom";
 import { deltailOrder } from "../../../../api/orderApi";
 import { deltailDeposit } from "../../../../api/depositApi";
+import "../listDeposit.scss"
 import { NumericFormat } from "react-number-format";
 
 export default function OrderDetailDeposit() {
@@ -26,7 +27,7 @@ export default function OrderDetailDeposit() {
     console.log("item", item);
 
     return (
-        <div className="OrderDetailGroceries">
+        <div className="OrderDetailGroceries ">
             <h3 className="mt-3 text-center">
                 THÔNG TIN ĐƠN HÀNG - DÀNH CHO NGƯỜI MUA
             </h3>
@@ -224,6 +225,8 @@ export default function OrderDetailDeposit() {
                     ))}
                 </tbody>
             </Table>
+      <h3><button className="noPrint btn btn-primary" onClick={(e)=>window.print()}>Print</button></h3>
+
         </div>
     );
 }
