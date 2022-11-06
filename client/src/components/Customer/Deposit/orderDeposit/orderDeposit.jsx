@@ -29,7 +29,7 @@ export default function OrderDeposit() {
   return (
     <div className="OrderDetailGroceries">
       <div className="d-flex justify-content-between">
-        <img style={{width: '300px', height: '112px'}} src={LOGO} alt="" />
+        <img style={{width: '200px', height: '112px'}} src={LOGO} alt="" />
         <div className="company_information">
           <h3>Công ty TNHH 1 con Mèo</h3>
           <div className="d-flex">

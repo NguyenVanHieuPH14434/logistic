@@ -18,9 +18,16 @@ export default function OrderGroceries() {
   const total = location.state ? location.state.total : ""
   console.log("order2", order2);
 
+  const [show, setShow] = useState('d-block')
+
+  const handleOnCLickDownload = (e) =>{
+    // setShow('d-block')
+    window.print()
+    // setShow('d-none')
+  }
   return (
     <div className="order_groceries">
-      <div className="d-flex justify-content-between d-none">
+      <div className={`d-flex justify-content-between ${show}`}>
         <img src={LOGO} alt="" />
         <div className="company_information">
           <h5>Công ty TNHH 1 con Mèo</h5>
@@ -198,7 +205,7 @@ export default function OrderGroceries() {
         </div>
       </div>
       <div className="capture text-end">
-        <button onClick={(e) => window.print()} style={{border: 'none',background: '#9470d4'}} className="p-2">Dowload</button>
+        <button onClick={(e) => handleOnCLickDownload(e)} style={{border: 'none',background: '#9470d4'}} className="p-2">Dowload</button>
       </div>
     </div>
   );
