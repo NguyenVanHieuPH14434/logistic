@@ -67,7 +67,7 @@ function Groceries() {
         );
       });
       if (checkEmptyItems === true) {
-        if(isVietnamesePhoneNumber(order.phone) == false){
+        if(isVietnamesePhoneNumber(order.phone) === false){
         return toastifyError('Số điện thoại không đúng định dạng!');
         }else{
           handleSave();
@@ -79,10 +79,6 @@ function Groceries() {
       return toastifyError(`Vui lòng nhập đầy đủ thông tin khách hàng!`);
     }
   };
-  const [show, setShow] = useState(false);
-  // Danh sách các sản phẩm
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   // Nút thêm sản phẩm
   const handleOnIncrease = (i, e) => {
