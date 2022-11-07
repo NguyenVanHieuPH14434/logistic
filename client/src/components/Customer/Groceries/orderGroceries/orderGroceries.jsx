@@ -5,6 +5,7 @@ import { NumericFormat } from "react-number-format";
 import "./orderGroceries.scss";
 import { useLocation } from "react-router-dom";
 import LOGO from "../../../../assets/public/img/logo_login.png";
+import { DocTienBangChu } from "../../../../lib/shipFee";
 
 export default function OrderGroceries() {
   const location = useLocation();
@@ -15,16 +16,19 @@ export default function OrderGroceries() {
   const [order2, setOrder2] = useState(
     location.state ? location.state.order : ""
   );
-  const total = location.state ? location.state.total : ""
+  const total = location.state ? location.state.total : "";
   console.log("order2", order2);
 
-  const [show, setShow] = useState('d-block')
+  const [show, setShow] = useState("d-block");
 
-  const handleOnCLickDownload = (e) =>{
+  const handleOnCLickDownload = (e) => {
     // setShow('d-block')
-    window.print()
+    window.print();
     // setShow('d-none')
-  }
+  };
+  const a = DocTienBangChu(total);
+
+  console.log(a);
   return (
     <div className="order_groceries">
       <div className={`d-flex justify-content-between ${show}`}>
@@ -121,8 +125,7 @@ export default function OrderGroceries() {
                       disabled
                       style={{
                         border: "none",
-                        backgroundColor: "white"
-                     
+                        backgroundColor: "white",
                       }}
                       type="text"
                       name="product_price"
@@ -144,7 +147,7 @@ export default function OrderGroceries() {
                   <td>
                     {" "}
                     <textarea
-                    disabled
+                      disabled
                       className="ghi_chu"
                       name="note"
                       id=""
@@ -173,21 +176,16 @@ export default function OrderGroceries() {
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan='5'>
-                Tổng tiền thanh toán
-
-              </th>
-              <th colSpan='2'>
-                {total}
-              </th>
+              <th colSpan="5">Tổng tiền thanh toán</th>
+              <th colSpan="2">{total}</th>
             </tr>
           </tfoot>
         </Table>
       </div>
 
       <h6 className="mt-5">
-        Cộng thành tiền (Viết bằng chữ):
-        ................................................................................................................................................................................................................................................
+        Cộng thành tiền (Viết bằng chữ): 
+        {DocTienBangChu(total)}
       </h6>
 
       <div className="text-end mt-5 me-4">
@@ -205,7 +203,13 @@ export default function OrderGroceries() {
         </div>
       </div>
       <div className="capture text-end">
-        <button onClick={(e) => handleOnCLickDownload(e)} style={{border: 'none',background: '#9470d4'}} className="p-2">Dowload</button>
+        <button
+          onClick={(e) => handleOnCLickDownload(e)}
+          style={{ border: "none", background: "#9470d4" }}
+          className="p-2"
+        >
+          Dowload
+        </button>
       </div>
     </div>
   );
