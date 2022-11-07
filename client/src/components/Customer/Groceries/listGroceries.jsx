@@ -88,7 +88,7 @@ export default function ListGroceries() {
       `http://localhost:9000/api/order/list/${user._id}?type=order`
     );
     const info = response.data.data;
-    console.log(info);
+    console.log('ìno', info);
     setListt(info);
     setLists(info);
   }

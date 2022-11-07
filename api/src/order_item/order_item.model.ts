@@ -13,6 +13,11 @@ export class OrderItemModel {
         return docs;
     }
 
+    async UpdateOrderItem (orderItem:any) {
+        const doc = await this.col_orderItem.updateOne({_id:orderItem._id}, {$set:orderItem});
+        return doc;
+    }
+
     async ListOrderItem (_id:string){
         const docs = await this.col_orderItem.find({order_id:_id}).toArray();
         return docs;

@@ -2,13 +2,16 @@ import { Commons } from './../common/common';
 import dayjs from 'dayjs';
 import { DepositSchema } from './deposit';
 import { DepositModel } from './deposit.model';
+
+const now = dayjs();
+const nowFormatIMG = now.format('DDMMYYYY');
 export class DepositController {
     constructor(private model:DepositModel){}
 
     async init () {}
 
     async CreateDeposit (depoId:string, params:any){
-        const now = dayjs();
+        // const now = dayjs();
         const nowFormat = now.format('DD/MM/YYYY');
         const nowFormatIMG = now.format('DDMMYYYY');
         const deposit:DepositSchema.Deposit = params.map((item:any)=>({
@@ -35,6 +38,7 @@ export class DepositController {
         const nowFormat = now.format('DD/MM/YYYY');
         for (let i = 0; i < params.length; i++) {
             let deposit = params[i];
+            deposit.image = params[i].image?params[i].image.map((it:any)=> Commons.folderImageDeposit+ nowFormatIMG + '_' +it):params[i].image
             deposit.utime = nowFormat
            await this.model.UpdateDeposit(deposit);
         }

@@ -2,27 +2,42 @@ import React from "react";
 import "./changePass.scss";
 import nav_exchange_rate_logo from "../../../src/assets/public/img/nav_exchange_groceris.png";
 import { useState } from "react";
+import { ChangePassword } from "../../api/auth";
+import { toastifyError, toastifySuccess } from "../../lib/toastify";
 
 export default function ChangePass() {
 
     const [input, setInput] = useState({
-        active_password: "",
-        new_password: "",
-        re_password: "",
+        phone:'',
+        password: "",
     })
 
     const handleOnChangeInput = (e) => {
         const {name, value} = e.target;
-        // const name = [e.target.name];
-        // const value = e.target.value;
         setInput((prev) => {
             return {...prev, [name]: value}
         })
     }
 
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async(e) => {
         e.preventDefault()
-        console.log(input)
+        if(input.phone == '' || input.password == ''){
+            return toastifyError('Vui lòng nhập đầy đủ thông tin!')
+        }else {
+        const res = await ChangePassword(input.phone, input);
+        try {
+           if(!res.data.success){
+            return toastifyError(res.data.message)
+           }
+           setInput({
+            phone:'',
+            password: "",
+        })
+           toastifySuccess(res.data.message)
+        } catch (error) {
+          return toastifyError(error.message)
+        }
+      }
     }
   return (
     <div className="change_pass">
@@ -49,17 +64,18 @@ export default function ChangePass() {
 
       <div className="container change_password_content">
         <h1>THAY ĐỔI MẬT KHẨU</h1>
-        <form action="">
+        <form action="" onSubmit={(e)=>handleOnSubmit(e)}>
           <div className="form_content">
               <div className="label_column">
                 <label htmlFor="">Số điện thoại<span>*</span></label>
                 <label htmlFor="">Mật khẩu mới<span>*</span></label>
               </div>
               <div className="input_column">
-                <input type="text" name="active_password" placeholder="Số điện thoại" onChange={(e) => handleOnChangeInput(e)} />
-                <input type="text" name="new_password" placeholder="Mật khẩu mới" onChange={(e) => handleOnChangeInput(e)} />
+                <input type="text" name="phone" placeholder="Số điện thoại" value={input.phone} onChange={(e) => handleOnChangeInput(e)} />
+                <input type="text" name="password" placeholder="Mật khẩu mới" value={input.password} onChange={(e) => handleOnChangeInput(e)} />
               </div>
           </div>
+          <button type="submit">Lưu thay đổi</button>
           <button onClick={(e) => handleOnSubmit(e)} type="submit">Lưu thay đổi</button>
         </form>
       </div>

@@ -28,6 +28,8 @@ export namespace AuthSchema {
 
     export interface UpdateAuthParams {
         fullName?: string;
+        password?: string;
+        role?: string;
         delete?: number;
         utime?: string;
         dtime?:string;

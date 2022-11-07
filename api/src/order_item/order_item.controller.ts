@@ -37,6 +37,19 @@ export class OrderItemController {
        return orderItem;
     }
 
+    async UpdateOrderItem (params:any) {
+        const now = dayjs();
+        const  nowFormat = now.format('DD/MM/YYYY');
+        const  nowFormatIMG = now.format('DDMMYYYY');
+        for (let i = 0; i < params.length; i++) {
+            let orderItem = params[i];
+            orderItem.product_image = params[i].product_image?Commons.folderImageOrder + nowFormatIMG + '_' + params[i].product_image:params[i].product_image;
+            orderItem.utime = nowFormat
+           await this.model.UpdateOrderItem(orderItem);
+        }
+        return params;
+    }
+
     async ListOrderItem (_id:string){
         return this.model.ListOrderItem(_id);
     }

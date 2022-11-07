@@ -11,8 +11,13 @@ const Register = async(data) => {
     return data = await instance.post(url, data);
 }
 
+const ChangePassword = async(phone, data) => {
+    const url = `/auth/update/${phone}`;
+    return await instance.post(url, data);
+}
+
 export {
     login,
     Register,
-
+    ChangePassword
 }

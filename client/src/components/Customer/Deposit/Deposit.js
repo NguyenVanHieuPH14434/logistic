@@ -380,6 +380,7 @@ function Deposit() {
                                         cols="30"
                                         rows="10"
                                         value={li.note}
+                                        onChange={(e)=>changeInp(e, i)}
                                         placeholder="Ghi chú sản phẩm..."
                                     ></textarea>{" "}
                                 </td>

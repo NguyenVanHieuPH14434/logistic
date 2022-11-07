@@ -203,6 +203,23 @@ function EditDeposit() {
         setFee(e.target.value);
     }
 
+    const handleOnClickAddMore = (e) => {
+        let newList = [...list];
+        newList = {
+            image:[],
+            fileImage:[],
+            maVanDon:'',
+            nameSanPham:'',
+            soKien:'',
+            kgM3:0,
+            donGia:0,
+            phuPhi:0,
+            note: '',
+            tongTien:0
+        };
+        setList([...list, newList]);
+    };
+
 
     return (
         <>
@@ -338,6 +355,7 @@ function EditDeposit() {
                                         id=""
                                         cols="30"
                                         rows="10"
+                                        value={li.note}
                                         placeholder="Ghi chú sản phẩm..."
                                     ></textarea>{" "}
                                 </td>
@@ -357,7 +375,7 @@ function EditDeposit() {
 
                 <div className="container d-flex justify-content-between mt-4">
                     <div className="form_custom">
-                        {/* <div className="addMore">
+                        <div className="addMore">
                             <button
                                 style={{ backgroundColor: "#8610e8", border: "none" }}
                                 className="py-2 px-1 rounded text-white form-control"
@@ -365,12 +383,12 @@ function EditDeposit() {
                             >
                                 + Thêm sản sản phẩm
                             </button>
-                        </div> */}
+                        </div>
                         <div className="address d-flex flex-column w-100">
                             <label htmlFor="" className="">
                                 <h5>Địa chỉ kho Trung Quốc</h5>
                             </label>
-                            <select name="address_TQ" id="" onChange={(e)=>changeInpOrder(e)} className="p-1 form-control">
+                            <select name="address_TQ" id="" value={order1.address_TQ} onChange={(e)=>changeInpOrder(e)} className="p-1 form-control">
                                 <option value="" className="text-center">
                                     --Lựa chọn kho--
                                 </option>
@@ -387,6 +405,7 @@ function EditDeposit() {
                                         className="customer-field"
                                         type="text"
                                         name="full_name"
+                                        value={order1.full_name}
                                         onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Họ Tên"
                                     />
@@ -399,13 +418,14 @@ function EditDeposit() {
                                         className="customer-field"
                                         type="text"
                                         name="phone"
+                                        value={order1.phone}
                                         onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Số Điện Thoại"
                                     />
                                 </Row>
                                 <Row>
                                     <Form.Label className="customer-title">Địa chỉ</Form.Label>
-                                    <Form.Select className="customer-field" name="address" onChange={(e)=>changeInpOrder(e)}>
+                                    <Form.Select className="customer-field" value={order1.address} name="address" onChange={(e)=>changeInpOrder(e)}>
                                         <option>Vui Lòng Chọn Địa Chỉ</option>
                                         <option value="Hà Nội">Hà Nội</option>
                                         <option value="TP.HCM">TP.HCM</option>

@@ -9,8 +9,8 @@ export class OrderModel {
     private col_order = this.db.collection('order');
 
     // get all list order
-    async ListOrder () {
-        const docs = await this.col_order.find().toArray();
+    async ListOrder (type:string) {
+        const docs = await this.col_order.find({type:type}).toArray();
         return docs;
     }
 
