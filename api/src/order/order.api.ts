@@ -4,22 +4,20 @@ import { OrderController } from './order.controller';
 import * as express from 'express';
 import { OrderSchema } from './order';
 import { Commons } from '../common/common';
+import { SendSuccess } from '../lib/httpError';
 
 function NewOrderAPI(orderController:OrderController, orderItemController:OrderItemController, depositItemController:DepositController){
     const router = express.Router();
 
     // order
 
-    router.get('/list', async(req, res)=>{
-        const order:any = await orderController.GetOrder('YoaPg5KnRCz9Wx');
-        const orderItem = await orderItemController.ListOrderItem(order._id);
-        res.json({
-           order,
-            orderItem
-        });
+    router.get('/listAll/:type', async(req, res)=>{
+       
+        const docs = await orderController.ListOrder(req.params.type);
+        return SendSuccess(true, `Danh sách tất cả ${Commons.setNameType(req.params.type)}`, docs, res);
     });
 
-    // get list order || deposit with userId login
+   // get list order || deposit with userId login
     router.get('/list/:userId', async(req, res)=>{
         const orderByUser:any = await orderController.ListByUserId(req.params.userId, String(req.query.type));
         const ordId = Array();
@@ -27,9 +25,10 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
             ordId.push(orderByUser[i]._id);
         }
         const order:any = await orderController.ListItem(ordId, String(req.query.type));
-        return res.json({data: order})
+        return res.json({data: order, or:orderByUser})
     })
 
+    
     // get detail order || deposit and order item || deposit item
     router.get('/detailOrder/:orderId', async(req, res)=>{
         const detail = await orderController.DetailOrder(req.params.orderId, String(req.query.type));
@@ -59,8 +58,31 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
 
         const doc = await orderController.CreateOrder(params);
         const docs = await orderItemController.CreateOrderItem(doc, paramItems)
-        res.json({doc, docs});
+       return res.json({doc, docs});
     });
+
+    // update order and order item
+    router.post('/update/:_id', async(req, res)=>{
+        const params:OrderSchema.UpdateOrderParams={
+            full_name: req.body.order.full_name,
+            phone: req.body.order.phone,
+            address: req.body.order.address,
+            datCoc: req.body.order.datCoc,
+            address_TQ: req.body.order.address_TQ ? req.body.order.address_TQ : '',
+            status: req.body.order.status?req.body.order.status:0,
+            total: req.body.order.total,
+        }
+
+        const paramsItem = req.body.orderItem;
+
+        const order = await orderController.UpdateOrder(req.params._id,params);
+        const orderItem = await orderItemController.UpdateOrderItem(paramsItem);
+        const data = {
+            order: order,
+            orderItem: orderItem
+        }
+       return res.json(data)
+    })
 
     // search order by date
     router.get('/searchByDate/:userId', async(req, res)=>{
@@ -72,7 +94,7 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
         }
         // const newDateTo = Commons.newToDate(dateTo);
         const data = await orderController.SearchByDate(String(req.params.userId),String(req.query.from), dateTo)
-        res.json({data:data})
+        return res.json({data:data})
     })
 
     //deposit list
@@ -103,10 +125,6 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
             depo: depo,
             depoItem: depoItem
         })
-        // console.log('pa',req.body.deposit);
-        // console.log('ite',req.body.depositItem);
-        
-        // res.json({depo:req.body.deposit, depoItem:req.body.depositItem})
     })
 
     //update deposit and deposit item
@@ -125,17 +143,11 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
 
         const depo = await orderController.UpdateOrder(req.params._id,params);
         const depoItem = await depositItemController.UpdateDeposit(paramsItem);
-        // const depoItem = await depositItemController.UpdateDeposit(paramsItem)
-        // return res.json({
-        //     deposit: depo,
-        //     depositItem: depoItem
-        // })
-        // console.log('pa',req.body.deposit);
-        // console.log('ite',req.body.depositItem);
-
+       
         const data = {
-            depo:req.body.deposit,
-            depoItem:depoItem
+            deposit:depo,
+            // deposit:req.body.deposit,
+            depositItem:depoItem
         }
         
        return res.json(data)

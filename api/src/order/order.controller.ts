@@ -8,8 +8,8 @@ export class OrderController {
     async init (){}
 
     // get all list order
-    async ListOrder (){
-        return this.model.ListOrder();
+    async ListOrder (type:string){
+        return this.model.ListOrder(type);
     }
 
     // get list order with userID login 

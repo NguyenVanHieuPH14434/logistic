@@ -38,18 +38,35 @@ export class AuthController {
         return user;
     }
 
-    async UpdateAuth (_id:string, params:AuthSchema.UpdateAuthParams){
+    async UpdateAuth (phone:string, params:AuthSchema.UpdateAuthParams){
         const now = dayjs()
         const nowFormat = now.format('DD/MM/YYYY');
-
+        const checkExitsUser = await this.model.Login(phone);
+        if(checkExitsUser){
         const user = {...params};
         user.utime = nowFormat;
-        if(params.fullName ){
-            user.fullName = params.fullName;
+        if(params.fullName || params.password || params.role ){
+            if(params.password){
+                const hashPass = await bcrypt.hash(params.password, 8)
+                user.fullName = params.fullName;
+                user.password = hashPass;
+                user.role = params.role?params.role:checkExitsUser.role;
+            }else {
+                user.fullName = params.fullName;
+                user.password = checkExitsUser.password;
+                user.role = params.role?params.role:checkExitsUser.role;
+            }
         }
-
-        await this.model.UpdateAuth(_id, user);
-        return user;
+        await this.model.UpdateAuth(phone, user);
+        return {
+            success:true,
+            user: user
+        };
+        }
+        return {
+            success:false,
+            message: 'Tài khoản không tồn tại!'
+        };
     }
 
     async DeleteAuth (_id:string) {

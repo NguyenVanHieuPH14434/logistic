@@ -370,7 +370,7 @@ function EditDeposit() {
                             <label htmlFor="" className="">
                                 <h5>Địa chỉ kho Trung Quốc</h5>
                             </label>
-                            <select name="address_TQ" id="" onChange={(e)=>changeInpOrder(e)} className="p-1 form-control">
+                            <select name="address_TQ" id="" value={order1.address_TQ?order1.address_TQ:''} onChange={(e)=>changeInpOrder(e)} className="p-1 form-control">
                                 <option value="" className="text-center">
                                     --Lựa chọn kho--
                                 </option>
@@ -387,6 +387,7 @@ function EditDeposit() {
                                         className="customer-field"
                                         type="text"
                                         name="full_name"
+                                        value={order1.full_name?order1.full_name:''}
                                         onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Họ Tên"
                                     />
@@ -399,13 +400,14 @@ function EditDeposit() {
                                         className="customer-field"
                                         type="text"
                                         name="phone"
+                                        value={order1.phone?order1.phone:''}
                                         onChange={(e)=>changeInpOrder(e)}
                                         placeholder="Nhập Số Điện Thoại"
                                     />
                                 </Row>
                                 <Row>
                                     <Form.Label className="customer-title">Địa chỉ</Form.Label>
-                                    <Form.Select className="customer-field" name="address" onChange={(e)=>changeInpOrder(e)}>
+                                    <Form.Select className="customer-field" name="address" value={order1.address?order1.address:''} onChange={(e)=>changeInpOrder(e)}>
                                         <option>Vui Lòng Chọn Địa Chỉ</option>
                                         <option value="Hà Nội">Hà Nội</option>
                                         <option value="TP.HCM">TP.HCM</option>

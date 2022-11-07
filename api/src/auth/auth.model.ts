@@ -23,8 +23,8 @@ export class AuthModel {
         return doc;
     }
 
-    async UpdateAuth (_id:string, user:AuthSchema.UpdateAuthParams){
-        const doc = this.cls_user.updateOne({_id:_id}, {$set:user});
+    async UpdateAuth (phone:string, user:AuthSchema.UpdateAuthParams){
+        const doc = this.cls_user.updateOne({phone:phone}, {$set:user});
         return doc;
     }
 

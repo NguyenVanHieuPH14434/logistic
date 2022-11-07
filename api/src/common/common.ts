@@ -20,6 +20,8 @@ export namespace Commons {
 
     export const upload = multer({storage:fileStore});
 
+
+    // upload 
     export const upload1 = (folder:any) => {
         return multer({
             storage: multer.diskStorage({
@@ -37,6 +39,7 @@ export namespace Commons {
     }
 
 
+    // date +1 day
     export const newToDate = (reqToDate:string) =>{
         let day = reqToDate.split('/')[0];
         let month = reqToDate.split('/')[1];
@@ -45,7 +48,17 @@ export namespace Commons {
         return newDay + '/' + month + '/' + year;
     }
 
-   
+    // set name type 
+    export const setNameType = (type:string) => {
+      let newType = '';
+      if(type == 'order'){
+        newType =  'đơn hàng';
+      }
+      if(type == 'deposit'){
+          newType =  'đơn ký gửi';
+      }
+      return newType;
+  }
+
     
 }
-

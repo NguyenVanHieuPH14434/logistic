@@ -55,12 +55,18 @@ function NewAuthAPI (authCOntroller: AuthController) {
 
    
 
-    router.post('/update/:_id', async(req, res)=>{
-        const params:AuthSchema.UpdateAuthParams = {
-            fullName: req.body.fullName,
-        }
-        const doc = await authCOntroller.UpdateAuth(req.params._id, params);
-        SendSuccess(true, MessageUpdateSuccess('tài khoản'), doc, res)
+   // update user
+   router.post('/update/:phone', async(req, res)=>{
+    const params:AuthSchema.UpdateAuthParams = {
+        fullName: req.body.fullName,
+        password: req.body.password,
+        role: req.body.role,
+    }
+    const doc = await authCOntroller.UpdateAuth(req.params.phone, params);
+    if(doc.success !== true){
+       return SendErr(false, String(doc.message), res);
+    }
+    return SendSuccess(true, MessageUpdateSuccess('tài khoản'), doc, res)
     })
 
     router.delete('/delete/:_id', async(req, res)=>{
