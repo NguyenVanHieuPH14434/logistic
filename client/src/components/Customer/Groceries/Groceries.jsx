@@ -363,7 +363,7 @@ function Groceries() {
                   <input
                     className="w-100 form-control mt-2"
                     type="text"
-                    placeholder="Mã vận đơn (*)"
+                    placeholder="Mã vận đơn"
                     name="maVanDon"
                     onChange={(e) => changeInp(i, e)}
                   />
