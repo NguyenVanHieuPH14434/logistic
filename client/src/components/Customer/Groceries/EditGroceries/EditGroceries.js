@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import "../Groceries.scss";
 import { NumericFormat } from "react-number-format";
-import { createOrder, uploadFiles } from "../../../../api/orderApi";
+import { createOrder, deltailOrder, updaterOrder, uploadFiles } from "../../../../api/orderApi";
 import { AppContext } from "../../../../contexts/AppContextProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css"; //
@@ -19,24 +19,53 @@ function EditGroceries() {
   const {
     state: { user },
   } = useContext(AppContext);
-  const [list, setList] = useState([
-    {
-      product_image: "",
-      fileImage: "",
-      product_link: "",
-      product_name: "",
-      attribute: "",
-      product_price: 0,
-      quantity: 1,
-      maVanDon: '',
-      soKien:'',
-      kgM3:0,
-      donGia:0,
-      phuPhi:0,
-      note: "",
-      total_price: 0,
-    },
-  ]);
+  const [list, setList] = useState([]);
+  const location = useLocation();
+    // thông tin khách hàng
+    const [order, setOrder] = useState({});
+    console.log(order);
+
+  //In ra tổng tiền
+
+  var total = 0;
+  var orderCost = 0;
+  var totalOrderCost = 0;
+  for (var li of list) {
+    total += li.total_price;
+    if (total <= 2000000) {
+      orderCost = total * (3 / 100);
+    } else if (total <= 20000000) {
+      orderCost = (2.5 / 100) * total;
+    } else if (total <= 100000000) {
+      orderCost = total * (2 / 100);
+    } else if (total > 100000000) {
+      orderCost = total * (1 / 100);
+    }
+    let tienCoc = 0;
+    if(order.datCoc){
+     tienCoc = (order.datCoc?order.datCoc:0).replace(/,/g, "")
+    }
+    totalOrderCost = total + orderCost - tienCoc;
+  }
+
+  useEffect(()=>{
+    setOrder({...order, total:totalOrderCost})
+  }, [totalOrderCost])
+  const getDetail = async () => {
+      const res = await deltailOrder(location.state.id);
+      return res;
+    };
+    useEffect(() => {
+      getDetail().then((res) => {
+        setList(res.data.data.orderItem);
+        setOrder(res.data.data)
+      });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    console.log('listttst', list);
+    console.log('orrde', order);
+    
  
   const setTotalPriceALL = (val, i) =>{
     if (val[i]["quantity"] && val[i]["product_price"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
@@ -74,10 +103,7 @@ function EditGroceries() {
       return alert(`please check input information !!!`);
     }
   };
-  const [show, setShow] = useState(false);
-  // Danh sách các sản phẩm
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+ 
 
   // Nút thêm sản phẩm
   const handleOnIncrease = (i, e) => {
@@ -98,59 +124,9 @@ function EditGroceries() {
     setList(count);
   };
 
-  const handleOnClickAddMore = (e) => {
-    let newList = [...list];
-    newList = {
-      product_image: "",
-      fileImage: "",
-      product_link: "",
-      product_name: "",
-      attribute: "",
-      product_price: 0,
-      quantity: 1,
-      maVanDon: '',
-      soKien:'',
-      kgM3:0,
-      donGia:0,
-      phuPhi:0,
-      note: "",
-      total_price: 0,
-    };
-    setList([...list, newList]);
-  };
+  
 
-    // thông tin khách hàng
-    const [order, setOrder] = useState({
-      full_name: "",
-      phone: "",
-      address: "",
-      datCoc: 0,
-      total: 0
-    });
-    console.log(order);
-
-  //In ra tổng tiền
-
-  var total = 0;
-  var orderCost = 0;
-  var totalOrderCost = 0;
-  for (var li of list) {
-    total += li.total_price;
-    if (total <= 2000000) {
-      orderCost = total * (3 / 100);
-    } else if (total <= 20000000) {
-      orderCost = (2.5 / 100) * total;
-    } else if (total <= 100000000) {
-      orderCost = total * (2 / 100);
-    } else if (total > 100000000) {
-      orderCost = total * (1 / 100);
-    }
-    let tienCoc = 0;
-    if(order.datCoc){
-     tienCoc = (order.datCoc?order.datCoc:0).replace(/,/g, "")
-    }
-    totalOrderCost = total + orderCost - tienCoc;
-  }
+  
 
   // thay đổi giá trị form sản phẩm
   const changeInp = (i, e) => {
@@ -180,7 +156,7 @@ function EditGroceries() {
     valOrder[e.target.name] = e.target.value;
     valOrder["user_id"] = user._id;
     valOrder["type"] = "order";
-    valOrder["total"] = totalOrderCost;
+    // valOrder["total"] = totalOrderCost;
     setOrder(valOrder);
   };
 
@@ -202,48 +178,16 @@ function EditGroceries() {
 
   // tạo đơn
   const handleSave = async () => {
-    const dataImage = new FormData();
-    for (let index = 0; index < files.length; index++) {
-      for (let i = 0; i < files[index].length; i++) {
-        const element = files[index][i];
-        dataImage.append("product_image", element);
-      }
-    }
     const data1 = {
       order: order,
       orderItem: list,
     };
 
-    const res = await createOrder(data1);
-    await uploadFiles(dataImage);
-    setList([
-      {
-        product_image: "",
-        fileImage: "",
-        product_link: "",
-        product_name: "",
-        attribute: "",
-        product_price: 0,
-        quantity: 1,
-        note: "",
-        maVanDon: '',
-        soKien:'',
-        kgM3:0,
-        donGia:0,
-        phuPhi:0,
-        total_price: 0,
-      },
-    ]);
-    setOrder({
-      address_TQ: "",
-      full_name: "",
-      phone: "",
-      address: "",
-    });
-    toastifySuccess("Tạo đơn hàng thành công!");
-    setTimeout(() => {
-      navigate("/app/orderGroceries", { state: { data: list } });
-    }, 1000);
+    const res = await updaterOrder(location.state.id, data1);
+    toastifySuccess("Cập nhật đơn hàng thành công!");
+    // setTimeout(() => {
+    //   navigate("/app/orderGroceries", { state: { data: list } });
+    // }, 1000);
   };
   // submit tạo đơn hàng
   const saveData = () => {
@@ -263,6 +207,10 @@ function EditGroceries() {
   const submit = (i) => {
     Confirm("Delete", "Bạn có chắc chắn muốn xóa không?", DeleteList, i);
   };
+
+  console.log('orderrrr', order);
+  console.log('listttt', list);
+  
 
   return (
     <>
@@ -296,23 +244,11 @@ function EditGroceries() {
                     }}
                     src={
                       li.fileImage !== ""
-                        ? URL.createObjectURL(li.fileImage)
+                        ? `http://localhost:9000/${li.product_image}`
                         : '../../default-thumbnail.jpg'
                     }
                   />
-                  <br></br>
-                  <label className="mt-1" id="label-upload">
-                    <input
-                      type="file"
-                      multiple
-                      style={{ display: "none", position: 'relative', top: '0' }}
-                      name="product_image"
-                      onChange={(e) => {
-                        changFile(i, e);
-                      }}
-                    />
-                    Upload...
-                  </label>
+                  
                 </td>
                 <td className="" sytle={{with:'35%'}}>
                   <input
@@ -350,7 +286,6 @@ function EditGroceries() {
                     type="text"
                     name="product_price"
                     value={li.product_price ? li.product_price : ""}
-                    // value={li.price}
                     onChange={(e) => changeInp(i, e)}
                     thousandSeparator=","
                     min="1"
@@ -360,6 +295,7 @@ function EditGroceries() {
                     type="text"
                     placeholder="Mã vận đơn (*)"
                     name="maVanDon"
+                    value={li.maVanDon ? li.maVanDon : ""}
                     onChange={(e) => changeInp(i, e)}
                   />
 
@@ -368,12 +304,14 @@ function EditGroceries() {
                     type="text"
                     placeholder="Số kiện hàng"
                     name="soKien"
+                    value={li.soKien ? li.soKien : ""}
                     onChange={(e) => changeInp(i, e)}
                   />
                   <NumericFormat
                     className="w-100 form-control mt-2"
                     type="text"
                     name="kgM3"
+                    value={li.kgM3 ? li.kgM3 : ""}
                     placeholder="Số cân, số khối"
                     onChange={(e) => changeInp(i, e)}
                   />
@@ -381,6 +319,7 @@ function EditGroceries() {
                     className="w-100 form-control mt-2"
                     type="text"
                     name="donGia"
+                    value={li.donGia ? li.donGia : ""}
                     placeholder="Cước vận chuyển"
                     onChange={(e) => changeInp(i, e)}
                   />
@@ -388,6 +327,7 @@ function EditGroceries() {
                     className="w-100 form-control mt-2"
                     type="text"
                     name="phuPhi"
+                    value={li.phuPhi ? li.phuPhi : ""}
                     placeholder="Phụ phí"
                     onChange={(e) => changeInp(i, e)}
                   />
@@ -432,7 +372,6 @@ function EditGroceries() {
                     placeholder="Ghi chú sản phẩm..."
                   ></textarea>{" "}
                 </td>
-                {/* <td className="pt-5"> {li.totalPrice} </td> */}
                 <td style={{paddingTop: '200px', width:'12%'}}>
                   <p className="">
                     <NumericFormat
@@ -447,7 +386,7 @@ function EditGroceries() {
                       thousandSeparator=","
                     />{" "}
                   </p>
-                  <span style={{ cursor: "pointer" }}>
+                  {/* <span style={{ cursor: "pointer" }}>
                     <button
                       style={{ border: "none" }}
                       onClick={(e) => submit(e)}
@@ -460,7 +399,7 @@ function EditGroceries() {
                         ></i>
                       )}
                     </button>
-                  </span>
+                  </span> */}
                 </td>
               </tr>
             ))}
@@ -469,15 +408,7 @@ function EditGroceries() {
 
         <div className="container d-flex justify-content-between mt-4">
           <div className="form_custom">
-            <div className="addMore">
-              <button
-                style={{ backgroundColor: "#8610e8", border: "none" }}
-                className="py-2 px-1 rounded text-white"
-                onClick={(e) => handleOnClickAddMore(e)}
-              >
-                + Thêm sản sản phẩm
-              </button>
-            </div>
+            
             <div className="d-flex flex-column w-100">
               <label htmlFor="" className="">
                 <h5>Địa chỉ kho Trung Quốc</h5>
@@ -530,6 +461,7 @@ function EditGroceries() {
                     <NumericFormat
                      className="form-control customer-field"
                     name="datCoc"
+                    value={order?.datCoc}
                     onChange={(e) => changeInpOrder(e)}
                     thousandSeparator=","
                     placeholder="Tiền đặt cọc"

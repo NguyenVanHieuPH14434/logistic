@@ -43,7 +43,7 @@ export class OrderItemController {
         const  nowFormatIMG = now.format('DDMMYYYY');
         for (let i = 0; i < params.length; i++) {
             let orderItem = params[i];
-            orderItem.product_image = params[i].product_image?Commons.folderImageOrder + nowFormatIMG + '_' + params[i].product_image:params[i].product_image;
+            // orderItem.product_image = params[i].product_image?Commons.folderImageOrder + nowFormatIMG + '_' + params[i].product_image:params[i].product_image;
             orderItem.utime = nowFormat
            await this.model.UpdateOrderItem(orderItem);
         }

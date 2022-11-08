@@ -22,9 +22,15 @@ const deltailOrder = async(orderId) => {
     return res;
 }
 
+const updaterOrder = async(orderId, data) => {
+    const url = `/order/update/${orderId}`;
+    return await instance.post(url, data);
+}
+
 export {
     createOrder,
     uploadFiles,
     listOrder,
-    deltailOrder
+    deltailOrder,
+    updaterOrder
 }

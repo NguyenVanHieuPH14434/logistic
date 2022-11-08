@@ -11,12 +11,21 @@ import { NumericFormat } from "react-number-format";
 import { Confirm, toastifyError } from "../../../../lib/toastify";
 import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../../lib/shipFee";
 import { AppContext } from "../../../../contexts/AppContextProvider";
-import { createDeposit, deltailDeposit, uploadFilesDeposit } from "../../../../api/depositApi";
+import { createDeposit, deltailDeposit, updateDeposit, uploadFilesDeposit } from "../../../../api/depositApi";
 
 function EditDeposit() {
     const {state:{user}} = useContext(AppContext)
     const [list, setList] = useState([]);
     const [order1, setOrder1] = useState({});
+    
+    //In ra tổng tiền
+    var totalPrice = 0;
+    for (var li of list) {
+        totalPrice += li.tongTien;
+    }
+    useEffect(()=>{
+            setOrder1({...order1, total:totalPrice})
+    }, [totalPrice])
 
     const locationState = useLocation();
     const getDetail = async () => {
@@ -31,37 +40,17 @@ function EditDeposit() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
    
-    console.log('state', list);
-
-    
-    //In ra tổng tiền
-
-    var total = 0;
-    for (var li of list) {
-        total += li.tongTien;
-    }
-
-
-    // Thông tin khách hàng
-    const [order, setOrder] = useState({
-        full_name:'',
-        phone:'',
-        address:'',
-        address_TQ:'',
-        datCoc:0,
-        total:0
-      })
 
     // thay đổi giá trị thông tin khách hàng
     const changeInpOrder = (e) => {
-        const valOrder = { ...order };
+        const valOrder = { ...order1 };
         valOrder[e.target.name] = e.target.value;
         valOrder["user_id"] = user._id;
         valOrder["type"] = "deposit";
-        valOrder["total"] = total;
-        setOrder(valOrder);
+        setOrder1(valOrder);
     };
-    console.log('customer', order);
+    console.log('totalPrice', totalPrice);
+    
     
 
     const DeleteList = (i) => {
@@ -95,46 +84,21 @@ function EditDeposit() {
         setList(val);
     }
 
-    // file ảnh
-    const [files, setFiles] = useState([]);
-
-    // thêm file ảnh
-    const changFile = (i, e) => {
-        const file = [...files];
-        file[i] = e.target.files;
-        setFiles(file);
-
-    // change originalName file
-    const val = [...list];
-    // val[i][e.target.name] = e.target.files.name;Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
-    val[i][e.target.name] = Array.from(e.target.files).map((im)=>im.name);
-    val[i]["fileImage"] = Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
-
-    
-    setList(val);
-  };
 
   // handelSubmit 
   const HandleSubmit = async(e)=>{
     const data = {
-        "deposit":order,
+        "deposit":order1,
         "depositItem":list
     }
-    const dataImg = new FormData();
-    for (let index = 0; index < files.length; index++) {
-        for (let i = 0; i < files[index].length; i++) {
-          const element = files[index][i];
-          dataImg.append("image", element)
-        }
-    }
-    const res = await createDeposit(data);
-    await uploadFilesDeposit(dataImg)
 
-    console.log('response', res);
+    const res = await updateDeposit(locationState.state.id, data);
+console.log('res', res);
+
     alert('ok');
   }
-    console.log('listKy', list);
-    console.log('listFile', files);
+    console.log('list', list);
+    console.log('order1', order1);
 
     const location = [{ value: 'Hà Nội', label: 'Hà Nội' }, { value: 'TP.HCM', label: 'TP.HCM' }, { value: 'Hải Phòng', label: 'Hải Phòng' }];
     const [area, setArea] = useState([])
@@ -235,19 +199,6 @@ function EditDeposit() {
                                   src={`http://localhost:9000/${preview}`}
                                 />
                                 )})} 
-                              
-                                    <label className="mt-1" id="label-upload1">
-                                        <input
-                                            type="file"
-                                            multiple
-                                            style={{ display: "none" }}
-                                            name="image"
-                                            onChange={(e) => {
-                                                changFile(i, e);
-                                            }}
-                                        />
-                                        Upload...
-                                    </label>
                                 </td>
                               
                                 <td className="td_productInformation">
@@ -350,22 +301,14 @@ function EditDeposit() {
                     <tfoot>
                         <tr>
                             <th colSpan='3'><b>Tổng tiền thanh toán: </b></th>
-                            <th colSpan='2'><NumericFormat style={{background:'none', color:'white', border:'none', textAlign:'right'}} value={total?total:0} thousandSeparator="," /> đ</th>
+                            <th colSpan='2'><NumericFormat style={{background:'none', color:'white', border:'none', textAlign:'right'}} value={totalPrice?totalPrice:0} thousandSeparator="," /> đ</th>
                         </tr>
                     </tfoot>
                 </Table>
 
                 <div className="container d-flex justify-content-between mt-4">
                     <div className="form_custom">
-                        {/* <div className="addMore">
-                            <button
-                                style={{ backgroundColor: "#8610e8", border: "none" }}
-                                className="py-2 px-1 rounded text-white form-control"
-                                onClick={(e) => handleOnClickAddMore(e)}
-                            >
-                                + Thêm sản sản phẩm
-                            </button>
-                        </div> */}
+                        
                         <div className="address d-flex flex-column w-100">
                             <label htmlFor="" className="">
                                 <h5>Địa chỉ kho Trung Quốc</h5>

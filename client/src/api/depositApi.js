@@ -17,10 +17,14 @@ const deltailDeposit = async(orderId) => {
     return res;
 }
 
-// const updateDeposit = async(orderId, )
+const updateDeposit = async(depositId, data) => {
+    const url = `/order/deposit/update/${depositId}`;
+    return await instance.post(url, data);
+}
 
 export {
     createDeposit,
     uploadFilesDeposit,
-    deltailDeposit
+    deltailDeposit,
+    updateDeposit
 }

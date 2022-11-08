@@ -33,6 +33,7 @@ export class DepositController {
     async UpdateDeposit (params:any){
         const now = dayjs();
         const nowFormat = now.format('DD/MM/YYYY');
+        const nowFormatIMG = now.format('DDMMYYYY');
         for (let i = 0; i < params.length; i++) {
             let deposit = params[i];
             deposit.utime = nowFormat
