@@ -326,7 +326,7 @@ function Groceries() {
                     name="product_name"
                     value={li.product_name ? li.product_name : ""}
                     onChange={(e) => changeInp(i, e)}
-                    placeholder="Tên sản phẩm"
+                    placeholder="Tên sản phẩm (*)"
                   />
                   <textarea
                     className="mt-2 attribute w-100 form-control"
@@ -342,10 +342,10 @@ function Groceries() {
                     name="product_link"
                     value={li.product_link ? li.product_link : ""}
                     onChange={(e) => changeInp(i, e)}
-                    placeholder="Link sản phẩm"
+                    placeholder="Link sản phẩm (*)"
                   />
                   <NumericFormat
-                    placeholder="Giá sản phẩm"
+                    placeholder="Giá sản phẩm (*)"
                     style={{
                       border: "none",
                       backgroundColor: "none",
