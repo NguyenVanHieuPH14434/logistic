@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css"; //
 import { Confirm, toastifyError, toastifySuccess, toastifyWarning } from "../../../lib/toastify";
+import { typeMon } from "../../../lib/shipFee";
 
 function Groceries() {
   const navigate = useNavigate();
