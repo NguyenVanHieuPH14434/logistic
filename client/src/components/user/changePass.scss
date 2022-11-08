@@ -17,7 +17,8 @@
     }
     .nav_search {
       input {
-        padding: 12px 100px;
+        width: 400px;
+        height: 50px;
         border-radius: 10px;
       }
       i {
@@ -39,7 +40,7 @@
 
   .change_password_content {
     h1 {
-        margin: 30px 0;
+      margin: 30px 0;
       text-align: center;
     }
 
