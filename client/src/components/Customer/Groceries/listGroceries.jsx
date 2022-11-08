@@ -249,7 +249,8 @@ export default function ListGroceries() {
               <th scope="col">Đơn Hàng</th>
             </tr>
           </thead>
-          <tbody>
+          {listt.length > 0 ?
+          (<tbody>
             {listt &&
               listt
                 .map((li, i) => {
@@ -287,7 +288,7 @@ export default function ListGroceries() {
                   );
                 })
                 .slice(pagesVisited, pagesVisited + productPerPage)}
-          </tbody>
+          </tbody>):(<tbody><tr><th colSpan='7'>Đơn hàng trống!</th></tr></tbody>)}
         </table>
         {searchProduct}
         <div className="d-flex justify-content-center">

@@ -252,7 +252,8 @@ export default function ListDeposit() {
               <th scope="col">Đơn Hàng</th>
             </tr>
           </thead>
-          <tbody>
+          {listt.length > 0 ?
+          (<tbody>
             {listt &&
               listt
                 .map((li, i) => {
@@ -290,7 +291,7 @@ export default function ListDeposit() {
                   );
                 })
                 .slice(pagesVisited, pagesVisited + productPerPage)}
-          </tbody>
+          </tbody>):(<tbody><tr><th colSpan='7'>Đơn ký gửi trống!</th></tr></tbody>)}
         </table>
         {searchProduct}
         <div className="d-flex justify-content-center">
