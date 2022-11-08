@@ -5,7 +5,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { NumericFormat } from "react-number-format";
 
 import { Confirm, toastifyError, toastifySuccess } from "../../../lib/toastify";
@@ -14,62 +14,55 @@ import { AppContext } from "../../../contexts/AppContextProvider";
 import { createDeposit, uploadFilesDeposit } from "../../../api/depositApi";
 function Deposit() {
     const navigate = useNavigate();
-    const {state:{user}} = useContext(AppContext)
+    const { state: { user } } = useContext(AppContext)
     const [list, setList] = useState([
         {
-            image:[],
-            fileImage:[],
-            maVanDon:'',
-            nameSanPham:'',
-            soKien:'',
-            kgM3:0,
-            donGia:0,
-            phuPhi:0,
+            image: [],
+            fileImage: [],
+            maVanDon: '',
+            nameSanPham: '',
+            soKien: '',
+            kgM3: 0,
+            donGia: 0,
+            phuPhi: 0,
             note: '',
-            tongTien:0
+            tongTien: 0
         }
-
     ]);
-
-
     const handleOnClickAddMore = (e) => {
         let newList = [...list];
         newList = {
-            image:[],
-            fileImage:[],
-            maVanDon:'',
-            nameSanPham:'',
-            soKien:'',
-            kgM3:0,
-            donGia:0,
-            phuPhi:0,
+            image: [],
+            fileImage: [],
+            maVanDon: '',
+            nameSanPham: '',
+            soKien: '',
+            kgM3: 0,
+            donGia: 0,
+            phuPhi: 0,
             note: '',
-            tongTien:0
+            tongTien: 0
         };
         setList([...list, newList]);
     };
-
     //In ra tổng tiền
-
     var total = 0;
     for (var li of list) {
-       if(li.length > 1){
-        total += li.tongTien;
-       }else {
-        total = li.tongTien;
-       }
+        if (li.length > 1) {
+            total += li.tongTien;
+        } else {
+            total = li.tongTien;
+        }
     }
-
-
     // Thông tin khách hàng
     const [order, setOrder] = useState({
-        full_name:'',
-        phone:'',
-        address:'',
-        address_TQ:'',
-        datCoc:0,
-        total:0
-      })
+        full_name: '',
+        phone: '',
+        address: '',
+        address_TQ: '',
+        datCoc: 0,
+        total: 0
+    })
 
     // thay đổi giá trị thông tin khách hàng
     const changeInpOrder = (e) => {
@@ -81,19 +74,18 @@ function Deposit() {
         setOrder(valOrder);
     };
     console.log('customer', order);
-    
+
 
     const DeleteList = (i) => {
         const newList = [...list]
         newList.splice(i, 1)
         setList(newList)
+        
     }
 
     const subMit = (i) => {
         Confirm('Delete!', 'Bạn có muốn xóa không?', DeleteList, i)
     }
-
-
     // Tính giá ship 
     const handleOnClickRadio = (e) => {
         setTypeShip(e.target.value)
@@ -110,7 +102,7 @@ function Deposit() {
     const changeInp = (e, i) => {
         const val = [...list]
         val[i][e.target.name] = e.target.value;
-        val[i]['tongTien'] = val[i]['donGia'] * val[i]['kgM3'] + parseFloat(val[i]['phuPhi']?val[i]['phuPhi']:0);
+        val[i]['tongTien'] = val[i]['donGia'] * val[i]['kgM3'] + parseFloat(val[i]['phuPhi'] ? val[i]['phuPhi'] : 0);
         setList(val);
     }
 
@@ -123,60 +115,87 @@ function Deposit() {
         file[i] = e.target.files;
         setFiles(file);
 
-    // change originalName file
-    const val = [...list];
-    // val[i][e.target.name] = e.target.files.name;Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
-    val[i][e.target.name] = Array.from(e.target.files).map((im)=>im.name);
-    val[i]["fileImage"] = Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
-
-    
-    setList(val);
-  };
-
-  // handelSubmit 
-  const HandleSubmit = async(e)=>{
-    const data = {
-        "deposit":order,
-        "depositItem":list
+        // change originalName file
+        const val = [...list];
+        // val[i][e.target.name] = e.target.files.name;Array.from(e.target.files).map((fi)=>URL.createObjectURL(fi));
+        val[i][e.target.name] = Array.from(e.target.files).map((im) => im.name);
+        val[i]["fileImage"] = Array.from(e.target.files).map((fi) => URL.createObjectURL(fi));
+        setList(val);
+    };
+    const isVietnamesePhoneNumber = (number) => {
+        return /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/.test(number);
     }
-    const dataImg = new FormData();
-    for (let index = 0; index < files.length; index++) {
-        for (let i = 0; i < files[index].length; i++) {
-          const element = files[index][i];
-          dataImg.append("image", element)
+    //validate
+    const checkValidate = (items, order) => {
+        //create
+        if (order.full_name !== "" && order.phone !== "" && order.address !== "") {
+            let checkEmptyItems = items.every((n) => {
+                return (
+                    n.image.length>0&&
+                    n.fileImage.length>0&&
+                    n.maVanDon !== ""&&
+                    n.nameSanPham !==""
+                );
+            });
+            if (checkEmptyItems === true) {
+                if (isVietnamesePhoneNumber(order.phone) === false) {
+                    return toastifyError('Số điện thoại không đúng định dạng!');
+                } else {
+                    HandleData();
+                }
+            } else {
+                return toastifyError(`Vui lòng nhập đầy đủ các trường có dấu (*)!`);
+            }
+        } else {
+            return toastifyError(`Vui lòng nhập đầy đủ thông tin khách hàng!`);
         }
+    };
+    // handelSubmit 
+    const HandleData = async () => {
+        const data = {
+            "deposit": order,
+            "depositItem": list
+        }
+        const dataImg = new FormData();
+        for (let index = 0; index < files.length; index++) {
+            for (let i = 0; i < files[index].length; i++) {
+                const element = files[index][i];
+                dataImg.append("image", element)
+            }
+        }
+        const res = await createDeposit(data);
+        await uploadFilesDeposit(dataImg)
+        setList([{
+            image: [],
+            fileImage: [],
+            maVanDon: '',
+            nameSanPham: '',
+            soKien: '',
+            kgM3: 0,
+            donGia: 0,
+            phuPhi: 0,
+            note: '',
+            tongTien: 0
+        }])
+        setOrder({
+            full_name: '',
+            phone: '',
+            address: '',
+            address_TQ: '',
+            datCoc: 0,
+            total: 0
+        })
+        console.log('response', res);
+        toastifySuccess("Tạo đơn ký gửi thành công!");
+        setTimeout(() => {
+            navigate("/app/orderDeposit", { state: { data: list, order: order } });
+        }, 1000);
     }
-    const res = await createDeposit(data);
-    await uploadFilesDeposit(dataImg)
-    setList([{
-        image:[],
-        fileImage:[],
-        maVanDon:'',
-        nameSanPham:'',
-        soKien:'',
-        kgM3:0,
-        donGia:0,
-        phuPhi:0,
-        note: '',
-        tongTien:0
-    }])
-    setOrder({
-        full_name:'',
-        phone:'',
-        address:'',
-        address_TQ:'',
-        datCoc:0,
-        total:0
-      })
-    console.log('response', res);
-    toastifySuccess("Tạo đơn ký gửi thành công!");
-    setTimeout(() => {
-      navigate("/app/orderDeposit", { state: { data: list, order:order } });
-    }, 1000);
-  }
     console.log('listKy', list);
     console.log('listFile', files);
-
+    const HandleSubmit =()=>{
+        checkValidate(list,order)
+    }
     const location = [{ value: 'Hà Nội', label: 'Hà Nội' }, { value: 'TP.HCM', label: 'TP.HCM' }, { value: 'Hải Phòng', label: 'Hải Phòng' }];
     const [area, setArea] = useState([])
     const [typeShip, setTypeShip] = useState('')
@@ -265,18 +284,21 @@ function Deposit() {
                             <tr key={i}>
                                 <td > <span>{i + 1}</span></td>
                                 <td style={{ width: '100px' }} className="td_img">
-                                {li.fileImage.map((preview)=>{
-                                return (
-                                  <img
-                                  style={{
-                                    width: "96px",
-                                    height: "64px",
-                                    marginTop: "24px",
-                                  }}
-                                  src={`${preview}`}
-                                />
-                                )})} 
-                              
+                                    {li.fileImage.map((preview) => {
+                                        return (
+                                            <img
+                                                style={{
+                                                    objectFit:'contain',
+                                                    objectPosition:'center',
+                                                    width: "96px",
+                                                    height: "64px",
+                                                    marginTop: "24px",
+                                                }}
+                                                src={`${preview}`}
+                                                alt="/" />
+                                        )
+                                    })}
+
                                     <label className="mt-1" id="label-upload1">
                                         <input
                                             type="file"
@@ -290,7 +312,7 @@ function Deposit() {
                                         Upload...
                                     </label>
                                 </td>
-                              
+
                                 <td className="td_productInformation">
                                     <div className="d-flex information_content">
                                         <div className="label_product_information mt-2">
@@ -331,7 +353,7 @@ function Deposit() {
                                                 value={li.soKien}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
-                                            <input
+                                            <NumericFormat
                                                 style={{ width: '596px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
@@ -340,7 +362,7 @@ function Deposit() {
                                                 value={li.kgM3}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
-                                            <input
+                                            <NumericFormat
                                                 style={{ width: '596px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
@@ -349,7 +371,7 @@ function Deposit() {
                                                 value={li.donGia}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
-                                            <input
+                                            <NumericFormat
                                                 style={{ width: '596px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
@@ -358,15 +380,15 @@ function Deposit() {
                                                 value={li.phuPhi}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
-                                        <NumericFormat
-                                            className=" text-center mx-auto form-control mt-1"
-                                            type="text"
-                                            disabled
-                                            style={{ background: '#EDA82D', width:'596px'}}
-                                            value={li.tongTien ? li.tongTien : 0}
-                                            placeholder="Tổng"
-                                            thousandSeparator=","
-                                        ></NumericFormat>
+                                            <NumericFormat
+                                                className=" text-center mx-auto form-control mt-1"
+                                                type="text"
+                                                disabled
+                                                style={{ background: '#EDA82D', width: '596px' }}
+                                                value={li.tongTien ? li.tongTien : 0}
+                                                placeholder="Tổng"
+                                                thousandSeparator=","
+                                            ></NumericFormat>
                                         </div>
                                     </div>
                                 </td>
@@ -384,7 +406,7 @@ function Deposit() {
                                     ></textarea>{" "}
                                 </td>
                                 <td>
-                                    <span style={{ cursor: 'pointer', }} onClick={() => subMit(i)}><i style={{ fontSize: '30px', color: 'red' }} className="fa-solid fa-circle-xmark"></i></span>
+                                    <span style={{ cursor: 'pointer' }} onClick={() => subMit(i)}>{list.length > 1 && <i style={{ fontSize: '30px', color: 'red' }} className="fa-solid fa-circle-xmark"></i>}</span>
                                 </td>
                             </tr>
                         ))}
@@ -392,7 +414,7 @@ function Deposit() {
                     <tfoot>
                         <tr className="total_sum">
                             <th colSpan='3'><b>Tổng tiền thanh toán: </b></th>
-                            <th colSpan='2'><NumericFormat style={{background:'none', color:'white', border:'none', textAlign:'right'}} disabled value={total?total:0} thousandSeparator="," /> đ</th>
+                            <th colSpan='2'><NumericFormat style={{ background: 'none', color: 'white', border: 'none', textAlign: 'right' }} disabled value={total ? total : 0} thousandSeparator="," /> đ</th>
                         </tr>
                     </tfoot>
                 </Table>
@@ -412,7 +434,7 @@ function Deposit() {
                             <label htmlFor="" className="">
                                 <h5>Địa chỉ kho Trung Quốc</h5>
                             </label>
-                            <select name="address_TQ"  value={order.address_TQ} id="" onChange={(e)=>changeInpOrder(e)} className="p-1 form-control">
+                            <select name="address_TQ" value={order.address_TQ} id="" onChange={(e) => changeInpOrder(e)} className="p-1 form-control">
                                 <option value="" className="text-center">
                                     --Lựa chọn kho--
                                 </option>
@@ -429,7 +451,7 @@ function Deposit() {
                                         className="customer-field"
                                         type="text"
                                         name="full_name"
-                                        onChange={(e)=>changeInpOrder(e)}
+                                        onChange={(e) => changeInpOrder(e)}
                                         value={order.full_name}
                                         placeholder="Nhập Họ Tên"
                                     />
@@ -443,13 +465,13 @@ function Deposit() {
                                         type="text"
                                         name="phone"
                                         value={order.phone}
-                                        onChange={(e)=>changeInpOrder(e)}
+                                        onChange={(e) => changeInpOrder(e)}
                                         placeholder="Nhập Số Điện Thoại"
                                     />
                                 </Row>
                                 <Row>
                                     <Form.Label className="customer-title">Địa chỉ</Form.Label>
-                                    <Form.Select className="customer-field" value={order.address} name="address" onChange={(e)=>changeInpOrder(e)}>
+                                    <Form.Select className="customer-field" value={order.address} name="address" onChange={(e) => changeInpOrder(e)}>
                                         <option>Vui Lòng Chọn Địa Chỉ</option>
                                         <option value="Hà Nội">Hà Nội</option>
                                         <option value="TP.HCM">TP.HCM</option>
@@ -464,7 +486,7 @@ function Deposit() {
                             Tạo Đơn Ký gửi
                         </Button>
                     </div>
-                        
+
                     {/* Tổng hợp các loại phí */}
 
                     <div className="container fee ms-4">
@@ -507,7 +529,7 @@ function Deposit() {
                                     <span style={{ fontWeight: 'bold' }}>Thuế VAT</span> = 10% x Giá trị hàng hóa</p>
                             </div>
                         </div>
-                       
+
                         <div className="mt-5 mb-3">
                             <span className="d-flex">
                                 <h5>PHÍ ĐÓNG GỖ</h5>

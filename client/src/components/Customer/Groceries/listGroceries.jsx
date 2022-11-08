@@ -84,8 +84,17 @@ export default function ListGroceries() {
   //   return setListt(lists)
   // };
   async function fetchData() {
+    let params = ''
+    if(user.role==='admin'){
+      params=`listAll/deposit`
+    }
+    else{
+      params=`list/${user._id}?type=deposit`
+    }
+    let url = `http://localhost:9000/api/order/${params}`
     const response = await Axios.get(
-      `http://localhost:9000/api/order/list/${user._id}?type=order`
+      url
+      
     );
     const info = response.data.data;
     console.log(info);
