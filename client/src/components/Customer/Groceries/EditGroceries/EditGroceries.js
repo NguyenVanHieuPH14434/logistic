@@ -362,7 +362,7 @@ function EditGroceries() {
                 <td className="" sytle={{with:'30%'}}>
                   {" "}
                   <textarea
-                    className="ghi_chu form-control"
+                    className="ghi_chu_edit form-control"
                     name="note"
                     id=""
                     cols="30"

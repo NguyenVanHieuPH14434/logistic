@@ -13,13 +13,15 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css"; //
 import { Confirm, toastifyError, toastifySuccess, toastifyWarning } from "../../../lib/toastify";
-import { tyGia } from "../../../lib/shipFee";
+import { tyGia, typeMon } from "../../../lib/shipFee";
 
 function Groceries() {
   const navigate = useNavigate();
   const {
     state: { user },
   } = useContext(AppContext);
+  const [typeMoney, setTypeMoney] = useState('');
+
   const [list, setList] = useState([
     {
       product_image: "",
@@ -40,13 +42,13 @@ function Groceries() {
   ]);
  
   const setTotalPriceALL = (val, i) =>{
-    if (val[i]["quantity"] && val[i]["product_price"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
+    if (val[i]["quantity"] && val[i]["product_price"] && typeMoney || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
     let kgm3 = val[i]["kgM3"]?val[i]["kgM3"]:0
     let dongia = val[i]["donGia"]?val[i]["donGia"]:0
     let phuphi = val[i]["phuPhi"]?val[i]["phuPhi"]:0
     val[i]["total_price"] =
         (val[i]["product_price"].replace(/,/g, "") *
-        tyGia() *
+        parseFloat(typeMoney) *
     val[i]["quantity"]) + (parseFloat(kgm3) * parseFloat(dongia)) + parseFloat(phuphi);
     }
   }
@@ -344,6 +346,14 @@ function Groceries() {
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Link sản phẩm (*)"
                   />
+                  <select name="typeMoney" onChange={(e)=>setTypeMoney(e.target.value)} id="" className="form-control mt-2">
+                    <option value="">Chọn loại tiền (*)</option>
+                    {typeMon && typeMon.map((item)=>{
+                      return(
+                        <option value={item.value}>{item.label}</option>
+                      )
+                    })}
+                  </select>
                   <NumericFormat
                     placeholder="Giá sản phẩm (*)"
                     style={{
