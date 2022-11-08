@@ -16,15 +16,25 @@ export default function OrderGroceries() {
   const [order2, setOrder2] = useState(
     location.state ? location.state.order : ""
   );
+
+  // const [date, setDate] = useState('')
+
+  // const handleOnChangeDate = (e) =>{
+  //   setDate(new Date().toLocaleString())
+  // }
   const total = location.state ? location.state.total : "";
   console.log("order2", order2);
 
   const [show, setShow] = useState("d-block");
 
-  const handleOnCLickDownload = (e) => {
+  const handleOnCLickDownload = () => {
     // setShow('d-block')
     window.print();
     // setShow('d-none')
+    // html2canvas(document.body).then(fuction(canvas){
+    //   const a = document.createElement('a');
+    //   a.href = canvas.toDataURL()
+    // })
   };
   const a = DocTienBangChu(total);
 
@@ -32,20 +42,23 @@ export default function OrderGroceries() {
   return (
     <div className="order_groceries">
       <div className={`d-flex justify-content-between ${show}`}>
-        <img src={LOGO} alt="" />
-        <div className="company_information">
-          <h5>Công ty TNHH 1 con Mèo</h5>
+        <img className="ps-5" src={LOGO} alt="" />
+        <div className="company_information ms-5">
+          <h5>
+          HiExpress trực thuộc Công Ty TNHH Công Nghệ PHARMACY Việt Nam
+          </h5>
           <div className="d-flex">
             <i className="fa-solid fa-location-dot mt-1"></i>
             <p className="ms-1">
-              Địa chỉ: Tầng 22, Tòa nhà NB902, P.Thành Thái, Q.Cầu Giấy, HN
+              Địa chỉ văn phòng: Tòa nhà N09b2, khu đô thị mới Dịch Vọng, quận
+              Cầu Giấy, TP Hà Nội
             </p>
           </div>
-          <p>ĐT Hotline: 0333 333 333</p>
-          <p>Website: meomeo@meow.com</p>
+          <p>Hotline: 098.8176.899</p>
+          <p>Email: support@logistic.vn</p>
         </div>
       </div>
-      <h1>THANH TOÁN ĐƠN HÀNG</h1>
+      <h1 className="mt-5">THANH TOÁN ĐƠN HÀNG</h1>
       <div className="order_information d-flex">
         <div className="order_label mb-3">
           <p>
@@ -184,20 +197,21 @@ export default function OrderGroceries() {
       </div>
 
       <h6 className="mt-5">
-        Cộng thành tiền (Viết bằng chữ): 
+        Cộng thành tiền (Viết bằng chữ):
         {DocTienBangChu(total)}
       </h6>
 
       <div className="text-end mt-5 me-4">
         Ngày.........tháng.........năm 20.........
+        {/* {date} */}
       </div>
 
-      <div className="d-flex justify-content-between mt-5 pb-5">
-        <div className="text-center ms-5">
+      <div className="sign d-flex justify-content-between mt-5 pb-5">
+        <div className="orderCustomer text-center ms-5">
           <h4>Người mua hàng</h4>
           <p>(Ký, ghi rõ họ tên)</p>
         </div>
-        <div className="text-center me-5">
+        <div className="groceriesCustomer text-center me-5">
           <h4>Người bán hàng</h4>
           <p>(Ký, ghi rõ họ tên)</p>
         </div>

@@ -7,6 +7,7 @@ import { deltailDeposit } from "../../../../api/depositApi";
 import { NumericFormat } from "react-number-format";
 import "./orderDeposit.scss";
 import LOGO from "../../../../assets/public/img/logo_login.png";
+import { DocTienBangChu } from "../../../../lib/shipFee";
 // import { NumericFormat } from "react-number-format";
 
 export default function OrderDeposit() {
@@ -26,24 +27,35 @@ export default function OrderDeposit() {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
 
+  const total = location.state ? location.state.total : "";
+
+  const handleOnCLickDownload = (e) => {
+    // setShow('d-block')
+    window.print();
+    // setShow('d-none')
+  };
+
   return (
-    <div className="OrderDetailGroceries">
+    <div className="order_deposit">
       <div className="d-flex justify-content-between">
-        <img style={{width: '200px', height: '112px'}} src={LOGO} alt="" />
+        <img style={{ width: "240px", height: "60px" }} src={LOGO} alt="" />
         <div className="company_information">
-          <h3>Công ty TNHH 1 con Mèo</h3>
+          <h4>HiExpress trực thuộc Công Ty TNHH Công Nghệ PHARMACY Việt Nam</h4>
           <div className="d-flex">
             <i className="fa-solid fa-location-dot mt-1"></i>
-            <p style={{margin: '0'}} className="ms-1">
-              Địa chỉ: Tầng 22, Tòa nhà NB902, P.Thành Thái, Q.Cầu Giấy, HN
+            <p style={{ margin: "0" }} className="ms-1">
+              Địa chỉ văn phòng: Tòa nhà N09b2, khu đô thị mới Dịch Vọng, quận
+              Cầu Giấy, TP Hà Nội
             </p>
           </div>
-          <p style={{margin: '0'}}>ĐT Hotline: 0333 333 333</p>
-          <p style={{margin: '0'}}>Website: meomeo@meow.com</p>
+          <p style={{ margin: "0" }}>Hotline: 098.8176.899</p>
+          <p style={{ margin: "0" }}>Email: support@logistic.vn</p>
         </div>
       </div>
-      <h1>THANH TOÁN ĐƠN HÀNG</h1>
-      <p style={{margin: '0'}}>Tên khách hàng: {location.state.order.full_name}</p>
+      <h1 className="mt-5">THANH TOÁN ĐƠN KÝ GỬI</h1>
+      <p style={{ margin: "0" }}>
+        Tên khách hàng: {location.state.order.full_name}
+      </p>
       <div
         className="location"
         style={{
@@ -54,8 +66,10 @@ export default function OrderDeposit() {
         <i className="fa-solid me-2 fa-location-dot"></i>
         <span>Địa chỉ nhận hàng: {location.state.order.address}</span>
       </div>
-      <p style={{margin: '0'}}>Số điện thoại: {location.state.order.phone}</p>
-      <p style={{margin: '0'}}>Tổng tiền thanh toán: {formatNumber(location.state.order.total)} đ</p>
+      <p style={{ margin: "0" }}>Số điện thoại: {location.state.order.phone}</p>
+      <p style={{ margin: "0" }}>
+        Tổng tiền thanh toán: {formatNumber(location.state.order.total)} đ
+      </p>
       <br />
       <Table striped bordered hover size="lg">
         <thead>
@@ -71,7 +85,7 @@ export default function OrderDeposit() {
           {list &&
             list.map((li, i) => (
               <tr key={i}>
-                <td>
+                <td className="stt">
                   {" "}
                   <span>{i + 1}</span>
                 </td>
@@ -231,26 +245,41 @@ export default function OrderDeposit() {
               </tr>
             ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <th colSpan="3">Tổng tiền thanh toán</th>
+            <th colSpan="1">{total}</th>
+          </tr>
+        </tfoot>
       </Table>
 
       <h6 className="mt-5">
         Cộng thành tiền (Viết bằng chữ):
-        ................................................................................................................................................................................................................................................
+        {DocTienBangChu(total)}
       </h6>
 
       <div className="text-end mt-5 me-4">
         Ngày.........tháng.........năm 20.........
       </div>
 
-      <div className="d-flex justify-content-between mt-5 pb-5">
-        <div className="text-center ms-5">
+      <div className="sign d-flex justify-content-between mt-5 pb-5">
+        <div className="orderCustomer text-center ms-5">
           <h4>Người mua hàng</h4>
           <p>(Ký, ghi rõ họ tên)</p>
         </div>
-        <div className="text-center me-5">
+        <div className="groceriesCustomer text-center me-5">
           <h4>Người bán hàng</h4>
           <p>(Ký, ghi rõ họ tên)</p>
         </div>
+      </div>
+      <div className="capture text-end">
+        <button
+          onClick={(e) => handleOnCLickDownload(e)}
+          style={{ border: "none", background: "#9470d4" }}
+          className="p-2"
+        >
+          Dowload
+        </button>
       </div>
     </div>
   );
