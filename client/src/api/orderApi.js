@@ -27,10 +27,23 @@ const updaterOrder = async(orderId, data) => {
     return await instance.post(url, data);
 }
 
+const listAllOrder = async() => {
+    const url = `/order/listAll/order`;
+    return await instance.get(url)
+}
+
+const listOrderByUser = async(userId) => {
+    const url = `/order/list/${userId}?type=order`;
+    return await instance.get(url)
+}
+
+
 export {
     createOrder,
     uploadFiles,
     listOrder,
     deltailOrder,
-    updaterOrder
+    updaterOrder,
+    listAllOrder,
+    listOrderByUser
 }

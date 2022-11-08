@@ -22,9 +22,21 @@ const updateDeposit = async(depositId, data) => {
     return await instance.post(url, data);
 }
 
+const listAllDeposit = async() => {
+    const url = `/order/listAll/deposit`;
+    return await instance.get(url)
+}
+
+const listDepositByUser = async(userId) => {
+    const url = `/order/list/${userId}?type=deposit`;
+    return await instance.get(url)
+}
+
 export {
     createDeposit,
     uploadFilesDeposit,
     deltailDeposit,
-    updateDeposit
+    updateDeposit,
+    listAllDeposit,
+    listDepositByUser
 }

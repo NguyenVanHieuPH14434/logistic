@@ -274,7 +274,7 @@ function Groceries() {
       <div className="imgs"></div>
       <div className="groceries">
         <p className="title">Tạo đơn hàng</p>
-        <Table style={{ backgroundColor: "#f5f5f5" }} bordered hover size="lg">
+        <Table style={{ backgroundColor: "#f5f5f5" }} bordered size="lg">
           <thead>
             <tr>
               <th>STT</th>
@@ -288,11 +288,11 @@ function Groceries() {
           <tbody>
             {list.map((li, i) => (
               <tr key={i}>
-                <td style={{ paddingTop: "200px" }} className="stt">
+                <td style={{ paddingTop: "80px" }} className="stt">
                   {" "}
                   {i + 1} <br />
                 </td>
-                <td sytle={{with:'10%'}} className=" pt-5">
+                <td sytle={{with:'10%'}} className=" pt-2">
                   <img
                     style={{
                       width: "96px",
@@ -360,7 +360,7 @@ function Groceries() {
                     thousandSeparator=","
                     min="1"
                   />
-                  <input
+                  {/* <input
                     className="w-100 form-control mt-2"
                     type="text"
                     placeholder="Mã vận đơn"
@@ -395,10 +395,10 @@ function Groceries() {
                     name="phuPhi"
                     placeholder="Phụ phí"
                     onChange={(e) => changeInp(i, e)}
-                  />
+                  /> */}
                 </td>
 
-                <td style={{paddingTop: '160px', paddingRight:'40px', width:'10%'}}  className="soLuong">
+                <td style={{paddingTop: '50px', paddingRight:'40px', width:'10%'}}  className="soLuong">
                   <div className="d-flex soLuong">
                     <div
                       className="border px-3 d-flex justify-content-center border-dark w-25 form-control"
@@ -437,14 +437,13 @@ function Groceries() {
                     placeholder="Ghi chú sản phẩm..."
                   ></textarea>{" "}
                 </td>
-                {/* <td className="pt-5"> {li.totalPrice} </td> */}
-                <td style={{paddingTop: '200px', width:'12%'}}>
+                <td style={{paddingTop: '80px', width:'12%'}}>
                   <p className="">
                     <NumericFormat
                       disabled={true}
                       style={{
                         border: "none",
-                        backgroundColor: "none",
+                        backgroundColor: "#f5f5f5",
                         width: "100%",
                         textAlign: "center",
                       }}

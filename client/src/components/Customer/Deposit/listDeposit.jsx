@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-toastify";
 import { renderStatus } from "../../../lib/shipFee";
+import { listAllDeposit, listDepositByUser } from "../../../api/depositApi";
 
 export default function ListDeposit() {
   const {
@@ -27,6 +28,26 @@ export default function ListDeposit() {
     headQuarters: "",
     status: "",
   });
+
+  const getDeposit = async() => {
+    if(user.role !== 'user'){
+      await listAllDeposit().then((response)=> {
+        setListt(response.data.data);
+        setLists(response.data.data);
+      });
+    }else {
+      await listDepositByUser(user._id).then((response)=> {
+        setListt(response.data.data);
+        setLists(response.data.data);
+      });
+    }
+
+  }
+
+  useEffect(() => {
+    getDeposit();
+    
+  }, []);
   console.log(search);
   const [inputCalendar, setInputCalendar] = useState({
     calendar_from: "",
@@ -75,37 +96,29 @@ export default function ListDeposit() {
     let value = e.target.value;
     setSearch({ ...search, [name]: value });
   };
-  // const getListt = async () => {
-  //   const res = await listOrder(user._id);
-  //   setLists(res.data.data)
-  //   return setListt(lists)
-  // };
-  async function fetchData() {
-    let params = ''
-    if(user.role==='admin'){
-      params=`listAll/deposit`
-    }
-    else{
-      params=`list/${user._id}?type=deposit`
-    }
-    let url = `http://localhost:9000/api/order/${params}`
-    const response = await Axios.get(
-      url
-    );
-    const info = response.data.data;
-    console.log(info);
-    setListt(info);
-    setLists(info);
-  }
-  useEffect(() => {
-    //getListt()
-    fetchData();
-  }, []);
-  //find
-  // const findProduct =()=>{
-  //   let date = inputCalendar.calendar_from.split("-").reverse().join("/")
-  //   return setListt(lists.filter(el=> el.ctime.includes(date)))
+ 
+  // async function fetchData() {
+  //   let params = ''
+  //   if(user.role!=='user'){
+  //     params=`listAll/deposit`
+  //   }
+  //   else{
+  //     params=`list/${user._id}?type=deposit`
+  //   }
+  //   let url = `http://localhost:9000/api/order/${params}`
+  //   const response = await Axios.get(
+  //     url
+  //   );
+  //   const info = response.data.data;
+  //   console.log(info);
+  //   setListt(info);
+  //   setLists(info);
   // }
+  // useEffect(() => {
+  //   //getListt()
+  //   fetchData();
+  // }, []);
+
   const navi = useNavigate();
   // Array to store month string values
   const allMonthValues = [
@@ -124,14 +137,6 @@ export default function ListDeposit() {
   ];
   const handleOnChangeInputCalendar = (e) => {
     const { name, value } = e.target;
-    // if(inputCalendar.calendar_from || inputCalendar.calendar_to!==''){
-    //   if(inputCalendar.calendar_from >= inputCalendar.calendar_to){
-    //     alert('vui lòng không để thời gian bắt đầu cao hơn thời gian kết thúc')
-    //   }
-    //   else{
-    //     searchProduct()
-    //   }
-    // }
     setInputCalendar((prev) => {
       return { ...prev, [name]: value };
     });

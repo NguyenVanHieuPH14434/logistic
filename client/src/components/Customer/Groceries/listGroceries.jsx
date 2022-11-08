@@ -12,7 +12,7 @@ import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groc
 
 import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import { listOrder } from "../../../api/orderApi";
+import { listAllOrder, listOrder, listOrderByUser } from "../../../api/orderApi";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
@@ -29,6 +29,27 @@ export default function ListGroceries() {
     headQuarters: "",
     status: "",
   });
+
+  const getALlOrder = async() => {
+    if(user.role !== 'user'){
+      await listAllOrder().then((response)=> {
+        setListt(response.data.data);
+        setLists(response.data.data);
+      });
+    }else {
+      await listOrderByUser(user._id).then((response)=> {
+        setListt(response.data.data);
+        setLists(response.data.data);
+      });
+    }
+
+  }
+
+  useEffect(() => {
+    getALlOrder();
+    
+  }, []);
+
   console.log(search);
   const [inputCalendar, setInputCalendar] = useState({
     calendar_from: "",
@@ -78,38 +99,7 @@ export default function ListGroceries() {
     let value = e.target.value;
     setSearch({ ...search, [name]: value });
   };
-  // const getListt = async () => {
-  //   const res = await listOrder(user._id);
-  //   setLists(res.data.data)
-  //   return setListt(lists)
-  // };
-  async function fetchData() {
-    let params = ''
-    if(user.role==='admin'){
-      params=`listAll/deposit`
-    }
-    else{
-      params=`list/${user._id}?type=deposit`
-    }
-    let url = `http://localhost:9000/api/order/${params}`
-    const response = await Axios.get(
-      url
-      
-    );
-    const info = response.data.data;
-    console.log(info);
-    setListt(info);
-    setLists(info);
-  }
-  useEffect(() => {
-    //getListt()
-    fetchData();
-  }, []);
-  //find
-  // const findProduct =()=>{
-  //   let date = inputCalendar.calendar_from.split("-").reverse().join("/")
-  //   return setListt(lists.filter(el=> el.ctime.includes(date)))
-  // }
+  
   const navi = useNavigate();
   // Array to store month string values
   const allMonthValues = [
@@ -249,8 +239,8 @@ export default function ListGroceries() {
               <th scope="col">Đơn Hàng</th>
             </tr>
           </thead>
-          {listt.length > 0 ?
-          (<tbody>
+          {/* {listt.length > 0 ? */}
+          <tbody>
             {listt &&
               listt
                 .map((li, i) => {
@@ -288,7 +278,7 @@ export default function ListGroceries() {
                   );
                 })
                 .slice(pagesVisited, pagesVisited + productPerPage)}
-          </tbody>):(<tbody><tr><th colSpan='7'>Đơn hàng trống!</th></tr></tbody>)}
+          </tbody>
         </table>
         {searchProduct}
         <div className="d-flex justify-content-center">
