@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -13,14 +13,12 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css"; //
 import { Confirm, toastifyError, toastifySuccess, toastifyWarning } from "../../../lib/toastify";
-import { tyGia, typeMon } from "../../../lib/shipFee";
 
 function Groceries() {
   const navigate = useNavigate();
   const {
     state: { user },
   } = useContext(AppContext);
-  const [typeMoney, setTypeMoney] = useState('');
 
   const [list, setList] = useState([
     {
@@ -31,6 +29,7 @@ function Groceries() {
       attribute: "",
       product_price: 0,
       quantity: 1,
+      typeMoney: 1,
       maVanDon: '',
       soKien:'',
       kgM3:0,
@@ -40,18 +39,21 @@ function Groceries() {
       total_price: 0,
     },
   ]);
+
  
   const setTotalPriceALL = (val, i) =>{
-    if (val[i]["quantity"] && val[i]["product_price"] && typeMoney || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
+    if (val[i]["quantity"] && val[i]["product_price"] && val[i]["typeMoney"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
     let kgm3 = val[i]["kgM3"]?val[i]["kgM3"]:0
     let dongia = val[i]["donGia"]?val[i]["donGia"]:0
     let phuphi = val[i]["phuPhi"]?val[i]["phuPhi"]:0
     val[i]["total_price"] =
         (val[i]["product_price"].replace(/,/g, "") *
-        parseFloat(typeMoney) *
+        parseFloat(val[i]["typeMoney"]) *
     val[i]["quantity"]) + (parseFloat(kgm3) * parseFloat(dongia)) + parseFloat(phuphi);
     }
   }
+  
+
 
   const checkValidate = (items, order) => {
     //create
@@ -111,6 +113,7 @@ function Groceries() {
       attribute: "",
       product_price: 0,
       quantity: 1,
+      typeMoney: 1,
       maVanDon: '',
       soKien:'',
       kgM3:0,
@@ -346,7 +349,7 @@ function Groceries() {
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Link sản phẩm (*)"
                   />
-                  <select name="typeMoney" onChange={(e)=>setTypeMoney(e.target.value)} id="" className="form-control mt-2">
+                  <select name="typeMoney" onChange={(e)=>changeInp(i, e)} id="" className="form-control mt-2">
                     <option value="">Chọn loại tiền (*)</option>
                     {typeMon && typeMon.map((item)=>{
                       return(
