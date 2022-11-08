@@ -245,18 +245,12 @@ export default function OrderDeposit() {
               </tr>
             ))}
         </tbody>
-        <tfoot>
-          <tr>
-            <th colSpan="3">Tổng tiền thanh toán</th>
-            <th colSpan="1">{total}</th>
-          </tr>
-        </tfoot>
       </Table>
 
-      <h6 className="mt-5">
+      {/* <h6 className="mt-5">
         Cộng thành tiền (Viết bằng chữ):
         {DocTienBangChu(total)}
-      </h6>
+      </h6> */}
 
       <div className="text-end mt-5 me-4">
         Ngày.........tháng.........năm 20.........

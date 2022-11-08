@@ -13,30 +13,12 @@ import personalInformation from "../../../src/assets/public/img/userImg/personal
 import settings from "../../../src/assets/public/img/userImg/settings.png";
 import { Link } from "react-router-dom";
 import { Button, ButtonGroup } from "react-bootstrap";
+import ListHeader from "../../Shared/Header/listHeader";
 
 export default function User() {
   return (
     <div className="user">
-      <div className="nav_container">
-        <div className="nav_left">
-          <h4>HOTLINE</h4>
-          <h2 className="text-danger">1900 6825</h2>
-        </div>
-        <div className="nav_search">
-          <input
-            type="text"
-            placeholder="Hello world, Chiều nay bạn muốn tìm gì?"
-          />
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </div>
-        <div className="nav_exchange">
-          <img src={nav_exchange_rate_logo} alt="" />
-          <span>
-            <p>Tỉ giá</p>
-            <h2 className="text-danger">3,650đ</h2>
-          </span>
-        </div>
-      </div>
+      <ListHeader/>
 
       {/* User */}
       <div className="user_content">

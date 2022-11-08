@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-toastify";
 import { renderStatus } from "../../../lib/shipFee";
+import ListHeader from "../../../Shared/Header/listHeader";
 export default function ListGroceries() {
   const {
     state: { user },
@@ -126,26 +127,7 @@ export default function ListGroceries() {
   
   return (
     <div className="listGroceries">
-      <div className="nav_container">
-        <div className="nav_left">
-          <h4>HOTLINE</h4>
-          <h2 className="text-danger">1900 6825</h2>
-        </div>
-        <div className="nav_search">
-          <input
-            type="text"
-            placeholder="Hello world, Chiều nay bạn muốn tìm gì?"
-          />
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </div>
-        <div className="nav_exchange">
-          <img src={nav_exchange_rate_logo} alt="" />
-          <span>
-            <p>Tỉ giá</p>
-            <h2 className="text-danger">3,650đ</h2>
-          </span>
-        </div>
-      </div>
+      <ListHeader />
 
       <hr />
       <ul className="menu_groceries">

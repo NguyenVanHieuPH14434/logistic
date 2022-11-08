@@ -2,6 +2,7 @@ import React from "react";
 import "./changePass.scss";
 import nav_exchange_rate_logo from "../../../src/assets/public/img/nav_exchange_groceris.png";
 import { useState } from "react";
+import ListHeader from "../../Shared/Header/listHeader";
 
 export default function ChangePass() {
 
@@ -26,26 +27,7 @@ export default function ChangePass() {
     }
   return (
     <div className="change_pass">
-      <div className="nav_container">
-        <div className="nav_left">
-          <h4>HOTLINE</h4>
-          <h2 className="text-danger">1900 6825</h2>
-        </div>
-        <div className="nav_search">
-          <input
-            type="text"
-            placeholder="Hello world, Chiều nay bạn muốn tìm gì?"
-          />
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </div>
-        <div className="nav_exchange">
-          <img src={nav_exchange_rate_logo} alt="" />
-          <span>
-            <p>Tỉ giá</p>
-            <h2 className="text-danger">3,650đ</h2>
-          </span>
-        </div>
-      </div>
+      <ListHeader/>
 
       <div className="container change_password_content">
         <h1>THAY ĐỔI MẬT KHẨU</h1>

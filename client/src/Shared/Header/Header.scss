@@ -614,7 +614,7 @@
       .orderCustomer.text-center.ms-5 {
         margin-left: 0 !important;
         margin-bottom: 120px;
-    }
+      }
     }
     .order_groceries h1 {
       font-size: 22px;
@@ -638,7 +638,7 @@
       margin-top: 10px;
       .d-flex.justify-content-between {
         flex-wrap: wrap;
-    }
+      }
       .company_information {
         width: 100%;
         margin-left: 26px !important;
@@ -655,20 +655,20 @@
           width: 111% !important;
           tr {
             display: flex;
-            flex-direction: column;    
+            flex-direction: column;
             position: relative;
             left: -7px;
             width: 127% !important;
             td {
               margin-left: -33px;
               width: 100% !important;
-              label{
+              label {
                 display: none;
               }
             }
             td.stt {
               text-align: center;
-          }
+            }
           }
         }
         tfoot {
@@ -688,7 +688,7 @@
       .orderCustomer.text-center.ms-5 {
         margin-left: 0 !important;
         margin-bottom: 120px;
-    }
+      }
     }
     .order_deposit h1 {
       font-size: 22px;
@@ -723,7 +723,7 @@
   .Header {
     height: 50px;
     position: relative;
-    width: 107%;
+    width: 120%;
     .navbar {
       .end {
         display: flex;
@@ -860,11 +860,29 @@
     .nav_container {
       margin-top: -100px;
     }
+    .justify-content-between {
+      flex-wrap: wrap;
+      justify-content: space-between !important;
+    }
+    .border.border-danger.p-2 {
+      margin-top: 10px;
+    }
     .listGroceries {
       .calender {
         flex-wrap: wrap;
         gap: 10px;
       }
+      table.table.table-bordered.mt-5.text-center {
+        width: 120%;
+      }
+    }
+    .listGroceries .nav_container {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 122%;
+      padding: 30px 0 15px 0;
+      background-image: url(http://localhost:3000/static/media/search-dash-bg.ded2338….png);
     }
   }
   .container {
