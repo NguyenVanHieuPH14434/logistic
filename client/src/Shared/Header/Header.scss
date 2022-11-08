@@ -45,12 +45,17 @@
             background: #9470d4;
         }
         .dropdown-menu .dropdown-item {
+            padding-right: 108px;
+            padding-left: 60px;
             border-bottom: 0.005em solid rgba(255, 255, 255, 0.1);
             color: white;
             top: 43px;
             background: #9470d4;
             right: -10px;
             width: 80px !important;
+            &:hover{
+                background-color: #666;
+            }
         }
     }
     .dropdown,

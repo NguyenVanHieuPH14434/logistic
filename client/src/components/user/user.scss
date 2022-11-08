@@ -17,7 +17,8 @@
     }
     .nav_search {
       input {
-        padding: 12px 100px;
+        width: 400px;
+        height: 50px;
         border-radius: 10px;
       }
       i {
@@ -41,7 +42,7 @@
     grid-template-columns: auto auto auto auto auto;
     gap: 30px;
     padding: 60px 0;
-    .border{
+    .border {
       border: none !important;
     }
     img {
