@@ -122,6 +122,10 @@ export default function ListGroceries() {
       return { ...prev, [name]: value };
     });
   };
+
+  const changeInp = (_id, e) => {
+    
+  }
   
   return (
     <div className="listGroceries">
@@ -253,7 +257,7 @@ export default function ListGroceries() {
                       <td> {li.address} </td>
                       <td className="w-25"> 
                      
-                      <select name="" className="form-control" value={li.status}>
+                      <select name="status" className="form-control" onChange={(e)=>changeInp(li._id, e)} value={li.status}>
                       {Status.map((ite)=>{
                       return(
                         <option value={ite.value}>{ite.label}</option>

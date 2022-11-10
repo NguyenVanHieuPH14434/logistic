@@ -34,11 +34,6 @@ function NewAuthAPI (authCOntroller: AuthController) {
             password: req.body.password
         }
         
-        // check exits username
-        // const checkUserNameExits = await authCOntroller.Login(req.body.username);
-        // if(checkUserNameExits){
-        //     SendErr(false, CheckExits('Tên đăng nhập'), res)
-        // }
         // check exits phone
         const checkPhoneExits = await authCOntroller.Login(req.body.phone);
         if(checkPhoneExits){
@@ -75,7 +70,7 @@ function NewAuthAPI (authCOntroller: AuthController) {
     })
 
     router.post('/login', async(req, res)=>{
-        const user:any = await authCOntroller.Login(req.body.username);
+        const user:any = await authCOntroller.Login(req.body.username.trim());
         if(user){
             const checkPass = await bcrypt.compare(req.body.password, user.password);
             if(checkPass){

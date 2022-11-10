@@ -73,13 +73,20 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
             total: req.body.order.total,
         }
 
-        const paramsItem = req.body.orderItem;
+        const paramsItem = req.body.orderItem?req.body.orderItem:'';
 
         const order = await orderController.UpdateOrder(req.params._id,params);
-        const orderItem = await orderItemController.UpdateOrderItem(paramsItem);
+        if(paramsItem !== ''){
+            const orderItem = await orderItemController.UpdateOrderItem(paramsItem);
+            const data = {
+                order: order,
+                orderItem: orderItem
+            }
+            return res.json(data)
+        }
         const data = {
             order: order,
-            orderItem: orderItem
+            // orderItem: orderItem
         }
        return res.json(data)
     })

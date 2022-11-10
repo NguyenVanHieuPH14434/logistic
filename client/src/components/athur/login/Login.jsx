@@ -10,7 +10,7 @@ import { toastifyError } from "../../../lib/toastify";
 
 export default function Login() {
   const {
-    state: { isAuthenticated,user }, logout
+    state: { isAuthenticated,user }
   } = useContext(AppContext);
   const { loginUser } = useContext(AppContext);
   const navigate = useNavigate();
