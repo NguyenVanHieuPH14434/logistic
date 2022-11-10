@@ -94,7 +94,7 @@ export default function AddMember() {
               </span>
               <span>
                 <input
-                  type="text"
+                  type="password"
                   onChange={handleInput}
                   name="password"
                   value={register.password}

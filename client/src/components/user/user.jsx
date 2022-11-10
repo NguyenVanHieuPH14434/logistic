@@ -79,11 +79,17 @@ export default function User() {
           <p>Khiếu nại</p>
         </div>
         <div className="user_item suppliers">
-          <img src={suppliers} alt="" />
+          <Link as={Link} to="/menuHome">
+            <img src={suppliers} alt="" />
+          </Link>
+
+          {/* <img src={suppliers} alt="" /> */}
           <p>Nhà cung cấp</p>
         </div>
         <div className="user_item personal_information">
-          <Link as={Link} to="/app/orderGroceries"><img src={personalInformation} alt="" /></Link>
+          <Link as={Link} to="/app/orderGroceries">
+            <img src={personalInformation} alt="" />
+          </Link>
           <p>Thông tin cá nhân</p>
         </div>
         <div className="user_item settings">

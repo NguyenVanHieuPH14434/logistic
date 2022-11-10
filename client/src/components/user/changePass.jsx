@@ -72,7 +72,7 @@ export default function ChangePass() {
               </div>
               <div className="input_column">
                 <input type="text" name="phone" placeholder="Số điện thoại" value={input.phone} onChange={(e) => handleOnChangeInput(e)} />
-                <input type="text" name="password" placeholder="Mật khẩu mới" value={input.password} onChange={(e) => handleOnChangeInput(e)} />
+                <input type="password" name="password" placeholder="Mật khẩu mới" value={input.password} onChange={(e) => handleOnChangeInput(e)} />
               </div>
           </div>
           <button type="submit">Lưu thay đổi</button>

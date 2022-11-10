@@ -93,11 +93,11 @@ export default function RegisterUser() {
                 <i className="fa-solid fa-mobile-screen-button"></i>
               </span>
               <span>
-                <input type="text"onChange={handleInput} name="password" value={register.password} placeholder="Mật khẩu..." />
+                <input type="password"onChange={handleInput} name="password" value={register.password} placeholder="Mật khẩu..." />
                 <i className="fa-sharp fa-solid fa-lock"></i>
               </span>
               <span>
-                <input type="text"onChange={handleInput} name="checkPassword" value={register.checkPassword} placeholder="Nhập lại mật khẩu..." />
+                <input type="password"onChange={handleInput} name="checkPassword" value={register.checkPassword} placeholder="Nhập lại mật khẩu..." />
                 <i className="fa-sharp fa-solid fa-lock"></i>
               </span>
               <div className="duy_tri">

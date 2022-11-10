@@ -23,6 +23,7 @@ import Express from './components/user/express/express';
 import AddMember from './components/user/addMember/addMember.jsx';
 import EditDeposit from './components/Customer/Deposit/EditDeposit/EditDeposit.js';
 import EditGroceries from './components/Customer/Groceries/EditGroceries/EditGroceries.js';
+import MenuHome from './components/user/menuHome.jsx';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="login" element={<Login />}></Route>
           <Route path="register" element={<Register />}></Route>
           <Route index element={<Navigate to={'/login'} />}></Route>
+          <Route path="menuHome" element={<MenuHome className="right" />}></Route>
         </Route>
         <Route path="/app" element={<RouterDasboard className="right" />}>
           <Route path="groceries" element={<Groceries className="right" />}></Route>

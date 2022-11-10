@@ -87,7 +87,7 @@ export default function Login() {
               </span>
               <span>
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Mật khẩu..."
                   name="password"
                   onChange={(e) => setHandleOnChangeInput(e)}
