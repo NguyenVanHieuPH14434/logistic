@@ -128,11 +128,25 @@ const renderStatus = (status) => {
     }
 };
 
+const Status = [
+    { value: '0', label: 'Chờ xác nhận' },
+    { value: '1', label: 'Đã xác nhận' },
+    { value: '2', label: 'Đang vận chuyển về kho Trung Quốc' },
+    { value: '3', label: 'Đã về kho Trung Quốc' },
+    { value: '4', label: 'Đã về kho Trung QuốcĐang vận chuyển về kho Việt Nam' },
+    { value: '5', label: 'Đã về kho Việt Nam' },
+    { value: '6', label: 'Giao hàng thành công' },
+]
+
 const typeMon = [
     { value: '24870', label: 'USD' },
     { value: '1', label: 'Việt Nam đồng' },
     { value: '3650', label: 'Nhân dân tệ' },
 ]
+
+const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 var ChuSo = new Array(
     " không ",
@@ -270,5 +284,7 @@ export {
 
     //   convert money to string
     DocTienBangChu,
-    typeMon
+    typeMon,
+    Status,
+    numberWithCommas
 };

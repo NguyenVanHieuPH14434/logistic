@@ -1,17 +1,17 @@
-.order_groceries{
-    img{
+.order_groceries {
+    img {
         width: 240px;
         height: 60px;
     }
-    .company_information{
+    .company_information {
         width: 420px;
-        p{
+        p {
             margin-bottom: 0;
         }
     }
-    .order_information{
-        .order_label{
-            p{
+    .order_information {
+        .order_label {
+            p {
                 margin-bottom: 4px;
                 font-size: 20px;
             }
@@ -19,26 +19,25 @@
     }
     margin: 40px;
     margin-top: 140px;
-    h1{
+    h1 {
         margin-top: 10px;
         text-align: center;
         margin-bottom: 40px;
     }
     width: 100%;
-    .location{
+    .location {
         display: flex;
         align-items: center;
-        p{
+        p {
             padding-top: 14px;
             margin-left: 4px;
         }
-        .order_information{
+        .order_information {
             max-width: 500px;
         }
     }
-
     // table Sản Phẩm Hiện Ra
-    .product_information{
+    .product_information {
         table {
             background: #fff;
         }
@@ -52,6 +51,13 @@
                 max-width: 200px;
                 max-height: 200px;
             }
+            .attribute {
+                height: auto;
+                min-width: 100%;
+                // min-height: 70px;
+                max-width: 100%;
+                max-height: 500px;
+            }
         }
         td {
             // padding-top: 50%;
@@ -59,7 +65,7 @@
         .soLuong {
             padding-top: 24px;
             margin-left: 36px;
-            input{
+            input {
                 border-style: none;
             }
         }

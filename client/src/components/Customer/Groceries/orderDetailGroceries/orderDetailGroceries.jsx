@@ -5,6 +5,7 @@ import Table from "react-bootstrap/Table";
 import { useLocation } from "react-router-dom";
 import { deltailOrder, listOrder } from "../../../../api/orderApi";
 import { NumericFormat } from "react-number-format";
+import { numberWithCommas } from "../../../../lib/shipFee";
 export default function OrderDetailGroceries() {
   const location = useLocation();
   console.log("ss", location.state.id);
@@ -232,7 +233,7 @@ export default function OrderDetailGroceries() {
                       className="w-75 form-control mt-2"
                       type="text"
                       name="phuPhi"
-                      value={li.phuPhi}
+                      value={numberWithCommas(li.phuPhi)}
                       placeholder="Phụ phí"
                     />
                   </div>
@@ -248,12 +249,18 @@ export default function OrderDetailGroceries() {
                   <div className="d-flex soLuong">{li.note ? li.note : ""}</div>
                 </td>
                 <td className="pt-5">
-                  <p className="">{li.total_price}</p>
+                  <p className="">{numberWithCommas(li.total_price)}</p>
                 </td>
               </tr>
             );
           })}
         </tbody>
+        <tfoot>
+            <tr>
+              <th colSpan="5">Tổng tiền thanh toán</th>
+              <th colSpan="2">{numberWithCommas(list.total)} Vnđ</th>
+            </tr>
+          </tfoot>
       </Table>
     </div>
   );

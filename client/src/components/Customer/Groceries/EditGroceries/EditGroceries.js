@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, NavItem } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import "../Groceries.scss";
@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css"; //
 import { Confirm, toastifyError, toastifySuccess } from "../../../../lib/toastify";
-import { tyGia } from "../../../../lib/shipFee";
+import { Status, tyGia, typeMon } from "../../../../lib/shipFee";
 
 function EditGroceries() {
   const navigate = useNavigate();
@@ -68,13 +68,13 @@ function EditGroceries() {
     
  
   const setTotalPriceALL = (val, i) =>{
-    if (val[i]["quantity"] && val[i]["product_price"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
+    if (val[i]["quantity"] && val[i]["product_price"] && val[i]["typeMoney"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
     let kgm3 = val[i]["kgM3"]?val[i]["kgM3"]:0
-    let dongia = val[i]["donGia"]?val[i]["donGia"]:0
-    let phuphi = val[i]["phuPhi"]?val[i]["phuPhi"]:0
+    let dongia = val[i]["donGia"]?val[i]["donGia"].replace(/,/g, ""):0
+    let phuphi = val[i]["phuPhi"]?val[i]["phuPhi"].replace(/,/g, ""):0
     val[i]["total_price"] =
         (val[i]["product_price"].replace(/,/g, "") *
-        tyGia() *
+        parseFloat(val[i]["typeMoney"]) *
     val[i]["quantity"]) + (parseFloat(kgm3) * parseFloat(dongia)) + parseFloat(phuphi);
     }
   }
@@ -185,9 +185,9 @@ function EditGroceries() {
 
     const res = await updaterOrder(location.state.id, data1);
     toastifySuccess("Cập nhật đơn hàng thành công!");
-    // setTimeout(() => {
-    //   navigate("/app/orderGroceries", { state: { data: list } });
-    // }, 1000);
+    setTimeout(() => {
+      navigate("/app/orderGroceries", { state: { data: list, order: order, total: totalOrderCost } });
+    }, 1000);
   };
   // submit tạo đơn hàng
   const saveData = () => {
@@ -275,6 +275,14 @@ function EditGroceries() {
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Link sản phẩm"
                   />
+                   <select name="typeMoney" value={li.typeMoney?li.typeMoney:''} onChange={(e)=>changeInp(i, e)} id="" className="form-control mt-2">
+                    <option value="">Chọn loại tiền (*)</option>
+                    {typeMon && typeMon.map((item)=>{
+                      return(
+                        <option value={item.value}>{item.label}</option>
+                      )
+                    })}
+                  </select>
                   <NumericFormat
                     placeholder="Giá sản phẩm"
                     style={{
@@ -321,6 +329,8 @@ function EditGroceries() {
                     name="donGia"
                     value={li.donGia ? li.donGia : ""}
                     placeholder="Cước vận chuyển"
+                    thousandSeparator=","
+                    min="1"
                     onChange={(e) => changeInp(i, e)}
                   />
                   <NumericFormat
@@ -329,6 +339,8 @@ function EditGroceries() {
                     name="phuPhi"
                     value={li.phuPhi ? li.phuPhi : ""}
                     placeholder="Phụ phí"
+                    thousandSeparator=","
+                    min="1"
                     onChange={(e) => changeInp(i, e)}
                   />
                 </td>
@@ -479,6 +491,22 @@ function EditGroceries() {
                     <option>Vui Lòng Chọn Địa Chỉ</option>
                     <option value="Hà Nội">Hà Nội</option>
                     <option value="Hải Phòng">Hải Phòng</option>
+                  </Form.Select>
+                </Row>
+                <Row>
+                  <Form.Label className="customer-title">Trạng thái</Form.Label>
+                  <Form.Select
+                    className="customer-field"
+                    name="status"
+                    value={order?.status}
+                    onChange={(e) => changeInpOrder(e)}
+                  >
+                    <option value=''>Chọn trạng thái đơn hàng</option>
+                    {Status.map((ite)=>{
+                      return(
+                        <option value={ite.value}>{ite.label}</option>
+                      )
+                    })}
                   </Form.Select>
                 </Row>
               </Container>

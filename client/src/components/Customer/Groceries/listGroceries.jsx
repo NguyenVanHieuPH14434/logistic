@@ -14,10 +14,10 @@ import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { listAllOrder, listOrder, listOrderByUser } from "../../../api/orderApi";
 import ReactPaginate from "react-paginate";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-toastify";
-import { renderStatus } from "../../../lib/shipFee";
+import { renderStatus, Status } from "../../../lib/shipFee";
 export default function ListGroceries() {
   const {
     state: { user },
@@ -251,7 +251,16 @@ export default function ListGroceries() {
                       <td> {li.full_name} </td>
                       <td> {li.phone} </td>
                       <td> {li.address} </td>
-                      <td> {renderStatus(li.status)} </td>
+                      <td className="w-25"> 
+                     
+                      <select name="" className="form-control" value={li.status}>
+                      {Status.map((ite)=>{
+                      return(
+                        <option value={ite.value}>{ite.label}</option>
+                      )
+                    })}
+                      </select>
+                      </td>
                       <td>
                         <button
                           className="btn btn-primary"

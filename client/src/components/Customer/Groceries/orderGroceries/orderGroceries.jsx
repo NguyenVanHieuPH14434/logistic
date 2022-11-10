@@ -5,7 +5,7 @@ import { NumericFormat } from "react-number-format";
 import "./orderGroceries.scss";
 import { useLocation } from "react-router-dom";
 import LOGO from "../../../../assets/public/img/logo_login.png";
-import { DocTienBangChu } from "../../../../lib/shipFee";
+import { DocTienBangChu, numberWithCommas } from "../../../../lib/shipFee";
 
 export default function OrderGroceries() {
   const location = useLocation();
@@ -102,7 +102,7 @@ export default function OrderGroceries() {
                         marginTop: "24px",
                       }}
                       src={
-                        li.fileImage ? URL.createObjectURL(li.fileImage) : ""
+                        li.fileImage ? URL.createObjectURL(li.fileImage) : `http://localhost:9000/${li.product_image}`
                       }
                     />
                   </td>
@@ -190,14 +190,14 @@ export default function OrderGroceries() {
           <tfoot>
             <tr>
               <th colSpan="5">Tổng tiền thanh toán</th>
-              <th colSpan="2">{total}</th>
+              <th colSpan="2">{numberWithCommas(total)}</th>
             </tr>
           </tfoot>
         </Table>
       </div>
 
       <h6 className="mt-5">
-        Cộng thành tiền (Viết bằng chữ):
+        Cộng thành tiền (Viết bằng chữ): &nbsp;
         {DocTienBangChu(total)}
       </h6>
 
