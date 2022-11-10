@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./addMember.scss";
 import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groceris.png";
 import { Link } from "react-router-dom";
 import logo_login from "../../../assets/public/img/logo_login.png";
 import { Register } from "../../../api/auth";
+import {
+  changeStyleInputPassword,
+  handleOnClickPass,
+} from "../../../lib/shipFee";
 
 export default function AddMember() {
   const [register, setRegister] = useState({
@@ -21,11 +25,7 @@ export default function AddMember() {
   };
   const checkValidate = (n) => {
     //create
-    if (
-      n.fullName !== "" &&
-      n.phone &&
-      n.password !== ""
-    ) {
+    if (n.fullName !== "" && n.phone && n.password !== "") {
       if (n.password) {
         Register(register).then(() => {
           setRegister({
@@ -42,9 +42,19 @@ export default function AddMember() {
       return alert("please input!!");
     }
   };
-  const handleRegister = () => {
+  const handleRegister = (e) => {
+    e.preventDefault()
     checkValidate(register);
   };
+
+  const [type, setType] = useState("none");
+  const [pass, setPass] = useState(false);
+  // const [passConfim, setPassConfim] = useState(false)
+
+  useEffect(() => {
+    changeStyleInputPassword(register.password, setType);
+  }, [register.password, register.checkPassword]);
+
   return (
     <div className="addMember">
       <div className="nav_container">
@@ -68,11 +78,11 @@ export default function AddMember() {
         </div>
       </div>
 
-      <div className="login">
+      <form className="login">
         <div className="container">
           <div className="form_login">
             <div className="login_form_input">
-              <span>
+              <span className="d-flex mx-auto">
                 <input
                   type="text"
                   onChange={handleInput}
@@ -82,7 +92,7 @@ export default function AddMember() {
                 />
                 <i className="fa-solid fa-circle-user"></i>
               </span>
-              <span>
+              <span className="d-flex mx-auto">
                 <input
                   type="text"
                   onChange={handleInput}
@@ -92,31 +102,40 @@ export default function AddMember() {
                 />
                 <i className="fa-solid fa-mobile-screen-button"></i>
               </span>
-              <span>
+              <span className="d-flex mx-auto">
                 <input
-                  type="password"
+                  type={pass ? "text" : "password"}
                   onChange={handleInput}
                   name="password"
                   value={register.password}
                   placeholder="Mật khẩu..."
                 />
-                <i className="fa-sharp fa-solid fa-lock"></i>
+                <i
+                  onClick={(e) => handleOnClickPass(setPass, pass)}
+                  class={`eye_icon fa-solid fa-eye-slash d-${type}`}
+                ></i>
               </span>
-              <span style={{marginLeft: '10px', marginBottom: '10px'}}>
-                  <select name="role" style={{width:'300px'}} className="form-control text-center d-flex mx-auto mt-2" onChange={handleInput} id="">
-                    <option value="">Chọn vai trò</option>
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                    <option value="manager">Manager</option>
-                  </select>
+              <span style={{ marginBottom: "10px" }}>
+                <select
+                  name="role"
+                  style={{ width: "300px" }}
+                  className="form-control d-flex mx-auto text-center mt-2"
+                  onChange={handleInput}
+                  id=""
+                >
+                  <option value="">Chọn vai trò</option>
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                  <option value="manager">Manager</option>
+                </select>
               </span>
             </div>
             <div className="login_form_btn">
-              <button onClick={() => handleRegister()}>Đăng Ký</button>
+              <button onClick={(e) => handleRegister(e)}>Đăng Ký</button>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

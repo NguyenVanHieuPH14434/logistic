@@ -2,15 +2,17 @@ import React, { useContext } from "react";
 import "./login.scss";
 import logo_login from "../../../assets/public/img/logo_login.png";
 import background_login from "../../../assets/public/img/image-background-login.png";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { Navigate } from "react-router-dom";
 import { toastifyError } from "../../../lib/toastify";
+import { changeStyleInputPassword, handleOnClickPass } from "../../../lib/shipFee";
 
 export default function Login() {
   const {
-    state: { isAuthenticated,user }
+    state: { isAuthenticated, user },
+    logout,
   } = useContext(AppContext);
   const { loginUser } = useContext(AppContext);
   const navigate = useNavigate();
@@ -19,13 +21,22 @@ export default function Login() {
     password: "",
   });
 
+  
+
   const setHandleOnChangeInput = (e) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,
     });
   };
-  
+
+  const [type, setType] = useState('none')
+  const [pass, setPass] = useState(false)
+
+  useEffect(() =>{
+    changeStyleInputPassword(data.password, setType)
+  }, [data.password])
+
   const location = useLocation();
 
   const handleOnClickLoginBtn = async (e) => {
@@ -70,29 +81,34 @@ export default function Login() {
             <span> | </span>
             <span className="register_title">
               <Link as={Link} to="/register">
-                Đăng nhập
+                Đăng ký
               </Link>
             </span>
           </h2>
-          <div className="form_login">
+          <form className="form_login">
             <div className="login_form_input">
-              <span>
+              <span className="d-flex mx-auto">
                 <input
                   type="text"
                   placeholder="Số điện thoại hoặc Email"
                   name="username"
                   onChange={(e) => setHandleOnChangeInput(e)}
                 />
-                <i className="fa-solid fa-circle-user"></i>
+                <i className="icon_user fa-solid fa-circle-user"></i>
               </span>
-              <span>
+              <span className="d-flex mx-auto">
+             
                 <input
-                  type="password"
+                  className="password_input"
+                  type={pass?'text' : 'password'}
                   placeholder="Mật khẩu..."
                   name="password"
                   onChange={(e) => setHandleOnChangeInput(e)}
                 />
-                <i className="fa-sharp fa-solid fa-lock"></i>
+                <div className="icon_password">
+                  {/* <i className="password_icon fa-sharp fa-solid fa-lock"></i> */}
+                  <i onClick={(e) => handleOnClickPass(setPass, pass)} class={`eye_icon fa-solid fa-eye-slash d-${type}`}></i>
+                </div>
               </span>
               <div className="duy_tri">
                 <input type="checkbox" />
@@ -104,7 +120,7 @@ export default function Login() {
                 Đăng nhập
               </button>
             </div>
-            <div className="facebook_login">
+            {/* <div className="facebook_login">
               <a href="/">
                 <i className="fa-brands fa-facebook"></i>
                 <p>Đăng nhập bằng Facebook</p>
@@ -115,8 +131,8 @@ export default function Login() {
                 <i className="fa-brands fa-square-google-plus"></i>
                 <p>Đăng nhập bằng Facebook</p>
               </a>
-            </div>
-          </div>
+            </div> */}
+          </form>
         </div>
       </div>
     </>

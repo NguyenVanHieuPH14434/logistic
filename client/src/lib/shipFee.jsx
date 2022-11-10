@@ -1,5 +1,7 @@
 //   // State giá phí vận chuyển chính ngạch
 
+import { useState } from "react";
+
 const tyGia = () => {
     return 3650;
 };
@@ -265,7 +267,19 @@ function DocTienBangChu(SoTien) {
     return KetQua; //.substring(0, 1);//.toUpperCase();// + KetQua.substring(1);
 }
 
-console.log(DocTienBangChu(12312673127));
+
+
+const changeStyleInputPassword = (password, setType) => {
+    if (password !== '') {
+        setType('block')
+    } else {
+        setType('none')
+    }
+}
+
+const handleOnClickPass = (setPass, pass) => {
+    setPass(!pass)
+}
 
 export {
     haNoiAreaFeePacketKg,
@@ -287,4 +301,8 @@ export {
     typeMon,
     Status,
     numberWithCommas
+
+    // change style input password
+    changeStyleInputPassword,
+    handleOnClickPass
 };
