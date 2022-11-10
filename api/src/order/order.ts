@@ -33,7 +33,7 @@ export namespace OrderSchema {
         phone?:string;
         address?:string;
         address_TQ?:string;
-        datCoc:number;
+        datCoc?:number;
         status?: number;
         total?: string;
         utime?:string;

@@ -258,7 +258,7 @@ export default function OrderDetailGroceries() {
         <tfoot>
             <tr>
               <th colSpan="5">Tổng tiền thanh toán</th>
-              <th colSpan="2">{numberWithCommas(list.total)} Vnđ</th>
+              <th colSpan="2">{list.total?numberWithCommas(list.total):0} Vnđ</th>
             </tr>
           </tfoot>
       </Table>

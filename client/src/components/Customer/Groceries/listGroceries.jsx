@@ -12,12 +12,13 @@ import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groc
 
 import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import { listAllOrder, listOrder, listOrderByUser } from "../../../api/orderApi";
+import { listAllOrder, listOrder, listOrderByUser, updaterOrder } from "../../../api/orderApi";
 import ReactPaginate from "react-paginate";
 import { Form, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-toastify";
 import { renderStatus, Status } from "../../../lib/shipFee";
+import { toastifySuccess } from "../../../lib/toastify";
 export default function ListGroceries() {
   const {
     state: { user },
@@ -123,9 +124,25 @@ export default function ListGroceries() {
     });
   };
 
-  const changeInp = (_id, e) => {
-    
+  const [changeStatus, setChangeStatus] = useState({
+    _id:'',
+    status: "",
+  });
+ 
+  const changeInp = async(_id, e) => {
+    const val = {...changeStatus}
+    val['_id'] = _id;
+    val[e.target.name] = e.target.value;
+   setChangeStatus(val)
   }
+  useEffect(()=>{
+    if(changeStatus.status && changeStatus._id){
+      const res = updaterOrder(changeStatus._id, changeStatus);
+      getALlOrder();
+      toastifySuccess("Cập nhật trạng thái đơn hàng thành công!");
+    }
+  },[changeStatus.status, changeStatus._id])
+  
   
   return (
     <div className="listGroceries">

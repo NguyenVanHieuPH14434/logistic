@@ -63,6 +63,13 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
 
     // update order and order item
     router.post('/update/:_id', async(req, res)=>{
+       if(!req.body.order && !req.body.orderItem){
+            const params:OrderSchema.UpdateOrderParams={
+                status: req.body.status ? req.body.status : 0,
+            }
+            const order = await orderController.UpdateOrder(req.params._id,params);
+            return res.json(order)
+       }else {
         const params:OrderSchema.UpdateOrderParams={
             full_name: req.body.order.full_name,
             phone: req.body.order.phone,
@@ -73,22 +80,16 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
             total: req.body.order.total,
         }
 
-        const paramsItem = req.body.orderItem?req.body.orderItem:'';
+        const paramsItem = req.body.orderItem;
 
         const order = await orderController.UpdateOrder(req.params._id,params);
-        if(paramsItem !== ''){
-            const orderItem = await orderItemController.UpdateOrderItem(paramsItem);
-            const data = {
-                order: order,
-                orderItem: orderItem
-            }
-            return res.json(data)
-        }
+        const orderItem = await orderItemController.UpdateOrderItem(paramsItem);
         const data = {
             order: order,
-            // orderItem: orderItem
+            orderItem: orderItem
         }
        return res.json(data)
+       }
     })
 
     // search order by date
