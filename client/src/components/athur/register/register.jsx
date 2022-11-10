@@ -115,12 +115,9 @@ export default function RegisterUser() {
                 {/* <i className="fa-sharp fa-solid fa-lock"></i> */}
                   <i onClick={(e) => handleOnClickPass(setPass, pass)} class={`eye_icon fa-solid fa-eye-slash d-${type1}`}></i>
               </span>
-              <div className="duy_tri">
-                <input type="checkbox" />
-                <p>Duy trì đăng nhập</p>
-              </div>
+             
             </div>
-            <div className="login_form_btn">
+            <div className="login_form_btn mt-2">
               <button onClick={()=>handleRegister()}>Đăng Ký</button>
             </div>
             {/* <div className="facebook_login">
