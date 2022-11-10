@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./changePass.scss";
 import nav_exchange_rate_logo from "../../../src/assets/public/img/nav_exchange_groceris.png";
 import { useState } from "react";
 import { ChangePassword } from "../../api/auth";
 import { toastifyError, toastifySuccess } from "../../lib/toastify";
+import { changeStyleInputPassword, handleOnClickPass } from "../../lib/shipFee";
 
 export default function ChangePass() {
 
@@ -39,6 +40,15 @@ export default function ChangePass() {
         }
       }
     }
+
+    const [type, setType] = useState("none");
+    const [pass, setPass] = useState(false);
+    // const [passConfim, setPassConfim] = useState(false)
+  
+    useEffect(() =>{
+      changeStyleInputPassword(input.password, setType)
+    }, [input.password, input.checkPassword])
+  
   return (
     <div className="change_pass">
       <div className="nav_container">
@@ -72,10 +82,16 @@ export default function ChangePass() {
               </div>
               <div className="input_column">
                 <input type="text" name="phone" placeholder="Số điện thoại" value={input.phone} onChange={(e) => handleOnChangeInput(e)} />
-                <input type="password" name="password" placeholder="Mật khẩu mới" value={input.password} onChange={(e) => handleOnChangeInput(e)} />
+                <span className="d-flex">
+                  <input type={pass ? 'text' : 'password' } name="password" placeholder="Mật khẩu mới" value={input.password} onChange={(e) => handleOnChangeInput(e)} />
+                  <i
+                  onClick={(e) => handleOnClickPass(setPass, pass)}
+                  class={`eye_icon fa-solid fa-eye-slash d-${type}`}
+                ></i>
+                </span>
               </div>
           </div>
-          <button type="submit">Lưu thay đổi</button>
+          {/* <button type="submit">Lưu thay đổi</button> */}
           <button onClick={(e) => handleOnSubmit(e)} type="submit">Lưu thay đổi</button>
         </form>
       </div>
