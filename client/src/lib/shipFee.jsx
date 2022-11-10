@@ -300,7 +300,7 @@ export {
     DocTienBangChu,
     typeMon,
     Status,
-    numberWithCommas
+    numberWithCommas,
 
     // change style input password
     changeStyleInputPassword,
