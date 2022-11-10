@@ -346,10 +346,12 @@
             display: flex;
             flex-direction: column;
             padding: 22px;
+            margin-top: 180px;
             .stt {
               margin-left: -60px !important;
               margin: -200px 0 -100px 100px;
-              padding-top: 84px;
+                position: relative;
+                top: -60px;
             }
             img.img_stt {
               margin-left: 26px;
@@ -362,6 +364,7 @@
               border-style: none !important;
               border-width: none !important;
               margin-left: -100px;
+              margin-top: 30px;
               img.img_load_groceries {
                 position: absolute;
                 left: 100px;
