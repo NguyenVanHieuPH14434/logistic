@@ -7,15 +7,21 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AppContextProvider from './contexts/AppContextProvider';
 
+import { CookiesProvider } from "react-cookie";
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AppContextProvider>
-    <Router>
-           <App />
-    </Router>
-    </AppContextProvider>
+    <CookiesProvider>
+      <AppContextProvider>
+        <Router>
+          <App />
+        </Router>
+      </AppContextProvider>
+    </CookiesProvider>
+
   </React.StrictMode>
 );
 

@@ -7,7 +7,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { Navigate } from "react-router-dom";
 import { toastifyError } from "../../../lib/toastify";
-import { changeStyleInputPassword, handleOnClickPass } from "../../../lib/shipFee";
+import {
+  changeStyleInputPassword,
+  handleOnClickPass,
+} from "../../../lib/shipFee";
+import { useCookies } from "react-cookie";
 
 export default function Login() {
   const {
@@ -16,12 +20,11 @@ export default function Login() {
   } = useContext(AppContext);
   const { loginUser } = useContext(AppContext);
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(["user"]);
   const [data, setData] = useState({
-    username: "",
-    password: "",
+    username: cookies.Name?cookies.Name :  "",
+    password: cookies.Password?cookies.Password  : "",
   });
-
-  
 
   const setHandleOnChangeInput = (e) => {
     setData({
@@ -30,14 +33,24 @@ export default function Login() {
     });
   };
 
-  const [type, setType] = useState('none')
-  const [pass, setPass] = useState(false)
-
-  useEffect(() =>{
-    changeStyleInputPassword(data.password, setType)
-  }, [data.password])
+  const [type, setType] = useState("none");
+  const [pass, setPass] = useState(false);
+  const [duyTri, setDuyTri] = useState(true);
+ 
+  console.log(duyTri)
+  useEffect(() => {
+    changeStyleInputPassword(data.password, setType);
+  }, [data.password]);
 
   const location = useLocation();
+
+  const checkLogin = (res) => {
+    if (res.data.success) {
+      navigate("/app/deposit");
+    } else {
+      toastifyError(res.data.message);
+    }
+  }
 
   const handleOnClickLoginBtn = async (e) => {
     e.preventDefault();
@@ -46,21 +59,21 @@ export default function Login() {
     }
     try {
       const res = await loginUser(data);
-
-      if (res.data.success) {
-        navigate("/app/deposit");
-        // setInterval(() => {
-        //   console.log('logout1')
-        //   logout()
-        // }, 10000);
-      } else {
-        toastifyError(res.data.message);
-      }
+      if(duyTri === true){
+        
+        setCookie("Name", data.username, { path: "/" });
+        setCookie("Password", data.password, { path: "/" });
+        checkLogin(res)
+    
+    } else{
+      checkLogin(res)
+    }
     } catch (error) {
       toastifyError(error.message);
     }
   };
-  
+
+
   if (isAuthenticated) return <Navigate to={"/app/home"} />;
   return (
     <>
@@ -89,6 +102,7 @@ export default function Login() {
             <div className="login_form_input">
               <span className="d-flex mx-auto">
                 <input
+                  value={data.username}
                   type="text"
                   placeholder="Số điện thoại hoặc Email"
                   name="username"
@@ -97,21 +111,24 @@ export default function Login() {
                 <i className="icon_user fa-solid fa-circle-user"></i>
               </span>
               <span className="d-flex mx-auto">
-             
                 <input
+                  value={data.password}
                   className="password_input"
-                  type={pass?'text' : 'password'}
+                  type={pass ? "text" : "password"}
                   placeholder="Mật khẩu..."
                   name="password"
                   onChange={(e) => setHandleOnChangeInput(e)}
                 />
                 <div className="icon_password">
                   {/* <i className="password_icon fa-sharp fa-solid fa-lock"></i> */}
-                  <i onClick={(e) => handleOnClickPass(setPass, pass)} class={`eye_icon fa-solid fa-eye-slash d-${type}`}></i>
+                  <i
+                    onClick={(e) => handleOnClickPass(setPass, pass)}
+                    class={`eye_icon fa-solid fa-eye-slash d-${type}`}
+                  ></i>
                 </div>
               </span>
               <div className="duy_tri">
-                <input type="checkbox" />
+                <input type="checkbox" checked={duyTri} onClick={(e) => setDuyTri(!duyTri)} />
                 <p>Duy trì đăng nhập</p>
               </div>
             </div>
