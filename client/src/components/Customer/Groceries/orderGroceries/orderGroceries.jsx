@@ -220,7 +220,7 @@ export default function OrderGroceries() {
         <button
           onClick={(e) => handleOnCLickDownload(e)}
           style={{ border: "none", background: "#9470d4" }}
-          className="p-2"
+          className="p-2 text-white"
         >
           Dowload
         </button>
