@@ -9,13 +9,14 @@ import React, {
 } from "react";
 import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import { listOrder } from "../../../api/orderApi";
+import { listOrder, updaterOrder } from "../../../api/orderApi";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-toastify";
-import { renderStatus } from "../../../lib/shipFee";
+import { renderStatus, Status } from "../../../lib/shipFee";
 import { listAllDeposit, listDepositByUser } from "../../../api/depositApi";
+import { toastifySuccess } from "../../../lib/toastify";
 
 export default function ListDeposit() {
   const {
@@ -44,10 +45,31 @@ export default function ListDeposit() {
 
   }
 
-  useEffect(() => {
-    getDeposit();
+  // useEffect(() => {
+  //   getDeposit();
     
-  }, []);
+  // }, []);
+
+  const [changeStatus, setChangeStatus] = useState({
+    _id:'',
+    status: "",
+  });
+ 
+  const changeInp = async(_id, e) => {
+    const val = {...changeStatus}
+    val['_id'] = _id;
+    val[e.target.name] = e.target.value;
+   setChangeStatus(val)
+  }
+  useEffect(()=>{
+    if(changeStatus.status && changeStatus._id){
+      const res = updaterOrder(changeStatus._id, changeStatus);
+      getDeposit();
+      toastifySuccess("Cập nhật trạng thái đơn hàng thành công!");
+    }
+    getDeposit();
+  },[changeStatus.status, changeStatus._id])
+  
   console.log(search);
   const [inputCalendar, setInputCalendar] = useState({
     calendar_from: "",
@@ -97,27 +119,7 @@ export default function ListDeposit() {
     setSearch({ ...search, [name]: value });
   };
  
-  // async function fetchData() {
-  //   let params = ''
-  //   if(user.role!=='user'){
-  //     params=`listAll/deposit`
-  //   }
-  //   else{
-  //     params=`list/${user._id}?type=deposit`
-  //   }
-  //   let url = `http://localhost:9000/api/order/${params}`
-  //   const response = await Axios.get(
-  //     url
-  //   );
-  //   const info = response.data.data;
-  //   console.log(info);
-  //   setListt(info);
-  //   setLists(info);
-  // }
-  // useEffect(() => {
-  //   //getListt()
-  //   fetchData();
-  // }, []);
+  
 
   const navi = useNavigate();
   // Array to store month string values
@@ -269,7 +271,17 @@ export default function ListDeposit() {
                       <td> {li.full_name} </td>
                       <td> {li.phone} </td>
                       <td> {li.address} </td>
-                      <td> {renderStatus(li.status)} </td>
+                      {/* <td> {renderStatus(li.status)} </td> */}
+                      <td className="w-25"> 
+                     
+                      <select name="status" className="form-control" onChange={(e)=>changeInp(li._id, e)} value={li.status}>
+                      {Status.map((ite)=>{
+                      return(
+                        <option value={ite.value}>{ite.label}</option>
+                      )
+                    })}
+                      </select>
+                      </td>
                       <td>
                         <button
                           className="btn btn-primary"

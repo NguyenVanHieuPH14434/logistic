@@ -105,6 +105,18 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
         return res.json({data:data})
     })
 
+    router.get('/searchByDate', async(req, res)=>{
+        let dateTo = ''
+        if(req.query.from && req.query.to){
+            dateTo = String(req.query.to)
+        }else if(req.query.from && !req.query.to){
+            dateTo = String(req.query.from)
+        }
+        // const newDateTo = Commons.newToDate(dateTo);
+        const data = await orderController.exportByDate(String(req.query.type), String(req.query.from), dateTo);
+        return res.json({data:data})
+    })
+
     //deposit list
     router.get('/deposit/list', async(req, res)=>{
         const docs = await depositItemController.ListDeposit();
@@ -160,6 +172,24 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
         
        return res.json(data)
     })
+
+    router.get('/export/:type', async(req, res)=>{
+        const setHeaderColumns = [
+            {header:"ID", key:"_id", width:20},
+            {header:"Tên người nhận", key:"full_name", width:40},
+            {header:"Số điện thoại", key:"phone", width:20},
+            {header:"Địa chỉ", key:"address", width:40},
+            {header:"Ngày đặt", key:"ctime", width:15},
+        ];
+
+        let data = Array();
+       if(!req.query.from && !req.query.to){
+            data = await orderController.ListOrder(String(req.params.type));
+       }else {
+           data = await orderController.exportByDate(String(req.params.type), String(req.query.from), req.query.to?String(req.query.to):String(req.query.from));
+       }
+        Commons.exportData(data, setHeaderColumns, res, 'Order');
+    });
 
     return router;
 }

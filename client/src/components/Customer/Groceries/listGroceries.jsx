@@ -46,10 +46,30 @@ export default function ListGroceries() {
 
   }
 
-  useEffect(() => {
-    getALlOrder();
+  // useEffect(() => {
+  //   getALlOrder();
     
-  }, []);
+  // }, []);
+
+  const [changeStatus, setChangeStatus] = useState({
+    _id:'',
+    status: "",
+  });
+ 
+  const changeInp = async(_id, e) => {
+    const val = {...changeStatus}
+    val['_id'] = _id;
+    val[e.target.name] = e.target.value;
+   setChangeStatus(val)
+  }
+  useEffect(()=>{
+    if(changeStatus.status && changeStatus._id){
+      const res = updaterOrder(changeStatus._id, changeStatus);
+      getALlOrder();
+      toastifySuccess("Cập nhật trạng thái đơn hàng thành công!");
+    }
+    getALlOrder();
+  },[changeStatus.status, changeStatus._id])
 
   console.log(search);
   const [inputCalendar, setInputCalendar] = useState({
@@ -124,24 +144,7 @@ export default function ListGroceries() {
     });
   };
 
-  const [changeStatus, setChangeStatus] = useState({
-    _id:'',
-    status: "",
-  });
- 
-  const changeInp = async(_id, e) => {
-    const val = {...changeStatus}
-    val['_id'] = _id;
-    val[e.target.name] = e.target.value;
-   setChangeStatus(val)
-  }
-  useEffect(()=>{
-    if(changeStatus.status && changeStatus._id){
-      const res = updaterOrder(changeStatus._id, changeStatus);
-      getALlOrder();
-      toastifySuccess("Cập nhật trạng thái đơn hàng thành công!");
-    }
-  },[changeStatus.status, changeStatus._id])
+
   
   
   return (

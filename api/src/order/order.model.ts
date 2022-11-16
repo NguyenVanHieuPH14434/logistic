@@ -93,4 +93,12 @@ export class OrderModel {
     }).toArray()
         return docs;
     }
+
+    async exportByDate (type:string, from:string, to:string){
+        const docs = await this.col_order.find({$and:[
+            {type:type},
+           { ctime:{$gte:from, $lte:to}}
+        ]}).toArray();
+        return docs;
+    }
 }

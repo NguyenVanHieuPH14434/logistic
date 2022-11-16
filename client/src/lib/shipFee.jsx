@@ -120,7 +120,7 @@ const renderStatus = (status) => {
         case 3:
             return "Đã về kho Trung Quốc";
         case 4:
-            return "Đã về kho Trung QuốcĐang vận chuyển về kho Việt Nam";
+            return "Đang vận chuyển về kho Việt Nam";
         case 5:
             return "Đã về kho Việt Nam";
         case 6:
@@ -135,7 +135,7 @@ const Status = [
     { value: '1', label: 'Đã xác nhận' },
     { value: '2', label: 'Đang vận chuyển về kho Trung Quốc' },
     { value: '3', label: 'Đã về kho Trung Quốc' },
-    { value: '4', label: 'Đã về kho Trung QuốcĐang vận chuyển về kho Việt Nam' },
+    { value: '4', label: 'Đang vận chuyển về kho Việt Nam' },
     { value: '5', label: 'Đã về kho Việt Nam' },
     { value: '6', label: 'Giao hàng thành công' },
 ]

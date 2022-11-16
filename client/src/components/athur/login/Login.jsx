@@ -20,7 +20,7 @@ export default function Login() {
   } = useContext(AppContext);
   const { loginUser } = useContext(AppContext);
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(["user"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const [data, setData] = useState({
     username: cookies.Name?cookies.Name :  "",
     password: cookies.Password?cookies.Password  : "",
@@ -67,6 +67,8 @@ export default function Login() {
     
     } else{
       checkLogin(res)
+      removeCookie('Name',{path:'/'});
+      removeCookie('Password',{path:'/'});
     }
     } catch (error) {
       toastifyError(error.message);
