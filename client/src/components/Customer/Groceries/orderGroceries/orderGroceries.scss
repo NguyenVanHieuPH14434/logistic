@@ -45,7 +45,7 @@
         td {
             text-align: center;
             .ghi_chu {
-                height: 40px;
+                // height: 40px;
                 min-width: 100px;
                 min-height: 100px;
                 max-width: 200px;
@@ -57,6 +57,9 @@
                 // min-height: 70px;
                 max-width: 100%;
                 max-height: 500px;
+                .name_attribute{
+                    display: flex;
+                }
             }
         }
         td {
@@ -64,7 +67,7 @@
         }
         .soLuong {
             padding-top: 24px;
-            margin-left: 36px;
+            margin-left: 40px;
             input {
                 border-style: none;
             }
@@ -76,6 +79,9 @@
             min-height: 40px;
             max-width: 100%;
             max-height: 80px;
+        }
+        .donGia{
+            
         }
         th {
             color: #f5f5f5;
