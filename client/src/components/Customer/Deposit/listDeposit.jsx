@@ -64,25 +64,21 @@ export default function ListDeposit() {
   };
   //find
   const searchProduct = useMemo(() => {
-    let dateFrom = inputCalendar.calendar_from.split("-").reverse().join("/");
-    let dateTo = inputCalendar.calendar_to.split("-").reverse().join("/");
     setListt(
       lists &&
         lists.filter((el) => {
-          let toDate = ''
-          if (dateFrom && !dateTo && search) {
-            toDate = dateFrom
+          let dateFrom = new Date(inputCalendar.calendar_from).getTime();
+          let dateTo = new Date(inputCalendar.calendar_to).getTime();
+          let timeProduct = new Date(el.ctime.split("/").reverse().join("-")).getTime()
+          if (inputCalendar.calendar_from && !inputCalendar.calendar_to&&search) {
+            return dateFrom===timeProduct&&el._id.toLowerCase().includes(search.idProduct.toLowerCase())
           }
-          if (dateFrom && dateTo && search) {
-            toDate = dateTo
-          }
-         if(dateFrom && search || dateFrom && dateTo && search){
+          if((inputCalendar.calendar_from && inputCalendar.calendar_to)||(inputCalendar.calendar_from && inputCalendar.calendar_to && search)){
+          console.log([dateFrom,timeProduct,dateTo]);
           return (
-            el.ctime >= dateFrom &&
-            el.ctime <= toDate &&
-            el._id.toLowerCase().includes(search.idProduct.toLowerCase())
+            timeProduct >= dateFrom && dateTo >= timeProduct&&el._id.toLowerCase().includes(search.idProduct.toLowerCase())
           );
-         }
+          }
           if (search) {
             return el._id
               .toLowerCase()
@@ -90,6 +86,7 @@ export default function ListDeposit() {
           }
         })
     );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputCalendar, search]);
   const getValue = (e) => {
     let name = e.target.name;
