@@ -107,7 +107,7 @@ export default function OrderGroceries() {
                     thousandSeparator=","
                   />
                 </td>
-                <td className="soLuong">
+                <td className="soLuong pt-5">
                   <div className="d-flex soLuong">
                     <input
                       className="value border w-50 border-dark px-3 text-center"

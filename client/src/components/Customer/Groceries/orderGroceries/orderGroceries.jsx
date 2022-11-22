@@ -83,7 +83,7 @@ export default function OrderGroceries() {
               <th>Đơn giá</th>
               <th>Số lượng</th>
               <th>Ghi chú</th>
-              <th>Thành tiền</th>
+              <th style={{width: "10px",}}>Thành tiền</th>
             </tr>
           </thead>
           <tbody>
@@ -106,10 +106,10 @@ export default function OrderGroceries() {
                       }
                     />
                   </td>
-                  <td>
-                    <input
+                  <td className="attribute">
+                    <textarea
                       disabled
-                      className="w-100 form-control"
+                      className="name_attribute w-100 form-control"
                       type="text"
                       name="product_name"
                       value={li.product_name ? li.product_name : ""}
@@ -123,7 +123,8 @@ export default function OrderGroceries() {
                       value={li.attribute ? li.attribute : ""}
                       placeholder="Màu sắc, size, kích thước"
                     ></textarea>
-                    <input
+                    <textarea
+                    style={{height: 'auto'}}
                       disabled
                       className="w-100 form-control mt-2"
                       type="text"
@@ -132,13 +133,15 @@ export default function OrderGroceries() {
                       placeholder="Link sản phẩm"
                     />
                   </td>
-                  <td className="pt-5">
+                  <td className="pt-5 donGia">
                     {" "}
                     <NumericFormat
                       disabled
                       style={{
+                        // width: '100%',
+                        width: '160px',
                         border: "none",
-                        backgroundColor: "white",
+                        backgroundColor: "none",
                       }}
                       type="text"
                       name="product_price"
@@ -148,13 +151,8 @@ export default function OrderGroceries() {
                   </td>
                   <td className="soLuong">
                     <div className="d-flex soLuong">
-                      <input
-                        disabled
-                        className="value border border-none w-50 px-3 text-center"
-                        type="text"
-                        value={li.quantity ? li.quantity : ""}
-                        name="quantity"
-                      />
+                   {li.quantity ? li.quantity : ""}
+                     
                     </div>
                   </td>
                   <td>
@@ -170,14 +168,14 @@ export default function OrderGroceries() {
                       placeholder="Ghi chú sản phẩm..."
                     ></textarea>{" "}
                   </td>
-                  <td className="pt-5">
+                  <td className="pt-5" style={{width: "100px",}}>
                     <p className="">
                       <NumericFormat
                         disabled={true}
                         style={{
                           border: "none",
                           backgroundColor: "none",
-                          width: "100%",
+                          
                         }}
                         value={li.total_price ? li.total_price : ""}
                         thousandSeparator=","
@@ -196,34 +194,34 @@ export default function OrderGroceries() {
         </Table>
       </div>
 
-      <h6 className="mt-5">
-        Cộng thành tiền (Viết bằng chữ): &nbsp;
-        {DocTienBangChu(total)}
-      </h6>
-
-      <div className="text-end mt-5 me-4">
-        Ngày.........tháng.........năm 20.........
-        {/* {date} */}
-      </div>
-
-      <div className="sign d-flex justify-content-between mt-5 pb-5">
-        <div className="orderCustomer text-center ms-5">
-          <h4>Người mua hàng</h4>
-          <p>(Ký, ghi rõ họ tên)</p>
+      <div className="footter">
+        <h6 className="mt-5">
+          Cộng thành tiền (Viết bằng chữ): &nbsp;
+          {DocTienBangChu(total)}
+        </h6>
+        <div className="text-end mt-5 me-4">
+          Ngày.........tháng.........năm 20.........
+          {/* {date} */}
         </div>
-        <div className="groceriesCustomer text-center me-5">
-          <h4>Người bán hàng</h4>
-          <p>(Ký, ghi rõ họ tên)</p>
+        <div className="sign d-flex justify-content-between mt-5 pb-5">
+          <div className="orderCustomer text-center ms-5">
+            <h4>Người mua hàng</h4>
+            <p>(Ký, ghi rõ họ tên)</p>
+          </div>
+          <div className="groceriesCustomer text-center me-5">
+            <h4>Người bán hàng</h4>
+            <p>(Ký, ghi rõ họ tên)</p>
+          </div>
         </div>
-      </div>
-      <div className="capture text-end">
-        <button
-          onClick={(e) => handleOnCLickDownload(e)}
-          style={{ border: "none", background: "#9470d4" }}
-          className="p-2"
-        >
-          Dowload
-        </button>
+        <div className="capture text-end">
+          <button
+            onClick={(e) => handleOnCLickDownload(e)}
+            style={{ border: "none", background: "#9470d4" }}
+            className="p-2 text-white"
+          >
+            Dowload
+          </button>
+        </div>
       </div>
     </div>
   );

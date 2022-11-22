@@ -130,7 +130,7 @@ export default function Login() {
                 </div>
               </span>
               <div className="duy_tri">
-                <input type="checkbox" checked={duyTri} onClick={(e) => setDuyTri(!duyTri)} />
+                <input className="me-1" type="checkbox" checked={duyTri} onClick={(e) => setDuyTri(!duyTri)} />
                 <p>Duy trì đăng nhập</p>
               </div>
             </div>

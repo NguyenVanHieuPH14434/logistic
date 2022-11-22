@@ -253,33 +253,33 @@ export default function OrderDeposit() {
         </tfoot>
       </Table>
 
-      <h6 className="mt-5">
-        Cộng thành tiền (Viết bằng chữ):
-        {DocTienBangChu(total)}
-      </h6>
-
-      <div className="text-end mt-5 me-4">
-        Ngày.........tháng.........năm 20.........
-      </div>
-
-      <div className="sign d-flex justify-content-between mt-5 pb-5">
-        <div className="orderCustomer text-center ms-5">
-          <h4>Người mua hàng</h4>
-          <p>(Ký, ghi rõ họ tên)</p>
+      <div className="footter">
+        <h6 className="mt-5">
+          Cộng thành tiền (Viết bằng chữ):
+          {DocTienBangChu(total)}
+        </h6>
+        <div className="text-end mt-5 me-4">
+          Ngày.........tháng.........năm 20.........
         </div>
-        <div className="groceriesCustomer text-center me-5">
-          <h4>Người bán hàng</h4>
-          <p>(Ký, ghi rõ họ tên)</p>
+        <div className="sign d-flex justify-content-between mt-5 pb-5">
+          <div className="orderCustomer text-center ms-5">
+            <h4>Người mua hàng</h4>
+            <p>(Ký, ghi rõ họ tên)</p>
+          </div>
+          <div className="groceriesCustomer text-center me-5">
+            <h4>Người bán hàng</h4>
+            <p>(Ký, ghi rõ họ tên)</p>
+          </div>
         </div>
-      </div>
-      <div className="capture text-end">
-        <button
-          onClick={(e) => handleOnCLickDownload(e)}
-          style={{ border: "none", background: "#9470d4" }}
-          className="p-2"
-        >
-          Dowload
-        </button>
+        <div className="capture text-end">
+          <button
+            onClick={(e) => handleOnCLickDownload(e)}
+            style={{ border: "none", background: "#9470d4" }}
+            className="p-2 text-white"
+          >
+            Dowload
+          </button>
+        </div>
       </div>
     </div>
   );

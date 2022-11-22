@@ -112,12 +112,29 @@
     html,
     body {
         height: 100%;
-        margin: 0 !important;
+        // margin: 0 !important;
         padding: 0 !important;
+        margin-top: -70px;
+        // padding-top: -100px !important;
         overflow: unset;
         .capture{
             display: none;
         }
+        Table{
+            width: 100%;
+            .attribute{
+                min-width: 200px I !important;
+            }
+            .soLuong{
+                color: #000 !important;
+                width: 200% !important;
+                margin-left: 20px !important;
+            }
+            .donGia{
+                
+            }
+        }
+        
     }
     .noPrint {
         display: none;
