@@ -111,6 +111,14 @@
     }
     html,
     body {
+        .company_information{
+            h4{
+                font-size: 16px;
+            }
+            font-size: 12px;
+            text-align: center;
+            padding: 0 20px 0 80px;
+        }
         height: 100%;
         // margin: 0 !important;
         padding: 0 !important;
@@ -121,9 +129,17 @@
             display: none;
         }
         Table{
-            width: 100%;
+            .thanhTien{
+                text-align: start;
+                width: 120px;
+                color: red;
+                p{
+                    margin-left: -70px;
+                    margin-top: 20px;
+                }
+            }
             .attribute{
-                min-width: 200px I !important;
+                min-width: 150px I !important;
             }
             .soLuong{
                 color: #000 !important;
@@ -131,9 +147,13 @@
                 margin-left: 20px !important;
             }
             .donGia{
-                
+                width: 150% !important;
+                background-color: red;
             }
+            
         }
+
+            
         
     }
     .noPrint {
