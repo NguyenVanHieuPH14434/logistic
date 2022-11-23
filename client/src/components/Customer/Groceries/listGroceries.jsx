@@ -12,7 +12,12 @@ import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groc
 
 import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import { listAllOrder, listOrder, listOrderByUser, updaterOrder } from "../../../api/orderApi";
+import {
+  listAllOrder,
+  listOrder,
+  listOrderByUser,
+  updaterOrder,
+} from "../../../api/orderApi";
 import ReactPaginate from "react-paginate";
 import { Form, useNavigate } from "react-router-dom";
 import Axios from "axios";
@@ -25,38 +30,37 @@ export default function ListGroceries() {
   } = useContext(AppContext);
   const [lists, setLists] = useState([]);
   const [listt, setListt] = useState([]);
+  const [headQuarters, setHeadQuarters] = useState([
+    { value: "Hà Nội" },
+    { value: "Hải Phòng" },
+  ]);
   const [search, setSearch] = useState({
     idProduct: "",
     headQuarters: "",
     status: "",
   });
 
-  const getALlOrder = async() => {
-    if(user.role !== 'user'){
-      await listAllOrder().then((response)=> {
+  const getALlOrder = async () => {
+    if (user.role !== "user") {
+      await listAllOrder().then((response) => {
         setListt(response.data.data);
         setLists(response.data.data);
       });
-    }else {
-      await listOrderByUser(user._id).then((response)=> {
+    } else {
+      await listOrderByUser(user._id).then((response) => {
         setListt(response.data.data);
         setLists(response.data.data);
       });
     }
-
-  }
+  };
 
   useEffect(() => {
     getALlOrder();
-    
   }, []);
-
-  console.log(search);
   const [inputCalendar, setInputCalendar] = useState({
     calendar_from: "",
     calendar_to: "",
   });
-  console.log(inputCalendar);
   //phan trang
   const [pageNumber, setPageNumber] = useState(0);
   const productPerPage = 10;
@@ -72,25 +76,31 @@ export default function ListGroceries() {
     setListt(
       lists &&
         lists.filter((el) => {
-          
-          let toDate = ''
+          let toDate = "";
           if (dateFrom && !dateTo && search) {
-            toDate = dateFrom
+            toDate = dateFrom;
           }
           if (dateFrom && dateTo && search) {
-            toDate = dateTo
+            toDate = dateTo;
           }
-         if(dateFrom && search || dateFrom && dateTo && search){
-          return (
-            el.ctime >= dateFrom &&
-            el.ctime <= toDate &&
-            el._id.toLowerCase().includes(search.idProduct.toLowerCase())
-          );
-         }
-          if (search) {
+          if ((dateFrom && search) || (dateFrom && dateTo && search)) {
+            return (
+              el.ctime >= dateFrom &&
+              el.ctime <= toDate &&
+              el._id.toLowerCase().includes(search.idProduct.toLowerCase())
+            );
+          }
+          if (search && search.idProduct) {
+            // return console.log('>>>>>>>>>>>',search.idProduct)
             return el._id
               .toLowerCase()
               .includes(search.idProduct.toLowerCase());
+          }
+          if (search && search.headQuarters) {
+          //  return console.log('>>>>>>>>>>>',search.headQuarters)
+            return el.address
+              .toLowerCase()
+              .includes(search.headQuarters.toLowerCase());
           }
         })
     );
@@ -100,7 +110,7 @@ export default function ListGroceries() {
     let value = e.target.value;
     setSearch({ ...search, [name]: value });
   };
-  
+
   const navi = useNavigate();
   // Array to store month string values
   const allMonthValues = [
@@ -125,25 +135,24 @@ export default function ListGroceries() {
   };
 
   const [changeStatus, setChangeStatus] = useState({
-    _id:'',
+    _id: "",
     status: "",
   });
- 
-  const changeInp = async(_id, e) => {
-    const val = {...changeStatus}
-    val['_id'] = _id;
+
+  const changeInp = async (_id, e) => {
+    const val = { ...changeStatus };
+    val["_id"] = _id;
     val[e.target.name] = e.target.value;
-   setChangeStatus(val)
-  }
-  useEffect(()=>{
-    if(changeStatus.status && changeStatus._id){
+    setChangeStatus(val);
+  };
+  useEffect(() => {
+    if (changeStatus.status && changeStatus._id) {
       const res = updaterOrder(changeStatus._id, changeStatus);
       getALlOrder();
       toastifySuccess("Cập nhật trạng thái đơn hàng thành công!");
     }
-  },[changeStatus.status, changeStatus._id])
-  
-  
+  }, [changeStatus.status, changeStatus._id]);
+
   return (
     <div className="listGroceries">
       <div className="nav_container">
@@ -170,7 +179,7 @@ export default function ListGroceries() {
       <hr />
       <ul className="menu_groceries">
         <li>
-         Chưa thanh toán <span>0</span>
+          Chưa thanh toán <span>0</span>
         </li>
         <li>
           Đã thanh toán <span>0</span>
@@ -238,9 +247,12 @@ export default function ListGroceries() {
           <p>Tìm kiếm</p>
         </button> */}
       </div>
-        <button style={{borderStyle: 'none'}} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
-          DownLoad Excel
-        </button>
+      <button
+        style={{ borderStyle: "none" }}
+        className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2"
+      >
+        DownLoad Excel
+      </button>
       <div className="listOrder mx-4">
         <table className="table table-bordered mt-5 text-center">
           <thead style={{ background: "rgb(148, 112, 212)", color: "white" }}>
@@ -266,15 +278,19 @@ export default function ListGroceries() {
                       <td> {li.full_name} </td>
                       <td> {li.phone} </td>
                       <td> {li.address} </td>
-                      <td className="w-25"> 
-                     
-                      <select name="status" className="form-control" onChange={(e)=>changeInp(li._id, e)} value={li.status}>
-                      {Status.map((ite)=>{
-                      return(
-                        <option value={ite.value}>{ite.label}</option>
-                      )
-                    })}
-                      </select>
+                      <td className="w-25">
+                        <select
+                          name="status"
+                          className="form-control"
+                          onChange={(e) => changeInp(li._id, e)}
+                          value={li.status}
+                        >
+                          {Status.map((ite) => {
+                            return (
+                              <option value={ite.value}>{ite.label}</option>
+                            );
+                          })}
+                        </select>
                       </td>
                       <td>
                         <button
@@ -287,16 +303,20 @@ export default function ListGroceries() {
                         >
                           Chi tiết đơn
                         </button>
-                        {user.role == 'admin' || user.role == 'manager'?(<button
-                          className="btn btn-danger"
-                          onClick={() =>
-                            navi("/app/updateGroceries", {
-                              state: { id: li._id },
-                            })
-                          }
-                        >
-                          Sửa
-                        </button>):''}
+                        {user.role == "admin" || user.role == "manager" ? (
+                          <button
+                            className="btn btn-danger"
+                            onClick={() =>
+                              navi("/app/updateGroceries", {
+                                state: { id: li._id },
+                              })
+                            }
+                          >
+                            Sửa
+                          </button>
+                        ) : (
+                          ""
+                        )}
                       </td>
                     </tr>
                   );
