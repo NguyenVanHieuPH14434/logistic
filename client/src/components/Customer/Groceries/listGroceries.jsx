@@ -4,20 +4,16 @@ import React, {
   useEffect,
   useState,
   useMemo,
-  useCallback,
 } from "react";
 import "./listGroceries.scss";
 import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groceris.png";
-// import { Calendar } from "@natscale/react-calendar";
 
 import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import { listAllOrder, listOrder, listOrderByUser, updaterOrder } from "../../../api/orderApi";
+import { listAllOrder, listOrderByUser, updaterOrder } from "../../../api/orderApi";
 import ReactPaginate from "react-paginate";
-import { Form, useNavigate } from "react-router-dom";
-import Axios from "axios";
-import { toast } from "react-toastify";
-import { renderStatus, Status } from "../../../lib/shipFee";
+import { useNavigate } from "react-router-dom";
+import {  renderStatus, Status } from "../../../lib/shipFee";
 import { toastifySuccess } from "../../../lib/toastify";
 export default function ListGroceries() {
   const {
@@ -46,11 +42,6 @@ export default function ListGroceries() {
 
   }
 
-  // useEffect(() => {
-  //   getALlOrder();
-    
-  // }, []);
-
   const [changeStatus, setChangeStatus] = useState({
     _id:'',
     status: "",
@@ -62,6 +53,7 @@ export default function ListGroceries() {
     val[e.target.name] = e.target.value;
    setChangeStatus(val)
   }
+
   useEffect(()=>{
     if(changeStatus.status && changeStatus._id){
       const res = updaterOrder(changeStatus._id, changeStatus);
@@ -262,14 +254,14 @@ export default function ListGroceries() {
                       <td> {li.phone} </td>
                       <td> {li.address} </td>
                       <td className="w-25"> 
-                     
-                      <select name="status" className="form-control" onChange={(e)=>changeInp(li._id, e)} value={li.status}>
+                        {user && user.role !=='user'?(
+                        <select name="status" className="form-control" onChange={(e)=>changeInp(li._id, e)} value={li.status}>
                       {Status.map((ite)=>{
                       return(
                         <option value={ite.value}>{ite.label}</option>
                       )
                     })}
-                      </select>
+                      </select>):(renderStatus(li.status))}
                       </td>
                       <td>
                         <button

@@ -111,19 +111,23 @@ const insurenceFees = (orderPrice) => [
 
 const renderStatus = (status) => {
     switch (status) {
-        case 0:
+        case '0':
             return "Chờ xác nhận";
-        case 1:
+        case '1':
             return "Đã xác nhận";
-        case 2:
+        case '2':
+            return "Chưa thanh toán";
+        case '3':
+            return "Đã thanh toán";
+        case '4':
             return "Đang vận chuyển về kho Trung Quốc";
-        case 3:
+        case '5':
             return "Đã về kho Trung Quốc";
-        case 4:
+        case '6':
             return "Đang vận chuyển về kho Việt Nam";
-        case 5:
+        case '7':
             return "Đã về kho Việt Nam";
-        case 6:
+        case '8':
             return "Giao hàng thành công";
         default:
             return "Chờ xác nhận";
@@ -133,11 +137,13 @@ const renderStatus = (status) => {
 const Status = [
     { value: '0', label: 'Chờ xác nhận' },
     { value: '1', label: 'Đã xác nhận' },
-    { value: '2', label: 'Đang vận chuyển về kho Trung Quốc' },
-    { value: '3', label: 'Đã về kho Trung Quốc' },
-    { value: '4', label: 'Đang vận chuyển về kho Việt Nam' },
-    { value: '5', label: 'Đã về kho Việt Nam' },
-    { value: '6', label: 'Giao hàng thành công' },
+    { value: '2', label: 'Chưa thanh toán' },
+    { value: '3', label: 'Đã thanh toán' },
+    { value: '4', label: 'Đang vận chuyển về kho Trung Quốc' },
+    { value: '5', label: 'Đã về kho Trung Quốc' },
+    { value: '6', label: 'Đang vận chuyển về kho Việt Nam' },
+    { value: '7', label: 'Đã về kho Việt Nam' },
+    { value: '8', label: 'Giao hàng thành công' },
 ]
 
 const typeMon = [

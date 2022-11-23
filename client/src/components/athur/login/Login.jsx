@@ -42,11 +42,10 @@ export default function Login() {
     changeStyleInputPassword(data.password, setType);
   }, [data.password]);
 
-  const location = useLocation();
 
   const checkLogin = (res) => {
     if (res.data.success) {
-      navigate("/app/deposit");
+      navigate("/app/home");
     } else {
       toastifyError(res.data.message);
     }

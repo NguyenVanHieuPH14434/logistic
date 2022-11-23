@@ -8,6 +8,7 @@ import {
   changeStyleInputPassword,
   handleOnClickPass,
 } from "../../../lib/shipFee";
+import { toastifyError, toastifySuccess } from "../../../lib/toastify";
 
 export default function AddMember() {
   const [register, setRegister] = useState({
@@ -28,18 +29,16 @@ export default function AddMember() {
     if (n.fullName !== "" && n.phone && n.password !== "") {
       if (n.password) {
         Register(register).then(() => {
+          toastifySuccess('Tạo tài khoản thành công!')
           setRegister({
             fullName: "",
             phone: "",
             password: "",
-            checkPassword: "",
           });
         });
-      } else {
-        return alert("check password !!!");
-      }
+      } 
     } else {
-      return alert("please input!!");
+      return toastifyError("Vui lòng nhập đầy đủ thông tin!");
     }
   };
   const handleRegister = (e) => {

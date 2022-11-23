@@ -10,7 +10,7 @@ export class OrderModel {
 
     // get all list order
     async ListOrder (type:string) {
-        const docs = await this.col_order.find({type:type}).toArray();
+        const docs = await this.col_order.find({type:type}).sort({ctime:-1}).toArray();
         return docs;
     }
 
