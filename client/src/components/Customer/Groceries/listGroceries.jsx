@@ -228,6 +228,9 @@ export default function ListGroceries() {
           <p>Tìm kiếm</p>
         </button> */}
       </div>
+        <button style={{borderStyle: 'none'}} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
+          DownLoad Excel
+        </button>
       <div className="listOrder mx-4">
         <table className="table table-bordered mt-5 text-center">
           <thead style={{ background: "rgb(148, 112, 212)", color: "white" }}>
