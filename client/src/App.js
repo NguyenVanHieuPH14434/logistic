@@ -24,6 +24,7 @@ import AddMember from './components/user/addMember/addMember.jsx';
 import EditDeposit from './components/Customer/Deposit/EditDeposit/EditDeposit.js';
 import EditGroceries from './components/Customer/Groceries/EditGroceries/EditGroceries.js';
 import MenuHome from './components/user/menuHome.jsx';
+import UserInfo from './components/user/userInfo/userInfo.jsx';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
           <Route path="orderDeposit" element={<OrderDeposit className="right" />}></Route>
           <Route path="orderDetailGroceries" element={<OrderDetailGroceries className="right" />}></Route>
           <Route path="orderDetailDeposit" element={<OrderDetailDeposit className="right" />}></Route>
+          <Route path="userInfo" element={<UserInfo className="right" />}></Route>
           <Route path="express" element={<Express className="right" />}></Route>
           <Route index element={<Dasboard className="right" />}></Route>
         </Route>

@@ -10,7 +10,7 @@ import "../../components/Customer/Deposit/listDeposit.scss"
 import LOGO from '../../assets/public/img/logo-logistic-footer.png';
 import { Dropdown } from "react-bootstrap";
 import { AppContext } from "../../contexts/AppContextProvider";
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Header() {
     const { logout } = useContext(AppContext)
@@ -23,7 +23,9 @@ function Header() {
         <div className="Header noPrint">
             <Navbar expand="lg" className="navbar navbar-expand-lg">
                 <div className="logo">
-                    <img src={LOGO} />
+                    <Link as={Link} to="/">
+                        <img src={LOGO} />
+                    </Link>
                 </div>
                 <Nav className="end nav navbar-">
                     <AiOutlineBell className="icon1" />
