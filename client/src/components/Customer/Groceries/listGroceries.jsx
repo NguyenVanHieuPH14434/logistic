@@ -170,22 +170,16 @@ export default function ListGroceries() {
       <hr />
       <ul className="menu_groceries">
         <li>
-          Chờ báo giá <span>0</span>
+         Chưa thanh toán <span>0</span>
         </li>
         <li>
-          Chờ đặt cọc <span>0</span>
+          Đã thanh toán <span>0</span>
         </li>
         <li>
-          Đã đặt hàng <span>0</span>
+          Đã xác nhận <span>0</span>
         </li>
         <li>
-          Đã hoàn thành <span>0</span>
-        </li>
-        <li>
-          Cần xác nhận lại <span>0</span>
-        </li>
-        <li>
-          Đã hủy <span>0</span>
+          Đã giao hàng thành công <span>0</span>
         </li>
       </ul>
       <hr />
@@ -233,13 +227,10 @@ export default function ListGroceries() {
             <option value="" selected>
               Chọn trạng thái
             </option>
-            <option value="Chờ báo giá">Chờ báo giá</option>
-            <option value="Chờ đặt cọc">Chờ đặt cọc</option>
-            <option value="Đã đặt cọc">Đã đặt cọc</option>
-            <option value="Đã đặt hàng">Đã đặt hàng</option>
-            <option value="Đã hoàn thành">Đã hoàn thành</option>
-            <option value="">Cần xác nhận lại</option>
-            <option value="">Đã hủy</option>
+            <option value="Chờ báo giá">Chưa thanh toán</option>
+            <option value="Chờ đặt cọc">Đã thanh toán</option>
+            <option value="Đã đặt cọc">Đã xác nhận</option>
+            <option value="Đã đặt hàng">Đã giao hàng thành công</option>
           </select>
         </div>
         {/* <button onClick={searchProduct} style={{border:'none',borderRadius:'3px'}} className="search_icon">

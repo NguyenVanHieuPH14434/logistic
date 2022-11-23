@@ -29,24 +29,22 @@ export default function ListDeposit() {
     status: "",
   });
 
-  const getDeposit = async() => {
-    if(user.role !== 'user'){
-      await listAllDeposit().then((response)=> {
+  const getDeposit = async () => {
+    if (user.role !== "user") {
+      await listAllDeposit().then((response) => {
         setListt(response.data.data);
         setLists(response.data.data);
       });
-    }else {
-      await listDepositByUser(user._id).then((response)=> {
+    } else {
+      await listDepositByUser(user._id).then((response) => {
         setListt(response.data.data);
         setLists(response.data.data);
       });
     }
-
-  }
+  };
 
   useEffect(() => {
     getDeposit();
-    
   }, []);
   console.log(search);
   const [inputCalendar, setInputCalendar] = useState({
@@ -69,20 +67,20 @@ export default function ListDeposit() {
     setListt(
       lists &&
         lists.filter((el) => {
-          let toDate = ''
+          let toDate = "";
           if (dateFrom && !dateTo && search) {
-            toDate = dateFrom
+            toDate = dateFrom;
           }
           if (dateFrom && dateTo && search) {
-            toDate = dateTo
+            toDate = dateTo;
           }
-         if(dateFrom && search || dateFrom && dateTo && search){
-          return (
-            el.ctime >= dateFrom &&
-            el.ctime <= toDate &&
-            el._id.toLowerCase().includes(search.idProduct.toLowerCase())
-          );
-         }
+          if ((dateFrom && search) || (dateFrom && dateTo && search)) {
+            return (
+              el.ctime >= dateFrom &&
+              el.ctime <= toDate &&
+              el._id.toLowerCase().includes(search.idProduct.toLowerCase())
+            );
+          }
           if (search) {
             return el._id
               .toLowerCase()
@@ -96,7 +94,7 @@ export default function ListDeposit() {
     let value = e.target.value;
     setSearch({ ...search, [name]: value });
   };
- 
+
   // async function fetchData() {
   //   let params = ''
   //   if(user.role!=='user'){
@@ -168,22 +166,16 @@ export default function ListDeposit() {
       <hr />
       <ul className="menu_groceries">
         <li>
-          Chờ báo giá <span>0</span>
+          Chưa thanh toán <span>0</span>
         </li>
         <li>
-          Chờ đặt cọc <span>0</span>
+          Đã thanh toán <span>0</span>
         </li>
         <li>
-          Đã đặt hàng <span>0</span>
+          Đã xác nhận <span>0</span>
         </li>
         <li>
-          Đã hoàn thành <span>0</span>
-        </li>
-        <li>
-          Cần xác nhận lại <span>0</span>
-        </li>
-        <li>
-          Đã hủy <span>0</span>
+          Đã giao hàng thành công <span>0</span>
         </li>
       </ul>
       <hr />
@@ -257,46 +249,57 @@ export default function ListDeposit() {
               <th scope="col">Đơn Hàng</th>
             </tr>
           </thead>
-          {listt.length > 0 ?
-          (<tbody>
-            {listt &&
-              listt
-                .map((li, i) => {
-                  return (
-                    <tr key={i + 1}>
-                      <td> {i + 1} </td>
-                      <th scope="row"> {li._id} </th>
-                      <td> {li.full_name} </td>
-                      <td> {li.phone} </td>
-                      <td> {li.address} </td>
-                      <td> {renderStatus(li.status)} </td>
-                      <td>
-                        <button
-                          className="btn btn-primary"
-                          onClick={() =>
-                            navi("/app/orderDetailDeposit", {
-                              state: { id: li._id },
-                            })
-                          }
-                        >
-                          Chi tiết đơn
-                        </button>
-                        {user.role == 'admin' || user.role == 'manager' ? (<button
-                          className="btn btn-danger"
-                          onClick={() =>
-                            navi("/app/updateDeposit", {
-                              state: { id: li._id },
-                            })
-                          }
-                        >
-                        Sửa
-                        </button>):''}
-                      </td>
-                    </tr>
-                  );
-                })
-                .slice(pagesVisited, pagesVisited + productPerPage)}
-          </tbody>):(<tbody><tr><th colSpan='7'>Đơn ký gửi trống!</th></tr></tbody>)}
+          {listt.length > 0 ? (
+            <tbody>
+              {listt &&
+                listt
+                  .map((li, i) => {
+                    return (
+                      <tr key={i + 1}>
+                        <td> {i + 1} </td>
+                        <th scope="row"> {li._id} </th>
+                        <td> {li.full_name} </td>
+                        <td> {li.phone} </td>
+                        <td> {li.address} </td>
+                        <td> {renderStatus(li.status)} </td>
+                        <td>
+                          <button
+                            className="btn btn-primary"
+                            onClick={() =>
+                              navi("/app/orderDetailDeposit", {
+                                state: { id: li._id },
+                              })
+                            }
+                          >
+                            Chi tiết đơn
+                          </button>
+                          {user.role == "admin" || user.role == "manager" ? (
+                            <button
+                              className="btn btn-danger"
+                              onClick={() =>
+                                navi("/app/updateDeposit", {
+                                  state: { id: li._id },
+                                })
+                              }
+                            >
+                              Sửa
+                            </button>
+                          ) : (
+                            ""
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })
+                  .slice(pagesVisited, pagesVisited + productPerPage)}
+            </tbody>
+          ) : (
+            <tbody>
+              <tr>
+                <th colSpan="7">Đơn ký gửi trống!</th>
+              </tr>
+            </tbody>
+          )}
         </table>
         {searchProduct}
         <div className="d-flex justify-content-center">
