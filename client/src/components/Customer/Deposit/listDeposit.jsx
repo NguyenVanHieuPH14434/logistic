@@ -30,20 +30,19 @@ export default function ListDeposit() {
     status: "",
   });
 
-  const getDeposit = async() => {
-    if(user.role !== 'user'){
-      await listAllDeposit().then((response)=> {
+  const getDeposit = async () => {
+    if (user.role !== "user") {
+      await listAllDeposit().then((response) => {
         setListt(response.data.data);
         setLists(response.data.data);
       });
-    }else {
-      await listDepositByUser(user._id).then((response)=> {
+    } else {
+      await listDepositByUser(user._id).then((response) => {
         setListt(response.data.data);
         setLists(response.data.data);
       });
     }
-
-  }
+  };
 
   // useEffect(() => {
   //   getDeposit();
@@ -167,22 +166,16 @@ export default function ListDeposit() {
       <hr />
       <ul className="menu_groceries">
         <li>
-          Chờ báo giá <span>0</span>
+          Chưa thanh toán <span>0</span>
         </li>
         <li>
-          Chờ đặt cọc <span>0</span>
+          Đã thanh toán <span>0</span>
         </li>
         <li>
-          Đã đặt hàng <span>0</span>
+          Đã xác nhận <span>0</span>
         </li>
         <li>
-          Đã hoàn thành <span>0</span>
-        </li>
-        <li>
-          Cần xác nhận lại <span>0</span>
-        </li>
-        <li>
-          Đã hủy <span>0</span>
+          Đã giao hàng thành công <span>0</span>
         </li>
       </ul>
       <hr />

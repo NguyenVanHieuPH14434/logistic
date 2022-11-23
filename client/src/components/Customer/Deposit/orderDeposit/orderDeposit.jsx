@@ -7,12 +7,13 @@ import { deltailDeposit } from "../../../../api/depositApi";
 import { NumericFormat } from "react-number-format";
 import "./orderDeposit.scss";
 import LOGO from "../../../../assets/public/img/logo_login.png";
-import { DocTienBangChu } from "../../../../lib/shipFee";
+import { DocTienBangChu, numberWithCommas } from "../../../../lib/shipFee";
+import '../listDeposit.scss'
 // import { NumericFormat } from "react-number-format";
 
 export default function OrderDeposit() {
   const location = useLocation();
-  console.log("ss", location.state.id);
+  // console.log("ss", location.state.id);
   const [list, setList] = useState(location.state ? location.state.data : "");
   let newDate = new Date();
   let date =
@@ -34,6 +35,8 @@ export default function OrderDeposit() {
     window.print();
     // setShow('d-none')
   };
+
+  console.log('meo',total)
 
   return (
     <div className="order_deposit">
@@ -71,8 +74,8 @@ export default function OrderDeposit() {
         Tổng tiền thanh toán: {formatNumber(location.state.order.total)} đ
       </p>
       <br />
-      <Table striped bordered hover size="lg">
-        <thead>
+      <Table className='text-white' striped bordered hover size="lg">
+        <thead style={{backgroundColor: '#8610e6'}}>
           <tr>
             <th style={{ width: "5%" }}>STT</th>
             <th>Ảnh Sản Phẩm</th>
@@ -113,7 +116,7 @@ export default function OrderDeposit() {
                     className="d-flex justify-content-between"
                   >
                     <label className="text-start me-2 mt-2 w-25">
-                      Mã vận đơn:{" "}
+                      MVĐ:{" "}
                     </label>
                     <input
                       disabled
@@ -129,7 +132,7 @@ export default function OrderDeposit() {
                     className="d-flex justify-content-between"
                   >
                     <label className="text-start me-2 mt-2 w-25">
-                      Tên sản phẩm:{" "}
+                      Tên:{" "}
                     </label>
                     <input
                       className="w-100 mt-1 form-control"
@@ -146,7 +149,7 @@ export default function OrderDeposit() {
                     className="d-flex justify-content-between"
                   >
                     <label className="text-start me-2 mt-2 w-25">
-                      Số kiện hàng:{" "}
+                      SL:{" "}
                     </label>
                     <input
                       className="w-100 mt-1 form-control"
@@ -163,7 +166,7 @@ export default function OrderDeposit() {
                     className="d-flex justify-content-between"
                   >
                     <label className="text-start me-2 mt-2 w-25">
-                      Số cân, số khối:{" "}
+                      Kg/m3:{" "}
                     </label>
                     <input
                       className="w-100 mt-1 form-control"
@@ -180,7 +183,7 @@ export default function OrderDeposit() {
                     className="d-flex justify-content-between"
                   >
                     <label className="text-start me-2 mt-2 w-25">
-                      Đơn giá:{" "}
+                      Giá:{" "}
                     </label>
                     <NumericFormat
                       className="w-100 mt-1 form-control"
@@ -245,17 +248,17 @@ export default function OrderDeposit() {
               </tr>
             ))}
         </tbody>
-        <tfoot>
+        {/* <tfoot>
           <tr>
             <th colSpan="3">Tổng tiền thanh toán</th>
             <th colSpan="1">{total}</th>
           </tr>
-        </tfoot>
+        </tfoot> */}
       </Table>
 
       <div className="footter">
         <h6 className="mt-5">
-          Cộng thành tiền (Viết bằng chữ):
+        Cộng thành tiền (Viết bằng chữ): &nbsp;
           {DocTienBangChu(total)}
         </h6>
         <div className="text-end mt-5 me-4">

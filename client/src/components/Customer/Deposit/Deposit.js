@@ -188,7 +188,7 @@ function Deposit() {
         console.log('response', res);
         toastifySuccess("Tạo đơn ký gửi thành công!");
         setTimeout(() => {
-            navigate("/app/orderDeposit", { state: { data: list, order: order } });
+            navigate("/app/orderDeposit", { state: { data: list, order: order, total: total } });
         }, 1000);
     }
     console.log('listKy', list);

@@ -80,10 +80,10 @@ export default function OrderGroceries() {
               <th>STT</th>
               <th>Ảnh Sản Phẩm</th>
               <th>Thuộc tính</th>
-              <th>Đơn giá</th>
+              <th className="donGia">Đơn giá</th>
               <th>Số lượng</th>
               <th>Ghi chú</th>
-              <th style={{width: "10px",}}>Thành tiền</th>
+              <th className="thanhTien"><p>Thành tiền</p></th>
             </tr>
           </thead>
           <tbody>
@@ -133,7 +133,7 @@ export default function OrderGroceries() {
                       placeholder="Link sản phẩm"
                     />
                   </td>
-                  <td className="pt-5 donGia">
+                  <td className="donGia pt-5 ">
                     {" "}
                     <NumericFormat
                       disabled
@@ -168,7 +168,7 @@ export default function OrderGroceries() {
                       placeholder="Ghi chú sản phẩm..."
                     ></textarea>{" "}
                   </td>
-                  <td className="pt-5" style={{width: "100px",}}>
+                  <td style={{width: "100px"}}>
                     <p className="">
                       <NumericFormat
                         disabled={true}
