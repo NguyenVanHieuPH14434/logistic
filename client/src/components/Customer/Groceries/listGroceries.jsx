@@ -95,7 +95,7 @@ export default function ListGroceries() {
             timeProduct >= dateFrom && dateTo >= timeProduct&&el._id.toLowerCase().includes(search.idProduct.toLowerCase())
           );
           }
-          if (search) {
+          if (search && search.idProduct) {
             return el._id
               .toLowerCase()
               .includes(search.idProduct.toLowerCase());
