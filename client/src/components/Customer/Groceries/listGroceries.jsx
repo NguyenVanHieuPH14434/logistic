@@ -3,23 +3,16 @@ import React, {
   useEffect,
   useState,
   useMemo,
-  useCallback,
 } from "react";
 import "./listGroceries.scss";
 import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groceris.png";
+
 import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import {
-  listAllOrder,
-  listOrder,
-  listOrderByUser,
-  updaterOrder,
-} from "../../../api/orderApi";
+import { exportExcel, listAllOrder, listOrderByUser, updaterOrder } from "../../../api/orderApi";
 import ReactPaginate from "react-paginate";
-import { Form, useNavigate } from "react-router-dom";
-import Axios from "axios";
-import { toast } from "react-toastify";
-import { renderStatus, Status } from "../../../lib/shipFee";
+import { useNavigate } from "react-router-dom";
+import {  convertDate, export_Excel, renderStatus, Status } from "../../../lib/shipFee";
 import { toastifySuccess } from "../../../lib/toastify";
 export default function ListGroceries() {
   const {
@@ -51,9 +44,28 @@ export default function ListGroceries() {
     }
   };
 
-  useEffect(() => {
+  const [changeStatus, setChangeStatus] = useState({
+    _id:'',
+    status: "",
+  });
+ 
+  const changeInp = async(_id, e) => {
+    const val = {...changeStatus}
+    val['_id'] = _id;
+    val[e.target.name] = e.target.value;
+   setChangeStatus(val)
+  }
+
+  useEffect(()=>{
+    if(changeStatus.status && changeStatus._id){
+      const res = updaterOrder(changeStatus._id, changeStatus);
+      getALlOrder();
+      toastifySuccess("Cập nhật trạng thái đơn hàng thành công!");
+    }
     getALlOrder();
-  }, []);
+  },[changeStatus.status, changeStatus._id])
+
+  console.log(search);
   const [inputCalendar, setInputCalendar] = useState({
     calendar_from: "",
     calendar_to: "",
@@ -68,27 +80,22 @@ export default function ListGroceries() {
   };
   //find
   const searchProduct = useMemo(() => {
-    let dateFrom = inputCalendar.calendar_from.split("-").reverse().join("/");
-    let dateTo = inputCalendar.calendar_to.split("-").reverse().join("/");
     setListt(
       lists &&
         lists.filter((el) => {
-          let toDate = "";
-          if (dateFrom && !dateTo && search) {
-            toDate = dateFrom;
+          let dateFrom = new Date(inputCalendar.calendar_from).getTime();
+          let dateTo = new Date(inputCalendar.calendar_to).getTime();
+          let timeProduct = new Date(el.ctime.split("/").reverse().join("-")).getTime()
+          if (inputCalendar.calendar_from && !inputCalendar.calendar_to&&search) {
+            return dateFrom===timeProduct&&el._id.toLowerCase().includes(search.idProduct.toLowerCase())
           }
-          if (dateFrom && dateTo && search) {
-            toDate = dateTo;
+          if((inputCalendar.calendar_from && inputCalendar.calendar_to)||(inputCalendar.calendar_from && inputCalendar.calendar_to && search)){
+          console.log([dateFrom,timeProduct,dateTo]);
+          return (
+            timeProduct >= dateFrom && dateTo >= timeProduct&&el._id.toLowerCase().includes(search.idProduct.toLowerCase())
+          );
           }
-          if ((dateFrom && search) || (dateFrom && dateTo && search)) {
-            return (
-              el.ctime >= dateFrom &&
-              el.ctime <= toDate &&
-              el._id.toLowerCase().includes(search.idProduct.toLowerCase())
-            );
-          }
-          if (search && search.idProduct) {
-           
+          if (search) {
             return el._id
               .toLowerCase()
               .includes(search.idProduct.toLowerCase());
@@ -132,25 +139,15 @@ export default function ListGroceries() {
     });
   };
 
-  const [changeStatus, setChangeStatus] = useState({
-    _id: "",
-    status: "",
-  });
+ 
 
-  const changeInp = async (_id, e) => {
-    const val = { ...changeStatus };
-    val["_id"] = _id;
-    val[e.target.name] = e.target.value;
-    setChangeStatus(val);
-  };
-  useEffect(() => {
-    if (changeStatus.status && changeStatus._id) {
-      const res = updaterOrder(changeStatus._id, changeStatus);
-      getALlOrder();
-      toastifySuccess("Cập nhật trạng thái đơn hàng thành công!");
-    }
-  }, [changeStatus.status, changeStatus._id]);
+  const handleExportExcel = () => {
+    export_Excel('order', inputCalendar.calendar_from, inputCalendar.calendar_to)
+  }
 
+
+  
+  
   return (
     <div className="listGroceries">
       <div className="nav_container">
@@ -228,12 +225,9 @@ export default function ListGroceries() {
           </select>
         </div>
       </div>
-      <button
-        style={{ borderStyle: "none" }}
-        className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2"
-      >
-        DownLoad Excel
-      </button>
+        <button style={{borderStyle: 'none'}} onClick={handleExportExcel} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
+          DownLoad Excel
+        </button>
       <div className="listOrder mx-4">
         <table className="table table-bordered mt-5 text-center">
           <thead style={{ background: "rgb(148, 112, 212)", color: "white" }}>
@@ -258,19 +252,15 @@ export default function ListGroceries() {
                       <td> {li.full_name} </td>
                       <td> {li.phone} </td>
                       <td> {li.address} </td>
-                      <td className="w-25">
-                        <select
-                          name="status"
-                          className="form-control"
-                          onChange={(e) => changeInp(li._id, e)}
-                          value={li.status}
-                        >
-                          {Status.map((ite) => {
-                            return (
-                              <option value={ite.value}>{ite.label}</option>
-                            );
-                          })}
-                        </select>
+                      <td className="w-25"> 
+                        {user && user.role !=='user'?(
+                        <select name="status" className="form-control" onChange={(e)=>changeInp(li._id, e)} value={li.status}>
+                      {Status.map((ite)=>{
+                      return(
+                        <option value={ite.value}>{ite.label}</option>
+                      )
+                    })}
+                      </select>):(renderStatus(li.status))}
                       </td>
                       <td>
                         <button

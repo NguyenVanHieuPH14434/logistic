@@ -9,13 +9,14 @@ import React, {
 } from "react";
 import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import { listOrder } from "../../../api/orderApi";
+import { listOrder, updaterOrder } from "../../../api/orderApi";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-toastify";
-import { renderStatus } from "../../../lib/shipFee";
+import { export_Excel, renderStatus, Status } from "../../../lib/shipFee";
 import { listAllDeposit, listDepositByUser } from "../../../api/depositApi";
+import { toastifySuccess } from "../../../lib/toastify";
 
 export default function ListDeposit() {
   const {
@@ -43,9 +44,28 @@ export default function ListDeposit() {
     }
   };
 
-  useEffect(() => {
+
+  const [changeStatus, setChangeStatus] = useState({
+    _id:'',
+    status: "",
+  });
+ 
+  const changeInp = async(_id, e) => {
+    const val = {...changeStatus}
+    val['_id'] = _id;
+    val[e.target.name] = e.target.value;
+   setChangeStatus(val)
+  }
+  useEffect(()=>{
+    if(changeStatus.status && changeStatus._id){
+      const res = updaterOrder(changeStatus._id, changeStatus);
+      getDeposit();
+      toastifySuccess("Cập nhật trạng thái đơn hàng thành công!");
+    }
     getDeposit();
-  }, []);
+  },[changeStatus.status, changeStatus._id])
+  
+  console.log(search);
   const [inputCalendar, setInputCalendar] = useState({
     calendar_from: "",
     calendar_to: "",
@@ -62,24 +82,20 @@ export default function ListDeposit() {
 
   //find
   const searchProduct = useMemo(() => {
-    let dateFrom = inputCalendar.calendar_from.split("-").reverse().join("/");
-    let dateTo = inputCalendar.calendar_to.split("-").reverse().join("/");
     setListt(
       lists &&
         lists.filter((el) => {
-          let toDate = "";
-          if (dateFrom && !dateTo && search) {
-            toDate = dateFrom;
+          let dateFrom = new Date(inputCalendar.calendar_from).getTime();
+          let dateTo = new Date(inputCalendar.calendar_to).getTime();
+          let timeProduct = new Date(el.ctime.split("/").reverse().join("-")).getTime()
+          if (inputCalendar.calendar_from && !inputCalendar.calendar_to&&search) {
+            return dateFrom===timeProduct&&el._id.toLowerCase().includes(search.idProduct.toLowerCase())
           }
-          if (dateFrom && dateTo && search) {
-            toDate = dateTo;
-          }
-          if ((dateFrom && search) || (dateFrom && dateTo && search)) {
-            return (
-              el.ctime >= dateFrom &&
-              el.ctime <= toDate &&
-              el._id.toLowerCase().includes(search.idProduct.toLowerCase())
-            );
+          if((inputCalendar.calendar_from && inputCalendar.calendar_to)||(inputCalendar.calendar_from && inputCalendar.calendar_to && search)){
+          console.log([dateFrom,timeProduct,dateTo]);
+          return (
+            timeProduct >= dateFrom && dateTo >= timeProduct&&el._id.toLowerCase().includes(search.idProduct.toLowerCase())
+          );
           }
           if (search&& search.idProduct) {
             return el._id
@@ -94,12 +110,15 @@ export default function ListDeposit() {
           }
         })
     );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputCalendar, search]);
   const getValue = (e) => {
     let name = e.target.name;
     let value = e.target.value;
     setSearch({ ...search, [name]: value });
   };
+ 
+  
 
   const navi = useNavigate();
 
@@ -109,6 +128,10 @@ export default function ListDeposit() {
       return { ...prev, [name]: value };
     });
   };
+
+  const handleExportExcel = () => {
+    export_Excel('deposit', inputCalendar.calendar_from, inputCalendar.calendar_to)
+  }
 
   return (
     <div className="listGroceries">
@@ -187,7 +210,7 @@ export default function ListDeposit() {
           </select>
         </div>
       </div>
-      <button style={{borderStyle: 'none'}} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
+      <button style={{borderStyle: 'none'}} onClick={handleExportExcel} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
           DownLoad Excel
         </button>
       <div className="listOrder mx-4">
@@ -203,57 +226,56 @@ export default function ListDeposit() {
               <th scope="col">Đơn Hàng</th>
             </tr>
           </thead>
-          {listt.length > 0 ? (
-            <tbody>
-              {listt &&
-                listt
-                  .map((li, i) => {
-                    return (
-                      <tr key={i + 1}>
-                        <td> {i + 1} </td>
-                        <th scope="row"> {li._id} </th>
-                        <td> {li.full_name} </td>
-                        <td> {li.phone} </td>
-                        <td> {li.address} </td>
-                        <td> {renderStatus(li.status)} </td>
-                        <td>
-                          <button
-                            className="btn btn-primary"
-                            onClick={() =>
-                              navi("/app/orderDetailDeposit", {
-                                state: { id: li._id },
-                              })
-                            }
-                          >
-                            Chi tiết đơn
-                          </button>
-                          {user.role == "admin" || user.role == "manager" ? (
-                            <button
-                              className="btn btn-danger"
-                              onClick={() =>
-                                navi("/app/updateDeposit", {
-                                  state: { id: li._id },
-                                })
-                              }
-                            >
-                              Sửa
-                            </button>
-                          ) : (
-                            ""
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })
-                  .slice(pagesVisited, pagesVisited + productPerPage)}
-            </tbody>
-          ) : (
-            <tbody>
-              <tr>
-                <th colSpan="7">Đơn ký gửi trống!</th>
-              </tr>
-            </tbody>
-          )}
+          {listt.length > 0 ?
+          (<tbody>
+            {listt &&
+              listt
+                .map((li, i) => {
+                  return (
+                    <tr key={i + 1}>
+                      <td> {i + 1} </td>
+                      <th scope="row"> {li._id} </th>
+                      <td> {li.full_name} </td>
+                      <td> {li.phone} </td>
+                      <td> {li.address} </td>
+                      {/* <td> {renderStatus(li.status)} </td> */}
+                      <td className="w-25"> 
+                     
+                      <select name="status" className="form-control" onChange={(e)=>changeInp(li._id, e)} value={li.status}>
+                      {Status.map((ite)=>{
+                      return(
+                        <option value={ite.value}>{ite.label}</option>
+                      )
+                    })}
+                      </select>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-primary"
+                          onClick={() =>
+                            navi("/app/orderDetailDeposit", {
+                              state: { id: li._id },
+                            })
+                          }
+                        >
+                          Chi tiết đơn
+                        </button>
+                        {user.role == 'admin' || user.role == 'manager' ? (<button
+                          className="btn btn-danger"
+                          onClick={() =>
+                            navi("/app/updateDeposit", {
+                              state: { id: li._id },
+                            })
+                          }
+                        >
+                        Sửa
+                        </button>):''}
+                      </td>
+                    </tr>
+                  );
+                })
+                .slice(pagesVisited, pagesVisited + productPerPage)}
+          </tbody>):(<tbody><tr><th colSpan='7'>Đơn ký gửi trống!</th></tr></tbody>)}
         </table>
         {searchProduct}
         <div className="d-flex justify-content-center">

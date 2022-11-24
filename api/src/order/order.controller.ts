@@ -73,4 +73,8 @@ export class OrderController {
     async SearchByDate (userId:string, from:any, to:any) {
         return this.model.SearchByDate(userId, from, to);
     }
+
+    async exportByDate (type:string, from:string, to:string){
+        return await this.model.exportByDate(type, from, to);
+    }
 }

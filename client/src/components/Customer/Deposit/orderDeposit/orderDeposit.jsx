@@ -86,7 +86,8 @@ export default function OrderDeposit() {
                 </td>
                 <td style={{ width: "15%" }}>
                   <div>
-                    {li.fileImage.map((preview) => {
+                   
+                      {li.fileImage?li.fileImage.map((preview) => {
                       return (
                         <img
                           style={{
@@ -96,6 +97,18 @@ export default function OrderDeposit() {
                           }}
                           alt=""
                           src={preview}
+                        />
+                      );
+                    }):li.image.map((preview) => {
+                      return (
+                        <img
+                          style={{
+                            width: "96px",
+                            height: "64px",
+                            marginTop: "24px",
+                          }}
+                          alt=""
+                          src={`http://localhost:9000/${preview}`}
                         />
                       );
                     })}

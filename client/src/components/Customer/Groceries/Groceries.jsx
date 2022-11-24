@@ -68,8 +68,8 @@ function Groceries() {
     if (order.full_name !== "" && order.phone !== "" && order.address !== "") {
       let checkEmptyItems = items.every((n) => {
         return (
-          n.product_image !== "" &&
-          n.fileImage !== "" &&
+          // n.product_image !== "" &&
+          // n.fileImage !== "" &&
           n.product_link &&
           n.product_name !== "" &&
           n.attribute !== "" &&

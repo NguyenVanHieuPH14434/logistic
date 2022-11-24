@@ -5,10 +5,11 @@ import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { Routes, Route, Navigate, Link, useParams, useSearchParams, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { NumericFormat } from "react-number-format";
-import { Confirm, toastifyError } from "../../../../lib/toastify";
-import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../../lib/shipFee";
+
+import { Confirm, toastifyError, toastifySuccess } from "../../../../lib/toastify";
+import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3, Status } from "../../../../lib/shipFee";
 import { AppContext } from "../../../../contexts/AppContextProvider";
 import { createDeposit, deltailDeposit, updateDeposit, uploadFilesDeposit } from "../../../../api/depositApi";
 
@@ -16,7 +17,7 @@ function EditDeposit() {
     const { state: { user } } = useContext(AppContext)
     const [list, setList] = useState([]);
     const [order1, setOrder1] = useState({});
-
+    const navigate = useNavigate()
     //In ra tổng tiền
     var totalPrice = 0;
     for (var li of list) {
@@ -91,9 +92,14 @@ function EditDeposit() {
             "depositItem": list
         }
 
-        const res = await updateDeposit(locationState.state.id, data);
-        alert('ok');
-    }
+    const res = await updateDeposit(locationState.state.id, data);
+    toastifySuccess("Cập nhật đơn ký gửi thành công!");
+        setTimeout(() => {
+            navigate("/app/orderDeposit", { state: { data: list, order: order1, total: totalPrice } });
+        }, 1000);
+  }
+    console.log('list', list);
+    console.log('order1', order1);
 
     const location = [{ value: 'Hà Nội', label: 'Hà Nội' }, { value: 'TP.HCM', label: 'TP.HCM' }, { value: 'Hải Phòng', label: 'Hải Phòng' }];
     const [area, setArea] = useState([])
@@ -349,10 +355,28 @@ function EditDeposit() {
                                         <option value="Hải Phòng">Hải Phòng</option>
                                     </Form.Select>
                                 </Row>
+                                <Row>
+                  <Form.Label className="customer-title">Trạng thái</Form.Label>
+                  <Form.Select
+                    className="customer-field"
+                    name="status"
+                    value={order1?.status}
+                    onChange={(e) => changeInpOrder(e)}
+                  >
+                    <option value=''>Chọn trạng thái đơn hàng</option>
+                    {Status.map((ite)=>{
+                      return(
+                        <option value={ite.value}>{ite.label}</option>
+                      )
+                    })}
+                  </Form.Select>
+                </Row>
                             </Container>
                         </div>
-                        <Button variant="warning" className="end-btn mt-3" onClick={HandleSubmit}>
-                            Tạo Đơn Ký gửi
+                        <Button variant="warning" className="end-btn mt-3" onClick={HandleSubmit}
+                        // as={Link} to="/app/orderDeposit"> 
+                        >
+                            Cập nhật dơn ký gửi
                         </Button>
                     </div>
 

@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import multer from 'multer';
+import EXCEL from 'exceljs';
 
 const now = dayjs();
 const nowFormat = now.format('DDMMYYYY');
@@ -59,6 +60,42 @@ export namespace Commons {
       }
       return newType;
   }
+
+
+  // export
+  export const exportData = (data:any, setHeaderColumns:any, res:any, nameExcel:string)=>{
+    const wb = new EXCEL.Workbook();
+        const ws = wb.addWorksheet(nameExcel)
+        ws.columns = setHeaderColumns;
+
+        let counter = 1;
+
+        data.forEach((item:any)=>{
+            ws.addRow(item);
+            counter++;
+        })
+
+        ws.getRow(1).font = {
+          name: 'Times New Roman',
+          // family: 4,
+          size: 16,
+          underline: false,
+          bold: true  
+        };
+
+        // ws.getRow(1).eachCell((cell)=>{
+        //     cell.font = {bold:true}
+        //     cell.style.font = {name:'Times New Roman'}
+        //     cell.style.font = {size:16}
+        // })
+
+        res.setHeader("Content-Type", "apllication/vnd.openxmlformats-officedocument.spreadsheatml.sheet")
+        res.setHeader("Content-Disposition", `attachment;filename=${nameExcel}.xlsx`);
+        return wb.xlsx.write(res).then(() => {
+            res.status(200);
+        })  
+
+}
 
     
 }
