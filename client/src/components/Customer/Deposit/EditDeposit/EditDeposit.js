@@ -14,7 +14,7 @@ import { AppContext } from "../../../../contexts/AppContextProvider";
 import { createDeposit, deltailDeposit, updateDeposit, uploadFilesDeposit } from "../../../../api/depositApi";
 
 function EditDeposit() {
-    const {state:{user}} = useContext(AppContext)
+    const { state: { user } } = useContext(AppContext)
     const [list, setList] = useState([]);
     const [order1, setOrder1] = useState({});
     const navigate = useNavigate()
@@ -23,8 +23,8 @@ function EditDeposit() {
     for (var li of list) {
         totalPrice += li.tongTien;
     }
-    useEffect(()=>{
-            setOrder1({...order1, total:totalPrice})
+    useEffect(() => {
+        setOrder1({ ...order1, total: totalPrice })
     }, [totalPrice])
 
     const locationState = useLocation();
@@ -39,7 +39,7 @@ function EditDeposit() {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-   
+
 
     // thay đổi giá trị thông tin khách hàng
     const changeInpOrder = (e) => {
@@ -50,8 +50,8 @@ function EditDeposit() {
         setOrder1(valOrder);
     };
     console.log('totalPrice', totalPrice);
-    
-    
+
+
 
     const DeleteList = (i) => {
         const newList = [...list]
@@ -80,16 +80,20 @@ function EditDeposit() {
     const changeInp = (e, i) => {
         const val = [...list]
         val[i][e.target.name] = e.target.value;
-        val[i]['tongTien'] = val[i]['donGia'] * val[i]['kgM3'] + parseFloat(val[i]['phuPhi']?val[i]['phuPhi']:0);
+        val[i]['tongTien'] = val[i]['donGia'] * val[i]['kgM3'] + parseFloat(val[i]['phuPhi'] ? val[i]['phuPhi'] : 0);
         setList(val);
     }
 
 
-  // handelSubmit 
-  const HandleSubmit = async(e)=>{
-    const data = {
-        "deposit":order1,
-        "depositItem":list
+    // handelSubmit 
+    const HandleSubmit = async (e) => {
+        const data = {
+            "deposit": order1,
+            "depositItem": list
+        }
+
+        const res = await updateDeposit(locationState.state.id, data);
+        alert('ok');
     }
 
     const res = await updateDeposit(locationState.state.id, data);
@@ -178,7 +182,6 @@ function EditDeposit() {
                         <tr>
                             <th style={{ width: '5%' }}>STT</th>
                             <th>Ảnh Sản Phẩm</th>
-                            {/* <th>Tên thuộc tính</th> */}
                             <th>Thông tin hàng hóa</th>
                             <th>Ghi chú</th>
                             <th style={{ width: '5%' }}>Hành động</th>
@@ -189,19 +192,20 @@ function EditDeposit() {
                             <tr key={i}>
                                 <td > <span>{i + 1}</span></td>
                                 <td style={{ width: '100px' }} className="td_img">
-                                {li.image.map((preview)=>{
-                                return (
-                                  <img
-                                  style={{
-                                    width: "96px",
-                                    height: "64px",
-                                    marginTop: "24px",
-                                  }}
-                                  src={`http://localhost:9000/${preview}`}
-                                />
-                                )})} 
+                                    {li.image.map((preview) => {
+                                        return (
+                                            <img
+                                                style={{
+                                                    width: "96px",
+                                                    height: "64px",
+                                                    marginTop: "24px",
+                                                }}
+                                                src={`http://localhost:9000/${preview}`}
+                                            />
+                                        )
+                                    })}
                                 </td>
-                              
+
                                 <td className="td_productInformation">
                                     <div className="d-flex information_content">
                                         <div className="label_product_information mt-2">
@@ -212,7 +216,6 @@ function EditDeposit() {
                                             <p className="text-start me-2 pt-1">Đơn giá: </p>
                                             <p className="text-start me-2">Phụ phí: </p>
                                             <p className="text-start me-2"><b>Tổng: </b> </p>
-                                            {/* <h4 style={{position: 'absolute', bottom: '10px', left: '30px'}} classname="">Tổng: </h4> */}
                                         </div>
                                         <div class="input_information_product">
                                             <input
@@ -269,19 +272,18 @@ function EditDeposit() {
                                                 placeholder="Phụ phí"
                                                 onChange={(e) => changeInp(e, i)}
                                             />
-                                        <NumericFormat
-                                            className=" text-center mx-auto form-control mt-1"
-                                            type="text"
-                                            disabled
-                                            style={{ background: '#EDA82D', width:'596px'}}
-                                            value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
-                                            placeholder="Tổng"
-                                            thousandSeparator=","
-                                        ></NumericFormat>
+                                            <NumericFormat
+                                                className=" text-center mx-auto form-control mt-1"
+                                                type="text"
+                                                disabled
+                                                style={{ background: '#EDA82D', width: '596px' }}
+                                                value={li.tongTien ? li.tongTien : 'Tổng tiền thanh toán'}
+                                                placeholder="Tổng"
+                                                thousandSeparator=","
+                                            ></NumericFormat>
                                         </div>
                                     </div>
                                 </td>
-
                                 <td>
                                     {" "}
                                     <textarea
@@ -302,19 +304,18 @@ function EditDeposit() {
                     <tfoot>
                         <tr>
                             <th colSpan='3'><b>Tổng tiền thanh toán: </b></th>
-                            <th colSpan='2'><NumericFormat style={{background:'none', color:'white', border:'none', textAlign:'right'}} value={totalPrice?totalPrice:0} thousandSeparator="," /> đ</th>
+                            <th colSpan='2'><NumericFormat style={{ background: 'none', color: 'white', border: 'none', textAlign: 'right' }} value={totalPrice ? totalPrice : 0} thousandSeparator="," /> đ</th>
                         </tr>
                     </tfoot>
                 </Table>
 
                 <div className="container d-flex justify-content-between mt-4">
                     <div className="form_custom">
-                        
                         <div className="address d-flex flex-column w-100">
                             <label htmlFor="" className="">
                                 <h5>Địa chỉ kho Trung Quốc</h5>
                             </label>
-                            <select name="address_TQ" id="" value={order1.address_TQ?order1.address_TQ:''} onChange={(e)=>changeInpOrder(e)} className="p-1 form-control">
+                            <select name="address_TQ" id="" value={order1.address_TQ ? order1.address_TQ : ''} onChange={(e) => changeInpOrder(e)} className="p-1 form-control">
                                 <option value="" className="text-center">
                                     --Lựa chọn kho--
                                 </option>
@@ -331,8 +332,8 @@ function EditDeposit() {
                                         className="customer-field"
                                         type="text"
                                         name="full_name"
-                                        value={order1.full_name?order1.full_name:''}
-                                        onChange={(e)=>changeInpOrder(e)}
+                                        value={order1.full_name ? order1.full_name : ''}
+                                        onChange={(e) => changeInpOrder(e)}
                                         placeholder="Nhập Họ Tên"
                                     />
                                 </Row>
@@ -344,14 +345,14 @@ function EditDeposit() {
                                         className="customer-field"
                                         type="text"
                                         name="phone"
-                                        value={order1.phone?order1.phone:''}
-                                        onChange={(e)=>changeInpOrder(e)}
+                                        value={order1.phone ? order1.phone : ''}
+                                        onChange={(e) => changeInpOrder(e)}
                                         placeholder="Nhập Số Điện Thoại"
                                     />
                                 </Row>
                                 <Row>
-                                    <Form.Label className="customer-title">Địa chỉ</Form.Label>
-                                    <Form.Select className="customer-field" name="address" value={order1.address?order1.address:''} onChange={(e)=>changeInpOrder(e)}>
+                                    <Form.Label className="customer-title">Địa chỉ nhận hàng Việt Nam</Form.Label>
+                                    <Form.Select className="customer-field" name="address" value={order1.address ? order1.address : ''} onChange={(e) => changeInpOrder(e)}>
                                         <option>Vui Lòng Chọn Địa Chỉ</option>
                                         <option value="Hà Nội">Hà Nội</option>
                                         <option value="TP.HCM">TP.HCM</option>
@@ -382,7 +383,7 @@ function EditDeposit() {
                             Cập nhật dơn ký gửi
                         </Button>
                     </div>
-                        
+
                     {/* Tổng hợp các loại phí */}
 
                     <div className="container fee ms-4">
@@ -425,7 +426,7 @@ function EditDeposit() {
                                     <span style={{ fontWeight: 'bold' }}>Thuế VAT</span> = 10% x Giá trị hàng hóa</p>
                             </div>
                         </div>
-                       
+
                         <div className="mt-5 mb-3">
                             <span className="d-flex">
                                 <h5>PHÍ ĐÓNG GỖ</h5>

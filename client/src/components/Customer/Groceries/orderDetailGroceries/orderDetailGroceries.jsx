@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from "react";
 import "./OrderDetailGroceries.scss";
 import Table from "react-bootstrap/Table";
@@ -8,7 +7,6 @@ import { NumericFormat } from "react-number-format";
 import { numberWithCommas } from "../../../../lib/shipFee";
 export default function OrderDetailGroceries() {
   const location = useLocation();
-  console.log("ss", location.state.id);
   const [list, setList] = useState({});
   const [item, setItem] = useState([]);
   const getDetail = async () => {
@@ -20,10 +18,7 @@ export default function OrderDetailGroceries() {
       setList(res.data.data);
       setItem(res.data.data.orderItem);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log("list", list);
-  console.log("item", item);
 
   return (
     <div className="OrderDetailGroceries">
@@ -147,7 +142,6 @@ export default function OrderDetailGroceries() {
                       type="text"
                       name="product_price"
                       value={li.product_price ? li.product_price : ""}
-                      // value={li.price}
                       thousandSeparator=","
                       min="1"
                     />

@@ -7,7 +7,6 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from 'react-router-dom';
 import { NumericFormat } from "react-number-format";
-
 import { Confirm, toastifyError, toastifySuccess } from "../../../lib/toastify";
 import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../lib/shipFee";
 import { AppContext } from "../../../contexts/AppContextProvider";
@@ -45,6 +44,7 @@ function Deposit() {
         };
         setList([...list, newList]);
     };
+
     //In ra tổng tiền
     var total = 0;
     for (var li of list) {
@@ -73,14 +73,11 @@ function Deposit() {
         valOrder["total"] = total;
         setOrder(valOrder);
     };
-    console.log('customer', order);
-
 
     const DeleteList = (i) => {
         const newList = [...list]
         newList.splice(i, 1)
         setList(newList)
-        
     }
 
     const subMit = (i) => {
@@ -131,10 +128,10 @@ function Deposit() {
         if (order.full_name !== "" && order.phone !== "" && order.address !== "") {
             let checkEmptyItems = items.every((n) => {
                 return (
-                    n.image.length>0&&
-                    n.fileImage.length>0&&
-                    n.maVanDon !== ""&&
-                    n.nameSanPham !==""
+                    n.image.length > 0 &&
+                    n.fileImage.length > 0 &&
+                    n.maVanDon !== "" &&
+                    n.nameSanPham !== ""
                 );
             });
             if (checkEmptyItems === true) {
@@ -185,16 +182,13 @@ function Deposit() {
             datCoc: 0,
             total: 0
         })
-        console.log('response', res);
         toastifySuccess("Tạo đơn ký gửi thành công!");
         setTimeout(() => {
             navigate("/app/orderDeposit", { state: { data: list, order: order, total: total } });
         }, 1000);
     }
-    console.log('listKy', list);
-    console.log('listFile', files);
-    const HandleSubmit =()=>{
-        checkValidate(list,order)
+    const HandleSubmit = () => {
+        checkValidate(list, order)
     }
     const location = [{ value: 'Hà Nội', label: 'Hà Nội' }, { value: 'TP.HCM', label: 'TP.HCM' }, { value: 'Hải Phòng', label: 'Hải Phòng' }];
     const [area, setArea] = useState([])
@@ -208,7 +202,6 @@ function Deposit() {
     const handleOnChangeArea = (e) => {
         const state = e.target.value + '&&' + typeShip;
         if (!typeShip) return toastifyError('Vui lòng chọn loại phí vận chuyển trước!');
-
         switch (state) {
             case 'TP.HCM&&tronGoi':
                 setKg(HCMAreaFeePacketKg)
@@ -273,7 +266,6 @@ function Deposit() {
                         <tr>
                             <th style={{ width: '5%' }}>STT</th>
                             <th>Ảnh Sản Phẩm</th>
-                            {/* <th>Tên thuộc tính</th> */}
                             <th>Thông tin hàng hóa</th>
                             <th>Ghi chú</th>
                             <th style={{ width: '5%' }}>Hành động</th>
@@ -288,8 +280,8 @@ function Deposit() {
                                         return (
                                             <img
                                                 style={{
-                                                    objectFit:'contain',
-                                                    objectPosition:'center',
+                                                    objectFit: 'contain',
+                                                    objectPosition: 'center',
                                                     width: "96px",
                                                     height: "64px",
                                                     marginTop: "24px",
@@ -323,7 +315,6 @@ function Deposit() {
                                             <p className="text-start me-2 pt-1">Đơn giá: </p>
                                             <p className="text-start me-2">Phụ phí: </p>
                                             <p className="text-start me-2"><b>Tổng: </b> </p>
-                                            {/* <h4 style={{position: 'absolute', bottom: '10px', left: '30px'}} classname="">Tổng: </h4> */}
                                         </div>
                                         <div class="input_information_product">
                                             <input
@@ -470,7 +461,7 @@ function Deposit() {
                                     />
                                 </Row>
                                 <Row>
-                                    <Form.Label className="customer-title">Địa chỉ</Form.Label>
+                                    <Form.Label className="customer-title">Địa chỉ nhận hàng Việt Nam</Form.Label>
                                     <Form.Select className="customer-field" value={order.address} name="address" onChange={(e) => changeInpOrder(e)}>
                                         <option>Vui Lòng Chọn Địa Chỉ</option>
                                         <option value="Hà Nội">Hà Nội</option>
@@ -481,7 +472,6 @@ function Deposit() {
                             </Container>
                         </div>
                         <Button variant="warning" className="end-btn mt-3" onClick={HandleSubmit}
-                        // as={Link} to="/app/orderDeposit"> 
                         >
                             Tạo Đơn Ký gửi
                         </Button>

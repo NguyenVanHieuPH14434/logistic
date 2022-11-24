@@ -29,9 +29,6 @@
     }
     th,
     td {
-        // .td_img{
-        //     width: 100px !important;
-        // }
         position: relative;
         text-align: center;
         span,
@@ -47,7 +44,6 @@
             color: white;
             padding: 2px 7px;
             background-color: #8610e8;
-            /* Style as you please, it will become the visible UI component. */
         }
         .td_productInformation {
             .information_content {
@@ -58,9 +54,6 @@
             }
         }
         img {
-            // position: absolute;
-            // top: 20%;
-            // transform: translateX(-50%);
         }
         .ghi_chu {
             height: 40px;
@@ -71,7 +64,6 @@
         }
     }
     td {
-        // padding-top: 50%;
     }
     .attribute {
         width: 100vh;
@@ -140,11 +132,3 @@
     width: 100%;
 }
 
-
-/* For mobile phones: */
-
-@media only screen and (max-width: 600px) {}
-
-@media screen and (min-width: 600px) and (max-width: 1024px) {}
-
-@media screen and (min-width: 1024) {}

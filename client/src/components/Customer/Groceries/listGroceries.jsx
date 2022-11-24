@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
   useContext,
   useEffect,
@@ -7,10 +6,11 @@ import React, {
 } from "react";
 import "./listGroceries.scss";
 import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groceris.png";
+// import { Calendar } from "@natscale/react-calendar";
 
 import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import { exportExcel, listAllOrder, listOrderByUser, updaterOrder } from "../../../api/orderApi";
+import { listAllOrder, listOrder, listOrderByUser, updaterOrder } from "../../../api/orderApi";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import {  convertDate, export_Excel, renderStatus, Status } from "../../../lib/shipFee";
@@ -21,20 +21,24 @@ export default function ListGroceries() {
   } = useContext(AppContext);
   const [lists, setLists] = useState([]);
   const [listt, setListt] = useState([]);
+  const [headQuarters, setHeadQuarters] = useState([
+    { value: "Hà Nội" },
+    { value: "Hải Phòng" },
+  ]);
   const [search, setSearch] = useState({
     idProduct: "",
     headQuarters: "",
     status: "",
   });
 
-  const getALlOrder = async() => {
-    if(user.role !== 'user'){
-      await listAllOrder().then((response)=> {
+  const getALlOrder = async () => {
+    if (user.role !== "user") {
+      await listAllOrder().then((response) => {
         setListt(response.data.data);
         setLists(response.data.data);
       });
-    }else {
-      await listOrderByUser(user._id).then((response)=> {
+    } else {
+      await listOrderByUser(user._id).then((response) => {
         setListt(response.data.data);
         setLists(response.data.data);
       });
@@ -42,33 +46,16 @@ export default function ListGroceries() {
 
   }
 
-  const [changeStatus, setChangeStatus] = useState({
-    _id:'',
-    status: "",
-  });
- 
-  const changeInp = async(_id, e) => {
-    const val = {...changeStatus}
-    val['_id'] = _id;
-    val[e.target.name] = e.target.value;
-   setChangeStatus(val)
-  }
-
-  useEffect(()=>{
-    if(changeStatus.status && changeStatus._id){
-      const res = updaterOrder(changeStatus._id, changeStatus);
-      getALlOrder();
-      toastifySuccess("Cập nhật trạng thái đơn hàng thành công!");
-    }
+  useEffect(() => {
     getALlOrder();
-  },[changeStatus.status, changeStatus._id])
+    
+  }, []);
 
   console.log(search);
   const [inputCalendar, setInputCalendar] = useState({
     calendar_from: "",
     calendar_to: "",
   });
-  console.log(inputCalendar);
   //phan trang
   const [pageNumber, setPageNumber] = useState(0);
   const productPerPage = 10;
@@ -82,22 +69,31 @@ export default function ListGroceries() {
     setListt(
       lists &&
         lists.filter((el) => {
-          let dateFrom = new Date(inputCalendar.calendar_from).getTime();
-          let dateTo = new Date(inputCalendar.calendar_to).getTime();
-          let timeProduct = new Date(el.ctime.split("/").reverse().join("-")).getTime()
-          if (inputCalendar.calendar_from && !inputCalendar.calendar_to&&search) {
-            return dateFrom===timeProduct&&el._id.toLowerCase().includes(search.idProduct.toLowerCase())
+          
+          let toDate = ''
+          if (dateFrom && !dateTo && search) {
+            toDate = dateFrom
           }
-          if((inputCalendar.calendar_from && inputCalendar.calendar_to)||(inputCalendar.calendar_from && inputCalendar.calendar_to && search)){
-          console.log([dateFrom,timeProduct,dateTo]);
+          if (dateFrom && dateTo && search) {
+            toDate = dateTo
+          }
+         if(dateFrom && search || dateFrom && dateTo && search){
           return (
-            timeProduct >= dateFrom && dateTo >= timeProduct&&el._id.toLowerCase().includes(search.idProduct.toLowerCase())
+            el.ctime >= dateFrom &&
+            el.ctime <= toDate &&
+            el._id.toLowerCase().includes(search.idProduct.toLowerCase())
           );
-          }
+         }
           if (search) {
             return el._id
               .toLowerCase()
               .includes(search.idProduct.toLowerCase());
+          }
+          if (search && search.headQuarters) {
+        
+            return el.address
+              .toLowerCase()
+              .includes(search.headQuarters.toLowerCase());
           }
         })
     );
@@ -107,8 +103,9 @@ export default function ListGroceries() {
     let value = e.target.value;
     setSearch({ ...search, [name]: value });
   };
-  
+
   const navi = useNavigate();
+
   // Array to store month string values
   const allMonthValues = [
     "January",
@@ -131,13 +128,24 @@ export default function ListGroceries() {
     });
   };
 
+  const [changeStatus, setChangeStatus] = useState({
+    _id:'',
+    status: "",
+  });
  
-
-  const handleExportExcel = () => {
-    export_Excel('order', inputCalendar.calendar_from, inputCalendar.calendar_to)
+  const changeInp = async(_id, e) => {
+    const val = {...changeStatus}
+    val['_id'] = _id;
+    val[e.target.name] = e.target.value;
+   setChangeStatus(val)
   }
-
-
+  useEffect(()=>{
+    if(changeStatus.status && changeStatus._id){
+      const res = updaterOrder(changeStatus._id, changeStatus);
+      getALlOrder();
+      toastifySuccess("Cập nhật trạng thái đơn hàng thành công!");
+    }
+  },[changeStatus.status, changeStatus._id])
   
   
   return (
@@ -166,7 +174,7 @@ export default function ListGroceries() {
       <hr />
       <ul className="menu_groceries">
         <li>
-         Chưa thanh toán <span>0</span>
+          Chưa thanh toán <span>0</span>
         </li>
         <li>
           Đã thanh toán <span>0</span>
@@ -214,27 +222,10 @@ export default function ListGroceries() {
             </option>
             <option value="Hà Nội">Hà Nội</option>
             <option value="Hải Phòng">Hải Phòng</option>
-            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-            <option value="Quảng Châu">Quảng Châu</option>
           </select>
         </div>
-        <div className="select_status">
-          <select name="status" onChange={getValue}>
-            <option value="" selected>
-              Chọn trạng thái
-            </option>
-            <option value="Chờ báo giá">Chưa thanh toán</option>
-            <option value="Chờ đặt cọc">Đã thanh toán</option>
-            <option value="Đã đặt cọc">Đã xác nhận</option>
-            <option value="Đã đặt hàng">Đã giao hàng thành công</option>
-          </select>
-        </div>
-        {/* <button onClick={searchProduct} style={{border:'none',borderRadius:'3px'}} className="search_icon">
-          <i className="fa-solid fa-magnifying-glass"></i>
-          <p>Tìm kiếm</p>
-        </button> */}
       </div>
-        <button style={{borderStyle: 'none'}} onClick={handleExportExcel} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
+        <button style={{borderStyle: 'none'}} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
           DownLoad Excel
         </button>
       <div className="listOrder mx-4">
@@ -250,7 +241,6 @@ export default function ListGroceries() {
               <th scope="col">Đơn Hàng</th>
             </tr>
           </thead>
-          {/* {listt.length > 0 ? */}
           <tbody>
             {listt &&
               listt
@@ -263,14 +253,14 @@ export default function ListGroceries() {
                       <td> {li.phone} </td>
                       <td> {li.address} </td>
                       <td className="w-25"> 
-                        {user && user.role !=='user'?(
-                        <select name="status" className="form-control" onChange={(e)=>changeInp(li._id, e)} value={li.status}>
+                     
+                      <select name="status" className="form-control" onChange={(e)=>changeInp(li._id, e)} value={li.status}>
                       {Status.map((ite)=>{
                       return(
                         <option value={ite.value}>{ite.label}</option>
                       )
                     })}
-                      </select>):(renderStatus(li.status))}
+                      </select>
                       </td>
                       <td>
                         <button
@@ -283,16 +273,20 @@ export default function ListGroceries() {
                         >
                           Chi tiết đơn
                         </button>
-                        {user.role == 'admin' || user.role == 'manager'?(<button
-                          className="btn btn-danger"
-                          onClick={() =>
-                            navi("/app/updateGroceries", {
-                              state: { id: li._id },
-                            })
-                          }
-                        >
-                          Sửa
-                        </button>):''}
+                        {user.role == "admin" || user.role == "manager" ? (
+                          <button
+                            className="btn btn-danger"
+                            onClick={() =>
+                              navi("/app/updateGroceries", {
+                                state: { id: li._id },
+                              })
+                            }
+                          >
+                            Sửa
+                          </button>
+                        ) : (
+                          ""
+                        )}
                       </td>
                     </tr>
                   );
@@ -321,7 +315,6 @@ export default function ListGroceries() {
             containerClassName="pagination"
             activeClassName="active"
             renderOnZeroPageCount={null}
-            //forcePage={currentPage - 1}
           />
         </div>
       </div>

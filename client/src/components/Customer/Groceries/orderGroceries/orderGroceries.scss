@@ -36,6 +36,7 @@
             max-width: 500px;
         }
     }
+
     // table Sản Phẩm Hiện Ra
     .product_information {
         table {
@@ -45,7 +46,6 @@
         td {
             text-align: center;
             .ghi_chu {
-                // height: 40px;
                 min-width: 100px;
                 min-height: 100px;
                 max-width: 200px;
@@ -54,7 +54,6 @@
             .attribute {
                 height: auto;
                 min-width: 100%;
-                // min-height: 70px;
                 max-width: 100%;
                 max-height: 500px;
                 .name_attribute{
@@ -63,7 +62,6 @@
             }
         }
         td {
-            // padding-top: 50%;
         }
         .soLuong {
             padding-top: 24px;

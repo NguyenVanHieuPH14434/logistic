@@ -42,11 +42,9 @@ export default function Express() {
     const monthValue = allMonthValues[value.getMonth()];
     const yearValue = value.getFullYear();
     const date = value.getDate();
-    console.log(date, monthValue, yearValue);
     setCalendarText(`${monthValue} Month  is selected`);
   };
 
-  console.log("..", calendarText);
 
   const handleOnClickCalendarIcon = () => {
     setShow(!show);
@@ -187,17 +185,6 @@ export default function Express() {
             <td></td>
             <td></td>
           </tr>
-          {/* <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr> */}
         </tbody>
       </table>
     </div>

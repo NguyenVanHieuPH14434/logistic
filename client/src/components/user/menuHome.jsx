@@ -1,6 +1,5 @@
 import React from "react";
 import './menuHome.scss'
-// import CanvasJSReact from './canvasjs.react';
 import CanvasJSReact from '../../lib/canvasjs.react';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -9,7 +8,7 @@ export default function MenuHome() {
   const options = {
     animationEnabled: true,
     exportEnabled: true,
-    theme: "light2", //"light1", "dark1", "dark2"
+    theme: "light2", 
     title:{
       text: "Simple Column Chart with Index Labels"
     },
@@ -17,8 +16,7 @@ export default function MenuHome() {
       includeZero: true
     },
     data: [{
-      type: "column", //change type to bar, line, area, pie, etc
-      //indexLabel: "{y}", //Shows y value on all Data Points
+      type: "column",
       indexLabelFontColor: "#5A5757",
       indexLabelPlacement: "outside",
       dataPoints: [
@@ -41,9 +39,7 @@ export default function MenuHome() {
   return (
     <div>
 			<CanvasJSChart options = {options} 
-				/* onRef={ref => this.chart = ref} */
 			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
 		</div>
   );
 }

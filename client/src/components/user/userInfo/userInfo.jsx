@@ -8,7 +8,6 @@ export default function UserInfo() {
   const {
     state: {user},
   } = useContext(AppContext)
-  console.log(user);
   return (
     <div className="userInfo">
       <div className="nav_container">

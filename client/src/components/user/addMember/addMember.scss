@@ -36,7 +36,6 @@
     }
   }
 
-  // f0
   .login {
     position: relative;
     top: -100px;
@@ -46,9 +45,6 @@
     text-align: center;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     .container {
-      // border: 1px solid red;
-
-      // f1
       h2 {
         text-shadow: 2px 2px 2px #000;
         text-align: center;
@@ -88,11 +84,9 @@
           }
         }
 
-        // f1
         .login_form_btn {
           margin-left: 10px;
           text-align: center;
-          // f3
           button {
             background-color: #ff0000;
             color: #fff;

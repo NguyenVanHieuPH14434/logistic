@@ -46,13 +46,11 @@
         .attribute {
             height: auto;
             min-width: 100%;
-            // min-height: 70px;
             max-width: 100%;
             max-height: 500px;
         }
     }
     td {
-        // padding-top: 50%;
         .icon_delete_list {
             color: red;
             font-size: 30px;
@@ -129,14 +127,4 @@
     color: white;
     padding: 2px 7px;
     background-color: #8610e8;
-    /* Style as you please, it will become the visible UI component. */
 }
-
-
-/* For mobile phones: */
-
-@media only screen and (max-width: 600px) {}
-
-@media screen and (min-width: 600px) and (max-width: 1024px) {}
-
-@media screen and (min-width: 1024) {}
