@@ -40,8 +40,8 @@ function App() {
         <Route path="/app" element={<RouterDasboard className="right" />}>
           <Route path="groceries" element={<Groceries className="right" />}></Route>
           <Route path="updateGroceries" element={<EditGroceries className="right" />}></Route>
-          <Route path="deposit"  element={<Deposit className="right" />}></Route>
-          <Route path="updateDeposit"  element={<EditDeposit className="right" />}></Route>
+          <Route path="deposit" element={<Deposit className="right" />}></Route>
+          <Route path="updateDeposit" element={<EditDeposit className="right" />}></Route>
           <Route path="listGroceries" element={<ListGroceries className="right" />}></Route>
           <Route path="listDeposit" element={<ListDeposit className="right" />}></Route>
           <Route path="home" element={<User className="right" />}></Route>
@@ -69,7 +69,6 @@ function App() {
         pauseOnHover
         theme="light"
       />
-      {/* Same as */}
       <ToastContainer />
     </div>
   );

@@ -17,7 +17,6 @@ export default function AddMember() {
     password: "",
     checkPassword: "",
   });
-  console.log(register);
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -49,7 +48,6 @@ export default function AddMember() {
 
   const [type, setType] = useState("none");
   const [pass, setPass] = useState(false);
-  // const [passConfim, setPassConfim] = useState(false)
 
   useEffect(() => {
     changeStyleInputPassword(register.password, setType);

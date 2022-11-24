@@ -21,9 +21,8 @@ function EditGroceries() {
   } = useContext(AppContext);
   const [list, setList] = useState([]);
   const location = useLocation();
-    // thông tin khách hàng
-    const [order, setOrder] = useState({});
-    console.log(order);
+  // thông tin khách hàng
+  const [order, setOrder] = useState({});
 
   //In ra tổng tiền
 
@@ -42,45 +41,39 @@ function EditGroceries() {
       orderCost = total * (1 / 100);
     }
     let tienCoc = 0;
-    if(order.datCoc){
-     tienCoc = (order.datCoc?order.datCoc:0).replace(/,/g, "")
+    if (order.datCoc) {
+      tienCoc = (order.datCoc ? order.datCoc : 0).replace(/,/g, "")
     }
     totalOrderCost = total + orderCost - tienCoc;
   }
 
-  useEffect(()=>{
-    setOrder({...order, total:totalOrderCost})
+  useEffect(() => {
+    setOrder({ ...order, total: totalOrderCost })
   }, [totalOrderCost])
   const getDetail = async () => {
-      const res = await deltailOrder(location.state.id);
-      return res;
-    };
-    useEffect(() => {
-      getDetail().then((res) => {
-        setList(res.data.data.orderItem);
-        setOrder(res.data.data)
-      });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const res = await deltailOrder(location.state.id);
+    return res;
+  };
+  useEffect(() => {
+    getDetail().then((res) => {
+      setList(res.data.data.orderItem);
+      setOrder(res.data.data)
+    });
+  }, []);
 
-    console.log('listttst', list);
-    console.log('orrde', order);
-    
- 
-  const setTotalPriceALL = (val, i) =>{
+  const setTotalPriceALL = (val, i) => {
     if (val[i]["quantity"] && val[i]["product_price"] && val[i]["typeMoney"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
-    let kgm3 = val[i]["kgM3"]?val[i]["kgM3"]:0
-    let dongia = val[i]["donGia"]?val[i]["donGia"].replace(/,/g, ""):0
-    let phuphi = val[i]["phuPhi"]?val[i]["phuPhi"].replace(/,/g, ""):0
-    val[i]["total_price"] =
+      let kgm3 = val[i]["kgM3"] ? val[i]["kgM3"] : 0
+      let dongia = val[i]["donGia"] ? val[i]["donGia"].replace(/,/g, "") : 0
+      let phuphi = val[i]["phuPhi"] ? val[i]["phuPhi"].replace(/,/g, "") : 0
+      val[i]["total_price"] =
         (val[i]["product_price"].replace(/,/g, "") *
-        parseFloat(val[i]["typeMoney"]) *
-    val[i]["quantity"]) + (parseFloat(kgm3) * parseFloat(dongia)) + parseFloat(phuphi);
+          parseFloat(val[i]["typeMoney"]) *
+          val[i]["quantity"]) + (parseFloat(kgm3) * parseFloat(dongia)) + parseFloat(phuphi);
     }
   }
 
   const checkValidate = (items, order) => {
-    //create
     if (order.full_name !== "" && order.phone !== "" && order.address !== "") {
       let checkEmptyItems = items.every((n) => {
         return (
@@ -103,7 +96,7 @@ function EditGroceries() {
       return alert(`please check input information !!!`);
     }
   };
- 
+
 
   // Nút thêm sản phẩm
   const handleOnIncrease = (i, e) => {
@@ -116,17 +109,13 @@ function EditGroceries() {
   // Nút bớt sản phẩm
   const handleOnReduced = (i) => {
     const count = [...list];
-      count[i]["quantity"] = count[i]["quantity"] - 1;
-      if (count[i]["quantity"] <= 0) {
-        count[i]["quantity"] = 1;
-      }
-      setTotalPriceALL(count, i)
+    count[i]["quantity"] = count[i]["quantity"] - 1;
+    if (count[i]["quantity"] <= 0) {
+      count[i]["quantity"] = 1;
+    }
+    setTotalPriceALL(count, i)
     setList(count);
   };
-
-  
-
-  
 
   // thay đổi giá trị form sản phẩm
   const changeInp = (i, e) => {
@@ -145,10 +134,9 @@ function EditGroceries() {
       });
       val[i]["product_price"] = "";
     }
-      setTotalPriceALL(val, i)
+    setTotalPriceALL(val, i)
     setList(val);
   };
-
 
   // thay đổi giá trị thông tin khách hàng
   const changeInpOrder = (e) => {
@@ -183,7 +171,6 @@ function EditGroceries() {
       orderItem: list,
     };
 
-    const res = await updaterOrder(location.state.id, data1);
     toastifySuccess("Cập nhật đơn hàng thành công!");
     setTimeout(() => {
       navigate("/app/orderGroceries", { state: { data: list, order: order, total: totalOrderCost } });
@@ -193,9 +180,8 @@ function EditGroceries() {
   const saveData = () => {
     checkValidate(list, order);
   };
-  console.log("item", list);
 
-  //
+  // Xóa đơn hàng
   const DeleteList = (i) => {
     const newList = [...list];
     newList.splice(i, 1);
@@ -207,10 +193,6 @@ function EditGroceries() {
   const submit = (i) => {
     Confirm("Delete", "Bạn có chắc chắn muốn xóa không?", DeleteList, i);
   };
-
-  console.log('orderrrr', order);
-  console.log('listttt', list);
-  
 
   return (
     <>
@@ -235,7 +217,7 @@ function EditGroceries() {
                   {" "}
                   {i + 1} <br />
                 </td>
-                <td sytle={{with:'10%'}} className=" pt-5">
+                <td sytle={{ with: '10%' }} className=" pt-5">
                   <img
                     style={{
                       width: "96px",
@@ -248,9 +230,9 @@ function EditGroceries() {
                         : '../../default-thumbnail.jpg'
                     }
                   />
-                  
+
                 </td>
-                <td className="" sytle={{with:'35%'}}>
+                <td className="" sytle={{ with: '35%' }}>
                   <input
                     className="w-100 form-control"
                     type="text"
@@ -275,10 +257,10 @@ function EditGroceries() {
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Link sản phẩm"
                   />
-                   <select name="typeMoney" value={li.typeMoney?li.typeMoney:''} onChange={(e)=>changeInp(i, e)} id="" className="form-control mt-2">
+                  <select name="typeMoney" value={li.typeMoney ? li.typeMoney : ''} onChange={(e) => changeInp(i, e)} id="" className="form-control mt-2">
                     <option value="">Chọn loại tiền (*)</option>
-                    {typeMon && typeMon.map((item)=>{
-                      return(
+                    {typeMon && typeMon.map((item) => {
+                      return (
                         <option value={item.value}>{item.label}</option>
                       )
                     })}
@@ -345,7 +327,7 @@ function EditGroceries() {
                   />
                 </td>
 
-                <td style={{paddingTop: '160px', paddingRight:'40px', width:'10%'}}  className="soLuong">
+                <td style={{ paddingTop: '160px', paddingRight: '40px', width: '10%' }} className="soLuong">
                   <div className="d-flex soLuong">
                     <div
                       className="border px-3 d-flex justify-content-center border-dark w-25 form-control"
@@ -358,7 +340,7 @@ function EditGroceries() {
                       className="value border w-50 border-dark px-3 text-center form-control"
                       type="text"
                       name="quantity"
-                      value={li.quantity == 0 ? 1:li.quantity}
+                      value={li.quantity == 0 ? 1 : li.quantity}
                       min='1'
                       onChange={(e) => changeInp(i, e)}
                     />
@@ -371,7 +353,7 @@ function EditGroceries() {
                     </div>
                   </div>
                 </td>
-                <td className="" sytle={{with:'30%'}}>
+                <td className="" sytle={{ with: '30%' }}>
                   {" "}
                   <textarea
                     className="ghi_chu_edit form-control"
@@ -384,7 +366,7 @@ function EditGroceries() {
                     placeholder="Ghi chú sản phẩm..."
                   ></textarea>{" "}
                 </td>
-                <td style={{paddingTop: '200px', width:'12%'}}>
+                <td style={{ paddingTop: '200px', width: '12%' }}>
                   <p className="">
                     <NumericFormat
                       disabled={true}
@@ -398,20 +380,6 @@ function EditGroceries() {
                       thousandSeparator=","
                     />{" "}
                   </p>
-                  {/* <span style={{ cursor: "pointer" }}>
-                    <button
-                      style={{ border: "none" }}
-                      onClick={(e) => submit(e)}
-                    >
-                      {" "}
-                      {list.length > 1 && (
-                        <i
-                          onClick={() => submit(i)}
-                          className="fa-solid fa-circle-xmark icon_delete_list"
-                        ></i>
-                      )}
-                    </button>
-                  </span> */}
                 </td>
               </tr>
             ))}
@@ -420,7 +388,7 @@ function EditGroceries() {
 
         <div className="container d-flex justify-content-between mt-4">
           <div className="form_custom">
-            
+
             <div className="d-flex flex-column w-100">
               <label htmlFor="" className="">
                 <h5>Địa chỉ kho Trung Quốc</h5>
@@ -468,10 +436,10 @@ function EditGroceries() {
                 </Row>
                 <Row>
                   <Form.Label className="customer-title">
-                      Tiền đặt cọc
+                    Tiền đặt cọc
                   </Form.Label>
-                    <NumericFormat
-                     className="form-control customer-field"
+                  <NumericFormat
+                    className="form-control customer-field"
                     name="datCoc"
                     value={order?.datCoc}
                     onChange={(e) => changeInpOrder(e)}
@@ -481,7 +449,7 @@ function EditGroceries() {
                 </Row>
                 {/*  */}
                 <Row>
-                  <Form.Label className="customer-title">Địa chỉ</Form.Label>
+                  <Form.Label className="customer-title">Địa chỉ nhận hàng Việt Nam</Form.Label>
                   <Form.Select
                     className="customer-field"
                     name="address"
@@ -502,8 +470,8 @@ function EditGroceries() {
                     onChange={(e) => changeInpOrder(e)}
                   >
                     <option value=''>Chọn trạng thái đơn hàng</option>
-                    {Status.map((ite)=>{
-                      return(
+                    {Status.map((ite) => {
+                      return (
                         <option value={ite.value}>{ite.label}</option>
                       )
                     })}
@@ -516,7 +484,6 @@ function EditGroceries() {
               type="submit"
               onClick={saveData}
               className="end-btn"
-              // as={Link} to="/app/orderGroceries"
             >
               Tạo Đơn Hàng
             </Button>
@@ -593,7 +560,7 @@ function EditGroceries() {
                       backgroundColor: "#f9f9f9",
                       width: "100px",
                     }}
-                    value={order.datCoc?order.datCoc:0}
+                    value={order.datCoc ? order.datCoc : 0}
                     thousandSeparator=","
                   />{" "}
                   đ

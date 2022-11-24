@@ -1,4 +1,3 @@
-// import "./OrderDetailDeposit.scss";
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { useLocation } from "react-router-dom";
@@ -9,11 +8,9 @@ import "./orderDeposit.scss";
 import LOGO from "../../../../assets/public/img/logo_login.png";
 import { DocTienBangChu, numberWithCommas } from "../../../../lib/shipFee";
 import '../listDeposit.scss'
-// import { NumericFormat } from "react-number-format";
 
 export default function OrderDeposit() {
   const location = useLocation();
-  // console.log("ss", location.state.id);
   const [list, setList] = useState(location.state ? location.state.data : "");
   let newDate = new Date();
   let date =
@@ -31,12 +28,8 @@ export default function OrderDeposit() {
   const total = location.state ? location.state.total : "";
 
   const handleOnCLickDownload = (e) => {
-    // setShow('d-block')
     window.print();
-    // setShow('d-none')
   };
-
-  console.log('meo',total)
 
   return (
     <div className="order_deposit">
@@ -79,7 +72,6 @@ export default function OrderDeposit() {
           <tr>
             <th style={{ width: "5%" }}>STT</th>
             <th>Ảnh Sản Phẩm</th>
-            {/* <th>Tên thuộc tính</th> */}
             <th>Thông tin hàng hóa</th>
             <th>Ghi chú</th>
           </tr>
@@ -92,7 +84,6 @@ export default function OrderDeposit() {
                   {" "}
                   <span>{i + 1}</span>
                 </td>
-                {/* <td  className="td_img col-1"> */}
                 <td style={{ width: "15%" }}>
                   <div>
                     {li.fileImage.map((preview) => {
@@ -231,7 +222,6 @@ export default function OrderDeposit() {
                     ></NumericFormat>
                   </div>
                 </td>
-
                 <td style={{ width: "35%", padding: "10px 15px" }}>
                   {" "}
                   <textarea
@@ -248,12 +238,6 @@ export default function OrderDeposit() {
               </tr>
             ))}
         </tbody>
-        {/* <tfoot>
-          <tr>
-            <th colSpan="3">Tổng tiền thanh toán</th>
-            <th colSpan="1">{total}</th>
-          </tr>
-        </tfoot> */}
       </Table>
 
       <div className="footter">

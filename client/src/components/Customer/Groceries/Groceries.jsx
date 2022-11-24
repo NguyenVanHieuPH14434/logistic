@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React, { useContext, useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
@@ -12,7 +11,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css"; //
-import { Confirm, toastifyError, toastifySuccess, toastifyWarning } from "../../../lib/toastify";
+import {
+  Confirm,
+  toastifyError,
+  toastifySuccess,
+  toastifyWarning,
+} from "../../../lib/toastify";
 import { typeMon } from "../../../lib/shipFee";
 
 function Groceries() {
@@ -31,34 +35,37 @@ function Groceries() {
       product_price: 0,
       quantity: 1,
       typeMoney: 1,
-      maVanDon: '',
-      soKien:'',
-      kgM3:0,
-      donGia:0,
-      phuPhi:0,
+      maVanDon: "",
+      soKien: "",
+      kgM3: 0,
+      donGia: 0,
+      phuPhi: 0,
       note: "",
       total_price: 0,
     },
   ]);
 
- 
-  const setTotalPriceALL = (val, i) =>{
-    if (val[i]["quantity"] && val[i]["product_price"] && val[i]["typeMoney"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
-    let kgm3 = val[i]["kgM3"]?val[i]["kgM3"]:0
-    let dongia = val[i]["donGia"]?val[i]["donGia"]:0
-    let phuphi = val[i]["phuPhi"]?val[i]["phuPhi"]:0
-    val[i]["total_price"] =
-        (val[i]["product_price"].replace(/,/g, "") *
-        parseFloat(val[i]["typeMoney"]) *
-    val[i]["quantity"]) + (parseFloat(kgm3) * parseFloat(dongia)) + parseFloat(phuphi);
+  const setTotalPriceALL = (val, i) => {
+    if (
+      (val[i]["quantity"] && val[i]["product_price"] && val[i]["typeMoney"]) ||
+      val[i]["kgM3"] ||
+      val[i]["donGia"] ||
+      val[i]["phuPhi"]
+    ) {
+      let kgm3 = val[i]["kgM3"] ? val[i]["kgM3"] : 0;
+      let dongia = val[i]["donGia"] ? val[i]["donGia"] : 0;
+      let phuphi = val[i]["phuPhi"] ? val[i]["phuPhi"] : 0;
+      val[i]["total_price"] =
+        val[i]["product_price"].replace(/,/g, "") *
+          parseFloat(val[i]["typeMoney"]) *
+          val[i]["quantity"] +
+        parseFloat(kgm3) * parseFloat(dongia) +
+        parseFloat(phuphi);
     }
-  }
-  
-
+  };
 
   const checkValidate = (items, order) => {
-    //create
-    if (order.full_name !== "" &&  order.phone !== "" && order.address !== "") {
+    if (order.full_name !== "" && order.phone !== "" && order.address !== "") {
       let checkEmptyItems = items.every((n) => {
         return (
           n.product_image !== "" &&
@@ -72,9 +79,9 @@ function Groceries() {
         );
       });
       if (checkEmptyItems === true) {
-        if(isVietnamesePhoneNumber(order.phone) === false){
-        return toastifyError('Số điện thoại không đúng định dạng!');
-        }else{
+        if (isVietnamesePhoneNumber(order.phone) === false) {
+          return toastifyError("Số điện thoại không đúng định dạng!");
+        } else {
           handleSave();
         }
       } else {
@@ -89,18 +96,18 @@ function Groceries() {
   const handleOnIncrease = (i, e) => {
     const increase = [...list];
     increase[i]["quantity"] = parseInt(increase[i]["quantity"]) + 1;
-    setTotalPriceALL(increase, i)
+    setTotalPriceALL(increase, i);
     setList(increase);
   };
 
   // Nút bớt sản phẩm
   const handleOnReduced = (i) => {
     const count = [...list];
-      count[i]["quantity"] = count[i]["quantity"] - 1;
-      if (count[i]["quantity"] <= 0) {
-        count[i]["quantity"] = 1;
-      }
-      setTotalPriceALL(count, i)
+    count[i]["quantity"] = count[i]["quantity"] - 1;
+    if (count[i]["quantity"] <= 0) {
+      count[i]["quantity"] = 1;
+    }
+    setTotalPriceALL(count, i);
     setList(count);
   };
 
@@ -115,26 +122,25 @@ function Groceries() {
       product_price: 0,
       quantity: 1,
       typeMoney: 1,
-      maVanDon: '',
-      soKien:'',
-      kgM3:0,
-      donGia:0,
-      phuPhi:0,
+      maVanDon: "",
+      soKien: "",
+      kgM3: 0,
+      donGia: 0,
+      phuPhi: 0,
       note: "",
       total_price: 0,
     };
     setList([...list, newList]);
   };
 
-    // thông tin khách hàng
-    const [order, setOrder] = useState({
-      full_name: "",
-      phone: "",
-      address: "",
-      datCoc: 0,
-      total: 0
-    });
-    console.log(order);
+  // thông tin khách hàng
+  const [order, setOrder] = useState({
+    full_name: "",
+    phone: "",
+    address: "",
+    datCoc: 0,
+    total: 0,
+  });
 
   //In ra tổng tiền
 
@@ -153,8 +159,8 @@ function Groceries() {
       orderCost = total * (1 / 100);
     }
     let tienCoc = 0;
-    if(order.datCoc){
-     tienCoc = (order.datCoc?order.datCoc:0).replace(/,/g, "")
+    if (order.datCoc) {
+      tienCoc = (order.datCoc ? order.datCoc : 0).replace(/,/g, "");
     }
     totalOrderCost = total + orderCost - tienCoc;
   }
@@ -164,13 +170,12 @@ function Groceries() {
     const val = [...list];
     val[i][e.target.name] = e.target.value;
     if (val[i]["product_price"] < 0) {
-      toastifyWarning('Đơn giá phải lớn hơn 0!')
+      toastifyWarning("Đơn giá phải lớn hơn 0!");
       val[i]["product_price"] = "";
     }
-      setTotalPriceALL(val, i)
+    setTotalPriceALL(val, i);
     setList(val);
   };
-
 
   // thay đổi giá trị thông tin khách hàng
   const changeInpOrder = (e) => {
@@ -179,11 +184,11 @@ function Groceries() {
     valOrder["user_id"] = user._id;
     valOrder["type"] = "order";
     valOrder["total"] = totalOrderCost;
-    if(valOrder["phone"] !== '' && isRegexNumber(valOrder["phone"]) == false){
+    if (valOrder["phone"] !== "" && isRegexNumber(valOrder["phone"]) == false) {
       valOrder["phone"] = "";
       setOrder(valOrder);
-      return toastifyWarning('Số điện thoại phải là ký tự số!')
-    } 
+      return toastifyWarning("Số điện thoại phải là ký tự số!");
+    }
     setOrder(valOrder);
   };
 
@@ -229,11 +234,11 @@ function Groceries() {
         product_price: 0,
         quantity: 1,
         note: "",
-        maVanDon: '',
-        soKien:'',
-        kgM3:0,
-        donGia:0,
-        phuPhi:0,
+        maVanDon: "",
+        soKien: "",
+        kgM3: 0,
+        donGia: 0,
+        phuPhi: 0,
         total_price: 0,
       },
     ]);
@@ -245,14 +250,15 @@ function Groceries() {
     });
     toastifySuccess("Tạo đơn hàng thành công!");
     setTimeout(() => {
-      navigate("/app/orderGroceries", { state: { data: list, order: order, total: total }});
+      navigate("/app/orderGroceries", {
+        state: { data: list, order: order, total: total },
+      });
     }, 1000);
   };
   // submit tạo đơn hàng
   const saveData = () => {
     checkValidate(list, order);
   };
-  console.log("item", list);
 
   //
   const DeleteList = (i) => {
@@ -269,11 +275,11 @@ function Groceries() {
 
   const isVietnamesePhoneNumber = (number) => {
     return /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/.test(number);
-  }
+  };
 
   const isRegexNumber = (number) => {
     return /[0-9]\b/.test(number);
-  }
+  };
 
   return (
     <>
@@ -298,7 +304,7 @@ function Groceries() {
                   {" "}
                   {i + 1} <br />
                 </td>
-                <td sytle={{with:'10%'}} className=" pt-2">
+                <td sytle={{ with: "10%" }} className=" pt-2">
                   <img
                     style={{
                       width: "96px",
@@ -308,7 +314,7 @@ function Groceries() {
                     src={
                       li.fileImage !== ""
                         ? URL.createObjectURL(li.fileImage)
-                        : '../../default-thumbnail.jpg'
+                        : "../../default-thumbnail.jpg"
                     }
                   />
                   <br></br>
@@ -316,7 +322,11 @@ function Groceries() {
                     <input
                       type="file"
                       multiple
-                      style={{ display: "none", position: 'relative', top: '0' }}
+                      style={{
+                        display: "none",
+                        position: "relative",
+                        top: "0",
+                      }}
                       name="product_image"
                       onChange={(e) => {
                         changFile(i, e);
@@ -325,7 +335,7 @@ function Groceries() {
                     Upload...
                   </label>
                 </td>
-                <td className="" sytle={{with:'35%'}}>
+                <td className="" sytle={{ with: "35%" }}>
                   <input
                     className="w-100 form-control"
                     type="text"
@@ -350,13 +360,17 @@ function Groceries() {
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Link sản phẩm (*)"
                   />
-                  <select name="typeMoney" onChange={(e)=>changeInp(i, e)} id="" className="form-control mt-2">
+                  <select
+                    name="typeMoney"
+                    onChange={(e) => changeInp(i, e)}
+                    id=""
+                    className="form-control mt-2"
+                  >
                     <option value="">Chọn loại tiền (*)</option>
-                    {typeMon && typeMon.map((item)=>{
-                      return(
-                        <option value={item.value}>{item.label}</option>
-                      )
-                    })}
+                    {typeMon &&
+                      typeMon.map((item) => {
+                        return <option value={item.value}>{item.label}</option>;
+                      })}
                   </select>
                   <NumericFormat
                     placeholder="Giá sản phẩm (*)"
@@ -369,50 +383,20 @@ function Groceries() {
                     type="text"
                     name="product_price"
                     value={li.product_price ? li.product_price : ""}
-                    // value={li.price}
                     onChange={(e) => changeInp(i, e)}
                     thousandSeparator=","
                     min="1"
                   />
-                  {/* <input
-                    className="w-100 form-control mt-2"
-                    type="text"
-                    placeholder="Mã vận đơn"
-                    name="maVanDon"
-                    onChange={(e) => changeInp(i, e)}
-                  />
-
-                  <input
-                    className="w-100 form-control mt-2"
-                    type="text"
-                    placeholder="Số kiện hàng"
-                    name="soKien"
-                    onChange={(e) => changeInp(i, e)}
-                  />
-                  <NumericFormat
-                    className="w-100 form-control mt-2"
-                    type="text"
-                    name="kgM3"
-                    placeholder="Số cân, số khối"
-                    onChange={(e) => changeInp(i, e)}
-                  />
-                  <NumericFormat
-                    className="w-100 form-control mt-2"
-                    type="text"
-                    name="donGia"
-                    placeholder="Cước vận chuyển"
-                    onChange={(e) => changeInp(i, e)}
-                  />
-                  <NumericFormat
-                    className="w-100 form-control mt-2"
-                    type="text"
-                    name="phuPhi"
-                    placeholder="Phụ phí"
-                    onChange={(e) => changeInp(i, e)}
-                  /> */}
                 </td>
 
-                <td style={{paddingTop: '50px', paddingRight:'40px', width:'10%'}}  className="soLuong">
+                <td
+                  style={{
+                    paddingTop: "50px",
+                    paddingRight: "40px",
+                    width: "10%",
+                  }}
+                  className="soLuong"
+                >
                   <div className="d-flex soLuong">
                     <div
                       className="border px-3 d-flex justify-content-center border-dark w-25 form-control"
@@ -425,8 +409,8 @@ function Groceries() {
                       className="value border w-50 border-dark px-3 text-center form-control"
                       type="text"
                       name="quantity"
-                      value={li.quantity == 0 ? 1:li.quantity}
-                      min='1'
+                      value={li.quantity == 0 ? 1 : li.quantity}
+                      min="1"
                       onChange={(e) => changeInp(i, e)}
                     />
                     <div
@@ -438,7 +422,7 @@ function Groceries() {
                     </div>
                   </div>
                 </td>
-                <td className="" sytle={{with:'30%'}}>
+                <td className="" sytle={{ with: "30%" }}>
                   {" "}
                   <textarea
                     className="ghi_chu form-control"
@@ -451,7 +435,7 @@ function Groceries() {
                     placeholder="Ghi chú sản phẩm..."
                   ></textarea>{" "}
                 </td>
-                <td style={{paddingTop: '80px', width:'12%'}}>
+                <td style={{ paddingTop: "80px", width: "12%" }}>
                   <p className="">
                     <NumericFormat
                       disabled={true}
@@ -543,19 +527,20 @@ function Groceries() {
                 </Row>
                 <Row>
                   <Form.Label className="customer-title">
-                      Tiền đặt cọc
+                    Tiền đặt cọc
                   </Form.Label>
-                    <NumericFormat
-                     className="form-control customer-field"
+                  <NumericFormat
+                    className="form-control customer-field"
                     name="datCoc"
                     onChange={(e) => changeInpOrder(e)}
                     thousandSeparator=","
                     placeholder="Tiền đặt cọc"
                   />{" "}
                 </Row>
-                {/*  */}
                 <Row>
-                  <Form.Label className="customer-title">Địa chỉ</Form.Label>
+                  <Form.Label className="customer-title">
+                    Địa chỉ nhận hàng Việt Nam
+                  </Form.Label>
                   <Form.Select
                     className="customer-field"
                     name="address"
@@ -574,7 +559,6 @@ function Groceries() {
               type="submit"
               onClick={saveData}
               className="end-btn"
-              // as={Link} to="/app/orderGroceries"
             >
               Tạo Đơn Hàng
             </Button>
@@ -651,7 +635,7 @@ function Groceries() {
                       backgroundColor: "#f9f9f9",
                       width: "100px",
                     }}
-                    value={order.datCoc?order.datCoc:0}
+                    value={order.datCoc ? order.datCoc : 0}
                     thousandSeparator=","
                   />{" "}
                   đ

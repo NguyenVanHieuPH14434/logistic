@@ -43,8 +43,6 @@ export default function ChangePass() {
 
     const [type, setType] = useState("none");
     const [pass, setPass] = useState(false);
-    // const [passConfim, setPassConfim] = useState(false)
-  
     useEffect(() =>{
       changeStyleInputPassword(input.password, setType)
     }, [input.password, input.checkPassword])
@@ -91,7 +89,6 @@ export default function ChangePass() {
                 </span>
               </div>
           </div>
-          {/* <button type="submit">Lưu thay đổi</button> */}
           <button onClick={(e) => handleOnSubmit(e)} type="submit">Lưu thay đổi</button>
         </form>
       </div>

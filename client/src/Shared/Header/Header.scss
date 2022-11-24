@@ -182,7 +182,6 @@
         width: 300px !important;
         overflow-x: scroll;
         white-space: nowrap;
-        // display: flex;
         position: relative;
         top: 0;
         left: -30px;
@@ -284,7 +283,6 @@
           width: 300px;
           label {
             h5 {
-              // font-size: 14px;
             }
           }
           select {
@@ -310,6 +308,7 @@
         min-width: 336px;
       }
     }
+
     // Groceries reponsive
     .groceries {
       td.soLuong.col-2 {
@@ -529,7 +528,6 @@
       justify-content: center;
       gap: 10px;
       margin-left: 20%;
-      /* transform: translateX(-50%); */
     }
     .change_pass .change_password_content form {
       margin: 0 auto;
@@ -548,7 +546,6 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      /* text-align: center; */
       margin-left: -185px;
     }
     .listOrder.mx-4 {
@@ -563,7 +560,6 @@
       align-items: center;
       width: 104% !important;
       padding: 30px 0 15px 0;
-      // background-image: url(http://localhost:3000/static/media/search-dash-bg.ded2338….png);
     }
     .addMember .login {
       position: relative;

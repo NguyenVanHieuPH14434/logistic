@@ -46,12 +46,11 @@ export default function ListDeposit() {
   useEffect(() => {
     getDeposit();
   }, []);
-  console.log(search);
   const [inputCalendar, setInputCalendar] = useState({
     calendar_from: "",
     calendar_to: "",
   });
-  console.log(inputCalendar);
+
   //phan trang
   const [pageNumber, setPageNumber] = useState(0);
   const productPerPage = 10;
@@ -60,6 +59,7 @@ export default function ListDeposit() {
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
+
   //find
   const searchProduct = useMemo(() => {
     let dateFrom = inputCalendar.calendar_from.split("-").reverse().join("/");
@@ -81,10 +81,16 @@ export default function ListDeposit() {
               el._id.toLowerCase().includes(search.idProduct.toLowerCase())
             );
           }
-          if (search) {
+          if (search&& search.idProduct) {
             return el._id
               .toLowerCase()
               .includes(search.idProduct.toLowerCase());
+          }
+          if (search && search.headQuarters) {
+        
+            return el.address
+              .toLowerCase()
+              .includes(search.headQuarters.toLowerCase());
           }
         })
     );
@@ -95,44 +101,8 @@ export default function ListDeposit() {
     setSearch({ ...search, [name]: value });
   };
 
-  // async function fetchData() {
-  //   let params = ''
-  //   if(user.role!=='user'){
-  //     params=`listAll/deposit`
-  //   }
-  //   else{
-  //     params=`list/${user._id}?type=deposit`
-  //   }
-  //   let url = `http://localhost:9000/api/order/${params}`
-  //   const response = await Axios.get(
-  //     url
-  //   );
-  //   const info = response.data.data;
-  //   console.log(info);
-  //   setListt(info);
-  //   setLists(info);
-  // }
-  // useEffect(() => {
-  //   //getListt()
-  //   fetchData();
-  // }, []);
-
   const navi = useNavigate();
-  // Array to store month string values
-  const allMonthValues = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+
   const handleOnChangeInputCalendar = (e) => {
     const { name, value } = e.target;
     setInputCalendar((prev) => {
@@ -213,28 +183,9 @@ export default function ListDeposit() {
             </option>
             <option value="Hà Nội">Hà Nội</option>
             <option value="Hải Phòng">Hải Phòng</option>
-            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-            <option value="Quảng Châu">Quảng Châu</option>
+            <option value="TP.HCM">Hồ Chí Minh</option>
           </select>
         </div>
-        <div className="select_status">
-          <select name="status" onChange={getValue}>
-            <option value="" selected>
-              Chọn trạng thái
-            </option>
-            <option value="Chờ báo giá">Chờ báo giá</option>
-            <option value="Chờ đặt cọc">Chờ đặt cọc</option>
-            <option value="Đã đặt cọc">Đã đặt cọc</option>
-            <option value="Đã đặt hàng">Đã đặt hàng</option>
-            <option value="Đã hoàn thành">Đã hoàn thành</option>
-            <option value="">Cần xác nhận lại</option>
-            <option value="">Đã hủy</option>
-          </select>
-        </div>
-        {/* <button onClick={searchProduct} style={{border:'none',borderRadius:'3px'}} className="search_icon">
-          <i className="fa-solid fa-magnifying-glass"></i>
-          <p>Tìm kiếm</p>
-        </button> */}
       </div>
       <button style={{borderStyle: 'none'}} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
           DownLoad Excel
@@ -325,7 +276,6 @@ export default function ListDeposit() {
             containerClassName="pagination"
             activeClassName="active"
             renderOnZeroPageCount={null}
-            //forcePage={currentPage - 1}
           />
         </div>
       </div>

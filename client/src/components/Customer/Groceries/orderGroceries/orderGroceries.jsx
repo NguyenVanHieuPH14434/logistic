@@ -17,28 +17,13 @@ export default function OrderGroceries() {
     location.state ? location.state.order : ""
   );
 
-  // const [date, setDate] = useState('')
-
-  // const handleOnChangeDate = (e) =>{
-  //   setDate(new Date().toLocaleString())
-  // }
   const total = location.state ? location.state.total : "";
-  console.log("order2", order2);
 
   const [show, setShow] = useState("d-block");
 
   const handleOnCLickDownload = () => {
-    // setShow('d-block')
     window.print();
-    // setShow('d-none')
-    // html2canvas(document.body).then(fuction(canvas){
-    //   const a = document.createElement('a');
-    //   a.href = canvas.toDataURL()
-    // })
   };
-  const a = DocTienBangChu(total);
-
-  console.log(a);
   return (
     <div className="order_groceries">
       <div className={`d-flex justify-content-between ${show}`}>
@@ -138,7 +123,6 @@ export default function OrderGroceries() {
                     <NumericFormat
                       disabled
                       style={{
-                        // width: '100%',
                         width: '160px',
                         border: "none",
                         backgroundColor: "none",
@@ -201,7 +185,6 @@ export default function OrderGroceries() {
         </h6>
         <div className="text-end mt-5 me-4">
           Ngày.........tháng.........năm 20.........
-          {/* {date} */}
         </div>
         <div className="sign d-flex justify-content-between mt-5 pb-5">
           <div className="orderCustomer text-center ms-5">

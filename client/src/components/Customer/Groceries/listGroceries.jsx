@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
   useContext,
   useEffect,
@@ -8,8 +7,6 @@ import React, {
 } from "react";
 import "./listGroceries.scss";
 import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groceris.png";
-// import { Calendar } from "@natscale/react-calendar";
-
 import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import {
@@ -91,13 +88,13 @@ export default function ListGroceries() {
             );
           }
           if (search && search.idProduct) {
-            // return console.log('>>>>>>>>>>>',search.idProduct)
+           
             return el._id
               .toLowerCase()
               .includes(search.idProduct.toLowerCase());
           }
           if (search && search.headQuarters) {
-          //  return console.log('>>>>>>>>>>>',search.headQuarters)
+        
             return el.address
               .toLowerCase()
               .includes(search.headQuarters.toLowerCase());
@@ -112,6 +109,7 @@ export default function ListGroceries() {
   };
 
   const navi = useNavigate();
+
   // Array to store month string values
   const allMonthValues = [
     "January",
@@ -227,25 +225,8 @@ export default function ListGroceries() {
             </option>
             <option value="Hà Nội">Hà Nội</option>
             <option value="Hải Phòng">Hải Phòng</option>
-            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-            <option value="Quảng Châu">Quảng Châu</option>
           </select>
         </div>
-        <div className="select_status">
-          <select name="status" onChange={getValue}>
-            <option value="" selected>
-              Chọn trạng thái
-            </option>
-            <option value="Chờ báo giá">Chưa thanh toán</option>
-            <option value="Chờ đặt cọc">Đã thanh toán</option>
-            <option value="Đã đặt cọc">Đã xác nhận</option>
-            <option value="Đã đặt hàng">Đã giao hàng thành công</option>
-          </select>
-        </div>
-        {/* <button onClick={searchProduct} style={{border:'none',borderRadius:'3px'}} className="search_icon">
-          <i className="fa-solid fa-magnifying-glass"></i>
-          <p>Tìm kiếm</p>
-        </button> */}
       </div>
       <button
         style={{ borderStyle: "none" }}
@@ -266,7 +247,6 @@ export default function ListGroceries() {
               <th scope="col">Đơn Hàng</th>
             </tr>
           </thead>
-          {/* {listt.length > 0 ? */}
           <tbody>
             {listt &&
               listt
@@ -345,7 +325,6 @@ export default function ListGroceries() {
             containerClassName="pagination"
             activeClassName="active"
             renderOnZeroPageCount={null}
-            //forcePage={currentPage - 1}
           />
         </div>
       </div>
