@@ -10,10 +10,10 @@ import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groc
 
 import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import { listAllOrder, listOrderByUser, updaterOrder } from "../../../api/orderApi";
+import { exportExcel, listAllOrder, listOrderByUser, updaterOrder } from "../../../api/orderApi";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
-import {  renderStatus, Status } from "../../../lib/shipFee";
+import {  convertDate, export_Excel, renderStatus, Status } from "../../../lib/shipFee";
 import { toastifySuccess } from "../../../lib/toastify";
 export default function ListGroceries() {
   const {
@@ -131,6 +131,12 @@ export default function ListGroceries() {
     });
   };
 
+ 
+
+  const handleExportExcel = () => {
+    export_Excel('order', inputCalendar.calendar_from, inputCalendar.calendar_to)
+  }
+
 
   
   
@@ -228,7 +234,7 @@ export default function ListGroceries() {
           <p>Tìm kiếm</p>
         </button> */}
       </div>
-        <button style={{borderStyle: 'none'}} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
+        <button style={{borderStyle: 'none'}} onClick={handleExportExcel} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
           DownLoad Excel
         </button>
       <div className="listOrder mx-4">

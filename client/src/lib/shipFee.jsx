@@ -1,6 +1,7 @@
 //   // State giá phí vận chuyển chính ngạch
 
 import { useState } from "react";
+import { exportExcel } from "../api/orderApi";
 
 const tyGia = () => {
     return 3650;
@@ -287,6 +288,29 @@ const handleOnClickPass = (setPass, pass) => {
     setPass(!pass)
 }
 
+const convertDate = (date) => {
+    const val = date.split('-')
+    return `${val[2]}/${val[1]}/${val[0]}`;
+}
+
+const export_Excel = (type, dateFrom, dateTo) => {
+    let from = '';
+    let to = '';
+
+    if (dateFrom && dateTo) {
+        from = convertDate(dateFrom);
+        to = convertDate(dateTo);
+        exportExcel(`${type}?from=${from}&&to=${to}`);
+    }
+    if (dateFrom && !dateTo) {
+        from = convertDate(dateFrom);
+        exportExcel(`${type}?from=${from}`);
+    }
+    if (!dateFrom && !dateTo) {
+        exportExcel(`${type}`);
+    }
+}
+
 export {
     haNoiAreaFeePacketKg,
     haNoiAreaFeePacketM3,
@@ -310,5 +334,7 @@ export {
 
     // change style input password
     changeStyleInputPassword,
-    handleOnClickPass
+    handleOnClickPass,
+    convertDate,
+    export_Excel
 };

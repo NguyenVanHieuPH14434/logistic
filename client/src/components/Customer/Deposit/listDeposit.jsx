@@ -14,7 +14,7 @@ import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-toastify";
-import { renderStatus, Status } from "../../../lib/shipFee";
+import { export_Excel, renderStatus, Status } from "../../../lib/shipFee";
 import { listAllDeposit, listDepositByUser } from "../../../api/depositApi";
 import { toastifySuccess } from "../../../lib/toastify";
 
@@ -44,10 +44,6 @@ export default function ListDeposit() {
     }
   };
 
-  // useEffect(() => {
-  //   getDeposit();
-    
-  // }, []);
 
   const [changeStatus, setChangeStatus] = useState({
     _id:'',
@@ -139,6 +135,10 @@ export default function ListDeposit() {
       return { ...prev, [name]: value };
     });
   };
+
+  const handleExportExcel = () => {
+    export_Excel('deposit', inputCalendar.calendar_from, inputCalendar.calendar_to)
+  }
 
   return (
     <div className="listGroceries">
@@ -236,7 +236,7 @@ export default function ListDeposit() {
           <p>Tìm kiếm</p>
         </button> */}
       </div>
-      <button style={{borderStyle: 'none'}} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
+      <button style={{borderStyle: 'none'}} onClick={handleExportExcel} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
           DownLoad Excel
         </button>
       <div className="listOrder mx-4">

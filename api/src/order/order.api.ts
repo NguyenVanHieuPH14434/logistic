@@ -179,6 +179,7 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
             {header:"Tên người nhận", key:"full_name", width:40},
             {header:"Số điện thoại", key:"phone", width:20},
             {header:"Địa chỉ", key:"address", width:40},
+            {header:"Tổng tiền", key:"total", width:40},
             {header:"Ngày đặt", key:"ctime", width:15},
         ];
 

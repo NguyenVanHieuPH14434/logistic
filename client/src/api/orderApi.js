@@ -37,6 +37,10 @@ const listOrderByUser = async(userId) => {
     return await instance.get(url)
 }
 
+const exportExcel = (type) => {
+    return window.location.href = `http://localhost:9000/api/order/export/${type}`
+}
+
 
 export {
     createOrder,
@@ -45,5 +49,6 @@ export {
     deltailOrder,
     updaterOrder,
     listAllOrder,
-    listOrderByUser
+    listOrderByUser,
+    exportExcel
 }

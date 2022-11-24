@@ -84,8 +84,8 @@ function EditGroceries() {
     if (order.full_name !== "" && order.phone !== "" && order.address !== "") {
       let checkEmptyItems = items.every((n) => {
         return (
-          n.product_image !== "" &&
-          n.fileImage !== "" &&
+          // n.product_image !== "" &&
+          // n.fileImage !== "" &&
           n.product_link &&
           n.product_name !== "" &&
           n.attribute !== "" &&
@@ -95,14 +95,22 @@ function EditGroceries() {
         );
       });
       if (checkEmptyItems === true) {
-        handleSave();
+        if(isVietnamesePhoneNumber(order.phone) === false){
+        return toastifyError('Số điện thoại không đúng định dạng!');
+        }else{
+          handleSave();
+        }
       } else {
-        return alert(`please check input product !!!`);
+        return toastifyError(`Vui lòng nhập đầy đủ các trường có dấu (*)!`);
       }
     } else {
-      return alert(`please check input information !!!`);
+      return toastifyError(`Vui lòng nhập đầy đủ thông tin khách hàng!`);
     }
   };
+
+  const isVietnamesePhoneNumber = (number) => {
+    return /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/.test(number);
+  }
  
 
   // Nút thêm sản phẩm
@@ -398,20 +406,7 @@ function EditGroceries() {
                       thousandSeparator=","
                     />{" "}
                   </p>
-                  {/* <span style={{ cursor: "pointer" }}>
-                    <button
-                      style={{ border: "none" }}
-                      onClick={(e) => submit(e)}
-                    >
-                      {" "}
-                      {list.length > 1 && (
-                        <i
-                          onClick={() => submit(i)}
-                          className="fa-solid fa-circle-xmark icon_delete_list"
-                        ></i>
-                      )}
-                    </button>
-                  </span> */}
+                 
                 </td>
               </tr>
             ))}
@@ -518,7 +513,7 @@ function EditGroceries() {
               className="end-btn"
               // as={Link} to="/app/orderGroceries"
             >
-              Tạo Đơn Hàng
+              Cập nhật đơn hàng
             </Button>
           </div>
           <div>
