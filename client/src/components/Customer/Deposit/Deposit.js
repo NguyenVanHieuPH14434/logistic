@@ -8,7 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import { useNavigate } from 'react-router-dom';
 import { NumericFormat } from "react-number-format";
 import { Confirm, toastifyError, toastifySuccess } from "../../../lib/toastify";
-import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3 } from "../../../lib/shipFee";
+import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3, numberWithCommas } from "../../../lib/shipFee";
 import { AppContext } from "../../../contexts/AppContextProvider";
 import { createDeposit, uploadFilesDeposit } from "../../../api/depositApi";
 function Deposit() {
@@ -359,7 +359,7 @@ function Deposit() {
                                                 type="text"
                                                 name="donGia"
                                                 placeholder="Đơn giá"
-                                                value={li.donGia}
+                                                value={numberWithCommas(li.donGia)}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <NumericFormat
@@ -368,7 +368,7 @@ function Deposit() {
                                                 type="text"
                                                 name="phuPhi"
                                                 placeholder="Phụ phí"
-                                                value={li.phuPhi}
+                                                value={numberWithCommas(li.phuPhi)}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <NumericFormat

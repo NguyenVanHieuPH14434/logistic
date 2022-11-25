@@ -1,6 +1,5 @@
 //   // State giá phí vận chuyển chính ngạch
 
-import { useState } from "react";
 import { exportExcel } from "../api/orderApi";
 
 const tyGia = () => {
@@ -213,7 +212,6 @@ function DocSo3ChuSo(baso) {
     }
     return KetQua;
 }
-console.log(DocSo3ChuSo(1));
 
 function DocTienBangChu(SoTien) {
     var lan = 0;
@@ -265,13 +263,13 @@ function DocTienBangChu(SoTien) {
         tmp = DocSo3ChuSo(ViTri[i]);
         KetQua += tmp;
         if (ViTri[i] > 0) KetQua += Tien[i];
-        if (i > 0 && tmp.length > 0) KetQua += ","; 
+        if (i > 0 && tmp.length > 0) KetQua += ",";
     }
     if (KetQua.substring(KetQua.length - 1) == ",") {
         KetQua = KetQua.substring(0, KetQua.length - 1);
     }
     KetQua = KetQua.substring(1, 2).toUpperCase() + KetQua.substring(2);
-    return KetQua; 
+    return KetQua;
 }
 
 
@@ -316,7 +314,7 @@ export {
     haNoiAreaFeePacketM3,
     HCMAreaFeePacketKg,
     HCMAreaFeePacketM3,
-    
+
     //   Chính ngạch
     haNoiAreaFeeOfficicalkg,
     haNoiAreaFeeOfficicalM3,

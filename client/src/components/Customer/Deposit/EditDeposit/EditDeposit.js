@@ -9,7 +9,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { NumericFormat } from "react-number-format";
 
 import { Confirm, toastifyError, toastifySuccess } from "../../../../lib/toastify";
-import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3, Status } from "../../../../lib/shipFee";
+import { haiPhongAreaFeeOfficicalkg, haiPhongAreaFeeOfficicalM3, haNoiAreaFeeOfficicalkg, haNoiAreaFeeOfficicalM3, haNoiAreaFeePacketKg, haNoiAreaFeePacketM3, HCMAreaFeeOfficicalkg, HCMAreaFeeOfficicalM3, HCMAreaFeePacketKg, HCMAreaFeePacketM3, numberWithCommas, Status } from "../../../../lib/shipFee";
 import { AppContext } from "../../../../contexts/AppContextProvider";
 import { createDeposit, deltailDeposit, updateDeposit, uploadFilesDeposit } from "../../../../api/depositApi";
 
@@ -256,7 +256,7 @@ function EditDeposit() {
                                                 type="text"
                                                 name="donGia"
                                                 placeholder="Đơn giá"
-                                                value={li.donGia}
+                                                value={numberWithCommas(li.donGia)}
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
@@ -264,7 +264,7 @@ function EditDeposit() {
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="phuPhi"
-                                                value={li.phuPhi}
+                                                value={numberWithCommas(li.phuPhi)}
                                                 placeholder="Phụ phí"
                                                 onChange={(e) => changeInp(e, i)}
                                             />
