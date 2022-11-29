@@ -72,7 +72,7 @@ function Groceries() {
           // n.fileImage !== "" &&
           n.product_link &&
           n.product_name !== "" &&
-          n.attribute !== "" &&
+          // n.attribute !== "" &&
           n.product_price !== "" &&
           n.quantity > 0 &&
           n.total_price > 0
@@ -248,10 +248,11 @@ function Groceries() {
       phone: "",
       address: "",
     });
+    console.log(">>>>", res);
     toastifySuccess("Tạo đơn hàng thành công!");
     setTimeout(() => {
       navigate("/app/orderGroceries", {
-        state: { data: list, order: order, total: total },
+        state: { data: list, order: order, total: total, res: res.data.doc},
       });
     }, 1000);
   };

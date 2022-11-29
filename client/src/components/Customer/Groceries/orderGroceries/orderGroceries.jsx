@@ -17,6 +17,7 @@ export default function OrderGroceries() {
     location.state ? location.state.order : ""
   );
 
+
   const total = location.state ? location.state.total : "";
 
   const [show, setShow] = useState("d-block");
@@ -46,6 +47,10 @@ export default function OrderGroceries() {
       <h1 className="mt-5">THANH TOÁN ĐƠN HÀNG</h1>
       <div className="order_information d-flex">
         <div className="order_label mb-3">
+          <p>
+            Mã đơn hàng:
+            <span className="order_code"> { location.state ? location.state.res : ""} </span>{" "}
+          </p>
           <p>
             Tên khách hàng:
             <span className="order_code"> {order2.full_name} </span>{" "}

@@ -20,6 +20,10 @@ export default function OrderDetailGroceries() {
     });
   }, []);
 
+  const handleOnCLickDownload = (e) => {
+    window.print();
+  };
+
   return (
     <div className="OrderDetailGroceries">
       <h3 className="mt-3 text-center">
@@ -256,6 +260,16 @@ export default function OrderDetailGroceries() {
             </tr>
           </tfoot>
       </Table>
+
+      <div className="capture text-end">
+          <button
+            onClick={(e) => handleOnCLickDownload(e)}
+            style={{ border: "none", background: "#9470d4" }}
+            className="p-2 text-white"
+          >
+            Dowload
+          </button>
+        </div>
     </div>
   );
 }
