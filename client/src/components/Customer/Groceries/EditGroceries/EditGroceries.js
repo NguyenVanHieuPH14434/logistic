@@ -183,9 +183,11 @@ function EditGroceries() {
 
     toastifySuccess("Cập nhật đơn hàng thành công!");
     setTimeout(() => {
-      navigate("/app/orderGroceries", { state: { data: list, order: order, total: totalOrderCost } });
+      navigate("/app/updateOrderGroceries", { state: { data: list, order: order, total: totalOrderCost } });
+      // navigate("/app/orderGroceries", { state: { data: list, order: order, total: totalOrderCost } });
     }, 1000);
   };
+  
   // submit tạo đơn hàng
   const saveData = () => {
     checkValidate(list, order);

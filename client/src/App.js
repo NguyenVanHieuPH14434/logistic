@@ -25,6 +25,7 @@ import EditDeposit from './components/Customer/Deposit/EditDeposit/EditDeposit.j
 import EditGroceries from './components/Customer/Groceries/EditGroceries/EditGroceries.js';
 import MenuHome from './components/user/menuHome.jsx';
 import UserInfo from './components/user/userInfo/userInfo.jsx';
+import UpdateOrderGroceries from './components/Customer/Groceries/orderGroceries/updateOrderGroceries.jsx';
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
           <Route path="changePass" element={<ChangePass className="right" />}></Route>
           <Route path="addMember" element={<AddMember className="right" />}></Route>
           <Route path="orderGroceries" element={<OrderGroceries className="right" />}></Route>
+          <Route path="updateOrderGroceries" element={<UpdateOrderGroceries className="right" />}></Route>
           <Route path="orderDeposit" element={<OrderDeposit className="right" />}></Route>
           <Route path="orderDetailGroceries" element={<OrderDetailGroceries className="right" />}></Route>
           <Route path="orderDetailDeposit" element={<OrderDetailDeposit className="right" />}></Route>
