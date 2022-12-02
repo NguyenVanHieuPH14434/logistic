@@ -1,10 +1,9 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'http://localhost:9000/api'
+    baseURL: process.env.REACT_APP_BASE_URL
 });
 
-
-export default instance
+export default instance;
 
 export const LOCAL_TOKEN = 'adskl';
