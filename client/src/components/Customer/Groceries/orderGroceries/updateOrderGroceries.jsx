@@ -122,11 +122,11 @@ export default function UpdateOrderGroceries() {
                       value={li.product_link ? li.product_link : ""}
                       placeholder="Link sản phẩm"
                     />
-                    <select name="typeMoney" value={li.typeMoney ? li.typeMoney : ''} className="form-control mt-2">
-                    <option value="">Chọn loại tiền (*)</option>
+                    <select style={{background: '#e9ecef'}} name="typeMoney" value={li.typeMoney ? li.typeMoney : ''} className="form-control mt-2">
+                    <option style={{background: '#e9ecef'}} value="">Chọn loại tiền (*)</option>
                     {typeMon && typeMon.map((item) => {
                       return (
-                        <option value={item.value}>{item.label}</option>
+                        <option  style={{display: 'none'}} value={item.value}>{item.label}</option>
                       )
                     })}
                   </select>
@@ -137,6 +137,7 @@ export default function UpdateOrderGroceries() {
                       backgroundColor: "none",
                       width: "100%",
                     }}
+                    disabled
                     className=" form-control mt-2"
                     type="text"
                     name="product_price"
@@ -148,6 +149,7 @@ export default function UpdateOrderGroceries() {
                   <input
                     className="w-100 form-control mt-2"
                     type="text"
+                    disabled
                     placeholder="Mã vận đơn (*)"
                     name="maVanDon"
                     value={li.maVanDon ? li.maVanDon : ""}
@@ -155,6 +157,7 @@ export default function UpdateOrderGroceries() {
                   />
 
                   <input
+                      disabled
                     className="w-100 form-control mt-2"
                     type="text"
                     placeholder="Số kiện hàng"
@@ -163,6 +166,7 @@ export default function UpdateOrderGroceries() {
                     
                   />
                   <NumericFormat
+                      disabled
                     className="w-100 form-control mt-2"
                     type="text"
                     name="kgM3"
@@ -171,6 +175,7 @@ export default function UpdateOrderGroceries() {
                     
                   />
                   <NumericFormat
+                      disabled
                     className="w-100 form-control mt-2"
                     type="text"
                     name="donGia"
@@ -181,6 +186,7 @@ export default function UpdateOrderGroceries() {
                     
                   />
                   <NumericFormat
+                      disabled
                     className="w-100 form-control mt-2"
                     type="text"
                     name="phuPhi"
