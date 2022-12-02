@@ -16,6 +16,7 @@ export namespace Order_item_Schema {
         kgM3:number,
         donGia:number,
         phuPhi:number,
+        typeMoney:number,
         total_price:number;
         ctime:string;
         utime:string;
@@ -35,6 +36,7 @@ export namespace Order_item_Schema {
         kgM3:number,
         donGia:number,
         phuPhi:number,
+        typeMoney:number,
         total_price:number;
     }
 
@@ -51,6 +53,7 @@ export namespace Order_item_Schema {
         kgM3?:number,
         donGia?:number,
         phuPhi?:number,
+        typeMoney?:number,
         total_price?:number;
         utime:string;
     }

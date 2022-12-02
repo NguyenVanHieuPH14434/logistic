@@ -22,6 +22,12 @@ function NewDepositAPI(depoControll:DepositController){
     //     res.json({date, oldDate, newDate})
     // })
 
+    // router.post('/testt', async(req, res)=>{
+    //     const day = dayjs();
+    //     const newDay = day.format('DDMMYYYYHHmmss');
+    //     res.send(newDay);
+    // });
+
     return router;
 }
 

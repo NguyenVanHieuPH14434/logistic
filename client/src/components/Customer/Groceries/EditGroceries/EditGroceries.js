@@ -179,6 +179,8 @@ function EditGroceries() {
       orderItem: list,
     };
 
+   const ress = await updaterOrder(location.state.id, data1)
+
     toastifySuccess("Cập nhật đơn hàng thành công!");
     setTimeout(() => {
       navigate("/app/orderGroceries", { state: { data: list, order: order, total: totalOrderCost } });
