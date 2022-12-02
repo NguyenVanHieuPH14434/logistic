@@ -12,5 +12,10 @@ export async function ReadConfig() {
         }
     }
 
+    // hide the database url
+    Object.defineProperty(config.database, 'db_url', {
+        enumerable: false
+    });
+
     return config;
 }
