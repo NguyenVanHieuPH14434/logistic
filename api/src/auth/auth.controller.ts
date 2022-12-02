@@ -1,7 +1,7 @@
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 import { AuthSchema } from './auth';
 import { AuthModel } from './auth.model';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 export class AuthController {
     constructor (private model : AuthModel) {}
 

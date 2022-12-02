@@ -1,4 +1,4 @@
-import jwt, {JwtPayload} from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 
 export const verifyToken = async(req:any, res:any, next:any) =>{
     const authHeader = req.header('Authorization');
@@ -8,7 +8,7 @@ export const verifyToken = async(req:any, res:any, next:any) =>{
     }
 
     try {
-        const decoded = jwt.verify(toke, typeof process.env.ACCESS_TOKEN) as JwtPayload
+        const decoded = jwt.verify(toke, typeof process.env.ACCESS_TOKEN) as jwt.JwtPayload;
         req.userId = decoded.userId
         next()
     } catch (error) {

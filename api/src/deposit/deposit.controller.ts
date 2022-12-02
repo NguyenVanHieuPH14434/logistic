@@ -1,5 +1,5 @@
 import { Commons } from './../common/common';
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 import { DepositSchema } from './deposit';
 import { DepositModel } from './deposit.model';
 export class DepositController {

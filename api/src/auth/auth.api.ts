@@ -1,8 +1,8 @@
 import { verifyToken } from './../middleware/verifyToken';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 import { AuthController } from './auth.controller';
 import * as express from 'express';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { AuthSchema } from './auth';
 import { CheckExits, DoesNotExits, MessageCreateSuccess, MessageDeleteSuccess, MessageUpdateSuccess, SamePassword, SendErr, SendResult, SendSuccess, Wrong } from '../lib/httpError';
 function NewAuthAPI (authCOntroller: AuthController) {

@@ -1,5 +1,5 @@
 import { OrderItemModel } from "./order_item.model";
-import dayjs from "dayjs";
+import * as dayjs from "dayjs";
 import { Order_item_Schema } from "./order_item";
 import { Commons } from "../common/common";
 

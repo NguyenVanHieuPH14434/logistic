@@ -7,10 +7,10 @@ import { OrderItemModel } from './order_item/order_item.model';
 import { OrderController } from './order/order.controller';
 import { OrderModel } from './order/order.model';
 import { MongoCommon } from './lib/mongodb';
-import express from 'express';
-import path from 'path'
+import * as express from 'express';
+import * as path from 'path'
 import { ReadConfig } from './config';
-import cors from 'cors';
+import * as cors from 'cors';
 import { NewOrderAPI } from './order/order.api';
 import { NewOrderItemAPI } from './order_item/order_item.api';
 import { NewAuthAPI } from './auth/auth.api';

@@ -1,6 +1,6 @@
-import dayjs from 'dayjs';
-import multer from 'multer';
-import EXCEL from 'exceljs';
+import * as dayjs from 'dayjs';
+import * as multer from 'multer';
+import * as EXCEL from 'exceljs';
 
 const now = dayjs();
 const nowFormat = now.format('DDMMYYYY');

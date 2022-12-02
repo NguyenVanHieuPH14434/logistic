@@ -1,6 +1,6 @@
 import { OrderSchema } from './order';
 import { OrderModel } from './order.model';
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 
 export class OrderController {
     constructor(private model:OrderModel){}
