@@ -726,6 +726,22 @@
   button.downExecl.bg-info.d-flex.mx-auto.mt-2.px-4.py-2 {
     margin-top: 80px !important;
   }
+  .row-container .order_groceries .company_information {
+    width: 85%;
+    margin-left: 26px !important;
+  }
+  .row-container .order_groceries table tbody tr {
+    display: flex;
+    flex-direction: column;
+    width: 330px;
+  }
+  .row-container .order_groceries table tbody tr {
+    // display: flex;
+    overflow-x: auto;
+    flex-direction: column;
+    width: 330px;
+    display: block;
+  }
 }
 
 @media screen and (min-width: 600px) and (max-width: 1024px) {
@@ -903,3 +919,4 @@
 
 @media screen and (min-width: 1024px) {
 }
+
