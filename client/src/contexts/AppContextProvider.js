@@ -20,7 +20,7 @@ const AppContextProvider = ({children}) => {
         }
 
        try {
-        const response = await axios.get('http://localhost:9000/api/auth');
+        const response = await axios.get(process.env.REACT_APP_BASE_URL);
         
         if(response.data.success){
             dispatch({type:'SET_AUTH', payload:{isAuthenticated:true, user:response.data.data}});
