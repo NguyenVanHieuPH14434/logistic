@@ -742,6 +742,26 @@
     width: 330px;
     display: block;
   }
+  .login {
+    position: absolute;
+    width: 100% !important;
+    height: 100%;
+    background-color: rgba(53, 53, 53, 0.431372549);
+    margin-left: 50%;
+    transform: translateX(-50%);
+    padding-top: 50%;
+    text-align: center;
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+  }
+  .bg_login img {
+    position: relative;
+    top: 10%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin-top: 58%;
+    box-shadow: rgb(0 0 0) 0px 5px 15px;
+  }
 }
 
 @media screen and (min-width: 600px) and (max-width: 1024px) {
@@ -919,4 +939,3 @@
 
 @media screen and (min-width: 1024px) {
 }
-
