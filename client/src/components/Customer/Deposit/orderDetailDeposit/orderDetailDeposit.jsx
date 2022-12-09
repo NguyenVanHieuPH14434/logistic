@@ -55,7 +55,7 @@ export default function OrderDetailDeposit() {
         </div>
       </div>
       <Table striped bordered hover size="lg">
-        <thead>
+        <thead className="thead_orderDetailDeposit">
           <tr>
             <th style={{ width: "5%" }}>STT</th>
             <th>Ảnh Sản Phẩm</th>
@@ -65,7 +65,7 @@ export default function OrderDetailDeposit() {
         </thead>
         <tbody>
           {item.map((li, i) => (
-            <tr key={i}>
+            <tr className="orderDetailDeposit_tr" key={i}>
               <td>
                 {" "}
                 <span>{i + 1}</span>
