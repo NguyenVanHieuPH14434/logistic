@@ -5,9 +5,9 @@ import { NumericFormat } from "react-number-format";
 import "./orderGroceries.scss";
 import { useLocation } from "react-router-dom";
 import LOGO from "../../../../assets/public/img/logo_login.png";
-import { DocTienBangChu, numberWithCommas } from "../../../../lib/shipFee";
+import { DocTienBangChu, numberWithCommas, typeMon } from "../../../../lib/shipFee";
 
-export default function OrderGroceries() {
+export default function UpdateOrderGroceries() {
   const location = useLocation();
   const [orderCode, setOrderCode] = useState("#6969696969");
   const [orderDate, setOrderDate] = useState("25/10/2099");
@@ -122,6 +122,80 @@ export default function OrderGroceries() {
                       value={li.product_link ? li.product_link : ""}
                       placeholder="Link sản phẩm"
                     />
+                    <select style={{background: '#e9ecef'}} name="typeMoney" value={li.typeMoney ? li.typeMoney : ''} className="form-control mt-2">
+                    <option style={{background: '#e9ecef'}} value="">Chọn loại tiền (*)</option>
+                    {typeMon && typeMon.map((item) => {
+                      return (
+                        <option  style={{display: 'none'}} value={item.value}>{item.label}</option>
+                      )
+                    })}
+                  </select>
+                  <NumericFormat
+                    placeholder="Giá sản phẩm"
+                    style={{
+                      border: "none",
+                      backgroundColor: "none",
+                      width: "100%",
+                    }}
+                    disabled
+                    className=" form-control mt-2"
+                    type="text"
+                    name="product_price"
+                    value={li.product_price ? li.product_price : ""}
+                    
+                    thousandSeparator=","
+                    min="1"
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    disabled
+                    placeholder="Mã vận đơn (*)"
+                    name="maVanDon"
+                    value={li.maVanDon ? li.maVanDon : ""}
+                    
+                  />
+
+                  <input
+                      disabled
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    placeholder="Số kiện hàng"
+                    name="soKien"
+                    value={li.soKien ? li.soKien : ""}
+                    
+                  />
+                  <NumericFormat
+                      disabled
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="kgM3"
+                    value={li.kgM3 ? li.kgM3 : ""}
+                    placeholder="Số cân, số khối"
+                    
+                  />
+                  <NumericFormat
+                      disabled
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="donGia"
+                    value={li.donGia ? li.donGia : ""}
+                    placeholder="Cước vận chuyển"
+                    thousandSeparator=","
+                    min="1"
+                    
+                  />
+                  <NumericFormat
+                      disabled
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="phuPhi"
+                    value={li.phuPhi ? li.phuPhi : ""}
+                    placeholder="Phụ phí"
+                    thousandSeparator=","
+                    min="1"
+                    
+                  />
                   </td>
                   <td className="donGia pt-5 ">
                     {" "}

@@ -179,11 +179,15 @@ function EditGroceries() {
       orderItem: list,
     };
 
+   const ress = await updaterOrder(location.state.id, data1)
+
     toastifySuccess("Cập nhật đơn hàng thành công!");
     setTimeout(() => {
-      navigate("/app/orderGroceries", { state: { data: list, order: order, total: totalOrderCost } });
+      navigate("/app/updateOrderGroceries", { state: { data: list, order: order, total: totalOrderCost } });
+      // navigate("/app/orderGroceries", { state: { data: list, order: order, total: totalOrderCost } });
     }, 1000);
   };
+  
   // submit tạo đơn hàng
   const saveData = () => {
     checkValidate(list, order);
@@ -491,7 +495,7 @@ function EditGroceries() {
               variant="warning"
               type="submit"
               onClick={saveData}
-              className="end-btn"
+              className="end-btn mb-5"
             >
               Cập nhật đơn hàng
             </Button>

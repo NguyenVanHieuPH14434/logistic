@@ -28,6 +28,7 @@ export class OrderItemController {
                 kgM3:item.kgM3,
                 donGia:item.donGia,
                 phuPhi:item.phuPhi,
+                typeMoney:item.typeMoney,
                 total_price: item.total_price,
                 ctime: nowFormat,
                 utime: nowFormat

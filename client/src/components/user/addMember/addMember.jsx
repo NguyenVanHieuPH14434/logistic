@@ -7,6 +7,7 @@ import { Register } from "../../../api/auth";
 import {
   changeStyleInputPassword,
   handleOnClickPass,
+  isVietnamesePhoneNumber,
 } from "../../../lib/shipFee";
 import { toastifyError, toastifySuccess } from "../../../lib/toastify";
 
@@ -26,7 +27,9 @@ export default function AddMember() {
   const checkValidate = (n) => {
     //create
     if (n.fullName !== "" && n.phone && n.password !== "") {
-      if (n.password) {
+      if (isVietnamesePhoneNumber(n.phone) === false) {
+        return toastifyError("Số điện thoại không đúng định dạng!");
+      } else if (n.password) {
         Register(register).then(() => {
           toastifySuccess('Tạo tài khoản thành công!')
           setRegister({

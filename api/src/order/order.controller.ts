@@ -36,8 +36,10 @@ export class OrderController {
     async CreateOrder (params:OrderSchema.CreateOrderParams){
         const now = dayjs();
         const nowFormat = now.format('DD/MM/YYYY');
+        const new_Id = now.format('DDMMYYYYHHmmss');
         const order : OrderSchema.Order = {
-            _id: OrderSchema.Generate.NewOrderId(),
+            _id: new_Id,
+            // _id: OrderSchema.Generate.NewOrderId(),
             user_id: params.user_id,
             full_name: params.full_name,
             phone: params.phone,

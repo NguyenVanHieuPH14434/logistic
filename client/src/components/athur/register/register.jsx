@@ -5,7 +5,7 @@ import background_login from "../../../assets/public/img/image-background-login.
 import { Register } from "../../../api/auth";
 import { Link } from "react-router-dom";
 import { toastifyError, toastifySuccess } from "../../../lib/toastify";
-import { changeStyleInputPassword, handleOnClickPass } from "../../../lib/shipFee";
+import { changeStyleInputPassword, handleOnClickPass, isVietnamesePhoneNumber } from "../../../lib/shipFee";
 
 export default function RegisterUser() {
   const [register,setRegister]=useState({
@@ -29,7 +29,9 @@ export default function RegisterUser() {
             n.password !== '' &&
             n.checkPassword !== ''
         ) {
-            if(n.password===n.checkPassword){
+          if (isVietnamesePhoneNumber(n.phone) === false) {
+            return toastifyError("Số điện thoại không đúng định dạng!");
+          } else if(n.password===n.checkPassword){
               Register(register)
               .then((res)=>{
                if(res.data.success){

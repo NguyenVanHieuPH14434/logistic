@@ -47,3 +47,63 @@
         height: 4em;
     }
 }
+
+@media print {
+    table {
+        /* Or specify a table class */
+        max-height: 100%;
+        overflow: hidden;
+        page-break-after: always;
+    }
+    html,
+    body {
+        .company_information{
+            h4{
+                font-size: 16px;
+            }
+            font-size: 12px;
+            text-align: center;
+            padding: 0 20px 0 80px;
+        }
+        height: 100%;
+        // margin: 0 !important;
+        padding: 0 !important;
+        margin-top: -70px;
+        // padding-top: -100px !important;
+        overflow: unset;
+        .capture{
+            display: none;
+        }
+        Table{
+            .thanhTien{
+                text-align: start;
+                width: 120px;
+                p{
+                    margin-left: -70px;
+                    margin-top: 20px;
+                }
+            }
+            .attribute{
+                min-width: 150px I !important;
+            }
+            .soLuong{
+                color: #000 !important;
+                width: 200% !important;
+                margin-left: 20px !important;
+            }
+            .donGia{
+                width: 150% !important;
+            }
+            
+        }
+
+            
+        
+    }
+    .noPrint {
+        display: none;
+    }
+    .OrderDetailGroceries {
+        margin-top: -15px !important;
+    }
+}
