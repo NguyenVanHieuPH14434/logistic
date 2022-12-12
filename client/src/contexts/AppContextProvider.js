@@ -4,6 +4,7 @@ import {login, findUser} from '../api/auth'
 import axios from "axios";
 import { LOCAL_TOKEN } from '../api/instance';
 import setToken from '../api/setToken';
+import { useCookies } from "react-cookie";
 
 export const AppContext = createContext();
 const AppContextProvider = ({children}) => {
@@ -12,7 +13,8 @@ const AppContextProvider = ({children}) => {
         isAuthenticated:false,
         user:null
     })
-
+    
+    const [cookies, setCookie, removeCookie] = useCookies();
     // set auth
     const loadUser = async() =>{
         if(localStorage[LOCAL_TOKEN]){
@@ -52,6 +54,7 @@ const AppContextProvider = ({children}) => {
     const logout = () => {
         setToken(null)
         localStorage.removeItem(LOCAL_TOKEN)
+        removeCookie('token', {path:"/"});
         dispatch({type:'SET_AUTH', payload:{isAuthenticated:false, user:null}});
     }
 

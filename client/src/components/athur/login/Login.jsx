@@ -24,6 +24,7 @@ export default function Login() {
   const [data, setData] = useState({
     username: cookies.Name?cookies.Name :  "",
     password: cookies.Password?cookies.Password  : "",
+    token: ''
   });
 
   const setHandleOnChangeInput = (e) => {
@@ -45,6 +46,7 @@ export default function Login() {
 
   const checkLogin = (res) => {
     if (res.data.success) {
+      setCookie("token", 'abc', { path: "/" });
       navigate("/app/home");
     } else {
       toastifyError(res.data.message);
@@ -74,8 +76,16 @@ export default function Login() {
     }
   };
 
+  console.log('/', cookies.token);
+  
 
-  if (isAuthenticated) return <Navigate to={"/app/home"} />;
+  if(cookies.token){
+    console.log(cookies);
+    
+    return <Navigate to={"/app/home"} />;
+  }
+
+  // if (isAuthenticated) return <Navigate to={"/app/home"} />;
   return (
     <>
       <div className="bg_login">
