@@ -132,8 +132,9 @@ export default function Login() {
                 <input className="me-1" type="checkbox" checked={duyTri} onClick={(e) => setDuyTri(!duyTri)} />
                 <p>Duy trì đăng nhập</p>
               </div>
+                <strong className="text-info">Khách hàng quên mật khẩu vui lòng liên hệ số điện thoại: <a  className="text-white" href="/">0988176899</a> </strong>
             </div>
-            <div className="login_form_btn">
+            <div className="login_form_btn mt-3">
               <button onClick={(e) => handleOnClickLoginBtn(e)}>
                 Đăng nhập
               </button>
