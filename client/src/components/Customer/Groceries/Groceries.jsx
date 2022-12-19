@@ -42,6 +42,16 @@ function Groceries() {
       phuPhi: 0,
       note: "",
       total_price: 0,
+
+      ship: 0,
+      ne_price: 0,
+      group: "",
+      product_code: "",
+      delivery_date: "",
+      type_title: "",
+      type_code: "",
+      product_supplier: "",
+
     },
   ]);
 
@@ -129,6 +139,15 @@ function Groceries() {
       phuPhi: 0,
       note: "",
       total_price: 0,
+
+      ship: 0,
+      ne_price: 0,
+      group: "",
+      product_code: "",
+      delivery_date: "",
+      type_title: "",
+      type_code: "",
+      product_supplier: "",
     };
     setList([...list, newList]);
   };
@@ -140,6 +159,15 @@ function Groceries() {
     address: "",
     datCoc: 0,
     total: 0,
+
+    ship: 0,
+    ne_price: 0,
+    group: "",
+    product_code: "",
+    delivery_date: "",
+    type_title: "",
+    type_code: "",
+    product_supplier: "",
   });
 
   //In ra tổng tiền
@@ -361,6 +389,38 @@ function Groceries() {
                     value={li.product_link ? li.product_link : ""}
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Link sản phẩm (*)"
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="group"
+                    value={li.group ? li.group : ""}
+                    onChange={(e) => changeInp(i, e)}
+                    placeholder="Nhóm hàng (*)"
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="product_code"
+                    value={li.product_code ? li.product_code : ""}
+                    onChange={(e) => changeInp(i, e)}
+                    placeholder="Mã sản phẩm (*)"
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="product_supplier"
+                    value={li.product_supplier ? li.product_supplier : ""}
+                    onChange={(e) => changeInp(i, e)}
+                    placeholder="Nhà cung cấp (*)"
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="ship"
+                    value={li.ship ? li.ship : ""}
+                    onChange={(e) => changeInp(i, e)}
+                    placeholder="Phí ship (*)"
                   />
                   <select
                     name="typeMoney"

@@ -9,14 +9,10 @@ import { DocTienBangChu, numberWithCommas } from "../../../../lib/shipFee";
 
 export default function OrderGroceries() {
   const location = useLocation();
-  const [orderCode, setOrderCode] = useState("#6969696969");
-  const [orderDate, setOrderDate] = useState("25/10/2099");
-  const [orderSeller, setOrderSeller] = useState("Meo");
   const [list2, setList2] = useState(location.state ? location.state.data : "");
   const [order2, setOrder2] = useState(
     location.state ? location.state.order : ""
   );
-
 
   const total = location.state ? location.state.total : "";
 
@@ -30,9 +26,7 @@ export default function OrderGroceries() {
       <div className={`d-flex justify-content-between ${show}`}>
         <img className="ps-5" src={LOGO} alt="" />
         <div className="company_information ms-5">
-          <h5>
-          HiExpress trực thuộc Công Ty TNHH Công Nghệ PHARMACY Việt Nam
-          </h5>
+          <h5>HiExpress trực thuộc Công Ty TNHH Công Nghệ PHARMACY Việt Nam</h5>
           <div className="d-flex">
             <i className="fa-solid fa-location-dot mt-1"></i>
             <p className="ms-1">
@@ -49,7 +43,10 @@ export default function OrderGroceries() {
         <div className="order_label mb-3">
           <p>
             Mã đơn hàng:
-            <span className="order_code"> { location.state ? location.state.res : ""} </span>{" "}
+            <span className="order_code">
+              {" "}
+              {location.state ? location.state.res : ""}{" "}
+            </span>{" "}
           </p>
           <p>
             Tên khách hàng:
@@ -60,6 +57,21 @@ export default function OrderGroceries() {
           </p>
           <p>
             Địa chỉ:<span className="order_code"> {order2.address} </span>{" "}
+          </p>
+          <p>
+            Nhóm hàng:<span className="order_code"> {order2.group} </span>{" "}
+          </p>
+          <p>
+            Mã sản phẩm:<span className="order_code"> {order2.product_code} </span>{" "}
+          </p>
+          <p>
+            Nhà cung cấp:<span className="order_code"> {order2.product_supplier} </span>{" "}
+          </p>
+          <p>
+            Phí ship:<span className="order_code"> {order2.ship} </span>{" "}
+          </p>
+          <p>
+            Ngày giao hàng:<span className="order_code"> {order2.product_supplier} </span>{" "}
           </p>
         </div>
       </div>
@@ -73,7 +85,9 @@ export default function OrderGroceries() {
               <th className="donGia">Đơn giá</th>
               <th>Số lượng</th>
               <th>Ghi chú</th>
-              <th className="thanhTien"><p>Thành tiền</p></th>
+              <th className="thanhTien">
+                <p>Thành tiền</p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -92,7 +106,9 @@ export default function OrderGroceries() {
                         marginTop: "24px",
                       }}
                       src={
-                        li.fileImage ? URL.createObjectURL(li.fileImage) : `http://localhost:9000/${li.product_image}`
+                        li.fileImage
+                          ? URL.createObjectURL(li.fileImage)
+                          : `http://localhost:9000/${li.product_image}`
                       }
                     />
                   </td>
@@ -114,7 +130,7 @@ export default function OrderGroceries() {
                       placeholder="Màu sắc, size, kích thước"
                     ></textarea>
                     <textarea
-                    style={{height: 'auto'}}
+                      style={{ height: "auto" }}
                       disabled
                       className="w-100 form-control mt-2"
                       type="text"
@@ -128,7 +144,7 @@ export default function OrderGroceries() {
                     <NumericFormat
                       disabled
                       style={{
-                        width: '160px',
+                        width: "160px",
                         border: "none",
                         backgroundColor: "none",
                       }}
@@ -140,8 +156,7 @@ export default function OrderGroceries() {
                   </td>
                   <td className="soLuong">
                     <div className="d-flex soLuong">
-                   {li.quantity ? li.quantity : ""}
-                     
+                      {li.quantity ? li.quantity : ""}
                     </div>
                   </td>
                   <td>
@@ -157,14 +172,13 @@ export default function OrderGroceries() {
                       placeholder="Ghi chú sản phẩm..."
                     ></textarea>{" "}
                   </td>
-                  <td style={{width: "100px"}}>
+                  <td style={{ width: "100px" }}>
                     <p className="">
                       <NumericFormat
                         disabled={true}
                         style={{
                           border: "none",
                           backgroundColor: "none",
-                          
                         }}
                         value={li.total_price ? li.total_price : ""}
                         thousandSeparator=","
