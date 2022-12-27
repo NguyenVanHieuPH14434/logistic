@@ -88,9 +88,9 @@ function EditGroceries() {
         );
       });
       if (checkEmptyItems === true) {
-        if(isVietnamesePhoneNumber(order.phone) === false){
-        return toastifyError('Số điện thoại không đúng định dạng!');
-        }else{
+        if (isVietnamesePhoneNumber(order.phone) === false) {
+          return toastifyError('Số điện thoại không đúng định dạng!');
+        } else {
           handleSave();
         }
       } else {
@@ -104,7 +104,7 @@ function EditGroceries() {
   const isVietnamesePhoneNumber = (number) => {
     return /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/.test(number);
   }
- 
+
 
   // Nút thêm sản phẩm
   const handleOnIncrease = (i, e) => {
@@ -179,7 +179,7 @@ function EditGroceries() {
       orderItem: list,
     };
 
-   const ress = await updaterOrder(location.state.id, data1)
+    const ress = await updaterOrder(location.state.id, data1)
 
     toastifySuccess("Cập nhật đơn hàng thành công!");
     setTimeout(() => {
@@ -187,7 +187,7 @@ function EditGroceries() {
       // navigate("/app/orderGroceries", { state: { data: list, order: order, total: totalOrderCost } });
     }, 1000);
   };
-  
+
   // submit tạo đơn hàng
   const saveData = () => {
     checkValidate(list, order);
@@ -336,6 +336,38 @@ function EditGroceries() {
                     thousandSeparator=","
                     min="1"
                     onChange={(e) => changeInp(i, e)}
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="group"
+                    value={li.group ? li.group : ""}
+                    onChange={(e) => changeInp(i, e)}
+                    placeholder="Nhóm hàng (*)"
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="product_code"
+                    value={li.product_code ? li.product_code : ""}
+                    onChange={(e) => changeInp(i, e)}
+                    placeholder="Mã sản phẩm (*)"
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="product_supplier"
+                    value={li.product_supplier ? li.product_supplier : ""}
+                    onChange={(e) => changeInp(i, e)}
+                    placeholder="Nhà cung cấp (*)"
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="ship"
+                    value={li.ship ? li.ship : ""}
+                    onChange={(e) => changeInp(i, e)}
+                    placeholder="Phí ship (*)"
                   />
                 </td>
 
