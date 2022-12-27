@@ -70,8 +70,21 @@ export namespace Commons {
 
         let counter = 1;
 
-        data.forEach((item:any)=>{
-            ws.addRow(item);
+        data.forEach((item:any, index:any)=>{
+          item.s_no = counter;
+            ws.addRow(item);   
+            ws.getRow(counter+1).eachCell((cell)=>{
+              cell.style.border = {
+                top:{style:"thin"},
+                left:{style:"thin"},
+                right:{style:"thin"},
+                bottom:{style:"thin"},
+              }
+                // cell.font = {bold:true}
+                // cell.style.font = {name:'Times New Roman'}
+                // cell.style.font = {size:16}
+            })
+       
             counter++;
         })
 
@@ -83,11 +96,18 @@ export namespace Commons {
           bold: true  
         };
 
-        // ws.getRow(1).eachCell((cell)=>{
-        //     cell.font = {bold:true}
-        //     cell.style.font = {name:'Times New Roman'}
-        //     cell.style.font = {size:16}
-        // })
+
+        ws.getRow(1).eachCell((cell)=>{
+          cell.style.border = {
+            top:{style:"thin"},
+            left:{style:"thin"},
+            right:{style:"thin"},
+            bottom:{style:"thin"},
+          }
+            // cell.font = {bold:true}
+            // cell.style.font = {name:'Times New Roman'}
+            // cell.style.font = {size:16}
+        })
 
         res.setHeader("Content-Type", "apllication/vnd.openxmlformats-officedocument.spreadsheatml.sheet")
         res.setHeader("Content-Disposition", `attachment;filename=${nameExcel}.xlsx`);
