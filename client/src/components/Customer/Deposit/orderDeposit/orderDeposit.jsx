@@ -73,7 +73,7 @@ export default function OrderDeposit() {
         return (
           <>
             <span>Tên nhóm hàng: {location.state.order.type_title} </span> <br/>
-            <span>Mã nhóm hàng: {location.state.order.type_code} </span>
+            <span>Mã nhóm hàng: {location.state.order.type_code} </span> <br/>
           </>
         );
       })}
