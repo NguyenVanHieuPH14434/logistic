@@ -162,7 +162,6 @@ export default function UpdateOrderGroceries() {
                     placeholder="Số kiện hàng"
                     name="soKien"
                     value={li.soKien ? li.soKien : ""}
-                    
                   />
                   <NumericFormat
                       disabled

@@ -7,11 +7,12 @@ import { NumericFormat } from "react-number-format";
 import "./orderDeposit.scss";
 import LOGO from "../../../../assets/public/img/logo_login.png";
 import { DocTienBangChu, numberWithCommas } from "../../../../lib/shipFee";
-import '../listDeposit.scss'
+import "../listDeposit.scss";
 
 export default function OrderDeposit() {
   const location = useLocation();
   const [list, setList] = useState(location.state ? location.state.data : "");
+  const [order, setOrder] = useState(location.state ? location.state.data : "");
   let newDate = new Date();
   let date =
     newDate.getDate() < 10 ? "0" + newDate.getDate() : newDate.getDate();
@@ -30,6 +31,8 @@ export default function OrderDeposit() {
   const handleOnCLickDownload = (e) => {
     window.print();
   };
+
+  console.log(">>>>> order", order);
 
   return (
     <div className="order_deposit">
@@ -66,9 +69,17 @@ export default function OrderDeposit() {
       <p style={{ margin: "0" }}>
         Tổng tiền thanh toán: {formatNumber(location.state.order.total)} đ
       </p>
+      {order.map((or, i) => {
+        return (
+          <>
+            <span>Tên nhóm hàng: {location.state.order.type_title} </span> <br/>
+            <span>Mã nhóm hàng: {location.state.order.type_code} </span>
+          </>
+        );
+      })}
       <br />
-      <Table className='text-white' striped bordered hover size="lg">
-        <thead style={{backgroundColor: '#8610e6'}}>
+      <Table className="text-white" striped bordered hover size="lg">
+        <thead style={{ backgroundColor: "#8610e6" }}>
           <tr>
             <th style={{ width: "5%" }}>STT</th>
             <th>Ảnh Sản Phẩm</th>
@@ -86,32 +97,33 @@ export default function OrderDeposit() {
                 </td>
                 <td style={{ width: "15%" }}>
                   <div>
-                   
-                      {li.fileImage?li.fileImage.map((preview) => {
-                      return (
-                        <img
-                          style={{
-                            width: "96px",
-                            height: "64px",
-                            marginTop: "24px",
-                          }}
-                          alt=""
-                          src={preview}
-                        />
-                      );
-                    }):li.image.map((preview) => {
-                      return (
-                        <img
-                          style={{
-                            width: "96px",
-                            height: "64px",
-                            marginTop: "24px",
-                          }}
-                          alt=""
-                          src={`http://localhost:9000/${preview}`}
-                        />
-                      );
-                    })}
+                    {li.fileImage
+                      ? li.fileImage.map((preview) => {
+                          return (
+                            <img
+                              style={{
+                                width: "96px",
+                                height: "64px",
+                                marginTop: "24px",
+                              }}
+                              alt=""
+                              src={preview}
+                            />
+                          );
+                        })
+                      : li.image.map((preview) => {
+                          return (
+                            <img
+                              style={{
+                                width: "96px",
+                                height: "64px",
+                                marginTop: "24px",
+                              }}
+                              alt=""
+                              src={`http://localhost:9000/${preview}`}
+                            />
+                          );
+                        })}
                   </div>
                 </td>
                 <td className="td_productInformation " style={{ width: "50%" }}>
@@ -119,9 +131,7 @@ export default function OrderDeposit() {
                     style={{ padding: "0 10px" }}
                     className="d-flex justify-content-between"
                   >
-                    <label className="text-start me-2 mt-2 w-25">
-                      MVĐ:{" "}
-                    </label>
+                    <label className="text-start me-2 mt-2 w-25">MVĐ: </label>
                     <input
                       disabled
                       className="w-100 mt-1 form-control"
@@ -135,9 +145,7 @@ export default function OrderDeposit() {
                     style={{ padding: "0 10px" }}
                     className="d-flex justify-content-between"
                   >
-                    <label className="text-start me-2 mt-2 w-25">
-                      Tên:{" "}
-                    </label>
+                    <label className="text-start me-2 mt-2 w-25">Tên: </label>
                     <input
                       className="w-100 mt-1 form-control"
                       type="text"
@@ -152,9 +160,7 @@ export default function OrderDeposit() {
                     style={{ padding: "0 10px" }}
                     className="d-flex justify-content-between"
                   >
-                    <label className="text-start me-2 mt-2 w-25">
-                      SL:{" "}
-                    </label>
+                    <label className="text-start me-2 mt-2 w-25">SL: </label>
                     <input
                       className="w-100 mt-1 form-control"
                       type="text"
@@ -169,9 +175,7 @@ export default function OrderDeposit() {
                     style={{ padding: "0 10px" }}
                     className="d-flex justify-content-between"
                   >
-                    <label className="text-start me-2 mt-2 w-25">
-                      Kg/m3:{" "}
-                    </label>
+                    <label className="text-start me-2 mt-2 w-25">Kg/m3: </label>
                     <input
                       className="w-100 mt-1 form-control"
                       type="text"
@@ -181,14 +185,11 @@ export default function OrderDeposit() {
                       disabled
                     />
                   </div>
-
                   <div
                     style={{ padding: "0 10px" }}
                     className="d-flex justify-content-between"
                   >
-                    <label className="text-start me-2 mt-2 w-25">
-                      Giá:{" "}
-                    </label>
+                    <label className="text-start me-2 mt-2 w-25">Giá: </label>
                     <NumericFormat
                       className="w-100 mt-1 form-control"
                       type="text"
@@ -217,6 +218,7 @@ export default function OrderDeposit() {
                       disabled
                     />
                   </div>
+
                   <div
                     style={{ padding: "0 10px" }}
                     className="d-flex justify-content-between"
@@ -255,7 +257,7 @@ export default function OrderDeposit() {
 
       <div className="footter">
         <h6 className="mt-5">
-        Cộng thành tiền (Viết bằng chữ): &nbsp;
+          Cộng thành tiền (Viết bằng chữ): &nbsp;
           {DocTienBangChu(total)}
         </h6>
         <div className="text-end mt-5 me-4">
