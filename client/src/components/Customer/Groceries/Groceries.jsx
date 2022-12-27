@@ -160,14 +160,8 @@ function Groceries() {
     datCoc: 0,
     total: 0,
 
-    ship: 0,
-    ne_price: 0,
-    group: "",
-    product_code: "",
-    delivery_date: "",
     type_title: "",
     type_code: "",
-    product_supplier: "",
   });
 
   //In ra tổng tiền

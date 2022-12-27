@@ -17,6 +17,7 @@ export default function OrderGroceries() {
   const total = location.state ? location.state.total : "";
 
   const [show, setShow] = useState("d-block");
+  console.log(">>>>>>>>>", list2);
 
   const handleOnCLickDownload = () => {
     window.print();
@@ -58,21 +59,19 @@ export default function OrderGroceries() {
           <p>
             Địa chỉ:<span className="order_code"> {order2.address} </span>{" "}
           </p>
-          <p>
-            Nhóm hàng:<span className="order_code"> {order2.group} </span>{" "}
-          </p>
-          <p>
-            Mã sản phẩm:<span className="order_code"> {order2.product_code} </span>{" "}
-          </p>
-          <p>
-            Nhà cung cấp:<span className="order_code"> {order2.product_supplier} </span>{" "}
-          </p>
-          <p>
-            Phí ship:<span className="order_code"> {order2.ship} </span>{" "}
-          </p>
-          <p>
-            Ngày giao hàng:<span className="order_code"> {order2.product_supplier} </span>{" "}
-          </p>
+          {/* {list2.map((li, i) => {
+            return (
+              <>
+                <p>
+                  Mã sản phẩm:
+                  <span className="order_code">
+                    {" "}
+                    {li.product_code}{" "}
+                  </span>{" "}
+                </p>
+              </>
+            );
+          })} */}
         </div>
       </div>
       <div className="product_information">
@@ -137,6 +136,38 @@ export default function OrderGroceries() {
                       name="product_link"
                       value={li.product_link ? li.product_link : ""}
                       placeholder="Link sản phẩm"
+                    />
+                    <input
+                      className="w-100 form-control mt-2"
+                      disabled
+                      type="text"
+                      name="group"
+                      value={li.group ? li.group : ""}
+                      placeholder="Nhóm hàng (*)"
+                    />
+                    <input
+                      className="w-100 form-control mt-2"
+                      disabled
+                      type="text"
+                      name="product_code"
+                      value={li.product_code ? li.product_code : ""}
+                      placeholder="Mã sản phẩm (*)"
+                    />
+                    <input
+                      className="w-100 form-control mt-2"
+                      disabled
+                      type="text"
+                      name="product_supplier"
+                      value={li.product_supplier ? li.product_supplier : ""}
+                      placeholder="Nhà cung cấp (*)"
+                    />
+                    <input
+                      className="w-100 form-control mt-2"
+                      disabled
+                      type="text"
+                      name="ship"
+                      value={li.ship ? li.ship : ""}
+                      placeholder="Phí ship (*)"
                     />
                   </td>
                   <td className="donGia pt-5 ">
