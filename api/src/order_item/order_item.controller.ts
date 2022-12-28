@@ -30,6 +30,15 @@ export class OrderItemController {
                 phuPhi:item.phuPhi,
                 typeMoney:item.typeMoney,
                 total_price: item.total_price,
+                ship:item.ship?item.ship:'',
+                ne_price:item.ne_price?item.ne_price:0,
+                group:item.group?item.group:'',
+                product_code:item.product_code?item.product_code:'',
+                product_supplier:item.product_supplier?item.product_supplier:'',
+                delivery_date:item.delivery_date?item.delivery_date:'', //ngày giao hàng dự kiến
+                type_title:item.type_title?item.type_title:'', // tên loại
+                type_code: item.type_code?item.type_code:'',
+                about_the_warehouse: item.about_the_warehouse?item.about_the_warehouse:" " , //hàng về kho: X=>đã về
                 ctime: nowFormat,
                 utime: nowFormat
         }));
@@ -46,6 +55,7 @@ export class OrderItemController {
             let orderItem = params[i];
             // orderItem.product_image = params[i].product_image?Commons.folderImageOrder + nowFormatIMG + '_' + params[i].product_image:params[i].product_image;
             orderItem.utime = nowFormat
+            // orderItem.total_price = orderItem.ne_price*orderItem.quantity;
            await this.model.UpdateOrderItem(orderItem);
         }
         return params;

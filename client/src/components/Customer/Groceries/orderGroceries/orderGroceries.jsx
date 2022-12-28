@@ -19,6 +19,7 @@ export default function OrderGroceries() {
   const [show, setShow] = useState("d-block");
   console.log(">>>>>>>>>", list2);
 
+  console.log(">>>>>><<<<<<<<<<", list2[0].product_code);
   const handleOnCLickDownload = () => {
     window.print();
   };

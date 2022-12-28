@@ -192,6 +192,46 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
         Commons.exportData(data, setHeaderColumns, res, 'Order');
     });
 
+    //test export
+    router.get('/exportData/:id/:type', async(req, res)=>{
+        const setHeaderColumns = [
+            {header:"STT", key:"s_no"},
+            {header:"Nhóm hàng", key:"group", width:15},
+            {header:"Mã SP", key:"product_code", width:20},
+            {header:"Tên sản phẩm", key:"product_name", width:20},
+            {header:"Link", key:"product_link", width:20},
+            {header:"Tên NCC", key:"product_supplier", width:15},
+            {header:"Thuộc tính", key:"attribute", width:15},
+            {header:"Giá web", key:"product_price", width:15},
+            {header:"Giá đàm phán", key:"ne_price", width:15},
+            {header:"Số lượng", key:"quantity", width:15},
+            {header:"Ghi chú", key:"note", width:15},
+
+        ];
+
+        let data = await orderController.DetailOrder(String(req.params.id), String(req.params.type));
+   
+        Commons.exportData(data.orderItem, setHeaderColumns, res, `Order_${data._id}`);
+    });
+
+    // theo dõi đơn 
+    router.get('/exportTracking/:id/:type', async(req, res)=>{
+        const setHeaderColumns = [
+            {header:"STT", key:"s_no"},
+            {header:"Tên NCC", key:"product_supplier", width:15},
+            {header:"Hình ảnh", key:"", width:15},
+            {header:"Mã vận đơn", key:"maVanDon", width:15},
+            {header:"Ngày giao hàng dự kiến TQ", key:"delivery_date", width:15},
+            {header:"Hàng về kho", key:"about_the_warehouse", width:15},
+            {header:"Ghi chú", key:"note", width:15},
+
+        ];
+
+        let data = await orderController.DetailOrder(String(req.params.id), String(req.params.type));
+   
+        Commons.exportData(data.orderItem, setHeaderColumns, res, `Order_${data._id}`);
+    });
+
     return router;
 }
 
