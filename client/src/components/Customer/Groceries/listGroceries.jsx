@@ -9,7 +9,7 @@ import nav_exchange_rate_logo from "../../../assets/public/img/nav_exchange_groc
 
 import "react-calendar/dist/Calendar.css";
 import { AppContext } from "../../../contexts/AppContextProvider";
-import { exportExcel, listAllOrder, listOrderByUser, updaterOrder } from "../../../api/orderApi";
+import { exportExcel, exportExcelByIdOrder, listAllOrder, listOrderByUser, updaterOrder } from "../../../api/orderApi";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import {  convertDate, export_Excel, renderStatus, Status } from "../../../lib/shipFee";
@@ -40,6 +40,7 @@ export default function ListGroceries() {
       await listOrderByUser(user._id).then((response) => {
         setListt(response.data.data);
         setLists(response.data.data);
+        console.log('>>>>>>>>>>', response);
       });
     }
   };
@@ -141,8 +142,10 @@ export default function ListGroceries() {
 
  
 
-  const handleExportExcel = () => {
-    export_Excel('order', inputCalendar.calendar_from, inputCalendar.calendar_to)
+  const handleExportExcel = (id) => {
+    console.log(">>>>>>>sss", id);
+    exportExcelByIdOrder(id, 'order');
+    // export_Excel('order', inputCalendar.calendar_from, inputCalendar.calendar_to)
   }
 
 
@@ -287,6 +290,9 @@ export default function ListGroceries() {
                         ) : (
                           ""
                         )}
+                         <button style={{borderStyle: 'none'}} onClick={()=>handleExportExcel(li._id)} className="downExecl bg-info d-flex mx-auto mt-2 px-4 py-2">
+          DownLoad Excel
+        </button>
                       </td>
                     </tr>
                   );

@@ -39,6 +39,11 @@ const listOrderByUser = async(userId) => {
 
 const exportExcel = (type) => {
     return window.location.href = `http://localhost:9000/api/order/export/${type}`
+
+}
+
+const exportExcelByIdOrder = (id, type) => {
+    return window.location.href = `http://localhost:9000/api/order/exportData/${id}/${type}`
 }
 
 
@@ -50,5 +55,6 @@ export {
     updaterOrder,
     listAllOrder,
     listOrderByUser,
-    exportExcel
+    exportExcel,
+    exportExcelByIdOrder
 }
