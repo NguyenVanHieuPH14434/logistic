@@ -235,6 +235,23 @@ export default function OrderDetailGroceries() {
                       placeholder="Phụ phí"
                     />
                   </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Nhóm hàng:</label>
+                    <input
+                      disabled
+                      className="w-75 form-control mt-2"
+                      type="text"
+                      name="group"
+                      value={li.group}
+                      placeholder="Nhóm hàng"
+                    />
+                  </div>
                 </td>
                 <td className="pt-5">
                   {li.product_price ? li.product_price : ""}
