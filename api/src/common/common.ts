@@ -66,19 +66,16 @@ export namespace Commons {
   export const exportData = (data:any, setHeaderColumns:any, res:any, nameExcel:string)=>{
     const wb = new EXCEL.Workbook();
         const ws = wb.addWorksheet(nameExcel)
-        let head = ['test1', 'test2'];
-       const wsTitle = 'Nando Title'; // Store our title in a variable
-      ws.getCell(`A1`).value = wsTitle;
+       
         // ws.mergeCells('A1', 'B1');
         // ws.mergeCells()
         // ws.getCell('A1').value = 'Client List';
-
-        ws.getRow(9).values = setHeaderColumns;
    
         ws.autoFilter = {
           from: 'A1',
           to: 'H1',
         }
+        // ....
         
         ws.columns = setHeaderColumns;
 
@@ -87,6 +84,7 @@ export namespace Commons {
         
         
         data.forEach((item:any)=>{
+          item.s_no = counter;
             // ws.addRow(sheeet);
             ws.addRow(item);
             ws.getRow(counter).eachCell((cell)=>{

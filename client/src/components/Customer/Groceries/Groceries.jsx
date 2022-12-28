@@ -407,6 +407,7 @@ function Groceries() {
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Nhà cung cấp (*)"
                   />
+                  
                   <input
                     className="w-100 form-control mt-2"
                     type="text"

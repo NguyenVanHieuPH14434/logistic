@@ -252,6 +252,74 @@ export default function OrderDetailGroceries() {
                       placeholder="Nhóm hàng"
                     />
                   </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Mã sản phẩm:</label>
+                    <input
+                      disabled
+                      className="w-75 form-control mt-2"
+                      type="text"
+                      name="product_code"
+                      value={li.product_code}
+                      placeholder="Mã sản phẩm"
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Nhà cung cấp:</label>
+                    <input
+                      disabled
+                      className="w-75 form-control mt-2"
+                      type="text"
+                      name="product_supplier"
+                      value={li.product_supplier}
+                      placeholder="Nhà cung cấp"
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Giá đàm phán:</label>
+                    <input
+                      disabled
+                      className="w-75 form-control mt-2"
+                      type="text"
+                      name="ne_price"
+                      value={li.ne_price?numberWithCommas(li.ne_price):''}
+                      placeholder="Giá đàm phán"
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Phí ship:</label>
+                    <input
+                      disabled
+                      className="w-75 form-control mt-2"
+                      type="text"
+                      name="ship"
+                      value={li.ship?numberWithCommas(li.ship):''}
+                      placeholder="Phí ship"
+                    />
+                  </div>
                 </td>
                 <td className="pt-5">
                   {li.product_price ? li.product_price : ""}
