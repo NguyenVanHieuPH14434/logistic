@@ -408,14 +408,7 @@ function Groceries() {
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Nhà cung cấp (*)"
                   />
-                  <input
-                    className="w-100 form-control mt-2"
-                    type="text"
-                    name="ne_price"
-                    value={li.ne_price ? li.ne_price : ""}
-                    onChange={(e) => changeInp(i, e)}
-                    placeholder="Giá đàm phán (*)"
-                  />
+                  
                   <input
                     className="w-100 form-control mt-2"
                     type="text"
