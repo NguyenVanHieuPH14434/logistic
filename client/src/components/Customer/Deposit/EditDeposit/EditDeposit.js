@@ -347,6 +347,32 @@ function EditDeposit() {
                                     />
                                 </Row>
                                 <Row>
+                                    <Form.Label className="customer-title">
+                                        Tên nhóm hàng
+                                    </Form.Label>
+                                    <Form.Control
+                                        className="customer-field"
+                                        type="text"
+                                        name="type_title"
+                                        value={order1.type_title}
+                                        onChange={(e) => changeInpOrder(e)}
+                                        placeholder="Nhập Tên Nhóm Hàng"
+                                    />
+                                </Row>
+                                <Row>
+                                    <Form.Label className="customer-title">
+                                        Mã Nhóm Hàng
+                                    </Form.Label>
+                                    <Form.Control
+                                        className="customer-field"
+                                        type="text"
+                                        name="type_code"
+                                        value={order1.type_code}
+                                        onChange={(e) => changeInpOrder(e)}
+                                        placeholder="Mã Nhóm Hàng"
+                                    />
+                                </Row>
+                                <Row>
                                     <Form.Label className="customer-title">Địa chỉ nhận hàng Việt Nam</Form.Label>
                                     <Form.Select className="customer-field" name="address" value={order1.address ? order1.address : ''} onChange={(e) => changeInpOrder(e)}>
                                         <option>Vui Lòng Chọn Địa Chỉ</option>

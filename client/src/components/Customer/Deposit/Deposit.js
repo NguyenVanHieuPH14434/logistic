@@ -25,7 +25,10 @@ function Deposit() {
             donGia: 0,
             phuPhi: 0,
             note: '',
-            tongTien: 0
+            tongTien: 0,
+
+            type_title: "",
+            type_code: "",
         }
     ]);
     const handleOnClickAddMore = (e) => {
@@ -40,7 +43,10 @@ function Deposit() {
             donGia: 0,
             phuPhi: 0,
             note: '',
-            tongTien: 0
+            tongTien: 0,
+
+            type_title: "",
+            type_code: "",
         };
         setList([...list, newList]);
     };
@@ -61,7 +67,10 @@ function Deposit() {
         address: '',
         address_TQ: '',
         datCoc: 0,
-        total: 0
+        total: 0,
+
+        type_title: "",
+        type_code: "",
     })
 
     // thay đổi giá trị thông tin khách hàng
@@ -72,6 +81,7 @@ function Deposit() {
         valOrder["type"] = "deposit";
         valOrder["total"] = total;
         setOrder(valOrder);
+        console.log("first", e.target.value)
     };
 
     const DeleteList = (i) => {
@@ -180,7 +190,10 @@ function Deposit() {
             address: '',
             address_TQ: '',
             datCoc: 0,
-            total: 0
+            total: 0,
+
+            type_title: "",
+            type_code: "",
         })
         toastifySuccess("Tạo đơn ký gửi thành công!");
         setTimeout(() => {
@@ -461,6 +474,32 @@ function Deposit() {
                                         value={order.phone}
                                         onChange={(e) => changeInpOrder(e)}
                                         placeholder="Nhập Số Điện Thoại"
+                                    />
+                                </Row>
+                                <Row>
+                                    <Form.Label className="customer-title">
+                                        Tên nhóm hàng
+                                    </Form.Label>
+                                    <Form.Control
+                                        className="customer-field"
+                                        type="text"
+                                        name="type_title"
+                                        value={order.type_title}
+                                        onChange={(e) => changeInpOrder(e)}
+                                        placeholder="Nhập Tên Nhóm Hàng"
+                                    />
+                                </Row>
+                                <Row>
+                                    <Form.Label className="customer-title">
+                                        Mã Nhóm Hàng
+                                    </Form.Label>
+                                    <Form.Control
+                                        className="customer-field"
+                                        type="text"
+                                        name="type_code"
+                                        value={order.type_code}
+                                        onChange={(e) => changeInpOrder(e)}
+                                        placeholder="Mã Nhóm Hàng"
                                     />
                                 </Row>
                                 <Row>

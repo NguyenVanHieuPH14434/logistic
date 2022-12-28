@@ -153,7 +153,6 @@ export default function UpdateOrderGroceries() {
                     placeholder="Mã vận đơn (*)"
                     name="maVanDon"
                     value={li.maVanDon ? li.maVanDon : ""}
-                    
                   />
 
                   <input
@@ -163,7 +162,6 @@ export default function UpdateOrderGroceries() {
                     placeholder="Số kiện hàng"
                     name="soKien"
                     value={li.soKien ? li.soKien : ""}
-                    
                   />
                   <NumericFormat
                       disabled
@@ -194,8 +192,39 @@ export default function UpdateOrderGroceries() {
                     placeholder="Phụ phí"
                     thousandSeparator=","
                     min="1"
-                    
                   />
+                  <input
+                      className="w-100 form-control mt-2"
+                      disabled
+                      type="text"
+                      name="group"
+                      value={li.group ? li.group : ""}
+                      placeholder="Nhóm hàng (*)"
+                    />
+                    <input
+                      className="w-100 form-control mt-2"
+                      disabled
+                      type="text"
+                      name="product_code"
+                      value={li.product_code ? li.product_code : ""}
+                      placeholder="Mã sản phẩm (*)"
+                    />
+                    <input
+                      className="w-100 form-control mt-2"
+                      disabled
+                      type="text"
+                      name="product_supplier"
+                      value={li.product_supplier ? li.product_supplier : ""}
+                      placeholder="Nhà cung cấp (*)"
+                    />
+                    <input
+                      className="w-100 form-control mt-2"
+                      disabled
+                      type="text"
+                      name="ship"
+                      value={li.ship ? li.ship : ""}
+                      placeholder="Phí ship (*)"
+                    />
                   </td>
                   <td className="donGia pt-5 ">
                     {" "}
