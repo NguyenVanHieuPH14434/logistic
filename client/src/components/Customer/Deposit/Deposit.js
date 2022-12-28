@@ -331,7 +331,7 @@ function Deposit() {
                                         </div>
                                         <div class="input_information_product">
                                             <input
-                                                style={{ width: '596px' }}
+                                                style={{ width: '580px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 placeholder="Mã vận đơn (*)"
@@ -340,7 +340,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '596px' }}
+                                                style={{ width: '580px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 placeholder="Tên sản phẩm (*)"
@@ -349,7 +349,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                style={{ width: '596px' }}
+                                                style={{ width: '580px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 placeholder="Số kiện hàng"
@@ -358,7 +358,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <NumericFormat
-                                                style={{ width: '596px' }}
+                                                style={{ width: '580px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="kgM3"
@@ -367,7 +367,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <NumericFormat
-                                                style={{ width: '596px' }}
+                                                style={{ width: '580px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="donGia"
@@ -376,7 +376,7 @@ function Deposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <NumericFormat
-                                                style={{ width: '596px' }}
+                                                style={{ width: '580px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
                                                 name="phuPhi"
@@ -388,7 +388,7 @@ function Deposit() {
                                                 className=" text-center mx-auto form-control mt-1"
                                                 type="text"
                                                 disabled
-                                                style={{ background: '#EDA82D', width: '596px' }}
+                                                style={{ background: '#EDA82D', width: '580px' }}
                                                 value={li.tongTien ? li.tongTien : 0}
                                                 placeholder="Tổng"
                                                 thousandSeparator=","
@@ -485,7 +485,7 @@ function Deposit() {
                                         type="text"
                                         name="type_title"
                                         value={order.type_title}
-                                           onChange={(e) => changeInpOrder(e)}
+                                        onChange={(e) => changeInpOrder(e)}
                                         placeholder="Nhập Tên Nhóm Hàng"
                                     />
                                 </Row>

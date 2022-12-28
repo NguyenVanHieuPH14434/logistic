@@ -221,6 +221,14 @@ export default function UpdateOrderGroceries() {
                       className="w-100 form-control mt-2"
                       disabled
                       type="text"
+                      name="ne_price"
+                      value={li.ne_price ? li.ne_price : ""}
+                      placeholder="Giá đàm phán (*)"
+                    />
+                    <input
+                      className="w-100 form-control mt-2"
+                      disabled
+                      type="text"
                       name="ship"
                       value={li.ship ? li.ship : ""}
                       placeholder="Phí ship (*)"
