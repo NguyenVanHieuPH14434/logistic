@@ -364,6 +364,14 @@ function EditGroceries() {
                   <input
                     className="w-100 form-control mt-2"
                     type="text"
+                    name="ne_price"
+                    value={li.ne_price ? li.ne_price : ""}
+                    onChange={(e) => changeInp(i, e)}
+                    placeholder="Giá Đàm phán (*)"
+                  />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
                     name="ship"
                     value={li.ship ? li.ship : ""}
                     onChange={(e) => changeInp(i, e)}
