@@ -55,7 +55,7 @@ export class OrderItemController {
             let orderItem = params[i];
             // orderItem.product_image = params[i].product_image?Commons.folderImageOrder + nowFormatIMG + '_' + params[i].product_image:params[i].product_image;
             orderItem.utime = nowFormat
-            orderItem.total_price = orderItem.ne_price*orderItem.quantity;
+            // orderItem.total_price = orderItem.ne_price*orderItem.quantity;
            await this.model.UpdateOrderItem(orderItem);
         }
         return params;
