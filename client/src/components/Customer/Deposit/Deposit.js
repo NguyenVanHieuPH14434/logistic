@@ -485,7 +485,7 @@ function Deposit() {
                                         type="text"
                                         name="type_title"
                                         value={order.type_title}
-                                        onChange={(e) => changeInpOrder(e)}
+                                           onChange={(e) => changeInpOrder(e)}
                                         placeholder="Nhập Tên Nhóm Hàng"
                                     />
                                 </Row>
