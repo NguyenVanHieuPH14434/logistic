@@ -18,6 +18,7 @@ export default function OrderGroceries() {
 
   const [show, setShow] = useState("d-block");
 
+  console.log(">>>>>><<<<<<<<<<", list2[0].product_code);
   const handleOnCLickDownload = () => {
     window.print();
   };
@@ -59,7 +60,7 @@ export default function OrderGroceries() {
             Địa chỉ:<span className="order_code"> {order2.address} </span>{" "}
           </p>
           <p>
-            Nhóm hàng:<span className="order_code"> {order2.group} </span>{" "}
+            Nhóm hàng:<span className="order_code"> {list2[0].product_code} </span>{" "}
           </p>
           <p>
             Mã sản phẩm:<span className="order_code"> {order2.product_code} </span>{" "}

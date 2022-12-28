@@ -66,14 +66,42 @@ export namespace Commons {
   export const exportData = (data:any, setHeaderColumns:any, res:any, nameExcel:string)=>{
     const wb = new EXCEL.Workbook();
         const ws = wb.addWorksheet(nameExcel)
+        let head = ['test1', 'test2'];
+       const wsTitle = 'Nando Title'; // Store our title in a variable
+      ws.getCell(`A1`).value = wsTitle;
+        // ws.mergeCells('A1', 'B1');
+        // ws.mergeCells()
+        // ws.getCell('A1').value = 'Client List';
+
+        ws.getRow(9).values = setHeaderColumns;
+   
+        ws.autoFilter = {
+          from: 'A1',
+          to: 'H1',
+        }
+        
         ws.columns = setHeaderColumns;
 
-        let counter = 1;
 
+        let counter = 1;
+        
+        
         data.forEach((item:any)=>{
+            // ws.addRow(sheeet);
             ws.addRow(item);
+            ws.getRow(counter).eachCell((cell)=>{
+              cell.style.font = { size: 12, bold: true }
+              cell.style.alignment = { horizontal: "right" }
+              cell.style.border = {
+                  top: { style: "medium" },
+                  bottom: { style: "medium" },
+                  left: { style: "medium" },
+                  right: { style: "medium" },
+              }
+            });
             counter++;
         })
+
 
         ws.getRow(1).font = {
           name: 'Times New Roman',
@@ -83,11 +111,17 @@ export namespace Commons {
           bold: true  
         };
 
-        // ws.getRow(1).eachCell((cell)=>{
-        //     cell.font = {bold:true}
-        //     cell.style.font = {name:'Times New Roman'}
-        //     cell.style.font = {size:16}
-        // })
+        ws.getRow(data.length + 1).eachCell((cell)=>{
+          cell.style.font = { size: 12, bold: true }
+          cell.style.alignment = { horizontal: "right" }
+          cell.style.border = {
+              top: { style: "medium" },
+              bottom: { style: "medium" },
+              left: { style: "medium" },
+              right: { style: "medium" },
+          }
+        });
+
 
         res.setHeader("Content-Type", "apllication/vnd.openxmlformats-officedocument.spreadsheatml.sheet")
         res.setHeader("Content-Disposition", `attachment;filename=${nameExcel}.xlsx`);
