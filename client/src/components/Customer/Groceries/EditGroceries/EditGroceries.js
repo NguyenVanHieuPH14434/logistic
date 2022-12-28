@@ -62,12 +62,12 @@ function EditGroceries() {
   }, []);
 
   const setTotalPriceALL = (val, i) => {
-    if (val[i]["quantity"] && val[i]["product_price"] && val[i]["typeMoney"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
+    if (val[i]["quantity"] && val[i]["ne_price"] && val[i]["typeMoney"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
       let kgm3 = val[i]["kgM3"] ? val[i]["kgM3"] : 0
       let dongia = val[i]["donGia"] ? val[i]["donGia"].replace(/,/g, "") : 0
       let phuphi = val[i]["phuPhi"] ? val[i]["phuPhi"].replace(/,/g, "") : 0
       val[i]["total_price"] =
-        (val[i]["product_price"].replace(/,/g, "") *
+        (val[i]["ne_price"].replace(/,/g, "") *
           parseFloat(val[i]["typeMoney"]) *
           val[i]["quantity"]) + (parseFloat(kgm3) * parseFloat(dongia)) + parseFloat(phuphi);
     }
