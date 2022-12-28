@@ -248,7 +248,7 @@ export default function OrderDetailGroceries() {
                       className="w-75 form-control mt-2"
                       type="text"
                       name="group"
-                      value={numberWithCommas(li.group)}
+                      value={li.group}
                       placeholder="Nhóm hàng"
                     />
                   </div>
@@ -265,7 +265,7 @@ export default function OrderDetailGroceries() {
                       className="w-75 form-control mt-2"
                       type="text"
                       name="product_code"
-                      value={numberWithCommas(li.product_code)}
+                      value={li.product_code}
                       placeholder="Mã sản phẩm"
                     />
                   </div>
@@ -282,7 +282,7 @@ export default function OrderDetailGroceries() {
                       className="w-75 form-control mt-2"
                       type="text"
                       name="product_supplier"
-                      value={numberWithCommas(li.product_supplier)}
+                      value={li.product_supplier}
                       placeholder="Nhà cung cấp"
                     />
                   </div>
@@ -299,7 +299,7 @@ export default function OrderDetailGroceries() {
                       className="w-75 form-control mt-2"
                       type="text"
                       name="ne_price"
-                      value={numberWithCommas(li.ne_price)}
+                      value={li.ne_price?numberWithCommas(li.ne_price):''}
                       placeholder="Giá đàm phán"
                     />
                   </div>
@@ -316,7 +316,7 @@ export default function OrderDetailGroceries() {
                       className="w-75 form-control mt-2"
                       type="text"
                       name="ship"
-                      value={numberWithCommas(li.ship)}
+                      value={li.ship?numberWithCommas(li.ship):''}
                       placeholder="Phí ship"
                     />
                   </div>
