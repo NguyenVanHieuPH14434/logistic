@@ -211,6 +211,8 @@ function EditDeposit() {
                                             <p className="text-start me-2 pt-1">Số cân, số khối: </p>
                                             <p className="text-start me-2 pt-1">Đơn giá: </p>
                                             <p className="text-start me-2">Phụ phí: </p>
+                                            <p className="text-start me-2">Nhóm hàng: </p>
+                                            <p className="text-start me-2">Ngày giao hàng dự kiến: </p>
                                             <p className="text-start me-2"><b>Tổng: </b> </p>
                                         </div>
                                         <div class="input_information_product">
@@ -272,13 +274,22 @@ function EditDeposit() {
                                                 style={{ width: '596px' }}
                                                 className="mt-1 form-control"
                                                 type="text"
+                                                name="group"
+                                                value={li.group ? li.group : ""}
+                                                placeholder="Nhóm hàng"
+                                                onChange={(e) => changeInp(e, i)}
+                                            />
+                                            <input
+                                                style={{ width: '596px' }}
+                                                className="mt-1 form-control"
+                                                type="text"
                                                 name="delivery_date"
                                                 value={li.delivery_date ? li.delivery_date : ""}
                                                 placeholder="Ngày giao hàng dự kiến"
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <NumericFormat
-                                                className=" text-center mx-auto form-control mt-1"
+                                                className=" text-center mx-auto form-control mt-xl-4"
                                                 type="text"
                                                 disabled
                                                 style={{ background: '#EDA82D', width: '596px' }}
