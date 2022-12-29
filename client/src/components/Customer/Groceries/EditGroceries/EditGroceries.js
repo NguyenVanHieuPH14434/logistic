@@ -369,6 +369,14 @@ function EditGroceries() {
                     onChange={(e) => changeInp(i, e)}
                     placeholder="Phí ship (*)"
                   />
+                  <input
+                    className="w-100 form-control mt-2"
+                    type="text"
+                    name="delivery_date"
+                    value={li.delivery_date ? li.delivery_date : ""}
+                    onChange={(e) => changeInp(i, e)}
+                    placeholder="Ngày giao hàng dự kiến (*)"
+                  />
                 </td>
 
                 <td style={{ paddingTop: '160px', paddingRight: '40px', width: '10%' }} className="soLuong">
@@ -504,7 +512,7 @@ function EditGroceries() {
                     placeholder="Mã nhóm hàng"
                   />
                 </Row>
-                <Row>
+                {/* <Row>
                   <Form.Label className="customer-title">
                     Ngày giao hàng dự kiến
                   </Form.Label>
@@ -516,7 +524,7 @@ function EditGroceries() {
                     onChange={(e) => changeInpOrder(e)}
                     placeholder="Ngày giao hàng dự kiến"
                   />
-                </Row>
+                </Row> */}
                 <Row>
                   <Form.Label className="customer-title">
                     Tiền đặt cọc
