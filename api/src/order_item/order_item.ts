@@ -23,8 +23,7 @@ export namespace Order_item_Schema {
         group:string; // nhóm hàng
         product_code:string; // mã sản phẩm
         delivery_date:string; //ngày giao hàng dự kiến
-        type_title:string; // tên loại
-        type_code:string // mã loại
+       
         product_supplier:string; // nhà cung cấp
         about_the_warehouse:string; //hàng về kho: X=>đã về
         ctime:string;
@@ -52,8 +51,7 @@ export namespace Order_item_Schema {
         group:string; // nhóm hàng
         product_code:string; // mã sản phẩm
         delivery_date:string; //ngày giao hàng dự kiến
-        type_title:string; // tên loại
-        type_code:string // mã loại
+      
         product_supplier:string; // nhà cung cấp
         about_the_warehouse:string; //hàng về kho: X=>đã về
     }
@@ -79,8 +77,7 @@ export namespace Order_item_Schema {
         group?:string; // nhóm hàng
         product_code?:string; // mã sản phẩm
         delivery_date?:string; //ngày giao hàng dự kiến
-        type_title?:string; // tên loại
-        type_code?:string // mã loại
+    
         product_supplier?:string; // nhà cung cấp
         about_the_warehouse?:string; //hàng về kho: X=>đã về
     }

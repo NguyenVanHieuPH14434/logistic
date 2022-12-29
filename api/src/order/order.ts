@@ -12,6 +12,8 @@ export namespace OrderSchema {
         datCoc:number;
         status: number;
         total: string;
+        type_title:string; // tên loại
+        type_code:string // mã loại
         ctime:string;
         utime:string;
     }
@@ -37,6 +39,8 @@ export namespace OrderSchema {
         status?: number;
         total?: string;
         utime?:string;
+        type_title?:string; // tên loại
+        type_code?:string // mã loại
     }
 
     export const Generate = {

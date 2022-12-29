@@ -36,8 +36,8 @@ export class OrderItemController {
                 product_code:item.product_code?item.product_code:'',
                 product_supplier:item.product_supplier?item.product_supplier:'',
                 delivery_date:item.delivery_date?item.delivery_date:'', //ngày giao hàng dự kiến
-                type_title:item.type_title?item.type_title:'', // tên loại
-                type_code: item.type_code?item.type_code:'',
+                // type_title:item.type_title?item.type_title:'', // tên loại
+                // type_code: item.type_code?item.type_code:'',
                 about_the_warehouse: item.about_the_warehouse?item.about_the_warehouse:" " , //hàng về kho: X=>đã về
                 ctime: nowFormat,
                 utime: nowFormat

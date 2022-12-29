@@ -228,6 +228,12 @@ function Groceries() {
     val[i][e.target.name] = e.target.files[0].name;
     val[i]["fileImage"] = e.target.files[0];
     setList(val);
+
+    // base64 
+
+    let v = getBase64(e.target.files[0]);
+    console.log(">>>>>>>>>sssad55555555<<<<<<<", v);
+    
   };
 
   // tạo đơn
@@ -304,6 +310,19 @@ function Groceries() {
   const isRegexNumber = (number) => {
     return /[0-9]\b/.test(number);
   };
+
+  function getBase64(file) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      console.log(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+ }
+ 
+ 
 
   return (
     <>
