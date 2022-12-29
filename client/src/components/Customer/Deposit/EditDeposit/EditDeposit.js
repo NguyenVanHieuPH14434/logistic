@@ -269,12 +269,13 @@ function EditDeposit() {
                                                 onChange={(e) => changeInp(e, i)}
                                             />
                                             <input
-                                                className="w-100 form-control mt-2"
+                                                style={{ width: '596px' }}
+                                                className="mt-1 form-control"
                                                 type="text"
                                                 name="delivery_date"
                                                 value={li.delivery_date ? li.delivery_date : ""}
-                                                onChange={(e) => changeInp(i, e)}
-                                                placeholder="Ngày giao hàng dự kiến (*)"
+                                                placeholder="Ngày giao hàng dự kiến"
+                                                onChange={(e) => changeInp(e, i)}
                                             />
                                             <NumericFormat
                                                 className=" text-center mx-auto form-control mt-1"
