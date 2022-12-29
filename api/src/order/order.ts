@@ -13,7 +13,7 @@ export namespace OrderSchema {
         status: number;
         total: string;
         type_title:string; // tên loại
-        type_code:string // mã loại
+        type_code:string; // mã loại
         ctime:string;
         utime:string;
     }
@@ -28,6 +28,8 @@ export namespace OrderSchema {
         datCoc:number;
         status: number;
         total: string;
+        type_title:string; // tên loại
+        type_code:string //
     }
 
     export interface UpdateOrderParams {

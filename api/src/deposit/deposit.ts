@@ -13,6 +13,7 @@ export namespace DepositSchema {
         phuPhi:number,
         note: string,
         tongTien:number
+        delivery_date:string; //ngày giao hàng dự kiến
         ctime:string;
         utime:string;
     }
@@ -42,6 +43,7 @@ export namespace DepositSchema {
         note: string,
         tongTien?:number
         utime:string
+        delivery_date?:string; //ngày giao hàng dự kiến
     }
 
     export const Generate = {

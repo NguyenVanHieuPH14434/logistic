@@ -62,12 +62,12 @@ function EditGroceries() {
   }, []);
 
   const setTotalPriceALL = (val, i) => {
-    if (val[i]["quantity"] && val[i]["ne_price"] && val[i]["typeMoney"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
+    if (val[i]["quantity"] && val[i]["product_price"] && val[i]["typeMoney"] || val[i]["kgM3"] || val[i]["donGia"] || val[i]["phuPhi"]) {
       let kgm3 = val[i]["kgM3"] ? val[i]["kgM3"] : 0
       let dongia = val[i]["donGia"] ? val[i]["donGia"].replace(/,/g, "") : 0
       let phuphi = val[i]["phuPhi"] ? val[i]["phuPhi"].replace(/,/g, "") : 0
       val[i]["total_price"] =
-        (val[i]["ne_price"].replace(/,/g, "") *
+        ((!val[i]["ne_price"]?val[i]["product_price"]:val[i]["ne_price"]).replace(/,/g, "") *
           parseFloat(val[i]["typeMoney"]) *
           val[i]["quantity"]) + (parseFloat(kgm3) * parseFloat(dongia)) + parseFloat(phuphi);
     }
@@ -146,15 +146,24 @@ function EditGroceries() {
     setList(val);
   };
 
+
   // thay đổi giá trị thông tin khách hàng
   const changeInpOrder = (e) => {
     const valOrder = { ...order };
     valOrder[e.target.name] = e.target.value;
     valOrder["user_id"] = user._id;
     valOrder["type"] = "order";
+    // if(e.target.name == "type_code" || e.target.name == "type_title" ){
+    //   valOrder["type_code"] = e.target.value;
+    //   valOrder["type_title"] = e.target.value;
+    // }
+    // valOrder["type_title"] = e.target.value;
     // valOrder["total"] = totalOrderCost;
     setOrder(valOrder);
   };
+
+  console.log("<<<<<>>>>>>>>>>>>>>>>Csaaaaa", order);
+  
 
   // file ảnh
   const [files, setFiles] = useState([]);
@@ -493,8 +502,8 @@ function EditGroceries() {
                   <Form.Control
                     className="customer-field"
                     type="text"
-                    name="grop"
-                    value={order?.grop}
+                    name="type_title"
+                    value={order?.type_title}
                     onChange={(e) => changeInpOrder(e)}
                     placeholder="Nhóm hàng"
                   />

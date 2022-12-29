@@ -46,11 +46,13 @@ export class OrderController {
             address: params.address,
             type: params.type,
             address_TQ: params.address_TQ,
-            datCoc: params.datCoc?params.datCoc:0,
+            datCoc: params.datCoc ? params.datCoc : 0,
             status: params.status,
             total: params.total,
             ctime: nowFormat,
             utime: nowFormat,
+            type_title: params.type_title,
+            type_code: params.type_code
         };
         await this.model.CreateOrder(order);
         return order._id;
@@ -62,6 +64,8 @@ export class OrderController {
         const nowFormat = now.format('DD/MM/YYYY');
         const order = params;
         order.utime = nowFormat;
+        order.type_code = params.type_code;
+        order.type_title = params.type_title;
          await this.model.UpdateOrder(_id, order)
         return order;
     }

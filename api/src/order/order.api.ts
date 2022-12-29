@@ -51,6 +51,8 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
             address_TQ: newObjOrder.address_TQ ? newObjOrder.address_TQ : '',
             datCoc: newObjOrder.datCoc,
             status: 0,
+            type_title: newObjOrder.type_title,
+            type_code: newObjOrder.type_code,
             total: newObjOrder.total,
         }
        
@@ -77,6 +79,8 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
             datCoc: req.body.order.datCoc,
             address_TQ: req.body.order.address_TQ ? req.body.order.address_TQ : '',
             status: req.body.order.status?req.body.order.status:0,
+            type_title: req.body.order.type_title,
+            type_code: req.body.order.type_code,
             total: req.body.order.total,
         }
 
@@ -134,6 +138,8 @@ function NewOrderAPI(orderController:OrderController, orderItemController:OrderI
             address_TQ: req.body.deposit.address_TQ?req.body.deposit.address_TQ:'',
             datCoc: 0,
             status: 0,
+            type_title: req.body.deposit.type_title,
+            type_code: req.body.deposit.type_code,
             total: req.body.deposit.total
         }
 
