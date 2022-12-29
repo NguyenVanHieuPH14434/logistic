@@ -29,6 +29,7 @@ function Deposit() {
 
             type_title: "",
             type_code: "",
+            delivery_date: "",
         }
     ]);
     const handleOnClickAddMore = (e) => {
@@ -47,6 +48,7 @@ function Deposit() {
 
             type_title: "",
             type_code: "",
+            delivery_date: "",
         };
         setList([...list, newList]);
     };
@@ -71,6 +73,7 @@ function Deposit() {
 
         type_title: "",
         type_code: "",
+        delivery_date: "",
     })
 
     // thay đổi giá trị thông tin khách hàng
@@ -194,6 +197,7 @@ function Deposit() {
 
             type_title: "",
             type_code: "",
+            delivery_date: "",
         })
         toastifySuccess("Tạo đơn ký gửi thành công!");
         setTimeout(() => {
