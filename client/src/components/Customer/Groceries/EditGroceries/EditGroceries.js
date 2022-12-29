@@ -340,14 +340,6 @@ function EditGroceries() {
                   <input
                     className="w-100 form-control mt-2"
                     type="text"
-                    name="group"
-                    value={li.group ? li.group : ""}
-                    onChange={(e) => changeInp(i, e)}
-                    placeholder="Nhóm hàng (*)"
-                  />
-                  <input
-                    className="w-100 form-control mt-2"
-                    type="text"
                     name="product_code"
                     value={li.product_code ? li.product_code : ""}
                     onChange={(e) => changeInp(i, e)}
@@ -460,7 +452,7 @@ function EditGroceries() {
               </select>
             </div>
             <div className="form">
-              <p className="title-label">Thông Tin Khách Hàng</p>
+              <p className="title-label">Thông tin khách hàng</p>
               <Container className="customer-form">
                 <Row>
                   <Form.Label className="customer-title">Họ Tên</Form.Label>
@@ -475,7 +467,7 @@ function EditGroceries() {
                 </Row>
                 <Row>
                   <Form.Label className="customer-title">
-                    Số Điện Thoại
+                    Số điện thoại
                   </Form.Label>
                   <Form.Control
                     className="customer-field"
@@ -484,6 +476,45 @@ function EditGroceries() {
                     value={order?.phone}
                     onChange={(e) => changeInpOrder(e)}
                     placeholder="Nhập Số Điện Thoại"
+                  />
+                </Row>
+                <Row>
+                  <Form.Label className="customer-title">
+                    Tên nhóm hàng
+                  </Form.Label>
+                  <Form.Control
+                    className="customer-field"
+                    type="text"
+                    name="grop"
+                    value={order?.grop}
+                    onChange={(e) => changeInpOrder(e)}
+                    placeholder="Nhóm hàng"
+                  />
+                </Row>
+                <Row>
+                  <Form.Label className="customer-title">
+                    Mã nhóm hàng
+                  </Form.Label>
+                  <Form.Control
+                    className="customer-field"
+                    type="text"
+                    name="type_code"
+                    value={order?.type_code}
+                    onChange={(e) => changeInpOrder(e)}
+                    placeholder="Mã nhóm hàng"
+                  />
+                </Row>
+                <Row>
+                  <Form.Label className="customer-title">
+                    Ngày giao hàng dự kiến
+                  </Form.Label>
+                  <Form.Control
+                    className="customer-field"
+                    type="text"
+                    name="delivery_date"
+                    value={order?.delivery_date}
+                    onChange={(e) => changeInpOrder(e)}
+                    placeholder="Ngày giao hàng dự kiến"
                   />
                 </Row>
                 <Row>

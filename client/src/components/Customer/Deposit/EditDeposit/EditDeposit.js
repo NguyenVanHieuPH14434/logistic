@@ -92,12 +92,12 @@ function EditDeposit() {
             "depositItem": list
         }
 
-    const res = await updateDeposit(locationState.state.id, data);
-    toastifySuccess("Cập nhật đơn ký gửi thành công!");
+        const res = await updateDeposit(locationState.state.id, data);
+        toastifySuccess("Cập nhật đơn ký gửi thành công!");
         setTimeout(() => {
             navigate("/app/orderDeposit", { state: { data: list, order: order1, total: totalPrice } });
         }, 1000);
-  }
+    }
     console.log('list', list);
     console.log('order1', order1);
 
@@ -373,6 +373,19 @@ function EditDeposit() {
                                     />
                                 </Row>
                                 <Row>
+                                    <Form.Label className="customer-title">
+                                        Ngày giao hàng dự kiến
+                                    </Form.Label>
+                                    <Form.Control
+                                        className="customer-field"
+                                        type="text"
+                                        name="delivery_date"
+                                        value={order1.delivery_date}
+                                        onChange={(e) => changeInpOrder(e)}
+                                        placeholder="Ngày giao hàng dự kiến"
+                                    />
+                                </Row>
+                                <Row>
                                     <Form.Label className="customer-title">Địa chỉ nhận hàng Việt Nam</Form.Label>
                                     <Form.Select className="customer-field" name="address" value={order1.address ? order1.address : ''} onChange={(e) => changeInpOrder(e)}>
                                         <option>Vui Lòng Chọn Địa Chỉ</option>
@@ -382,21 +395,21 @@ function EditDeposit() {
                                     </Form.Select>
                                 </Row>
                                 <Row>
-                  <Form.Label className="customer-title">Trạng thái</Form.Label>
-                  <Form.Select
-                    className="customer-field"
-                    name="status"
-                    value={order1?.status}
-                    onChange={(e) => changeInpOrder(e)}
-                  >
-                    <option value=''>Chọn trạng thái đơn hàng</option>
-                    {Status.map((ite)=>{
-                      return(
-                        <option value={ite.value}>{ite.label}</option>
-                      )
-                    })}
-                  </Form.Select>
-                </Row>
+                                    <Form.Label className="customer-title">Trạng thái</Form.Label>
+                                    <Form.Select
+                                        className="customer-field"
+                                        name="status"
+                                        value={order1?.status}
+                                        onChange={(e) => changeInpOrder(e)}
+                                    >
+                                        <option value=''>Chọn trạng thái đơn hàng</option>
+                                        {Status.map((ite) => {
+                                            return (
+                                                <option value={ite.value}>{ite.label}</option>
+                                            )
+                                        })}
+                                    </Form.Select>
+                                </Row>
                             </Container>
                         </div>
                         <Button variant="warning" className="end-btn mt-3" onClick={HandleSubmit}

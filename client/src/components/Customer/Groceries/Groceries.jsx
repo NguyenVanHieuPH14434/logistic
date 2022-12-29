@@ -51,7 +51,6 @@ function Groceries() {
       type_title: "",
       type_code: "",
       product_supplier: "",
-
     },
   ]);
 

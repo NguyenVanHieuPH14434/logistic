@@ -54,6 +54,7 @@ export default function OrderDetailDeposit() {
           <p>Ngày đặt hàng: {list.ctime} </p>
           <p>Tên nhóm hàng: {list.type_title}</p>
           <p>Mã nhóm hàng: {list.type_code}</p>
+          <p>Ngày giao hàng dự kiến: {list.type_code}</p>
         </div>
       </div>
       <Table striped bordered hover size="lg">
