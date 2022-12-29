@@ -268,6 +268,14 @@ function EditDeposit() {
                                                 placeholder="Phụ phí"
                                                 onChange={(e) => changeInp(e, i)}
                                             />
+                                            <input
+                                                className="w-100 form-control mt-2"
+                                                type="text"
+                                                name="delivery_date"
+                                                value={li.delivery_date ? li.delivery_date : ""}
+                                                onChange={(e) => changeInp(i, e)}
+                                                placeholder="Ngày giao hàng dự kiến (*)"
+                                            />
                                             <NumericFormat
                                                 className=" text-center mx-auto form-control mt-1"
                                                 type="text"
@@ -373,19 +381,6 @@ function EditDeposit() {
                                     />
                                 </Row>
                                 <Row>
-                                    <Form.Label className="customer-title">
-                                        Ngày giao hàng dự kiến
-                                    </Form.Label>
-                                    <Form.Control
-                                        className="customer-field"
-                                        type="text"
-                                        name="delivery_date"
-                                        value={order1.delivery_date}
-                                        onChange={(e) => changeInpOrder(e)}
-                                        placeholder="Ngày giao hàng dự kiến"
-                                    />
-                                </Row>
-                                <Row>
                                     <Form.Label className="customer-title">Địa chỉ nhận hàng Việt Nam</Form.Label>
                                     <Form.Select className="customer-field" name="address" value={order1.address ? order1.address : ''} onChange={(e) => changeInpOrder(e)}>
                                         <option>Vui Lòng Chọn Địa Chỉ</option>
@@ -415,7 +410,7 @@ function EditDeposit() {
                         <Button variant="warning" className="end-btn mt-3" onClick={HandleSubmit}
                         // as={Link} to="/app/orderDeposit"> 
                         >
-                            Cập nhật dơn ký gửi
+                            Cập nhật đơn ký gửi
                         </Button>
                     </div>
 
